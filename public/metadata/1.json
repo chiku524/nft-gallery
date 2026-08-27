@@ -1,0 +1,28 @@
+{
+  "name": "Pugs On The Block #1",
+  "description": "A neighborhood pug peeking over the block. Sample mint from the Pugs On The Block collection on Robinhood Chain.",
+  "image": "/gallery/mint-01-stoop-beanie.png",
+  "external_url": "/gallery",
+  "attributes": [
+    {
+      "trait_type": "Background",
+      "value": "Brownstone"
+    },
+    {
+      "trait_type": "Base",
+      "value": "Fawn Peek"
+    },
+    {
+      "trait_type": "Hat",
+      "value": "Forest Beanie"
+    },
+    {
+      "trait_type": "Body",
+      "value": "Forest Bandana"
+    },
+    {
+      "trait_type": "Accessory",
+      "value": "None"
+    }
+  ]
+}

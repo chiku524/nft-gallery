@@ -1,0 +1,28 @@
+{
+  "name": "Pugs On The Block #4",
+  "description": "A neighborhood pug peeking over the block. Sample mint from the Pugs On The Block collection on Robinhood Chain.",
+  "image": "/gallery/mint-04-day-hardhat.png",
+  "external_url": "/gallery",
+  "attributes": [
+    {
+      "trait_type": "Background",
+      "value": "Sunny Stoop"
+    },
+    {
+      "trait_type": "Base",
+      "value": "Fawn Peek"
+    },
+    {
+      "trait_type": "Hat",
+      "value": "Block Hard Hat"
+    },
+    {
+      "trait_type": "Body",
+      "value": "None"
+    },
+    {
+      "trait_type": "Accessory",
+      "value": "Toy Blocks"
+    }
+  ]
+}

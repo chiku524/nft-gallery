@@ -1,0 +1,28 @@
+{
+  "name": "Pugs On The Block #8",
+  "description": "A neighborhood pug peeking over the block. Sample mint from the Pugs On The Block collection on Robinhood Chain.",
+  "image": "/gallery/mint-08-sunset-bandana.png",
+  "external_url": "/gallery",
+  "attributes": [
+    {
+      "trait_type": "Background",
+      "value": "Golden Rooftop"
+    },
+    {
+      "trait_type": "Base",
+      "value": "Black Peek"
+    },
+    {
+      "trait_type": "Hat",
+      "value": "Bare head"
+    },
+    {
+      "trait_type": "Body",
+      "value": "Forest Bandana"
+    },
+    {
+      "trait_type": "Accessory",
+      "value": "Round Shades"
+    }
+  ]
+}
