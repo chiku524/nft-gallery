@@ -41,7 +41,7 @@ export default function TraitsPage() {
                         alt={trait.name}
                         fill
                         sizes="(max-width: 768px) 50vw, 25vw"
-                        className="object-cover"
+                        className="object-contain"
                       />
                     ) : null}
                   </div>

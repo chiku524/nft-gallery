@@ -21,10 +21,6 @@ export type TraitCategory = {
 };
 
 const none: Overlay = { x: 0, y: 0, scale: 1 };
-const hatOnHead: Overlay = { x: 0.02, y: -0.06, scale: 0.96 };
-const bodyOnNeck: Overlay = { x: 0.06, y: 0.16, scale: 0.88 };
-const faceWear: Overlay = { x: 0.22, y: 0.14, scale: 0.56 };
-const ledgeItem: Overlay = { x: 0.58, y: 0.5, scale: 0.28 };
 
 export const traitCategories: TraitCategory[] = [
   {
@@ -157,35 +153,35 @@ export const traitCategories: TraitCategory[] = [
         name: "Forest Beanie",
         image: "/traits/hat/hat-beanie.png",
         rarity: 18,
-        overlay: hatOnHead,
+        overlay: none,
       },
       {
         id: "newsie",
         name: "Newsie Cap",
         image: "/traits/hat/hat-newsie.png",
         rarity: 16,
-        overlay: hatOnHead,
+        overlay: none,
       },
       {
         id: "snapback",
         name: "Stoop Snapback",
         image: "/traits/hat/hat-snapback.png",
         rarity: 14,
-        overlay: { x: 0.04, y: -0.1, scale: 0.92 },
+        overlay: none,
       },
       {
         id: "hardhat",
         name: "Block Hard Hat",
         image: "/traits/hat/hat-hardhat.png",
         rarity: 12,
-        overlay: hatOnHead,
+        overlay: none,
       },
       {
         id: "crown",
         name: "Stoop Crown",
         image: "/traits/hat/hat-crown.png",
         rarity: 12,
-        overlay: { x: 0.16, y: -0.06, scale: 0.68 },
+        overlay: none,
       },
     ],
   },
@@ -200,28 +196,28 @@ export const traitCategories: TraitCategory[] = [
         name: "Forest Bandana",
         image: "/traits/body/body-bandana.png",
         rarity: 22,
-        overlay: bodyOnNeck,
+        overlay: none,
       },
       {
         id: "collar",
         name: "Red Collar",
         image: "/traits/body/body-collar.png",
         rarity: 18,
-        overlay: bodyOnNeck,
+        overlay: none,
       },
       {
         id: "hoodie",
         name: "Cream Hoodie",
         image: "/traits/body/body-hoodie.png",
         rarity: 16,
-        overlay: { x: 0.12, y: 0.22, scale: 0.76 },
+        overlay: none,
       },
       {
         id: "gold-chain",
         name: "Gold Chain",
         image: "/traits/body/body-gold-chain.png",
         rarity: 12,
-        overlay: { x: 0.14, y: 0.2, scale: 0.72 },
+        overlay: none,
       },
     ],
   },
@@ -236,35 +232,35 @@ export const traitCategories: TraitCategory[] = [
         name: "Chewed Bone",
         image: "/traits/accessory/acc-bone.png",
         rarity: 18,
-        overlay: ledgeItem,
+        overlay: none,
       },
       {
         id: "coffee",
         name: "Stoop Coffee",
         image: "/traits/accessory/acc-coffee.png",
         rarity: 16,
-        overlay: ledgeItem,
+        overlay: none,
       },
       {
         id: "sunglasses",
         name: "Round Shades",
         image: "/traits/accessory/acc-sunglasses.png",
         rarity: 14,
-        overlay: faceWear,
+        overlay: none,
       },
       {
         id: "blocks",
         name: "Toy Blocks",
         image: "/traits/accessory/acc-blocks.png",
         rarity: 12,
-        overlay: { x: 0.56, y: 0.48, scale: 0.3 },
+        overlay: none,
       },
       {
         id: "monocle",
         name: "Gold Monocle",
         image: "/traits/accessory/acc-monocle.png",
         rarity: 10,
-        overlay: { x: 0.28, y: 0.12, scale: 0.44 },
+        overlay: none,
       },
     ],
   },

@@ -43,4 +43,5 @@ next-env.d.ts
 # generated collection binaries (CSV/stats stay tracked)
 /generated/images/
 /generated/json/
+/generated/placement-tests/
 

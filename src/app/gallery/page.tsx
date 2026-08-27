@@ -15,7 +15,7 @@ export default function GalleryPage() {
       <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground">Sample stoop</p>
       <h1 className="mt-2 font-heading text-4xl">Finished pugs</h1>
       <p className="mt-3 max-w-2xl text-muted-foreground">
-        Eight hand-composited looks, plus the full 10,000 shuffled drop in{" "}
+        These are tokens from the shuffled 10,000 — the same files as{" "}
         <code className="rounded bg-secondary px-1.5 py-0.5 text-sm">generated/images</code>.
       </p>
 

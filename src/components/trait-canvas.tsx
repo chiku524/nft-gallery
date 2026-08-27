@@ -23,7 +23,6 @@ function loadImage(src: string) {
 export function selectionToLayers(selection: Selection): Layer[] {
   const layers: Layer[] = [];
   const background = findTrait("background", selection.background);
-  const block = findTrait("block", selection.block);
   const base = findTrait("base", selection.base);
   const body = findTrait("body", selection.body);
   const hat = findTrait("hat", selection.hat);
@@ -39,8 +38,8 @@ export function selectionToLayers(selection: Selection): Layer[] {
     });
   };
 
+  // Block sheets are metadata-only: compositing a second wall covers the muzzle.
   push(background);
-  push(block);
   push(base);
   push(body);
   push(hat);

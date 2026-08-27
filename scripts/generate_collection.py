@@ -34,11 +34,6 @@ JPEG_QUALITY = 90
 
 NONE = {"id": "none", "name": None, "file": None, "rarity": 28, "x": 0.0, "y": 0.0, "scale": 1.0}
 
-HAT_HEAD = {"x": 0.02, "y": -0.06, "scale": 0.96}
-BODY_NECK = {"x": 0.06, "y": 0.16, "scale": 0.88}
-FACE = {"x": 0.22, "y": 0.14, "scale": 0.56}
-LEDGE = {"x": 0.58, "y": 0.5, "scale": 0.28}
-
 CATEGORIES = [
     {
         "id": "background",
@@ -81,11 +76,11 @@ CATEGORIES = [
         "label": "Hat",
         "none_name": "Bare head",
         "traits": [
-            {"id": "beanie", "name": "Forest Beanie", "file": "hat/hat-beanie.png", "rarity": 18, **HAT_HEAD},
-            {"id": "newsie", "name": "Newsie Cap", "file": "hat/hat-newsie.png", "rarity": 16, **HAT_HEAD},
-            {"id": "snapback", "name": "Stoop Snapback", "file": "hat/hat-snapback.png", "rarity": 14, "x": 0.04, "y": -0.1, "scale": 0.92},
-            {"id": "hardhat", "name": "Block Hard Hat", "file": "hat/hat-hardhat.png", "rarity": 12, **HAT_HEAD},
-            {"id": "crown", "name": "Stoop Crown", "file": "hat/hat-crown.png", "rarity": 12, "x": 0.16, "y": -0.06, "scale": 0.68},
+            {"id": "beanie", "name": "Forest Beanie", "file": "hat/hat-beanie.png", "rarity": 18},
+            {"id": "newsie", "name": "Newsie Cap", "file": "hat/hat-newsie.png", "rarity": 16},
+            {"id": "snapback", "name": "Stoop Snapback", "file": "hat/hat-snapback.png", "rarity": 14},
+            {"id": "hardhat", "name": "Block Hard Hat", "file": "hat/hat-hardhat.png", "rarity": 12},
+            {"id": "crown", "name": "Stoop Crown", "file": "hat/hat-crown.png", "rarity": 12},
         ],
     },
     {
@@ -93,10 +88,10 @@ CATEGORIES = [
         "label": "Body",
         "none_name": "No clothes",
         "traits": [
-            {"id": "bandana", "name": "Forest Bandana", "file": "body/body-bandana.png", "rarity": 22, **BODY_NECK},
-            {"id": "collar", "name": "Red Collar", "file": "body/body-collar.png", "rarity": 18, **BODY_NECK},
-            {"id": "hoodie", "name": "Cream Hoodie", "file": "body/body-hoodie.png", "rarity": 16, "x": 0.12, "y": 0.22, "scale": 0.76},
-            {"id": "gold-chain", "name": "Gold Chain", "file": "body/body-gold-chain.png", "rarity": 12, "x": 0.14, "y": 0.2, "scale": 0.72},
+            {"id": "bandana", "name": "Forest Bandana", "file": "body/body-bandana.png", "rarity": 22},
+            {"id": "collar", "name": "Red Collar", "file": "body/body-collar.png", "rarity": 18},
+            {"id": "hoodie", "name": "Cream Hoodie", "file": "body/body-hoodie.png", "rarity": 16},
+            {"id": "gold-chain", "name": "Gold Chain", "file": "body/body-gold-chain.png", "rarity": 12},
         ],
     },
     {
@@ -104,11 +99,11 @@ CATEGORIES = [
         "label": "Accessory",
         "none_name": "Empty paws",
         "traits": [
-            {"id": "bone", "name": "Chewed Bone", "file": "accessory/acc-bone.png", "rarity": 18, **LEDGE},
-            {"id": "coffee", "name": "Stoop Coffee", "file": "accessory/acc-coffee.png", "rarity": 16, **LEDGE},
-            {"id": "sunglasses", "name": "Round Shades", "file": "accessory/acc-sunglasses.png", "rarity": 14, **FACE},
-            {"id": "blocks", "name": "Toy Blocks", "file": "accessory/acc-blocks.png", "rarity": 12, "x": 0.56, "y": 0.48, "scale": 0.3},
-            {"id": "monocle", "name": "Gold Monocle", "file": "accessory/acc-monocle.png", "rarity": 10, "x": 0.28, "y": 0.12, "scale": 0.44},
+            {"id": "bone", "name": "Chewed Bone", "file": "accessory/acc-bone.png", "rarity": 18},
+            {"id": "coffee", "name": "Stoop Coffee", "file": "accessory/acc-coffee.png", "rarity": 16},
+            {"id": "sunglasses", "name": "Round Shades", "file": "accessory/acc-sunglasses.png", "rarity": 14},
+            {"id": "blocks", "name": "Toy Blocks", "file": "accessory/acc-blocks.png", "rarity": 12},
+            {"id": "monocle", "name": "Gold Monocle", "file": "accessory/acc-monocle.png", "rarity": 10},
         ],
     },
 ]
@@ -211,16 +206,14 @@ def paste_rgba(base: Image.Image, overlay: Image.Image, x: int, y: int) -> Image
 def render(combo: dict[str, dict]) -> Image.Image:
     canvas = Image.new("RGBA", (SIZE, SIZE), (0, 0, 0, 0))
     for cat in CATEGORIES:
+        if cat["id"] == "block":
+            # Second wall sits higher than the pug's ledge and covers the muzzle.
+            continue
         trait = combo[cat["id"]]
         if not trait["file"]:
             continue
-        width = max(1, int(SIZE * trait["scale"]))
-        height = max(1, int(SIZE * trait["scale"]))
-        overlay = sized(trait["file"], width, height)
-        if trait["x"] == 0 and trait["y"] == 0 and overlay.size == canvas.size:
-            canvas = Image.alpha_composite(canvas, overlay)
-        else:
-            canvas = paste_rgba(canvas, overlay, int(SIZE * trait["x"]), int(SIZE * trait["y"]))
+        overlay = sized(trait["file"], SIZE, SIZE)
+        canvas = Image.alpha_composite(canvas, overlay)
     return canvas.convert("RGB")
 
 
