@@ -150,6 +150,48 @@ DEFRINGE_BASE = dict(lum_cut=110, chroma_cut=40, passes=6, connectivity=8)
 DEFRINGE_OVERLAY = dict(lum_cut=180, chroma_cut=16, passes=3, connectivity=4)
 
 
+def seal_outline(im: Image.Image) -> Image.Image:
+    """Fill a 1px black ring into transparency next to the ink line.
+
+    After unbaking white-backdrop AA, the outer pixel is often partial-alpha
+    black. JPEG chroma subsampling turns that into a light fringe. Sealing
+    the matte with solid black also closes the 1px gap left on the wall rim.
+    """
+    arr = np.array(im.convert("RGBA"))
+    rgb = arr[..., :3].astype(np.int16)
+    alpha = arr[..., 3]
+    lum = rgb.mean(axis=2)
+    # Crush leftover partial-alpha ink to solid black so JPEG cannot ring.
+    partial = (alpha > 24) & (alpha < 250) & (lum < 50)
+    arr[partial, 0] = 0
+    arr[partial, 1] = 0
+    arr[partial, 2] = 0
+    arr[partial, 3] = 255
+    rgb = arr[..., :3].astype(np.int16)
+    alpha = arr[..., 3]
+    lum = rgb.mean(axis=2)
+    dark = (alpha > 160) & (lum < 55)
+    trans = alpha < 24
+    ring = trans & _neighbors8(dark)
+    arr[ring, 0] = 0
+    arr[ring, 1] = 0
+    arr[ring, 2] = 0
+    arr[ring, 3] = 255
+    # Second pass only along the wall rim, where knockout can leave a 2px gap.
+    rgb = arr[..., :3].astype(np.int16)
+    alpha = arr[..., 3]
+    lum = rgb.mean(axis=2)
+    dark = (alpha > 160) & (lum < 55)
+    trans = alpha < 24
+    ring = trans & _neighbors8(dark)
+    ring[:620] = False
+    arr[ring, 0] = 0
+    arr[ring, 1] = 0
+    arr[ring, 2] = 0
+    arr[ring, 3] = 255
+    return Image.fromarray(clear_transparent(arr), "RGBA")
+
+
 def content_crop(im: Image.Image, pad: int = 1) -> Image.Image:
     arr = np.array(im)
     ys, xs = np.where(arr[..., 3] > 12)
@@ -257,7 +299,7 @@ ACCESSORIES = {
     "accessory/acc-blocks.png": ("acc-blocks.png", "ledge", 168, 624),
 }
 
-LEDGE_X = 800
+LEDGE_X = 868
 
 BASES = {
     "base/base-fawn-peek.png": "base-fawn-peek.png",
@@ -281,7 +323,7 @@ def prepare() -> None:
         "base/base-black-peek.png": None,
     }
     for dest, src in BASES.items():
-        prepared = defringe(flood_white(Image.open(SRC / src)), **DEFRINGE_BASE)
+        prepared = seal_outline(defringe(flood_white(Image.open(SRC / src)), **DEFRINGE_BASE))
         extra = boosts[dest]
         if extra:
             prepared = boost_fill(prepared, extra[0], extra[1])
@@ -289,21 +331,21 @@ def prepare() -> None:
 
     print("Blocks (edge flood-fill + defringe)…")
     for dest, src in BLOCKS.items():
-        save(defringe(flood_white(Image.open(SRC / src)), **DEFRINGE_BASE), dest)
+        save(seal_outline(defringe(flood_white(Image.open(SRC / src)), **DEFRINGE_BASE)), dest)
 
     print("Hats (crop + place on crown)…")
     for dest, (src, width, bottom) in HATS.items():
         fitted = fit_width(sticker_from(src), width)
         canvas = blank()
         paste_bottom(canvas, fitted, 512, bottom)
-        save(canvas, dest)
+        save(seal_outline(canvas), dest)
 
     print("Body (crop + place on neck)…")
     for dest, (src, width, cy) in BODIES.items():
         fitted = fit_width(sticker_from(src), width)
         canvas = blank()
         paste_centered(canvas, fitted, 512, cy)
-        save(canvas, dest)
+        save(seal_outline(canvas), dest)
 
     print("Accessories…")
     for dest, (src, kind, width, cy) in ACCESSORIES.items():
@@ -316,7 +358,7 @@ def prepare() -> None:
         else:
             cx = 512
         paste_centered(canvas, fitted, cx, cy)
-        save(canvas, dest)
+        save(seal_outline(canvas), dest)
 
 
 def composite(layers: list[str], bg: tuple[int, int, int] | None = None) -> Image.Image:

@@ -30,7 +30,7 @@ PREVIEW_DIR = ROOT / "public" / "generated-preview"
 SIZE = 1024
 TOTAL = 10_000
 SEED = 4663_10000  # Robinhood chain ID + supply
-JPEG_QUALITY = 90
+JPEG_QUALITY = 92
 
 NONE = {"id": "none", "name": None, "file": None, "rarity": 28, "x": 0.0, "y": 0.0, "scale": 1.0}
 
@@ -234,7 +234,7 @@ def write_outputs(token_id: int, combo: dict[str, dict], image: Image.Image) -> 
     IMAGE_DIR.mkdir(parents=True, exist_ok=True)
     JSON_DIR.mkdir(parents=True, exist_ok=True)
     image_path = IMAGE_DIR / f"{token_id}.jpg"
-    image.save(image_path, "JPEG", quality=JPEG_QUALITY, optimize=False)
+    image.save(image_path, "JPEG", quality=JPEG_QUALITY, optimize=False, subsampling=0)
     record = token_record(token_id, combo)
     json_path = JSON_DIR / f"{token_id}.json"
     json.dump(
