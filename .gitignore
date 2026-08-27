@@ -44,3 +44,8 @@ next-env.d.ts
 __pycache__/
 *.py[cod]
 
+# generated collection binaries (CSV/stats stay tracked)
+/generated/images/
+/generated/json/
+/generated/placement-tests/
+
