@@ -1,0 +1,151 @@
+{
+  "supply": 10000,
+  "seed": 466310000,
+  "unique": 10000,
+  "traits": {
+    "Background": {
+      "Brownstone": {
+        "count": 1766,
+        "percent": 17.66
+      },
+      "Sunny Stoop": {
+        "count": 1621,
+        "percent": 16.21
+      },
+      "Cream Paper": {
+        "count": 1512,
+        "percent": 15.12
+      },
+      "Golden Rooftop": {
+        "count": 1342,
+        "percent": 13.42
+      },
+      "Subway Platform": {
+        "count": 1163,
+        "percent": 11.63
+      },
+      "Dusk Court": {
+        "count": 988,
+        "percent": 9.88
+      },
+      "Neon Alley": {
+        "count": 893,
+        "percent": 8.93
+      },
+      "Grid Green": {
+        "count": 715,
+        "percent": 7.15
+      }
+    },
+    "Base": {
+      "Fawn Peek": {
+        "count": 4236,
+        "percent": 42.36
+      },
+      "Apricot Peek": {
+        "count": 3282,
+        "percent": 32.82
+      },
+      "Black Peek": {
+        "count": 2482,
+        "percent": 24.82
+      }
+    },
+    "Block": {
+      "Cinder Block": {
+        "count": 2588,
+        "percent": 25.88
+      },
+      "Brownstone Ledge": {
+        "count": 2218,
+        "percent": 22.18
+      },
+      "Default concrete": {
+        "count": 2139,
+        "percent": 21.39
+      },
+      "Crate Stack": {
+        "count": 1760,
+        "percent": 17.6
+      },
+      "Gold Bars": {
+        "count": 1295,
+        "percent": 12.95
+      }
+    },
+    "Hat": {
+      "Bare head": {
+        "count": 2236,
+        "percent": 22.36
+      },
+      "Forest Beanie": {
+        "count": 1794,
+        "percent": 17.94
+      },
+      "Newsie Cap": {
+        "count": 1690,
+        "percent": 16.9
+      },
+      "Stoop Snapback": {
+        "count": 1562,
+        "percent": 15.62
+      },
+      "Block Hard Hat": {
+        "count": 1374,
+        "percent": 13.74
+      },
+      "Stoop Crown": {
+        "count": 1344,
+        "percent": 13.44
+      }
+    },
+    "Body": {
+      "No clothes": {
+        "count": 2515,
+        "percent": 25.15
+      },
+      "Forest Bandana": {
+        "count": 2207,
+        "percent": 22.07
+      },
+      "Red Collar": {
+        "count": 1955,
+        "percent": 19.55
+      },
+      "Cream Hoodie": {
+        "count": 1821,
+        "percent": 18.21
+      },
+      "Gold Chain": {
+        "count": 1502,
+        "percent": 15.02
+      }
+    },
+    "Accessory": {
+      "Empty paws": {
+        "count": 2260,
+        "percent": 22.6
+      },
+      "Chewed Bone": {
+        "count": 1802,
+        "percent": 18.02
+      },
+      "Stoop Coffee": {
+        "count": 1671,
+        "percent": 16.71
+      },
+      "Round Shades": {
+        "count": 1577,
+        "percent": 15.77
+      },
+      "Toy Blocks": {
+        "count": 1431,
+        "percent": 14.31
+      },
+      "Gold Monocle": {
+        "count": 1259,
+        "percent": 12.59
+      }
+    }
+  }
+}

@@ -4,25 +4,25 @@ import { collection } from "@/data/collection";
 
 export const metadata: Metadata = {
   title: "OpenSea launch",
-  description: "How to list Pugs On The Block on OpenSea on Robinhood Chain.",
+  description: "Upload the 10,000 generated pugs to an OpenSea Drop on Robinhood Chain.",
 };
 
 const steps = [
   {
-    title: "Pin the art and metadata",
-    body: "Upload public/traits, public/gallery, and public/metadata to IPFS (or any OpenSea-compatible URI). Point each token’s image field at the finished PNG.",
+    title: "OpenSea does not generate from trait layers",
+    body: "Studio will not build PFPs from hats, bases, and backgrounds. You upload finished images. This repo already shuffled 10,000 unique combos into generated/images plus an OpenSea CSV.",
   },
   {
-    title: "Deploy the ERC-721 on Robinhood Chain",
-    body: `Use contracts/PugsOnTheBlock.sol. Network: ${collection.chain.name}, chain ID ${collection.chain.chainId}, RPC ${collection.chain.rpcUrl}. Gas token is ETH.`,
+    title: "Create a Drop on Robinhood Chain",
+    body: `In OpenSea Studio, create a Drop on ${collection.chain.name} (chain ID ${collection.chain.chainId}). Set supply to ${collection.supply.toLocaleString()}, add the logo and banner from public/brand, and keep the mint price at ${collection.mintPriceEth} ETH or whatever you choose.`,
   },
   {
-    title: "Verify on Blockscout",
-    body: `Confirm the contract at ${collection.chain.explorer.replace("https://", "")}, then set the base URI to your metadata folder.`,
+    title: "Bulk-upload media + CSV",
+    body: "OpenSea Drops accept up to 10,000 JPG files (5 GB total) and a metadata CSV of string traits. Upload every file in generated/images (1.jpg–10000.jpg) and generated/opensea-metadata.csv. Preview and edit names if needed, then publish.",
   },
   {
-    title: "Submit the collection on OpenSea",
-    body: "OpenSea already supports Robinhood Chain. Import the contract, add the banner and logo from public/brand, and publish. No separate marketplace app.",
+    title: "Or deploy the ERC-721 yourself",
+    body: `contracts/PugsOnTheBlock.sol mints token IDs 1–${collection.supply.toLocaleString()}. Pin generated/json (or a metadata server) and set the base URI. Import that contract on OpenSea instead of using a Drop if you want a custom mint.`,
   },
 ];
 
@@ -32,9 +32,9 @@ export default function LaunchPage() {
       <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground">Marketplace</p>
       <h1 className="mt-2 font-heading text-4xl">Launch on OpenSea, Robinhood Chain.</h1>
       <p className="mt-4 text-muted-foreground">
-        Robinhood Chain is an Ethereum Layer 2 (Arbitrum tech) that went public on July 1, 2026.
-        OpenSea added the chain on July 11 — NFTs, Stock Tokens, and memecoins trade in the same
-        interface. This collection is built as ordinary ERC-721s for that network.
+        OpenSea supports Robinhood Chain, but it does not include a trait-layer generator. The
+        supported path for a 10,000-piece PFP set is an OpenSea Drop: finished images plus a CSV.
+        This repo already produced both.
       </p>
 
       <dl className="mt-8 grid gap-3 sm:grid-cols-2">
@@ -78,13 +78,18 @@ export default function LaunchPage() {
       </ol>
 
       <p className="mt-10 text-sm text-muted-foreground">
-        OpenSea overview:{" "}
-        <a className="underline" href={collection.opensea.blog} target="_blank" rel="noreferrer">
-          Robinhood Chain is live on OpenSea
+        Drop upload notes:{" "}
+        <a
+          className="underline"
+          href="https://support.opensea.io/en/articles/8867060-preparing-metadata-for-your-drop"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Preparing metadata for your drop
         </a>
-        . Chain docs:{" "}
-        <a className="underline" href={collection.chain.docs} target="_blank" rel="noreferrer">
-          Connecting to Robinhood Chain
+        . OpenSea on Robinhood Chain:{" "}
+        <a className="underline" href={collection.opensea.blog} target="_blank" rel="noreferrer">
+          announcement
         </a>
         .
       </p>

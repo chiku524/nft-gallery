@@ -7,11 +7,11 @@ import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 import {Strings} from "@openzeppelin/contracts/utils/Strings.sol";
 
 /// @title Pugs On The Block
-/// @notice 2,222 peeking pugs for Robinhood Chain (chain ID 4663), OpenSea-ready ERC-721.
+/// @notice 10,000 peeking pugs for Robinhood Chain (chain ID 4663), OpenSea-ready ERC-721.
 contract PugsOnTheBlock is ERC721, ERC721Enumerable, Ownable {
     using Strings for uint256;
 
-    uint256 public constant MAX_SUPPLY = 2222;
+    uint256 public constant MAX_SUPPLY = 10000;
     uint256 public mintPrice = 0.004 ether;
     string private _baseTokenURI;
     bool public mintOpen;

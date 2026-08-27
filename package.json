@@ -6,7 +6,8 @@
     "dev": "next dev --port 43147 --hostname 127.0.0.1",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "generate": "python3 scripts/generate_collection.py"
   },
   "dependencies": {
     "class-variance-authority": "^0.7.1",

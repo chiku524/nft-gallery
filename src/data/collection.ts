@@ -3,8 +3,8 @@ export const collection = {
   symbol: "POTB",
   tagline: "Neighborhood pugs, peeking over the stoop.",
   description:
-    "Pugs On The Block is a 2,222-piece PFP collection of chibi pugs caught mid-peek over the city block. Every pug is assembled from layered traits — background, base, the block, hat, body, and accessory — ready to mint as ERC-721s on Robinhood Chain and list on OpenSea.",
-  supply: 2222,
+    "Pugs On The Block is a 10,000-piece PFP collection of chibi pugs caught mid-peek over the city block. Every pug is assembled from layered traits — background, base, the block, hat, body, and accessory — ready to mint as ERC-721s on Robinhood Chain and list as an OpenSea Drop.",
+  supply: 10000,
   mintPriceEth: "0.004",
   chain: {
     name: "Robinhood Chain",
