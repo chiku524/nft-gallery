@@ -11,6 +11,7 @@ import {
   defaultSelection,
   randomSelection,
   traitCategories,
+  traitSrc,
   type Selection,
   type TraitCategory,
 } from "@/data/traits";
@@ -42,7 +43,8 @@ export function StudioMixer() {
           <div>
             <p className="font-heading text-2xl">Trait mixer</p>
             <p className="text-sm text-muted-foreground">
-              Stack a background, pug, ledge, hat, clothes, and a ledge toy.
+              Stack a background, pug, ledge, hat, clothes, and a ledge toy. The ledge
+              trait replaces the wall under the paws.
             </p>
           </div>
           <Button type="button" variant="outline" onClick={() => setSelection(randomSelection())}>
@@ -92,7 +94,7 @@ export function StudioMixer() {
                   <div className="relative aspect-square bg-[repeating-conic-gradient(#efe4d4_0%_25%,#f7f0e6_0%_50%)] bg-[length:16px_16px]">
                     {trait.image ? (
                       <Image
-                        src={trait.image}
+                        src={traitSrc(trait.image)}
                         alt=""
                         fill
                         sizes="160px"

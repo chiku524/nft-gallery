@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { findTrait, type Selection, type Trait } from "@/data/traits";
+import { findTrait, traitSrc, type Selection, type Trait } from "@/data/traits";
 
 type Layer = {
   src: string;
@@ -24,6 +24,7 @@ export function selectionToLayers(selection: Selection): Layer[] {
   const layers: Layer[] = [];
   const background = findTrait("background", selection.background);
   const base = findTrait("base", selection.base);
+  const block = findTrait("block", selection.block);
   const body = findTrait("body", selection.body);
   const hat = findTrait("hat", selection.hat);
   const accessory = findTrait("accessory", selection.accessory);
@@ -31,16 +32,17 @@ export function selectionToLayers(selection: Selection): Layer[] {
   const push = (trait?: Trait | null) => {
     if (!trait?.image) return;
     layers.push({
-      src: trait.image,
+      src: traitSrc(trait.image),
       x: trait.overlay?.x ?? 0,
       y: trait.overlay?.y ?? 0,
       scale: trait.overlay?.scale ?? 1,
     });
   };
 
-  // Block sheets are metadata-only: compositing a second wall covers the muzzle.
+  // Block is aligned to the pug ledge so it swaps the wall face without covering the muzzle.
   push(background);
   push(base);
+  push(block);
   push(body);
   push(hat);
   push(accessory);

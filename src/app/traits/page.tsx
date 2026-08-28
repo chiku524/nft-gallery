@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
-import { traitCategories } from "@/data/traits";
+import { traitCategories, traitSrc } from "@/data/traits";
 
 export const metadata: Metadata = {
   title: "Trait sheets",
@@ -14,7 +14,7 @@ export default function TraitsPage() {
       <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground">Layer library</p>
       <h1 className="mt-2 font-heading text-4xl">Trait sheets</h1>
       <p className="mt-3 max-w-2xl text-muted-foreground">
-        Transparent PNG layers, 1024×1024, stacked background → block → base → body → hat →
+        Transparent PNG layers, 1024×1024, stacked background → base → block → body → hat →
         accessory. Rarity weights are the planned mint table, not on-chain yet.
       </p>
 
@@ -37,7 +37,7 @@ export default function TraitsPage() {
                   <div className="relative aspect-square bg-[repeating-conic-gradient(#efe4d4_0%_25%,#f7f0e6_0%_50%)] bg-[length:18px_18px]">
                     {trait.image ? (
                       <Image
-                        src={trait.image}
+                        src={traitSrc(trait.image)}
                         alt={trait.name}
                         fill
                         sizes="(max-width: 768px) 50vw, 25vw"

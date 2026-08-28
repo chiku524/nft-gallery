@@ -206,9 +206,6 @@ def paste_rgba(base: Image.Image, overlay: Image.Image, x: int, y: int) -> Image
 def render(combo: dict[str, dict]) -> Image.Image:
     canvas = Image.new("RGBA", (SIZE, SIZE), (0, 0, 0, 0))
     for cat in CATEGORIES:
-        if cat["id"] == "block":
-            # Second wall sits higher than the pug's ledge and covers the muzzle.
-            continue
         trait = combo[cat["id"]]
         if not trait["file"]:
             continue

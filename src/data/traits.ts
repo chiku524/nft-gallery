@@ -22,6 +22,14 @@ export type TraitCategory = {
 
 const none: Overlay = { x: 0, y: 0, scale: 1 };
 
+/** Bump when trait PNGs change so the studio canvas does not keep a stale bitmap. */
+export const TRAIT_ART_VERSION = "6";
+
+export function traitSrc(path?: string) {
+  if (!path) return "";
+  return `${path}?v=${TRAIT_ART_VERSION}`;
+}
+
 export const traitCategories: TraitCategory[] = [
   {
     id: "background",
@@ -109,7 +117,7 @@ export const traitCategories: TraitCategory[] = [
   {
     id: "block",
     label: "Block",
-    blurb: "The ledge they lean on — concrete, brownstone, crate, or gold.",
+    blurb: "The ledge they lean on — concrete, brownstone, crate, or gold. Swaps the wall under the paws.",
     noneLabel: "Default concrete",
     traits: [
       {

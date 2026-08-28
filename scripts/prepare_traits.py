@@ -245,6 +245,21 @@ def boost_fill(im: Image.Image, tan: tuple[float, float, float], mix: float) -> 
     return Image.fromarray(arr.astype(np.uint8), "RGBA")
 
 
+def align_top(im: Image.Image, top: int) -> Image.Image:
+    """Shift a full-width wall so its visible top matches the pug ledge."""
+    arr = np.array(im.convert("RGBA"))
+    ys, xs = np.where(arr[..., 3] > 12)
+    if len(ys) == 0:
+        return im
+    shift = top - int(ys.min())
+    if shift == 0:
+        return im
+    canvas = blank()
+    overlay = Image.fromarray(arr, "RGBA")
+    paste_centered(canvas, overlay, overlay.width / 2, overlay.height / 2 + shift)
+    return canvas
+
+
 def blank() -> Image.Image:
     return Image.new("RGBA", (SIZE, SIZE), (0, 0, 0, 0))
 
@@ -274,21 +289,21 @@ def sticker_from(src_name: str) -> Image.Image:
     return content_crop(defringe(knock_all_white(Image.open(SRC / src_name)), **DEFRINGE_OVERLAY))
 
 
-# Hats sit on the crown: brim aligned to the forehead, just above the eyes.
+# Hats sit on the crown: brim on the forehead, not down over the eyes.
 HATS = {
-    "hat/hat-beanie.png": ("hat-only-beanie.png", 300, 358),
-    "hat/hat-crown.png": ("hat-only-crown.png", 224, 348),
-    "hat/hat-snapback.png": ("hat-only-snapback.png", 310, 374),
-    "hat/hat-newsie.png": ("hat-only-newsie.png", 300, 362),
-    "hat/hat-hardhat.png": ("hat-only-hardhat.png", 296, 364),
+    "hat/hat-beanie.png": ("hat-only-beanie.png", 250, 312),
+    "hat/hat-crown.png": ("hat-only-crown.png", 216, 298),
+    "hat/hat-snapback.png": ("hat-only-snapback.png", 292, 318),
+    "hat/hat-newsie.png": ("hat-only-newsie.png", 278, 312),
+    "hat/hat-hardhat.png": ("hat-only-hardhat.png", 276, 314),
 }
 
-# Neck items tuck under the chin and rest on the wall line.
+# Neck items wrap the chin — higher than the wall so they read as worn, not parked.
 BODIES = {
-    "body/body-bandana.png": ("body-bandana.png", 236, 636),
-    "body/body-collar.png": ("body-collar.png", 228, 642),
-    "body/body-hoodie.png": ("body-hoodie.png", 300, 640),
-    "body/body-gold-chain.png": ("body-gold-chain.png", 214, 636),
+    "body/body-bandana.png": ("body-bandana.png", 252, 582),
+    "body/body-collar.png": ("body-collar.png", 240, 588),
+    "body/body-hoodie.png": ("body-hoodie.png", 328, 572),
+    "body/body-gold-chain.png": ("body-gold-chain.png", 230, 592),
 }
 
 ACCESSORIES = {
@@ -331,7 +346,7 @@ def prepare() -> None:
 
     print("Blocks (edge flood-fill + defringe)…")
     for dest, src in BLOCKS.items():
-        save(seal_outline(defringe(flood_white(Image.open(SRC / src)), **DEFRINGE_BASE)), dest)
+        save(align_top(seal_outline(defringe(flood_white(Image.open(SRC / src)), **DEFRINGE_BASE)), WALL_TOP), dest)
 
     print("Hats (crop + place on crown)…")
     for dest, (src, width, bottom) in HATS.items():
@@ -367,8 +382,6 @@ def composite(layers: list[str], bg: tuple[int, int, int] | None = None) -> Imag
     else:
         canvas = Image.new("RGBA", (SIZE, SIZE), (*bg, 255))
     for rel in layers:
-        if rel.startswith("block/"):
-            continue
         layer = Image.open(DST / rel).convert("RGBA")
         if layer.size != (SIZE, SIZE):
             layer = layer.resize((SIZE, SIZE), Image.Resampling.LANCZOS)
@@ -437,6 +450,16 @@ def test_sheet() -> None:
         hat_tiles.append(labeled_tile(img, label))
         img.convert("RGB").save(TEST_DIR / f"{label}.jpg", "JPEG", quality=90)
     grid(hat_tiles, 5, TEST_DIR / "hats.png")
+
+    block_tiles = []
+    for dest in BLOCKS:
+        label = Path(dest).stem
+        img = composite(
+            ["background/bg-stoop-day.png", "base/base-fawn-peek.png", dest, "hat/hat-beanie.png"]
+        )
+        block_tiles.append(labeled_tile(img, label))
+        img.convert("RGB").save(TEST_DIR / f"{label}.jpg", "JPEG", quality=90)
+    grid(block_tiles, 4, TEST_DIR / "blocks.png")
 
     body_tiles = []
     for dest in BODIES:
