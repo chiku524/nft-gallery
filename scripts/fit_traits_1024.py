@@ -13,6 +13,7 @@ hats/clothes at gallery scale instead of squashing them onto the wall.
 from __future__ import annotations
 
 import shutil
+import time
 from collections import deque
 from pathlib import Path
 
@@ -49,7 +50,19 @@ def arr(im: Image.Image) -> np.ndarray:
 def save(rel: str, im: Image.Image) -> None:
     path = TRAITS / rel
     path.parent.mkdir(parents=True, exist_ok=True)
-    im.save(path)
+    tmp = path.with_name(path.name + ".tmp.png")
+    im.save(tmp)
+    last_err: OSError | None = None
+    for _ in range(8):
+        try:
+            tmp.replace(path)
+            last_err = None
+            break
+        except OSError as err:
+            last_err = err
+            time.sleep(0.15)
+    if last_err is not None:
+        raise last_err
     a = arr(im)
     ys, xs = np.where(a[:, :, 3] > 20)
     bbox = (int(xs.min()), int(ys.min()), int(xs.max()), int(ys.max())) if xs.size else None
@@ -471,20 +484,33 @@ def extract_dressed_hat(dressed_rel: str, kind: str, bottom: int) -> Image.Image
     lum = rgb.mean(axis=2)
     chroma = rgb.max(axis=2) - rgb.min(axis=2)
 
+    fur = (r > 170) & (g > 140) & (b > 100) & (chroma < 90)
+    cream_panel = (y < 310) & (x > 370) & (x < 690) & (r > 155) & (g > 130) & (b > 100)
+    fur = fur & ~cream_panel
     if kind == "beanie":
-        color = (g > r + 10) & (g > b + 4) & (g > 25) & (y < 400)
+        color = (g > r + 10) & (g > b + 4) & (g > 25) & (y < 400) & ~fur
     elif kind == "crown":
         gold = (r > 130) & (g > 90) & (b < 110) & (r + g > 2 * b + 10)
         gems = (r > 120) & (g < 110) & (b < 110) & (r > g + 30)
-        color = gold | gems
+        color = (gold | gems) & (y < 320)
     elif kind == "hardhat":
-        # Bright dome plus the darker orange brim that sits on the forehead.
-        color = (r > 120) & (g > 70) & (b < 120) & (r > b + 30) & (g > b) & (chroma > 45)
+        # Bright dome plus the darker orange brim. Keep y low so wall yellow stays out.
+        color = (r > 120) & (g > 70) & (b < 120) & (r > b + 30) & (g > b) & (chroma > 45) & ~fur
     elif kind == "newsie":
-        color = (r > 70) & (g > 40) & (b < 80) & (r > b + 16) & (g > b + 8) & (r < 210) & (y < 370)
+        color = (
+            (r > 80)
+            & (g > 40)
+            & (b < 70)
+            & (r > b + 24)
+            & (g > b + 10)
+            & (r < 175)
+            & (chroma > 40)
+            & (y < 370)
+            & ~fur
+        )
     elif kind == "snapback":
-        red = (r > 130) & (g < 110) & (b < 110) & (r > g + 30)
-        cream = (r > 150) & (g > 130) & (b > 100) & (chroma < 90) & (y < 310) & (x > 380) & (x < 680)
+        red = (r > 130) & (g < 110) & (b < 110) & (r > g + 30) & (y < 360)
+        cream = (r > 160) & (g > 140) & (b > 110) & (chroma < 90) & (y < 300) & (x > 380) & (x < 680)
         panel = (r < 70) & (g < 70) & (b < 70) & (y > 120) & (y < 300) & (x > 360) & (x < 680)
         color = red | cream | panel
     else:
@@ -582,6 +608,51 @@ def strip_pug_fur(im: Image.Image) -> Image.Image:
     return Image.fromarray(clear_transparent(a))
 
 
+def strip_hat_halo(im: Image.Image, *, keep_cream: bool = False) -> Image.Image:
+    """Knock sticker-white and leftover fur off the brim so hats sit flush."""
+    a = arr(im).copy()
+    rgb = a[:, :, :3].astype(np.int16)
+    r, g, b = rgb[:, :, 0], rgb[:, :, 1], rgb[:, :, 2]
+    lum = rgb.mean(axis=2)
+    chroma = rgb.max(axis=2) - rgb.min(axis=2)
+    op = a[:, :, 3] > 20
+    ys = np.where(op)[0]
+    if not ys.size:
+        return im
+    near = np.arange(SIZE)[:, None] >= int(ys.max()) - 24
+    fur = op & (r > 155) & (g > 125) & (b > 85) & (chroma < 95) & (b > 65)
+    white = op & (lum > 198) & (chroma < 48)
+    brown = op & near & (r > 55) & (r < 165) & (g > 35) & (g < 130) & (b < 95) & (chroma < 85)
+    halo = (fur | white | brown) & near
+    if keep_cream:
+        cream = (r > 155) & (g > 135) & (b > 100) & (chroma < 95)
+        halo = halo & ~cream
+    a[halo, 3] = 0
+    return Image.fromarray(clear_transparent(a))
+
+
+def cream_snapback_panel(im: Image.Image) -> Image.Image:
+    """Gallery snapbacks use a cream front panel; dressed sheets sometimes bake charcoal."""
+    a = arr(im).copy()
+    rgb = a[:, :, :3].astype(np.float32)
+    r, g, b = rgb[:, :, 0], rgb[:, :, 1], rgb[:, :, 2]
+    lum = rgb.mean(axis=2)
+    chroma = rgb.max(axis=2) - rgb.min(axis=2)
+    y = np.arange(SIZE)[:, None]
+    x = np.arange(SIZE)[None, :]
+    op = a[:, :, 3] > 20
+    cream = op & (r > 155) & (g > 135) & (b > 100) & (chroma < 95) & (y < 320)
+    dark = op & (lum < 90) & (chroma < 55) & (x > 390) & (x < 690) & (y > 130) & (y < 310)
+    if cream.sum() >= 2500 or dark.sum() < 400:
+        return im
+    cream_rgb = np.array([222, 200, 172], dtype=np.float32)
+    shadow = np.array([176, 154, 128], dtype=np.float32)
+    t = np.clip(lum / 80.0, 0.0, 1.0)
+    target = shadow[None, None, :] * (1.0 - t[:, :, None]) + cream_rgb[None, None, :] * t[:, :, None]
+    a[dark, :3] = np.clip(target[dark], 0, 255)
+    return Image.fromarray(clear_transparent(a))
+
+
 def shift_layer(im: Image.Image, dy: int, dx: int = 0) -> Image.Image:
     canvas = blank()
     paste_centered(canvas, im, SIZE / 2 + dx, SIZE / 2 + dy)
@@ -609,14 +680,18 @@ def crop_below(im: Image.Image, y: int) -> Image.Image:
 
 
 def fit_hats() -> None:
-    """Hats from the dressed fawn sheets sit on this pug; beanie matches gallery green."""
-    beanie = extract_dressed_hat("dressed/fawn-beanie.png", "beanie", 390)
-    save("hat/hat-beanie.png", recolor_to(sit_on(beanie, 400), (22, 48, 24)))
-    hardhat = sit_on(strip_pug_fur(extract_dressed_hat("dressed/fawn-hardhat.png", "hardhat", 380)), 396)
-    save("hat/hat-hardhat.png", crop_below(hardhat, 408))
-    save("hat/hat-newsie.png", sit_on(extract_dressed_hat("dressed/fawn-newsie.png", "newsie", 385), 398))
-    save("hat/hat-snapback.png", sit_on(extract_dressed_hat("dressed/fawn-snapback.png", "snapback", 375), 352, 120))
-    save("hat/hat-crown.png", place_bottom(load_src("hat/hat-crown.png"), 225, 312, 528, 150))
+    """Hats off the dressed sheets, seated on this pug the way the gallery paintings wear them."""
+    beanie = strip_hat_halo(strip_pug_fur(extract_dressed_hat("dressed/fawn-beanie.png", "beanie", 375)))
+    save("hat/hat-beanie.png", recolor_to(sit_on(beanie, 410), (20, 46, 22)))
+    hardhat = strip_hat_halo(strip_pug_fur(extract_dressed_hat("dressed/fawn-hardhat.png", "hardhat", 328)))
+    save("hat/hat-hardhat.png", crop_below(sit_on(hardhat, 396), 404))
+    newsie = strip_hat_halo(strip_pug_fur(extract_dressed_hat("dressed/fawn-newsie.png", "newsie", 360)))
+    save("hat/hat-newsie.png", sit_on(newsie, 412))
+    snap = cream_snapback_panel(
+        strip_hat_halo(extract_dressed_hat("dressed/fawn-snapback.png", "snapback", 348), keep_cream=True)
+    )
+    save("hat/hat-snapback.png", sit_on(snap, 378, 80))
+    save("hat/hat-crown.png", place_bottom(load_src("hat/hat-crown.png"), 258, 308, 512, 158))
 
 
 def prepare_hoodie(im: Image.Image) -> Image.Image:
@@ -644,59 +719,56 @@ def feather_front(full: Image.Image, split_y: int, fade: int = 8) -> Image.Image
     return Image.fromarray(np.clip(data, 0, 255).astype(np.uint8))
 
 
-def snout_mask(pug: Image.Image) -> np.ndarray:
-    """Eyes, forehead, and mouth — not the jowls where a wrap should sit."""
-    pug_a = arr(pug)[:, :, 3] > 20
+def clothes_face_punch(pug: Image.Image, kind: str) -> np.ndarray:
+    """Only clear leftover loop pixels over the eyes. Do not cut the under-chin wrap."""
+    pug_a = arr(pug)
+    rgb = pug_a[:, :, :3].astype(np.int16)
+    r, g, b = rgb[:, :, 0], rgb[:, :, 1], rgb[:, :, 2]
+    alpha = pug_a[:, :, 3] > 20
     rows = np.arange(SIZE)[:, None]
-    cols = np.arange(SIZE)[None, :]
-    punch = pug_a & (rows < SNOUT_TOP_Y)
-    punch |= pug_a & (rows < SNOUT_BOTTOM_Y) & (cols >= SNOUT_X0) & (cols <= SNOUT_X1)
-    return punch
+    tongue = alpha & (r > 160) & (g > 80) & (g < 180) & (b > 80) & (b < 160) & (r > g + 20)
+    if kind == "gold-chain":
+        return (alpha & (rows < 490)) | tongue
+    return alpha & (rows < 500)
 
 
 def body_neck_layer(full: Image.Image, pug: Image.Image, kind: str) -> Image.Image:
     """Wrap in front of the neck: keep clothes above the wall, punch mouth/eyes only."""
     a = arr(full).copy()
-    pug_a = arr(pug)[:, :, 3] > 20
-    rows = np.arange(SIZE)[:, None]
-    cols = np.arange(SIZE)[None, :]
-    if kind == "gold-chain":
-        punch = pug_a & (rows < 490)
-        punch |= pug_a & (rows < SNOUT_BOTTOM_Y) & (cols >= 455) & (cols <= 575)
-    elif kind == "collar":
-        punch = pug_a & (rows < 575)
-        punch |= pug_a & (rows < SNOUT_BOTTOM_Y) & (cols >= 430) & (cols <= 600)
-    else:
-        punch = snout_mask(pug)
-    a[punch, 3] = 0
+    a[clothes_face_punch(pug, kind), 3] = 0
     a[WALL_TOP:, :, 3] = 0
     return Image.fromarray(clear_transparent(a))
 
 
-def stamp_jaw_wrap(
-    neck: Image.Image,
-    color: tuple[int, int, int],
-    *,
-    y_center: int = 588,
-    y_sides: int = 555,
-    x0: int = 325,
-    x1: int = 705,
-) -> Image.Image:
-    """Paint a solid U-wrap under the chin so punched clothes are not a sliver."""
-    a = arr(neck).copy()
-    rows = np.arange(SIZE, dtype=np.float32)[:, None]
-    cols = np.arange(SIZE, dtype=np.float32)[None, :]
-    x_half = (x1 - x0) / 2.0
-    t = np.clip(np.abs(cols - 512.0) / x_half, 0.0, 1.0)
-    top = y_center + (y_sides - y_center) * t
-    in_band = (cols >= x0) & (cols < x1) & (rows >= top) & (rows < WALL_TOP)
-    tongue = (rows < 586) & (cols >= 445) & (cols <= 590)
-    paint = in_band & ~tongue & (a[:, :, 3] <= 20)
-    a[paint, 0] = color[0]
-    a[paint, 1] = color[1]
-    a[paint, 2] = color[2]
-    a[paint, 3] = 255
+def fill_interior_gaps(im: Image.Image, y0: int, y1: int = WALL_TOP) -> Image.Image:
+    """Close the neck-loop hole under the chin using neighboring fabric color."""
+    a = arr(im).copy()
+    mask = a[:, :, 3] > 20
+    for y in range(y0, y1):
+        xs = np.where(mask[y])[0]
+        if xs.size < 8:
+            continue
+        left, right = int(xs.min()), int(xs.max())
+        if right - left < 40:
+            continue
+        sample = a[y, left, :3]
+        gap = slice(left, right + 1)
+        empty = a[y, gap, 3] <= 20
+        if not empty.any():
+            continue
+        a[y, gap, :3][empty] = sample
+        a[y, gap, 3][empty] = 255
     return Image.fromarray(clear_transparent(a))
+
+
+def bandana_knot_layer(src: Image.Image) -> Image.Image:
+    """The knot is drawn at the top of the source loop; park it on the right of the neck."""
+    a = arr(src).copy()
+    x0, y0, x1, y1 = content_bbox(a)
+    a[:, : int(x0 + 0.66 * (x1 - x0)), 3] = 0
+    a[int(y0 + 0.40 * (y1 - y0)) :, :, 3] = 0
+    knot = Image.fromarray(clear_transparent(a))
+    return paste_box(knot, (620, 500, 170, 140), "center")
 
 
 def body_hang_layer(full: Image.Image, kind: str) -> Image.Image:
@@ -717,15 +789,16 @@ def body_hang_layer(full: Image.Image, kind: str) -> Image.Image:
         strings = (
             alpha
             & (r > g + 15)
-            & (g > b + 8)
-            & (r > 80)
-            & (r < 190)
+            & (g > b + 6)
+            & (r > 70)
+            & (r < 180)
             & (lum < 160)
-            & (cols >= 470)
-            & (cols <= 555)
-            & (rows >= WALL_TOP - 16)
+            & (chroma >= 28)
+            & (cols >= 450)
+            & (cols <= 575)
+            & (rows >= WALL_TOP - 18)
         )
-        keep = grow(strings, 2)
+        keep = grow(strings, 1)
     elif kind == "gold-chain":
         gold = alpha & (r > 140) & (g > 100) & (b < 130) & below
         keep = grow(gold, 2)
@@ -740,41 +813,40 @@ def body_hang_layer(full: Image.Image, kind: str) -> Image.Image:
     return Image.fromarray(clear_transparent(a))
 
 
-def clip_above(im: Image.Image, y: int) -> Image.Image:
+def clip_above_curve(im: Image.Image, y_center: int, y_sides: int, x0: int = 260, x1: int = 764) -> Image.Image:
+    """Keep a U-wrap: higher on the jowls, lower under the mouth. Avoids a hard crop line."""
     a = arr(im).copy()
-    a[:y, :, 3] = 0
+    rows = np.arange(SIZE, dtype=np.float32)[:, None]
+    cols = np.arange(SIZE, dtype=np.float32)[None, :]
+    half = max((x1 - x0) / 2.0, 1.0)
+    t = np.clip(np.abs(cols - 512.0) / half, 0.0, 1.0)
+    top = y_center + (y_sides - y_center) * t
+    a[rows < top, 3] = 0
     return Image.fromarray(clear_transparent(a))
 
 
 def fit_body(paws: Image.Image) -> None:
+    """Place the source drawings so the real wrap/knot/tag sit under this pug's chin."""
     pug = load_trait("base/base-fawn-peek.png")
     specs = [
-        ("body/body-bandana.png", recolor_to(load_src("body/body-bandana.png"), (24, 52, 22)), 640, 575, 280, "bandana", 540),
-        ("body/body-collar.png", recolor_to(load_src("body/body-collar.png"), (190, 18, 24)), 500, 598, 220, "collar", 568),
-        ("body/body-hoodie.png", prepare_hoodie(load_src("body/body-hoodie.png")), 620, 585, 280, "hoodie", 530),
-        ("body/body-gold-chain.png", load_src("body/body-gold-chain.png"), 500, 0, 270, "gold-chain", 540),
+        ("body/body-bandana.png", recolor_to(load_src("body/body-bandana.png"), (22, 50, 20)), "bandana", 620, 710, 380, 548, 508),
+        ("body/body-collar.png", recolor_to(load_src("body/body-collar.png"), (186, 16, 22)), "collar", 540, 700, 260, 575, 538),
+        ("body/body-hoodie.png", prepare_hoodie(load_src("body/body-hoodie.png")), "hoodie", 660, 724, 290, 548, 512),
+        ("body/body-gold-chain.png", load_src("body/body-gold-chain.png"), "gold-chain", 540, 724, 310, 560, 505),
     ]
-    for dest, src, width, cy, max_h, kind, clip_y in specs:
-        if kind == "gold-chain":
-            full = place_bottom(src, width, 708, 512, max_h)
-        else:
-            fitted = fit_width(src, width, max_h)
-            canvas = blank()
-            paste_centered(canvas, fitted, 512, cy)
-            full = seal_alpha(canvas)
-        full = clip_above(full, clip_y)
+    for dest, src, kind, width, bottom, max_h, y_center, y_sides in specs:
+        full = clip_above_curve(place_bottom(src, width, bottom, 512, max_h), y_center, y_sides)
+        if kind == "bandana":
+            knot = recolor_to(bandana_knot_layer(load_src("body/body-bandana.png")), (22, 50, 20))
+            full = Image.alpha_composite(full, knot)
+        if kind in {"bandana", "collar", "hoodie"}:
+            full = fill_interior_gaps(full, y_center, WALL_TOP + 50)
         save(dest, full)
-        neck = punch_mask(body_neck_layer(full, pug, kind), paws, dilate=1)
-        if kind == "hoodie":
-            neck = stamp_jaw_wrap(neck, (232, 210, 180), y_center=590, y_sides=560)
-        elif kind == "bandana":
-            neck = stamp_jaw_wrap(neck, (24, 52, 22), y_center=588, y_sides=548)
-        elif kind == "collar":
-            neck = stamp_jaw_wrap(neck, (190, 18, 24), y_center=592, y_sides=575, x0=360, x1=670)
-        if kind in {"hoodie", "bandana", "collar"}:
-            neck = punch_mask(neck, paws, dilate=1)
+        neck = body_neck_layer(full, pug, kind)
+        if kind in {"bandana", "collar", "hoodie"}:
+            neck = fill_interior_gaps(neck, y_center)
         save(dest.replace(".png", "-neck.png"), neck)
-        hang = punch_mask(body_hang_layer(full, kind), paws, dilate=1)
+        hang = body_hang_layer(full, kind)
         save(dest.replace(".png", "-front.png"), hang if (arr(hang)[:, :, 3] > 20).any() else blank())
 
 
