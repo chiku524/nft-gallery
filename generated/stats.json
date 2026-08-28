@@ -13,38 +13,38 @@
         "percent": 16.21
       },
       "Cream Paper": {
-        "count": 1512,
-        "percent": 15.12
+        "count": 1511,
+        "percent": 15.11
       },
       "Golden Rooftop": {
         "count": 1342,
         "percent": 13.42
       },
       "Subway Platform": {
-        "count": 1163,
-        "percent": 11.63
+        "count": 1162,
+        "percent": 11.62
       },
       "Dusk Court": {
         "count": 988,
         "percent": 9.88
       },
       "Neon Alley": {
-        "count": 893,
-        "percent": 8.93
+        "count": 894,
+        "percent": 8.94
       },
       "Grid Green": {
-        "count": 715,
-        "percent": 7.15
+        "count": 716,
+        "percent": 7.16
       }
     },
     "Base": {
       "Fawn Peek": {
-        "count": 4236,
-        "percent": 42.36
+        "count": 4235,
+        "percent": 42.35
       },
       "Apricot Peek": {
-        "count": 3282,
-        "percent": 32.82
+        "count": 3283,
+        "percent": 32.83
       },
       "Black Peek": {
         "count": 2482,
@@ -57,20 +57,20 @@
         "percent": 25.88
       },
       "Brownstone Ledge": {
-        "count": 2218,
-        "percent": 22.18
+        "count": 2216,
+        "percent": 22.16
       },
       "Default concrete": {
-        "count": 2139,
-        "percent": 21.39
+        "count": 2142,
+        "percent": 21.42
       },
       "Crate Stack": {
         "count": 1760,
         "percent": 17.6
       },
       "Gold Bars": {
-        "count": 1295,
-        "percent": 12.95
+        "count": 1294,
+        "percent": 12.94
       }
     },
     "Hat": {
@@ -91,44 +91,44 @@
         "percent": 15.62
       },
       "Block Hard Hat": {
-        "count": 1374,
-        "percent": 13.74
+        "count": 1373,
+        "percent": 13.73
       },
       "Stoop Crown": {
-        "count": 1344,
-        "percent": 13.44
+        "count": 1345,
+        "percent": 13.45
       }
     },
     "Body": {
       "No clothes": {
-        "count": 2515,
-        "percent": 25.15
+        "count": 2514,
+        "percent": 25.14
       },
       "Forest Bandana": {
-        "count": 2207,
-        "percent": 22.07
+        "count": 2208,
+        "percent": 22.08
       },
       "Red Collar": {
-        "count": 1955,
-        "percent": 19.55
+        "count": 1956,
+        "percent": 19.56
       },
       "Cream Hoodie": {
         "count": 1821,
         "percent": 18.21
       },
       "Gold Chain": {
-        "count": 1502,
-        "percent": 15.02
+        "count": 1501,
+        "percent": 15.01
       }
     },
     "Accessory": {
       "Empty paws": {
-        "count": 2260,
-        "percent": 22.6
+        "count": 2261,
+        "percent": 22.61
       },
       "Chewed Bone": {
-        "count": 1802,
-        "percent": 18.02
+        "count": 1801,
+        "percent": 18.01
       },
       "Stoop Coffee": {
         "count": 1671,
@@ -139,12 +139,12 @@
         "percent": 15.77
       },
       "Toy Blocks": {
-        "count": 1431,
-        "percent": 14.31
+        "count": 1430,
+        "percent": 14.3
       },
       "Gold Monocle": {
-        "count": 1259,
-        "percent": 12.59
+        "count": 1260,
+        "percent": 12.6
       }
     }
   }

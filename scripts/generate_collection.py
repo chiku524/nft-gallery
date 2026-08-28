@@ -34,6 +34,99 @@ JPEG_QUALITY = 92
 
 NONE = {"id": "none", "name": None, "file": None, "rarity": 28}
 
+# Tokens 1–8 are the eight gallery paintings, copied exactly so the drop
+# opens with the same images as /pugs-on-the-block/gallery.
+GALLERY_SEEDS = [
+    {
+        "file": ROOT / "public" / "gallery" / "mint-01-stoop-beanie.png",
+        "combo": {
+            "background": "brownstone",
+            "base": "fawn",
+            "block": "none",
+            "hat": "beanie",
+            "body": "bandana",
+            "accessory": "none",
+        },
+    },
+    {
+        "file": ROOT / "public" / "gallery" / "mint-02-neon-crown.png",
+        "combo": {
+            "background": "neon",
+            "base": "black",
+            "block": "none",
+            "hat": "crown",
+            "body": "gold-chain",
+            "accessory": "none",
+        },
+    },
+    {
+        "file": ROOT / "public" / "gallery" / "mint-03-rooftop-newsie.png",
+        "combo": {
+            "background": "rooftop",
+            "base": "cream",
+            "block": "none",
+            "hat": "newsie",
+            "body": "none",
+            "accessory": "coffee",
+        },
+    },
+    {
+        "file": ROOT / "public" / "gallery" / "mint-04-day-hardhat.png",
+        "combo": {
+            "background": "stoop-day",
+            "base": "fawn",
+            "block": "none",
+            "hat": "hardhat",
+            "body": "none",
+            "accessory": "blocks",
+        },
+    },
+    {
+        "file": ROOT / "public" / "gallery" / "mint-05-subway-snapback.png",
+        "combo": {
+            "background": "subway",
+            "base": "black",
+            "block": "none",
+            "hat": "snapback",
+            "body": "none",
+            "accessory": "sunglasses",
+        },
+    },
+    {
+        "file": ROOT / "public" / "gallery" / "mint-06-green-monocle.png",
+        "combo": {
+            "background": "chain-green",
+            "base": "cream",
+            "block": "none",
+            "hat": "none",
+            "body": "collar",
+            "accessory": "monocle",
+        },
+    },
+    {
+        "file": ROOT / "public" / "gallery" / "mint-07-cream-hoodie.png",
+        "combo": {
+            "background": "cream-brick",
+            "base": "fawn",
+            "block": "none",
+            "hat": "none",
+            "body": "hoodie",
+            "accessory": "bone",
+        },
+    },
+    {
+        "file": ROOT / "public" / "gallery" / "mint-08-sunset-bandana.png",
+        "combo": {
+            "background": "rooftop",
+            "base": "black",
+            "block": "none",
+            "hat": "none",
+            "body": "bandana",
+            "accessory": "sunglasses",
+        },
+    },
+]
+
 CATEGORIES = [
     {
         "id": "background",
@@ -146,11 +239,31 @@ def dna_key(combo: dict[str, dict]) -> str:
     return "|".join(f"{cat['id']}:{combo[cat['id']]['id']}" for cat in CATEGORIES)
 
 
+def trait_by_id(category_id: str, trait_id: str) -> dict:
+    category = next(cat for cat in CATEGORIES if cat["id"] == category_id)
+    if trait_id == "none":
+        return {**NONE, "name": category["none_name"]}
+    trait = next(t for t in category["traits"] if t["id"] == trait_id)
+    return {"id": trait["id"], "name": trait["name"], "file": trait["file"], "rarity": trait["rarity"]}
+
+
+def gallery_combo(spec: dict) -> dict[str, dict]:
+    return {cat_id: trait_by_id(cat_id, trait_id) for cat_id, trait_id in spec["combo"].items()}
+
+
 def unique_combos(count: int) -> list[dict[str, dict]]:
     rng = random.Random(SEED)
     pools = {cat["id"]: pool_for(cat) for cat in CATEGORIES}
     seen: set[str] = set()
     combos: list[dict[str, dict]] = []
+
+    for spec in GALLERY_SEEDS:
+        if len(combos) >= count:
+            break
+        combo = gallery_combo(spec)
+        seen.add(dna_key(combo))
+        combos.append(combo)
+
     attempts = 0
     while len(combos) < count:
         attempts += 1
@@ -176,7 +289,20 @@ def load_trait(file_name: str) -> Image.Image:
 DRAW_ORDER = ["background", "block", "base", "body", "hat", "accessory"]
 
 
+def gallery_image_for(combo: dict[str, dict]) -> Image.Image | None:
+    key = {cat_id: combo[cat_id]["id"] for cat_id in ("background", "base", "block", "hat", "body", "accessory")}
+    for spec in GALLERY_SEEDS:
+        if spec["combo"] == key:
+            return Image.open(spec["file"]).convert("RGB")
+    return None
+
+
 def render(combo: dict[str, dict]) -> Image.Image:
+    pinned = gallery_image_for(combo)
+    if pinned is not None:
+        if pinned.size != (SIZE, SIZE):
+            pinned = pinned.resize((SIZE, SIZE), Image.Resampling.LANCZOS)
+        return pinned
     canvas = Image.new("RGBA", (SIZE, SIZE), (0, 0, 0, 0))
     for cat_id in DRAW_ORDER:
         trait = combo[cat_id]

@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Bake every overlay trait onto a 1024×1024 canvas at gallery positions.
+"""Bake overlay traits onto the 1024 canvas at gallery positions.
 
-Backgrounds, bases, and blocks are already full-frame. Cream/fawn fills were
-knocked out of the base sheets (alpha 0 with the fur RGB still stored), so
-previews showed brick through the forehead. This script seals those interiors,
-then crops and places hats/clothes/toys. After this, the generator and studio
-stamp layers 1:1 with no scale or offset.
+Hats are lifted from the dressed sheets (already sitting on the pug).
+Clothes and stoop props are the original drawings, scaled into boxes
+measured from the eight gallery paintings. Bases stay sealed so cream
+and fawn fur is opaque. After this, the generator and studio stamp
+layers 1:1 with no extra offset.
 """
 
 from __future__ import annotations
@@ -21,12 +21,19 @@ TRAITS = ROOT / "public" / "traits"
 SRC = ROOT / "public" / "traits-source"
 SIZE = 1024
 WALL_TOP = 629
-HEAD_CX = 512
+# Eyes sit around y=360–430. Hats must stop above the pupils.
+HAT_BOTTOM = 360
 
 
-def load(rel: str) -> Image.Image:
-    path = SRC / rel if (SRC / rel).exists() else TRAITS / rel
+def load_src(rel: str) -> Image.Image:
+    path = SRC / rel
+    if not path.exists():
+        path = TRAITS / rel
     return Image.open(path).convert("RGBA")
+
+
+def load_trait(rel: str) -> Image.Image:
+    return Image.open(TRAITS / rel).convert("RGBA")
 
 
 def arr(im: Image.Image) -> np.ndarray:
@@ -37,24 +44,14 @@ def save(rel: str, im: Image.Image) -> None:
     path = TRAITS / rel
     path.parent.mkdir(parents=True, exist_ok=True)
     im.save(path)
-    print("wrote", rel, im.size)
-
-
-def content_bbox(a: np.ndarray, thresh: int = 18) -> tuple[int, int, int, int]:
-    ys, xs = np.where(a[:, :, 3] > thresh)
-    if xs.size == 0:
-        raise ValueError("empty layer")
-    return int(xs.min()), int(ys.min()), int(xs.max()) + 1, int(ys.max()) + 1
-
-
-def crop_content(im: Image.Image, pad: int = 2) -> Image.Image:
     a = arr(im)
-    x0, y0, x1, y1 = content_bbox(a)
-    x0 = max(0, x0 - pad)
-    y0 = max(0, y0 - pad)
-    x1 = min(a.shape[1], x1 + pad)
-    y1 = min(a.shape[0], y1 + pad)
-    return Image.fromarray(a[y0:y1, x0:x1])
+    ys, xs = np.where(a[:, :, 3] > 20)
+    bbox = (int(xs.min()), int(ys.min()), int(xs.max()), int(ys.max())) if xs.size else None
+    print(f"wrote {rel:32} opaque={(a[:,:,3]>20).mean()*100:5.1f}% bbox={bbox}")
+
+
+def blank() -> Image.Image:
+    return Image.new("RGBA", (SIZE, SIZE), (0, 0, 0, 0))
 
 
 def flood_from_edges(open_mask: np.ndarray) -> np.ndarray:
@@ -83,11 +80,6 @@ def flood_from_edges(open_mask: np.ndarray) -> np.ndarray:
 
 
 def seal_interior(im: Image.Image, hole_thresh: int = 96, knock_backdrop: bool = False) -> Image.Image:
-    """Make enclosed fur/panel pixels opaque. Keep a 1px AA ring on the silhouette.
-
-    Cream/fawn bases store the fill RGB with alpha 0. Those holes are enclosed by
-    the ink line, so a flood from the canvas edge leaves them to be sealed.
-    """
     a = arr(im).copy()
     alpha = a[:, :, 3]
     openp = alpha < hole_thresh
@@ -105,7 +97,6 @@ def seal_interior(im: Image.Image, hole_thresh: int = 96, knock_backdrop: bool =
 
 
 def seal_alpha(im: Image.Image) -> Image.Image:
-    """Keep edge AA, but make interior coverage solid so hats are not ghostly."""
     a = arr(im).astype(np.uint8)
     alpha = a[:, :, 3]
     solid = alpha > 90
@@ -113,8 +104,21 @@ def seal_alpha(im: Image.Image) -> Image.Image:
     return Image.fromarray(a)
 
 
-def blank() -> Image.Image:
-    return Image.new("RGBA", (SIZE, SIZE), (0, 0, 0, 0))
+def content_bbox(a: np.ndarray, thresh: int = 18) -> tuple[int, int, int, int]:
+    ys, xs = np.where(a[:, :, 3] > thresh)
+    if xs.size == 0:
+        raise ValueError("empty layer")
+    return int(xs.min()), int(ys.min()), int(xs.max()) + 1, int(ys.max()) + 1
+
+
+def crop_content(im: Image.Image, pad: int = 2) -> Image.Image:
+    a = arr(im)
+    x0, y0, x1, y1 = content_bbox(a)
+    x0 = max(0, x0 - pad)
+    y0 = max(0, y0 - pad)
+    x1 = min(a.shape[1], x1 + pad)
+    y1 = min(a.shape[0], y1 + pad)
+    return Image.fromarray(a[y0:y1, x0:x1])
 
 
 def paste_box(
@@ -123,11 +127,7 @@ def paste_box(
     anchor: str = "center",
     mode: str = "contain",
 ) -> Image.Image:
-    """Scale `src` to fit inside (x, y, w, h) and paste onto a 1024 canvas.
-
-    `contain` keeps aspect ratio. `fill` stretches to the box — used for the
-    gold chain so the tall source U becomes a wide chest necklace.
-    """
+    """Scale `src` to fit inside (x, y, w, h) and paste onto a 1024 canvas."""
     x, y, w, h = box
     cropped = crop_content(src)
     if mode == "fill":
@@ -148,9 +148,6 @@ def paste_box(
     elif anchor == "bottom-left":
         px = x
         py = y + h - nh
-    elif anchor == "bottom-right":
-        px = x + w - nw
-        py = y + h - nh
     else:
         px = x + (w - nw) // 2
         py = y + (h - nh) // 2
@@ -159,12 +156,12 @@ def paste_box(
 
 
 def extract_dressed_hat(dressed_rel: str, kind: str) -> Image.Image:
-    dressed = arr(load(dressed_rel))
+    dressed = arr(load_trait(dressed_rel))
     rgb = dressed[:, :, :3].astype(np.int16)
     alpha = dressed[:, :, 3] > 24
     r, g, b = rgb[:, :, 0], rgb[:, :, 1], rgb[:, :, 2]
     y = np.arange(SIZE)[:, None]
-    above_wall = y < WALL_TOP - 8
+    above_eyes = y < HAT_BOTTOM
 
     if kind == "beanie":
         color = (g > r + 18) & (g > b + 12) & (g > 40)
@@ -179,15 +176,14 @@ def extract_dressed_hat(dressed_rel: str, kind: str) -> Image.Image:
     else:
         raise ValueError(kind)
 
-    mask = alpha & above_wall & color
-    # Grow slightly so the black outline comes along.
+    mask = alpha & above_eyes & color
     mask_img = Image.fromarray((mask * 255).astype(np.uint8)).filter(ImageFilter.MaxFilter(5))
     mask = np.array(mask_img) > 0
+    mask[HAT_BOTTOM:] = False
     layer = np.zeros_like(dressed)
     layer[mask] = dressed[mask]
     im = seal_interior(Image.fromarray(layer), knock_backdrop=True)
-    # If the extract is too thin, fall back to a fitted crop of the hat sheet.
-    if (layer[:, :, 3] > 20).mean() < 0.02:
+    if (layer[:, :, 3] > 20).mean() < 0.005:
         raise RuntimeError(f"{kind} extract too thin")
     return im
 
@@ -206,23 +202,18 @@ def seal_bases() -> None:
 
 
 def fit_hats() -> None:
-    # Dressed sheets already have the beanie / newsie / hard hat sitting on the pug.
     for dest, src, kind in [
         ("hat/hat-beanie.png", "dressed/fawn-beanie.png", "beanie"),
         ("hat/hat-hardhat.png", "dressed/fawn-hardhat.png", "hardhat"),
         ("hat/hat-newsie.png", "dressed/fawn-newsie.png", "newsie"),
+        ("hat/hat-crown.png", "dressed/fawn-crown.png", "crown"),
+        ("hat/hat-snapback.png", "dressed/fawn-snapback.png", "snapback"),
     ]:
         save(dest, extract_dressed_hat(src, kind))
 
-    # Crown and snapback sheets are hat-only drawings; sit them on the skull,
-    # between the ears — not stretched over the eyes.
-    save("hat/hat-crown.png", paste_box(load("hat/hat-crown.png"), (330, 95, 360, 220), "bottom"))
-    snap = paste_box(load("hat/hat-snapback.png"), (250, 70, 520, 300), "bottom")
-    save("hat/hat-snapback.png", seal_interior(snap, knock_backdrop=True))
-
 
 def knock_out_hoodie_fill(im: Image.Image) -> Image.Image:
-    """The hoodie sheet fills the neck hole with cream lining — drop that so the pug shows through."""
+    """Drop the cream neck lining so the pug's chin shows through the hood."""
     a = arr(im)
     rgb = a[:, :, :3].astype(np.int16)
     alpha = a[:, :, 3]
@@ -235,47 +226,69 @@ def knock_out_hoodie_fill(im: Image.Image) -> Image.Image:
     return Image.fromarray(a)
 
 
+def recolor_hoodie_cream(im: Image.Image) -> Image.Image:
+    """Gallery mint-07 paints a cream hoodie, not the charcoal source sheet."""
+    a = arr(im).astype(np.float32)
+    rgb = a[:, :, :3]
+    alpha = a[:, :, 3]
+    lum = rgb.mean(axis=2)
+    chroma = rgb.max(axis=2) - rgb.min(axis=2)
+    fabric = (alpha > 20) & (lum < 150) & (chroma < 70)
+    cream = np.array([236, 214, 186], dtype=np.float32)
+    shadow = np.array([196, 168, 136], dtype=np.float32)
+    t = np.clip(lum / 140.0, 0.0, 1.0)
+    target = shadow[None, None, :] * (1.0 - t[:, :, None]) + cream[None, None, :] * t[:, :, None]
+    rgb[fabric] = target[fabric]
+    a[:, :, :3] = rgb
+    return Image.fromarray(np.clip(a, 0, 255).astype(np.uint8))
+
+
 def fit_body() -> None:
-    # Neckwear sits under the chin (tongue ends ~y=585), medallions just above the stoop.
-    # Fill a short wide box so the tall source drawings become a chest band, not a face mask.
+    # Boxes measured from the gallery paintings (mint-01 bandana, mint-06 collar,
+    # mint-07 hoodie, mint-02 chain). Fill-mode squashes the tall source drawings
+    # into a chest band the way the gallery paints them.
     save(
         "body/body-bandana.png",
-        paste_box(load("body/body-bandana.png"), (200, 568, 620, 62), "bottom", mode="fill"),
+        paste_box(load_src("body/body-bandana.png"), (339, 552, 460, 88), "bottom", mode="fill"),
     )
     save(
         "body/body-collar.png",
-        paste_box(load("body/body-collar.png"), (230, 568, 560, 62), "bottom", mode="fill"),
+        paste_box(load_src("body/body-collar.png"), (329, 530, 346, 110), "bottom", mode="fill"),
     )
-    hoodie = knock_out_hoodie_fill(load("body/body-hoodie.png"))
+    hoodie = knock_out_hoodie_fill(load_src("body/body-hoodie.png"))
+    hoodie = recolor_hoodie_cream(hoodie)
     save(
         "body/body-hoodie.png",
-        paste_box(hoodie, (200, 572, 620, 200), "top"),
+        paste_box(hoodie, (220, 540, 580, 220), "top"),
     )
-    # Tall source U → wide shallow necklace on the chest, medallion on the wall cap.
     save(
         "body/body-gold-chain.png",
-        paste_box(load("body/body-gold-chain.png"), (250, 580, 520, 90), "bottom", mode="fill"),
+        paste_box(load_src("body/body-gold-chain.png"), (328, 575, 370, 120), "bottom", mode="fill"),
     )
 
 
 def fit_accessories() -> None:
-    # Face wear covers the eyes the way mint-05 / mint-06 do.
     save(
         "accessory/acc-sunglasses.png",
-        paste_box(load("accessory/acc-sunglasses.png"), (290, 320, 440, 170), "center"),
+        paste_box(load_src("accessory/acc-sunglasses.png"), (300, 330, 420, 150), "center"),
     )
-    # Gallery mint-06: monocle on the viewer's left eye, chain hanging down that side.
-    monocle = ImageOps.mirror(load("accessory/acc-monocle.png"))
+    monocle = ImageOps.mirror(load_src("accessory/acc-monocle.png"))
     save(
         "accessory/acc-monocle.png",
-        paste_box(monocle, (250, 290, 300, 300), "center"),
+        paste_box(monocle, (250, 300, 250, 310), "center"),
     )
-    # Stoop toys sit on the wall: coffee/bone to the right, blocks to the left.
-    ledge_right = (620, 470, 210, 170)
-    ledge_left = (170, 470, 220, 170)
-    save("accessory/acc-coffee.png", paste_box(load("accessory/acc-coffee.png"), ledge_right, "bottom"))
-    save("accessory/acc-bone.png", paste_box(load("accessory/acc-bone.png"), ledge_right, "bottom"))
-    save("accessory/acc-blocks.png", paste_box(load("accessory/acc-blocks.png"), ledge_left, "bottom"))
+    save(
+        "accessory/acc-coffee.png",
+        paste_box(load_src("accessory/acc-coffee.png"), (640, 470, 170, 170), "bottom"),
+    )
+    save(
+        "accessory/acc-bone.png",
+        paste_box(load_src("accessory/acc-bone.png"), (640, 500, 220, 140), "bottom"),
+    )
+    save(
+        "accessory/acc-blocks.png",
+        paste_box(load_src("accessory/acc-blocks.png"), (150, 450, 230, 180), "bottom"),
+    )
 
 
 def main() -> int:

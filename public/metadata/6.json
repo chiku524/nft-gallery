@@ -13,6 +13,10 @@
       "value": "Apricot Peek"
     },
     {
+      "trait_type": "Block",
+      "value": "Default concrete"
+    },
+    {
       "trait_type": "Hat",
       "value": "Bare head"
     },

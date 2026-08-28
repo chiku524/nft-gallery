@@ -13,9 +13,10 @@ export const sampleMints: SampleMint[] = [
     attributes: [
       { trait_type: "Background", value: "Brownstone" },
       { trait_type: "Base", value: "Fawn Peek" },
+      { trait_type: "Block", value: "Default concrete" },
       { trait_type: "Hat", value: "Forest Beanie" },
       { trait_type: "Body", value: "Forest Bandana" },
-      { trait_type: "Accessory", value: "None" },
+      { trait_type: "Accessory", value: "Empty paws" },
     ],
   },
   {
@@ -25,9 +26,10 @@ export const sampleMints: SampleMint[] = [
     attributes: [
       { trait_type: "Background", value: "Neon Alley" },
       { trait_type: "Base", value: "Black Peek" },
+      { trait_type: "Block", value: "Default concrete" },
       { trait_type: "Hat", value: "Stoop Crown" },
       { trait_type: "Body", value: "Gold Chain" },
-      { trait_type: "Accessory", value: "None" },
+      { trait_type: "Accessory", value: "Empty paws" },
     ],
   },
   {
@@ -37,8 +39,9 @@ export const sampleMints: SampleMint[] = [
     attributes: [
       { trait_type: "Background", value: "Golden Rooftop" },
       { trait_type: "Base", value: "Apricot Peek" },
+      { trait_type: "Block", value: "Default concrete" },
       { trait_type: "Hat", value: "Newsie Cap" },
-      { trait_type: "Body", value: "None" },
+      { trait_type: "Body", value: "No clothes" },
       { trait_type: "Accessory", value: "Stoop Coffee" },
     ],
   },
@@ -49,8 +52,9 @@ export const sampleMints: SampleMint[] = [
     attributes: [
       { trait_type: "Background", value: "Sunny Stoop" },
       { trait_type: "Base", value: "Fawn Peek" },
+      { trait_type: "Block", value: "Default concrete" },
       { trait_type: "Hat", value: "Block Hard Hat" },
-      { trait_type: "Body", value: "None" },
+      { trait_type: "Body", value: "No clothes" },
       { trait_type: "Accessory", value: "Toy Blocks" },
     ],
   },
@@ -61,8 +65,9 @@ export const sampleMints: SampleMint[] = [
     attributes: [
       { trait_type: "Background", value: "Subway Platform" },
       { trait_type: "Base", value: "Black Peek" },
+      { trait_type: "Block", value: "Default concrete" },
       { trait_type: "Hat", value: "Stoop Snapback" },
-      { trait_type: "Body", value: "None" },
+      { trait_type: "Body", value: "No clothes" },
       { trait_type: "Accessory", value: "Round Shades" },
     ],
   },
@@ -73,6 +78,7 @@ export const sampleMints: SampleMint[] = [
     attributes: [
       { trait_type: "Background", value: "Grid Green" },
       { trait_type: "Base", value: "Apricot Peek" },
+      { trait_type: "Block", value: "Default concrete" },
       { trait_type: "Hat", value: "Bare head" },
       { trait_type: "Body", value: "Red Collar" },
       { trait_type: "Accessory", value: "Gold Monocle" },
@@ -85,6 +91,7 @@ export const sampleMints: SampleMint[] = [
     attributes: [
       { trait_type: "Background", value: "Cream Paper" },
       { trait_type: "Base", value: "Fawn Peek" },
+      { trait_type: "Block", value: "Default concrete" },
       { trait_type: "Hat", value: "Bare head" },
       { trait_type: "Body", value: "Cream Hoodie" },
       { trait_type: "Accessory", value: "Chewed Bone" },
@@ -97,6 +104,7 @@ export const sampleMints: SampleMint[] = [
     attributes: [
       { trait_type: "Background", value: "Golden Rooftop" },
       { trait_type: "Base", value: "Black Peek" },
+      { trait_type: "Block", value: "Default concrete" },
       { trait_type: "Hat", value: "Bare head" },
       { trait_type: "Body", value: "Forest Bandana" },
       { trait_type: "Accessory", value: "Round Shades" },

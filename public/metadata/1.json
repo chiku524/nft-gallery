@@ -13,6 +13,10 @@
       "value": "Fawn Peek"
     },
     {
+      "trait_type": "Block",
+      "value": "Default concrete"
+    },
+    {
       "trait_type": "Hat",
       "value": "Forest Beanie"
     },
@@ -22,7 +26,7 @@
     },
     {
       "trait_type": "Accessory",
-      "value": "None"
+      "value": "Empty paws"
     }
   ]
 }

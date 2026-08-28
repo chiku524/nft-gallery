@@ -12,8 +12,9 @@ export default function StudioPage() {
       <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground">Generator</p>
       <h1 className="mt-2 font-heading text-4xl">Build a pug on the block.</h1>
       <p className="mt-3 max-w-2xl text-muted-foreground">
-        This is the same layer stack the collection mints from — including the ledge under
-        the paws. Shuffle for a random stoop pug, or click a trait tile and download the PNG.
+        This is the same layer stack the collection mints from — background, ledge, pug,
+        clothes, hat, then a stoop prop. The eight gallery looks stamp the finished
+        painting when those exact traits are selected.
       </p>
       <div className="mt-8">
         <StudioMixer />

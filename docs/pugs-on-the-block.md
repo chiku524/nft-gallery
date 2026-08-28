@@ -35,7 +35,7 @@ Draw order, back to front:
 5. Hat
 6. Accessory (shades, monocle, or a treat on the ledge)
 
-Hats, clothes, and stoop props are painted onto the same 1024×1024 canvas as the pug, then stacked 1:1 — the same dimensions and look as the eight gallery paintings.
+Hats, clothes, and stoop props are painted onto the same 1024×1024 canvas as the pug, then stacked 1:1. Tokens 1–8 of the generated drop are the eight gallery paintings themselves, so those looks match the site gallery exactly.
 
 ## Robinhood Chain + OpenSea
 

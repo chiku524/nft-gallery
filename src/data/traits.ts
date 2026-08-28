@@ -14,7 +14,7 @@ export type TraitCategory = {
 };
 
 /** Bump when trait PNGs change so the studio canvas does not keep a stale bitmap. */
-export const TRAIT_ART_VERSION = "opaque-fur-v2";
+export const TRAIT_ART_VERSION = "gallery-stack-v3";
 
 export function traitSrc(path?: string) {
   if (!path) return "";
@@ -267,6 +267,99 @@ export const defaultSelection = {
 } as const;
 
 export type Selection = Record<TraitCategory["id"], string>;
+
+/** The eight gallery paintings. Studio and the generator use these files as-is. */
+export const galleryPins: { selection: Selection; image: string }[] = [
+  {
+    selection: { ...defaultSelection },
+    image: "/gallery/mint-01-stoop-beanie.png",
+  },
+  {
+    selection: {
+      background: "neon",
+      base: "black",
+      block: "none",
+      hat: "crown",
+      body: "gold-chain",
+      accessory: "none",
+    },
+    image: "/gallery/mint-02-neon-crown.png",
+  },
+  {
+    selection: {
+      background: "rooftop",
+      base: "cream",
+      block: "none",
+      hat: "newsie",
+      body: "none",
+      accessory: "coffee",
+    },
+    image: "/gallery/mint-03-rooftop-newsie.png",
+  },
+  {
+    selection: {
+      background: "stoop-day",
+      base: "fawn",
+      block: "none",
+      hat: "hardhat",
+      body: "none",
+      accessory: "blocks",
+    },
+    image: "/gallery/mint-04-day-hardhat.png",
+  },
+  {
+    selection: {
+      background: "subway",
+      base: "black",
+      block: "none",
+      hat: "snapback",
+      body: "none",
+      accessory: "sunglasses",
+    },
+    image: "/gallery/mint-05-subway-snapback.png",
+  },
+  {
+    selection: {
+      background: "chain-green",
+      base: "cream",
+      block: "none",
+      hat: "none",
+      body: "collar",
+      accessory: "monocle",
+    },
+    image: "/gallery/mint-06-green-monocle.png",
+  },
+  {
+    selection: {
+      background: "cream-brick",
+      base: "fawn",
+      block: "none",
+      hat: "none",
+      body: "hoodie",
+      accessory: "bone",
+    },
+    image: "/gallery/mint-07-cream-hoodie.png",
+  },
+  {
+    selection: {
+      background: "rooftop",
+      base: "black",
+      block: "none",
+      hat: "none",
+      body: "bandana",
+      accessory: "sunglasses",
+    },
+    image: "/gallery/mint-08-sunset-bandana.png",
+  },
+];
+
+export function galleryPinFor(selection: Selection): string | undefined {
+  return galleryPins.find((pin) =>
+    (Object.keys(pin.selection) as TraitCategory["id"][]).every(
+      (key) => pin.selection[key] === selection[key],
+    ),
+  )?.image;
+}
 
 export function randomSelection(): Selection {
   const pick = (category: TraitCategory) => {

@@ -15,8 +15,8 @@ export default function GalleryPage() {
       <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground">Sample stoop</p>
       <h1 className="mt-2 font-heading text-4xl">Finished pugs</h1>
       <p className="mt-3 max-w-2xl text-muted-foreground">
-        Eight fully dressed previews — this is the look of the drop. The 10,000
-        shuffled PFPs live in{" "}
+        Eight fully dressed previews — this is the look of the drop. Tokens 1–8 of the
+        10,000 are these same paintings. The rest of the shuffle lives in{" "}
         <code className="rounded bg-secondary px-1.5 py-0.5 text-sm">generated/images</code>.
       </p>
 

@@ -15,7 +15,7 @@ export default function TraitsPage() {
       <h1 className="mt-2 font-heading text-4xl">Trait sheets</h1>
       <p className="mt-3 max-w-2xl text-muted-foreground">
         Transparent PNG layers, 1024×1024, stacked background → block → base → body → hat →
-        accessory. Rarity weights are the planned mint table, not on-chain yet.
+        accessory. The eight gallery paintings are the finished look for those exact combos.
       </p>
 
       <div className="mt-10 space-y-14">

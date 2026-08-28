@@ -13,12 +13,16 @@
       "value": "Black Peek"
     },
     {
+      "trait_type": "Block",
+      "value": "Default concrete"
+    },
+    {
       "trait_type": "Hat",
       "value": "Stoop Snapback"
     },
     {
       "trait_type": "Body",
-      "value": "None"
+      "value": "No clothes"
     },
     {
       "trait_type": "Accessory",

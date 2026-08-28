@@ -13,6 +13,10 @@
       "value": "Black Peek"
     },
     {
+      "trait_type": "Block",
+      "value": "Default concrete"
+    },
+    {
       "trait_type": "Hat",
       "value": "Stoop Crown"
     },
@@ -22,7 +26,7 @@
     },
     {
       "trait_type": "Accessory",
-      "value": "None"
+      "value": "Empty paws"
     }
   ]
 }

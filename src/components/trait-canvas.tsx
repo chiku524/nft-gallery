@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { findTrait, traitSrc, type Selection, type Trait } from "@/data/traits";
+import { findTrait, galleryPinFor, traitSrc, type Selection, type Trait } from "@/data/traits";
 
 type Layer = {
   src: string;
@@ -18,6 +18,11 @@ function loadImage(src: string) {
 }
 
 export function selectionToLayers(selection: Selection): Layer[] {
+  const pinned = galleryPinFor(selection);
+  if (pinned) {
+    return [{ src: traitSrc(pinned) }];
+  }
+
   const layers: Layer[] = [];
   const background = findTrait("background", selection.background);
   const block = findTrait("block", selection.block);
@@ -31,7 +36,7 @@ export function selectionToLayers(selection: Selection): Layer[] {
     layers.push({ src: traitSrc(trait.image) });
   };
 
-  // Every trait is 1024×1024, stamped 1:1 like the gallery paintings.
+  // Gallery stack, back to front: scene, ledge, pug, clothes, hat, stoop prop.
   push(background);
   push(block);
   push(base);

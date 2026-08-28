@@ -8,7 +8,7 @@ This folder is that pack.
 
 | Path | What it is |
 | --- | --- |
-| `images/1.jpg` … `images/10000.jpg` | Shuffled, unique PFPs (1024×1024 JPEG) |
+| `images/1.jpg` … `images/10000.jpg` | Unique PFPs (1024×1024 JPEG). Tokens 1–8 are the eight gallery paintings. |
 | `opensea-metadata.csv` | OpenSea Studio Drop metadata (tokenID, name, description, image, traits) |
 | `json/1.json` … | ERC-721 metadata if you self-host a base URI |
 | `stats.json` | Trait counts after the shuffle |
