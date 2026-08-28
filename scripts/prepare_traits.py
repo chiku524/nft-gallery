@@ -1,11 +1,9 @@
 #!/usr/bin/env python3
-"""Rebuild trait PNGs with clean alpha and pug-relative placement.
+"""DO NOT RUN for the live drop.
 
-Bases: flood-fill white from the edges only so cream/fawn fur stays opaque,
-then strip the light anti-aliased halo that sits outside the black outline.
-Hats, body, accessories: knock out all white, defringe, crop to content, and
-paste onto a 1024 canvas at pug landmarks so the studio and the 10k generator
-stack layers 1:1.
+This recrops hats and splits body/hat layers for a later worn-stack experiment.
+The collection look is the original gallery paintings (commit 6b3ca8f overlays).
+Regenerate with `python3 scripts/generate_collection.py` only.
 """
 
 from __future__ import annotations
@@ -703,5 +701,13 @@ def test_sheet() -> None:
 
 
 if __name__ == "__main__":
+    import os
+
+    if os.environ.get("FORCE_PREPARE") != "1":
+        raise SystemExit(
+            "Refusing to run: this recrops trait art away from the gallery mint look. "
+            "Use python3 scripts/generate_collection.py. Set FORCE_PREPARE=1 only if you "
+            "intentionally want the worn-stack experiment."
+        )
     prepare()
     test_sheet()

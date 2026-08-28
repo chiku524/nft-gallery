@@ -23,33 +23,29 @@ function loadImage(src: string) {
 export function selectionToLayers(selection: Selection): Layer[] {
   const layers: Layer[] = [];
   const background = findTrait("background", selection.background);
-  const base = findTrait("base", selection.base);
   const block = findTrait("block", selection.block);
+  const base = findTrait("base", selection.base);
   const body = findTrait("body", selection.body);
   const hat = findTrait("hat", selection.hat);
   const accessory = findTrait("accessory", selection.accessory);
 
-  const push = (src?: string | null, overlay?: Trait["overlay"]) => {
-    if (!src) return;
+  const push = (trait?: Trait | null) => {
+    if (!trait?.image) return;
     layers.push({
-      src: traitSrc(src),
-      x: overlay?.x ?? 0,
-      y: overlay?.y ?? 0,
-      scale: overlay?.scale ?? 1,
+      src: traitSrc(trait.image),
+      x: trait.overlay?.x ?? 0,
+      y: trait.overlay?.y ?? 0,
+      scale: trait.overlay?.scale ?? 1,
     });
   };
 
-  // Clothes wrap the neck: full loop behind the pug, front strap over the wall,
-  // paws last. Hats sit behind the ears, with the brim redrawn on the crown.
-  push(background?.image, background?.overlay);
-  push(body?.image, body?.overlay);
-  push(hat?.image, hat?.overlay);
-  push(base?.image, base?.overlay);
-  push(block?.image, block?.overlay);
-  push(body?.front, body?.overlay);
-  push(hat?.front, hat?.overlay);
-  push(accessory?.image, accessory?.overlay);
-  push(base?.paws, base?.overlay);
+  // Original gallery stack: scene, ledge, pug, clothes, hat, toy.
+  push(background);
+  push(block);
+  push(base);
+  push(body);
+  push(hat);
+  push(accessory);
   return layers;
 }
 

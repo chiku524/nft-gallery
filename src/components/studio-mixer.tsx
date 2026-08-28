@@ -42,8 +42,7 @@ export function StudioMixer() {
           <div>
             <p className="font-heading text-2xl">Trait mixer</p>
             <p className="text-sm text-muted-foreground">
-              Stack a background, pug, ledge, hat, clothes, and a ledge toy. Clothes wrap
-              the neck behind the paws; hats tuck behind the ears.
+              Stack a background, pug, ledge, hat, clothes, and a ledge toy.
             </p>
           </div>
           <Button type="button" variant="outline" onClick={() => setSelection(randomSelection())}>

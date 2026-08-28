@@ -4,7 +4,7 @@ import { sampleMints } from "@/data/gallery";
 
 export const metadata: Metadata = {
   title: "Gallery",
-  description: "Hand-dressed samples and a slice of the 10,000 shuffled Pugs On The Block drop.",
+  description: "Eight fully dressed previews of how Pugs On The Block NFTs should look.",
 };
 
 const shuffledPreviews = [1, 2, 3, 4, 5, 6, 7, 8, 112, 1362, 2612, 3862, 5112, 6362, 7612, 8862];
@@ -15,7 +15,8 @@ export default function GalleryPage() {
       <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground">Sample stoop</p>
       <h1 className="mt-2 font-heading text-4xl">Finished pugs</h1>
       <p className="mt-3 max-w-2xl text-muted-foreground">
-        These are tokens from the shuffled 10,000 — the same files as{" "}
+        Eight fully dressed previews — this is the look of the drop. The 10,000
+        shuffled PFPs live in{" "}
         <code className="rounded bg-secondary px-1.5 py-0.5 text-sm">generated/images</code>.
       </p>
 
