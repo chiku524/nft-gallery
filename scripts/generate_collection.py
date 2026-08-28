@@ -63,7 +63,7 @@ CATEGORIES = [
     {
         "id": "block",
         "label": "Block",
-        "none_name": "Default concrete",
+        "none_name": None,
         "traits": [
             {"id": "concrete", "name": "Cinder Block", "file": "block/block-concrete.png", "rarity": 40},
             {"id": "brownstone-ledge", "name": "Brownstone Ledge", "file": "block/block-brownstone.png", "rarity": 28},

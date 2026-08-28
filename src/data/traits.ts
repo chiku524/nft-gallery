@@ -23,7 +23,7 @@ export type TraitCategory = {
 const none: Overlay = { x: 0, y: 0, scale: 1 };
 
 /** Bump when trait PNGs change so the studio canvas does not keep a stale bitmap. */
-export const TRAIT_ART_VERSION = "6";
+export const TRAIT_ART_VERSION = "7";
 
 export function traitSrc(path?: string) {
   if (!path) return "";
@@ -118,7 +118,6 @@ export const traitCategories: TraitCategory[] = [
     id: "block",
     label: "Block",
     blurb: "The ledge they lean on — concrete, brownstone, crate, or gold. Swaps the wall under the paws.",
-    noneLabel: "Default concrete",
     traits: [
       {
         id: "concrete",
@@ -290,7 +289,7 @@ export function findTrait(categoryId: TraitCategory["id"], traitId: string) {
 export const defaultSelection = {
   background: "brownstone",
   base: "fawn",
-  block: "none",
+  block: "concrete",
   hat: "beanie",
   body: "bandana",
   accessory: "none",

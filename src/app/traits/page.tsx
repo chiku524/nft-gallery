@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
-import { traitCategories, traitSrc } from "@/data/traits";
+import { traitCategories } from "@/data/traits";
 
 export const metadata: Metadata = {
   title: "Trait sheets",
@@ -37,11 +37,16 @@ export default function TraitsPage() {
                   <div className="relative aspect-square bg-[repeating-conic-gradient(#efe4d4_0%_25%,#f7f0e6_0%_50%)] bg-[length:18px_18px]">
                     {trait.image ? (
                       <Image
-                        src={traitSrc(trait.image)}
+                        src={trait.image}
                         alt={trait.name}
                         fill
                         sizes="(max-width: 768px) 50vw, 25vw"
-                        className="object-contain"
+                        unoptimized
+                        className={
+                          category.id === "block"
+                            ? "object-cover object-bottom"
+                            : "object-contain"
+                        }
                       />
                     ) : null}
                   </div>

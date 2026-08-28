@@ -260,6 +260,25 @@ def align_top(im: Image.Image, top: int) -> Image.Image:
     return canvas
 
 
+def punch_paws(block: Image.Image, pug: Image.Image) -> Image.Image:
+    """Keep tan/cream paws visible when the ledge overlay sits on the base."""
+    b = np.array(block.convert("RGBA"))
+    p = np.array(pug.convert("RGBA"))
+    rgb = p[..., :3].astype(np.int16)
+    chroma = rgb.max(axis=2) - rgb.min(axis=2)
+    lum = rgb.mean(axis=2)
+    rows = np.arange(p.shape[0])[:, None]
+    fur = (p[..., 3] > 80) & (chroma > 25) & (lum > 90) & (rows >= 618) & (rows <= 648)
+    # Same peeking pose on every base: punch the known paw boxes too.
+    boxes = np.zeros(p.shape[:2], dtype=bool)
+    boxes[618:645, 260:400] = True
+    boxes[618:645, 640:780] = True
+    paws = fur | (boxes & (p[..., 3] > 80) & (chroma > 18)) 
+    paws = paws | _neighbors8(paws)
+    b[paws, 3] = 0
+    return Image.fromarray(clear_transparent(b), "RGBA")
+
+
 def blank() -> Image.Image:
     return Image.new("RGBA", (SIZE, SIZE), (0, 0, 0, 0))
 
@@ -290,20 +309,22 @@ def sticker_from(src_name: str) -> Image.Image:
 
 
 # Hats sit on the crown: brim on the forehead, not down over the eyes.
+# Values are (source, width, brim-bottom-y). Eyes start ~330; keep a ~40px gap.
 HATS = {
-    "hat/hat-beanie.png": ("hat-only-beanie.png", 250, 312),
-    "hat/hat-crown.png": ("hat-only-crown.png", 216, 298),
-    "hat/hat-snapback.png": ("hat-only-snapback.png", 292, 318),
-    "hat/hat-newsie.png": ("hat-only-newsie.png", 278, 312),
-    "hat/hat-hardhat.png": ("hat-only-hardhat.png", 276, 314),
+    "hat/hat-beanie.png": ("hat-only-beanie.png", 236, 286),
+    "hat/hat-crown.png": ("hat-only-crown.png", 216, 284),
+    "hat/hat-snapback.png": ("hat-only-snapback.png", 276, 288),
+    "hat/hat-newsie.png": ("hat-only-newsie.png", 264, 286),
+    "hat/hat-hardhat.png": ("hat-only-hardhat.png", 264, 288),
 }
 
-# Neck items wrap the chin — higher than the wall so they read as worn, not parked.
+# Neck items wrap the chin. Loops are sized so the face shows through the
+# opening; the buckle / knot / pendant sits on the ledge, not over the mouth.
 BODIES = {
-    "body/body-bandana.png": ("body-bandana.png", 252, 582),
-    "body/body-collar.png": ("body-collar.png", 240, 588),
-    "body/body-hoodie.png": ("body-hoodie.png", 328, 572),
-    "body/body-gold-chain.png": ("body-gold-chain.png", 230, 592),
+    "body/body-bandana.png": ("body-bandana.png", 308, 642),
+    "body/body-collar.png": ("body-collar.png", 276, 665),
+    "body/body-hoodie.png": ("body-hoodie.png", 348, 658),
+    "body/body-gold-chain.png": ("body-gold-chain.png", 290, 648),
 }
 
 ACCESSORIES = {
@@ -345,8 +366,13 @@ def prepare() -> None:
         save(prepared, dest)
 
     print("Blocks (edge flood-fill + defringe)…")
+    pug_ref = Image.open(DST / "base/base-fawn-peek.png")
     for dest, src in BLOCKS.items():
-        save(align_top(seal_outline(defringe(flood_white(Image.open(SRC / src)), **DEFRINGE_BASE)), WALL_TOP), dest)
+        prepared = align_top(
+            seal_outline(defringe(flood_white(Image.open(SRC / src)), **DEFRINGE_BASE)),
+            WALL_TOP,
+        )
+        save(punch_paws(prepared, pug_ref), dest)
 
     print("Hats (crop + place on crown)…")
     for dest, (src, width, bottom) in HATS.items():

@@ -1,5 +1,5 @@
 {
   "name": "Pugs On The Block",
   "size": 1024,
-  "order": ["background", "block", "base", "body", "hat", "accessory"]
+  "order": ["background", "base", "block", "body", "hat", "accessory"]
 }
