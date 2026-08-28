@@ -5,142 +5,146 @@
   "traits": {
     "Background": {
       "Brownstone": {
-        "count": 1639,
-        "percent": 16.39
+        "count": 1766,
+        "percent": 17.66
       },
       "Sunny Stoop": {
-        "count": 1572,
-        "percent": 15.72
+        "count": 1621,
+        "percent": 16.21
       },
       "Cream Paper": {
-        "count": 1477,
-        "percent": 14.77
+        "count": 1512,
+        "percent": 15.12
       },
       "Golden Rooftop": {
-        "count": 1358,
-        "percent": 13.58
+        "count": 1342,
+        "percent": 13.42
       },
       "Subway Platform": {
-        "count": 1166,
-        "percent": 11.66
+        "count": 1163,
+        "percent": 11.63
       },
       "Dusk Court": {
-        "count": 1048,
-        "percent": 10.48
+        "count": 988,
+        "percent": 9.88
       },
       "Neon Alley": {
-        "count": 968,
-        "percent": 9.68
+        "count": 893,
+        "percent": 8.93
       },
       "Grid Green": {
-        "count": 772,
-        "percent": 7.72
+        "count": 715,
+        "percent": 7.15
       }
     },
     "Base": {
       "Fawn Peek": {
-        "count": 4076,
-        "percent": 40.76
+        "count": 4236,
+        "percent": 42.36
       },
       "Apricot Peek": {
-        "count": 3296,
-        "percent": 32.96
+        "count": 3282,
+        "percent": 32.82
       },
       "Black Peek": {
-        "count": 2628,
-        "percent": 26.28
+        "count": 2482,
+        "percent": 24.82
       }
     },
     "Block": {
       "Cinder Block": {
-        "count": 3130,
-        "percent": 31.3
+        "count": 2588,
+        "percent": 25.88
       },
       "Brownstone Ledge": {
-        "count": 2762,
-        "percent": 27.62
+        "count": 2218,
+        "percent": 22.18
+      },
+      "Default concrete": {
+        "count": 2139,
+        "percent": 21.39
       },
       "Crate Stack": {
-        "count": 2319,
-        "percent": 23.19
+        "count": 1760,
+        "percent": 17.6
       },
       "Gold Bars": {
-        "count": 1789,
-        "percent": 17.89
+        "count": 1295,
+        "percent": 12.95
       }
     },
     "Hat": {
       "Bare head": {
-        "count": 2115,
-        "percent": 21.15
+        "count": 2236,
+        "percent": 22.36
       },
       "Forest Beanie": {
-        "count": 1790,
-        "percent": 17.9
+        "count": 1794,
+        "percent": 17.94
       },
       "Newsie Cap": {
-        "count": 1679,
-        "percent": 16.79
+        "count": 1690,
+        "percent": 16.9
       },
       "Stoop Snapback": {
-        "count": 1588,
-        "percent": 15.88
-      },
-      "Stoop Crown": {
-        "count": 1416,
-        "percent": 14.16
+        "count": 1562,
+        "percent": 15.62
       },
       "Block Hard Hat": {
-        "count": 1412,
-        "percent": 14.12
+        "count": 1374,
+        "percent": 13.74
+      },
+      "Stoop Crown": {
+        "count": 1344,
+        "percent": 13.44
       }
     },
     "Body": {
       "No clothes": {
-        "count": 2410,
-        "percent": 24.1
+        "count": 2515,
+        "percent": 25.15
       },
       "Forest Bandana": {
-        "count": 2182,
-        "percent": 21.82
+        "count": 2207,
+        "percent": 22.07
       },
       "Red Collar": {
-        "count": 1973,
-        "percent": 19.73
+        "count": 1955,
+        "percent": 19.55
       },
       "Cream Hoodie": {
-        "count": 1853,
-        "percent": 18.53
+        "count": 1821,
+        "percent": 18.21
       },
       "Gold Chain": {
-        "count": 1582,
-        "percent": 15.82
+        "count": 1502,
+        "percent": 15.02
       }
     },
     "Accessory": {
       "Empty paws": {
-        "count": 2112,
-        "percent": 21.12
+        "count": 2260,
+        "percent": 22.6
       },
       "Chewed Bone": {
-        "count": 1789,
-        "percent": 17.89
+        "count": 1802,
+        "percent": 18.02
       },
       "Stoop Coffee": {
-        "count": 1695,
-        "percent": 16.95
+        "count": 1671,
+        "percent": 16.71
       },
       "Round Shades": {
-        "count": 1603,
-        "percent": 16.03
+        "count": 1577,
+        "percent": 15.77
       },
       "Toy Blocks": {
-        "count": 1482,
-        "percent": 14.82
+        "count": 1431,
+        "percent": 14.31
       },
       "Gold Monocle": {
-        "count": 1319,
-        "percent": 13.19
+        "count": 1259,
+        "percent": 12.59
       }
     }
   }
