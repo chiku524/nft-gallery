@@ -5,9 +5,6 @@ import { findTrait, traitSrc, type Selection, type Trait } from "@/data/traits";
 
 type Layer = {
   src: string;
-  x: number;
-  y: number;
-  scale: number;
 };
 
 function loadImage(src: string) {
@@ -31,15 +28,10 @@ export function selectionToLayers(selection: Selection): Layer[] {
 
   const push = (trait?: Trait | null) => {
     if (!trait?.image) return;
-    layers.push({
-      src: traitSrc(trait.image),
-      x: trait.overlay?.x ?? 0,
-      y: trait.overlay?.y ?? 0,
-      scale: trait.overlay?.scale ?? 1,
-    });
+    layers.push({ src: traitSrc(trait.image) });
   };
 
-  // Original gallery stack: scene, ledge, pug, clothes, hat, toy.
+  // Every trait is 1024×1024, stamped 1:1 like the gallery paintings.
   push(background);
   push(block);
   push(base);
@@ -76,11 +68,8 @@ export function TraitCanvas({
         const images = await Promise.all(layers.map((layer) => loadImage(layer.src)));
         if (cancelled || !ctx || !canvas) return;
         ctx.clearRect(0, 0, size, size);
-        images.forEach((image, index) => {
-          const layer = layers[index];
-          const width = size * layer.scale;
-          const height = size * layer.scale;
-          ctx.drawImage(image, size * layer.x, size * layer.y, width, height);
+        images.forEach((image) => {
+          ctx.drawImage(image, 0, 0, size, size);
         });
         setStatus("ready");
       } catch {

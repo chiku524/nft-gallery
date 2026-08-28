@@ -32,12 +32,7 @@ TOTAL = 10_000
 SEED = 4663_10000  # Robinhood chain ID + supply
 JPEG_QUALITY = 92
 
-NONE = {"id": "none", "name": None, "file": None, "rarity": 28, "x": 0.0, "y": 0.0, "scale": 1.0}
-
-HAT_HEAD = {"x": 0.02, "y": -0.06, "scale": 0.96}
-BODY_NECK = {"x": 0.06, "y": 0.16, "scale": 0.88}
-FACE = {"x": 0.22, "y": 0.14, "scale": 0.56}
-LEDGE = {"x": 0.58, "y": 0.5, "scale": 0.28}
+NONE = {"id": "none", "name": None, "file": None, "rarity": 28}
 
 CATEGORIES = [
     {
@@ -81,11 +76,11 @@ CATEGORIES = [
         "label": "Hat",
         "none_name": "Bare head",
         "traits": [
-            {"id": "beanie", "name": "Forest Beanie", "file": "hat/hat-beanie.png", "rarity": 18, **HAT_HEAD},
-            {"id": "newsie", "name": "Newsie Cap", "file": "hat/hat-newsie.png", "rarity": 16, **HAT_HEAD},
-            {"id": "snapback", "name": "Stoop Snapback", "file": "hat/hat-snapback.png", "rarity": 14, "x": 0.04, "y": -0.1, "scale": 0.92},
-            {"id": "hardhat", "name": "Block Hard Hat", "file": "hat/hat-hardhat.png", "rarity": 12, **HAT_HEAD},
-            {"id": "crown", "name": "Stoop Crown", "file": "hat/hat-crown.png", "rarity": 12, "x": 0.16, "y": -0.06, "scale": 0.68},
+            {"id": "beanie", "name": "Forest Beanie", "file": "hat/hat-beanie.png", "rarity": 18},
+            {"id": "newsie", "name": "Newsie Cap", "file": "hat/hat-newsie.png", "rarity": 16},
+            {"id": "snapback", "name": "Stoop Snapback", "file": "hat/hat-snapback.png", "rarity": 14},
+            {"id": "hardhat", "name": "Block Hard Hat", "file": "hat/hat-hardhat.png", "rarity": 12},
+            {"id": "crown", "name": "Stoop Crown", "file": "hat/hat-crown.png", "rarity": 12},
         ],
     },
     {
@@ -93,10 +88,10 @@ CATEGORIES = [
         "label": "Body",
         "none_name": "No clothes",
         "traits": [
-            {"id": "bandana", "name": "Forest Bandana", "file": "body/body-bandana.png", "rarity": 22, **BODY_NECK},
-            {"id": "collar", "name": "Red Collar", "file": "body/body-collar.png", "rarity": 18, **BODY_NECK},
-            {"id": "hoodie", "name": "Cream Hoodie", "file": "body/body-hoodie.png", "rarity": 16, "x": 0.12, "y": 0.22, "scale": 0.76},
-            {"id": "gold-chain", "name": "Gold Chain", "file": "body/body-gold-chain.png", "rarity": 12, "x": 0.14, "y": 0.2, "scale": 0.72},
+            {"id": "bandana", "name": "Forest Bandana", "file": "body/body-bandana.png", "rarity": 22},
+            {"id": "collar", "name": "Red Collar", "file": "body/body-collar.png", "rarity": 18},
+            {"id": "hoodie", "name": "Cream Hoodie", "file": "body/body-hoodie.png", "rarity": 16},
+            {"id": "gold-chain", "name": "Gold Chain", "file": "body/body-gold-chain.png", "rarity": 12},
         ],
     },
     {
@@ -104,11 +99,11 @@ CATEGORIES = [
         "label": "Accessory",
         "none_name": "Empty paws",
         "traits": [
-            {"id": "bone", "name": "Chewed Bone", "file": "accessory/acc-bone.png", "rarity": 18, **LEDGE},
-            {"id": "coffee", "name": "Stoop Coffee", "file": "accessory/acc-coffee.png", "rarity": 16, **LEDGE},
-            {"id": "sunglasses", "name": "Round Shades", "file": "accessory/acc-sunglasses.png", "rarity": 14, **FACE},
-            {"id": "blocks", "name": "Toy Blocks", "file": "accessory/acc-blocks.png", "rarity": 12, "x": 0.56, "y": 0.48, "scale": 0.3},
-            {"id": "monocle", "name": "Gold Monocle", "file": "accessory/acc-monocle.png", "rarity": 10, "x": 0.28, "y": 0.12, "scale": 0.44},
+            {"id": "bone", "name": "Chewed Bone", "file": "accessory/acc-bone.png", "rarity": 18},
+            {"id": "coffee", "name": "Stoop Coffee", "file": "accessory/acc-coffee.png", "rarity": 16},
+            {"id": "sunglasses", "name": "Round Shades", "file": "accessory/acc-sunglasses.png", "rarity": 14},
+            {"id": "blocks", "name": "Toy Blocks", "file": "accessory/acc-blocks.png", "rarity": 12},
+            {"id": "monocle", "name": "Gold Monocle", "file": "accessory/acc-monocle.png", "rarity": 10},
         ],
     },
 ]
@@ -119,7 +114,6 @@ DESCRIPTION = (
 )
 
 CACHE: dict[str, Image.Image] = {}
-RESIZED: dict[tuple[str, int, int], Image.Image] = {}
 
 
 def pool_for(category: dict) -> list[dict]:
@@ -133,9 +127,6 @@ def pool_for(category: dict) -> list[dict]:
                 "name": trait["name"],
                 "file": trait["file"],
                 "rarity": trait["rarity"],
-                "x": trait.get("x", 0.0),
-                "y": trait.get("y", 0.0),
-                "scale": trait.get("scale", 1.0),
             }
         )
     return traits
@@ -181,33 +172,6 @@ def load_trait(file_name: str) -> Image.Image:
     return CACHE[file_name]
 
 
-def sized(file_name: str, width: int, height: int) -> Image.Image:
-    key = (file_name, width, height)
-    if key not in RESIZED:
-        image = load_trait(file_name)
-        if image.size != (width, height):
-            RESIZED[key] = image.resize((width, height), Image.Resampling.LANCZOS)
-        else:
-            RESIZED[key] = image
-    return RESIZED[key]
-
-
-def paste_rgba(base: Image.Image, overlay: Image.Image, x: int, y: int) -> Image.Image:
-    layer = Image.new("RGBA", base.size, (0, 0, 0, 0))
-    ox, oy = overlay.size
-    src_x = max(0, -x)
-    src_y = max(0, -y)
-    dst_x = max(0, x)
-    dst_y = max(0, y)
-    width = min(ox - src_x, base.width - dst_x)
-    height = min(oy - src_y, base.height - dst_y)
-    if width <= 0 or height <= 0:
-        return base
-    cropped = overlay.crop((src_x, src_y, src_x + width, src_y + height))
-    layer.paste(cropped, (dst_x, dst_y), cropped)
-    return Image.alpha_composite(base, layer)
-
-
 # Match the original studio / gallery stack, not CATEGORIES metadata order.
 DRAW_ORDER = ["background", "block", "base", "body", "hat", "accessory"]
 
@@ -218,13 +182,10 @@ def render(combo: dict[str, dict]) -> Image.Image:
         trait = combo[cat_id]
         if not trait["file"]:
             continue
-        width = max(1, int(SIZE * trait["scale"]))
-        height = max(1, int(SIZE * trait["scale"]))
-        overlay = sized(trait["file"], width, height)
-        if trait["x"] == 0 and trait["y"] == 0 and overlay.size == canvas.size:
-            canvas = Image.alpha_composite(canvas, overlay)
-        else:
-            canvas = paste_rgba(canvas, overlay, int(SIZE * trait["x"]), int(SIZE * trait["y"]))
+        overlay = load_trait(trait["file"])
+        if overlay.size != (SIZE, SIZE):
+            overlay = overlay.resize((SIZE, SIZE), Image.Resampling.LANCZOS)
+        canvas = Image.alpha_composite(canvas, overlay)
     return canvas.convert("RGB")
 
 
@@ -276,10 +237,6 @@ def warmup() -> None:
     for cat in CATEGORIES:
         for trait in cat["traits"]:
             load_trait(trait["file"])
-            scale = trait.get("scale", 1.0)
-            width = max(1, int(SIZE * scale))
-            height = max(1, int(SIZE * scale))
-            sized(trait["file"], width, height)
 
 
 def write_csv(records: list[dict]) -> None:

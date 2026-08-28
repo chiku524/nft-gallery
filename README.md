@@ -25,6 +25,7 @@ The app listens on [http://127.0.0.1:43147](http://127.0.0.1:43147).
 ## Generate the 10,000
 
 ```bash
+python3 scripts/fit_traits_1024.py   # optional: re-place hats/clothes/toys on the 1024 canvas
 python3 scripts/generate_collection.py
 ```
 
@@ -41,7 +42,7 @@ Draw order, back to front:
 5. Hat
 6. Accessory (shades, monocle, or a treat on the ledge)
 
-Hats sit on the head, clothes wrap the neck, and props park on the stoop — the same overlay stack as the eight gallery paintings.
+Hats, clothes, and stoop props are painted onto the same 1024×1024 canvas as the pug, then stacked 1:1 — the same dimensions and look as the eight gallery paintings.
 
 ## Robinhood Chain + OpenSea
 
