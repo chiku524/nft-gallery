@@ -36,6 +36,6 @@ export const sampleMints: SampleMint[] = [
   mint(4, "Brownstone", "Fawn Peek", "Cinder Block", "Newsie Cap", "Gold Chain", "Empty paws"),
   mint(5, "Dusk Court", "Apricot Peek", "Cinder Block", "Forest Beanie", "No clothes", "Empty paws"),
   mint(6, "Brownstone", "Fawn Peek", "Cinder Block", "Stoop Snapback", "Cream Hoodie", "Toy Blocks"),
-  mint(7, "Brownstone", "Fawn Peek", "Default concrete", "Stoop Snapback", "No clothes", "Gold Monocle"),
+  mint(7, "Brownstone", "Fawn Peek", "Cinder Block", "Stoop Snapback", "No clothes", "Gold Monocle"),
   mint(8, "Brownstone", "Fawn Peek", "Cinder Block", "Stoop Snapback", "Forest Bandana", "Stoop Coffee"),
 ];
