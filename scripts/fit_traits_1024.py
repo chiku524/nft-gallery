@@ -36,7 +36,7 @@ def load_src(rel: str) -> Image.Image:
     path = SRC / rel
     if not path.exists():
         path = TRAITS / rel
-    return Image.open(path).convert("RGBA")
+    return Image.fromarray(clear_transparent(np.array(Image.open(path).convert("RGBA"))))
 
 
 def load_trait(rel: str) -> Image.Image:
@@ -140,6 +140,114 @@ def seal_alpha(im: Image.Image) -> Image.Image:
     a = arr(im).astype(np.uint8)
     a[a[:, :, 3] > 90, 3] = 255
     return Image.fromarray(a)
+
+
+GHOST_ALPHA = 32
+
+
+def _neighbor_count(mask: np.ndarray) -> np.ndarray:
+    count = np.zeros(mask.shape, dtype=np.uint8)
+    count[1:, :] += mask[:-1, :]
+    count[:-1, :] += mask[1:, :]
+    count[:, 1:] += mask[:, :-1]
+    count[:, :-1] += mask[:, 1:]
+    count[1:, 1:] += mask[:-1, :-1]
+    count[1:, :-1] += mask[:-1, 1:]
+    count[:-1, 1:] += mask[1:, :-1]
+    count[:-1, :-1] += mask[1:, 1:]
+    return count
+
+
+def inpaint_enclosed(a: np.ndarray) -> np.ndarray:
+    """Fill pinholes that are trapped inside fabric, not openings that reach the canvas edge."""
+    openp = a[:, :, 3] < GHOST_ALPHA
+    holes = openp & ~flood_from_edges(openp)
+    if not holes.any():
+        return a
+    out = a.copy()
+    todo = holes.copy()
+    for _ in range(16):
+        if not todo.any():
+            break
+        solid = out[:, :, 3] >= 200
+        painted = np.zeros_like(todo)
+        for dy, dx in ((-1, 0), (1, 0), (0, -1), (0, 1)):
+            src_solid = np.roll(solid, (dy, dx), axis=(0, 1))
+            src = np.roll(out, (dy, dx), axis=(0, 1))
+            take = todo & src_solid
+            out[take] = src[take]
+            painted |= take
+        todo &= ~painted
+    out[holes, 3] = 255
+    return out
+
+
+def strip_edge_fringe(a: np.ndarray, *, keep_light: bool = False) -> np.ndarray:
+    """Drop pale sticker-white sitting on the silhouette edge."""
+    rgb = a[:, :, :3].astype(np.int16)
+    lum = rgb.mean(axis=2)
+    chroma = rgb.max(axis=2) - rgb.min(axis=2)
+    op = a[:, :, 3] > GHOST_ALPHA
+    edge = op & neighbors8(~op)
+    pale = edge & (lum > 200) & (chroma < 55)
+    if keep_light:
+        ys = np.where(op)[0]
+        if ys.size:
+            pale &= np.arange(SIZE)[:, None] >= int(ys.max()) - 18
+    a[pale, 3] = 0
+    return a
+
+
+def drop_islands(a: np.ndarray, min_px: int = 18) -> np.ndarray:
+    """Delete leftover specks that are not attached to the main silhouette."""
+    op = a[:, :, 3] > GHOST_ALPHA
+    if not op.any():
+        return a
+    visited = np.zeros(op.shape, dtype=bool)
+    keep = np.zeros_like(op)
+    h, w = op.shape
+    ys, xs = np.where(op)
+    for y, x in zip(ys.tolist(), xs.tolist()):
+        if visited[y, x]:
+            continue
+        q = deque([(y, x)])
+        visited[y, x] = True
+        cells: list[tuple[int, int]] = []
+        while q:
+            cy, cx = q.popleft()
+            cells.append((cy, cx))
+            for ny, nx in ((cy - 1, cx), (cy + 1, cx), (cy, cx - 1), (cy, cx + 1)):
+                if 0 <= ny < h and 0 <= nx < w and op[ny, nx] and not visited[ny, nx]:
+                    visited[ny, nx] = True
+                    q.append((ny, nx))
+        if len(cells) >= min_px:
+            for cy, cx in cells:
+                keep[cy, cx] = True
+    a[~keep, 3] = 0
+    return a
+
+
+def harden_overlay(
+    im: Image.Image,
+    *,
+    fill_holes: bool = True,
+    keep_light: bool = False,
+    drop_specks: bool = False,
+) -> Image.Image:
+    """Make overlay traits solid: no ghost fringe, no salt-and-pepper holes."""
+    a = arr(im).copy()
+    a[a[:, :, 3] <= GHOST_ALPHA] = 0
+    if fill_holes:
+        a = inpaint_enclosed(a)
+    if drop_specks:
+        a = drop_islands(a)
+    body = a[:, :, 3] > GHOST_ALPHA
+    lonely = body & (_neighbor_count(body) < 2)
+    a[lonely, 3] = 0
+    a = strip_edge_fringe(a, keep_light=keep_light)
+    a[a[:, :, 3] <= GHOST_ALPHA] = 0
+    a[a[:, :, 3] > GHOST_ALPHA, 3] = 255
+    return Image.fromarray(clear_transparent(a))
 
 
 def grow(mask: np.ndarray, px: int = 3) -> np.ndarray:
@@ -682,16 +790,16 @@ def crop_below(im: Image.Image, y: int) -> Image.Image:
 def fit_hats() -> None:
     """Hats off the dressed sheets, seated on this pug the way the gallery paintings wear them."""
     beanie = strip_hat_halo(strip_pug_fur(extract_dressed_hat("dressed/fawn-beanie.png", "beanie", 375)))
-    save("hat/hat-beanie.png", recolor_to(sit_on(beanie, 410), (20, 46, 22)))
+    save("hat/hat-beanie.png", harden_overlay(recolor_to(sit_on(beanie, 410), (20, 46, 22)), drop_specks=True))
     hardhat = strip_hat_halo(strip_pug_fur(extract_dressed_hat("dressed/fawn-hardhat.png", "hardhat", 328)))
-    save("hat/hat-hardhat.png", crop_below(sit_on(hardhat, 396), 404))
+    save("hat/hat-hardhat.png", harden_overlay(crop_below(sit_on(hardhat, 396), 404), drop_specks=True))
     newsie = strip_hat_halo(strip_pug_fur(extract_dressed_hat("dressed/fawn-newsie.png", "newsie", 360)))
-    save("hat/hat-newsie.png", sit_on(newsie, 412))
+    save("hat/hat-newsie.png", harden_overlay(sit_on(newsie, 412), drop_specks=True))
     snap = cream_snapback_panel(
         strip_hat_halo(extract_dressed_hat("dressed/fawn-snapback.png", "snapback", 348), keep_cream=True)
     )
-    save("hat/hat-snapback.png", sit_on(snap, 378, 80))
-    save("hat/hat-crown.png", place_bottom(load_src("hat/hat-crown.png"), 258, 308, 512, 158))
+    save("hat/hat-snapback.png", harden_overlay(sit_on(snap, 378, 80), keep_light=True, drop_specks=True))
+    save("hat/hat-crown.png", harden_overlay(place_bottom(load_src("hat/hat-crown.png"), 258, 308, 512, 158), drop_specks=True))
 
 
 def prepare_hoodie(im: Image.Image) -> Image.Image:
@@ -751,9 +859,11 @@ def fill_interior_gaps(im: Image.Image, y0: int, y1: int = WALL_TOP) -> Image.Im
         left, right = int(xs.min()), int(xs.max())
         if right - left < 40:
             continue
-        sample = a[y, left, :3]
+        solid_xs = xs[a[y, xs, 3] > 200]
+        sample_x = int(solid_xs[min(solid_xs.size // 4, solid_xs.size - 1)]) if solid_xs.size else left
+        sample = a[y, sample_x, :3]
         gap = slice(left, right + 1)
-        empty = a[y, gap, 3] <= 20
+        empty = a[y, gap, 3] < 180
         if not empty.any():
             continue
         a[y, gap, :3][empty] = sample
@@ -841,13 +951,17 @@ def fit_body(paws: Image.Image) -> None:
             full = Image.alpha_composite(full, knot)
         if kind in {"bandana", "collar", "hoodie"}:
             full = fill_interior_gaps(full, y_center, WALL_TOP + 50)
+        fill_holes = kind != "gold-chain"
+        full = harden_overlay(full, fill_holes=fill_holes)
         save(dest, full)
         neck = body_neck_layer(full, pug, kind)
         if kind in {"bandana", "collar", "hoodie"}:
             neck = fill_interior_gaps(neck, y_center)
+        neck = harden_overlay(neck, fill_holes=fill_holes)
         save(dest.replace(".png", "-neck.png"), neck)
         hang = body_hang_layer(full, kind)
-        save(dest.replace(".png", "-front.png"), hang if (arr(hang)[:, :, 3] > 20).any() else blank())
+        hang = harden_overlay(hang, fill_holes=fill_holes) if (arr(hang)[:, :, 3] > 20).any() else blank()
+        save(dest.replace(".png", "-front.png"), hang)
 
 
 def extract_gallery_accessory(kind: str) -> Image.Image:
@@ -890,24 +1004,24 @@ def fit_accessories() -> None:
     """Source drawings at gallery scale, sitting on this pug's eyes / wall rim."""
     save(
         "accessory/acc-sunglasses.png",
-        seal_alpha(paste_box(load_src("accessory/acc-sunglasses.png"), (300, 360, 420, 145), "center")),
+        harden_overlay(paste_box(load_src("accessory/acc-sunglasses.png"), (300, 360, 420, 145), "center")),
     )
     monocle = ImageOps.mirror(load_src("accessory/acc-monocle.png"))
     save(
         "accessory/acc-monocle.png",
-        seal_alpha(paste_box(monocle, (325, 355, 155, 230), "center")),
+        harden_overlay(paste_box(monocle, (325, 355, 155, 230), "center"), fill_holes=False),
     )
     save(
         "accessory/acc-coffee.png",
-        seal_alpha(paste_box(load_src("accessory/acc-coffee.png"), (790, 525, 170, 150), "bottom")),
+        harden_overlay(paste_box(load_src("accessory/acc-coffee.png"), (790, 525, 170, 150), "bottom")),
     )
     save(
         "accessory/acc-bone.png",
-        seal_alpha(paste_box(load_src("accessory/acc-bone.png"), (735, 540, 230, 120), "bottom")),
+        harden_overlay(paste_box(load_src("accessory/acc-bone.png"), (735, 540, 230, 120), "bottom")),
     )
     save(
         "accessory/acc-blocks.png",
-        seal_alpha(paste_box(load_src("accessory/acc-blocks.png"), (12, 485, 215, 170), "bottom")),
+        harden_overlay(paste_box(load_src("accessory/acc-blocks.png"), (12, 485, 215, 170), "bottom")),
     )
 
 
