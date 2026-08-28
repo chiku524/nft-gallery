@@ -285,7 +285,7 @@ def load_trait(file_name: str) -> Image.Image:
     return CACHE[file_name]
 
 
-# Match the studio stack: clothes wrap the neck, wall clips the chest, paws last.
+# Match the studio stack: wrap behind, pug, hat, neck front, wall, hanging, toys, paws.
 FACE_ACCESSORIES = {"sunglasses", "monocle"}
 LEDGE_ACCESSORIES = {"coffee", "bone", "blocks"}
 
@@ -323,6 +323,8 @@ def render(combo: dict[str, dict]) -> Image.Image:
     if acc_id in FACE_ACCESSORIES:
         comp(combo["accessory"]["file"])
     comp(combo["hat"]["file"])
+    if body_file:
+        comp(body_file.replace(".png", "-neck.png"))
     comp(combo["block"]["file"] or "base/wall-default.png")
     if body_file:
         comp(body_file.replace(".png", "-front.png"))
@@ -385,6 +387,10 @@ def warmup() -> None:
         "base/front-paws-fawn.png",
         "base/front-paws-cream.png",
         "base/front-paws-black.png",
+        "body/body-bandana-neck.png",
+        "body/body-collar-neck.png",
+        "body/body-hoodie-neck.png",
+        "body/body-gold-chain-neck.png",
         "body/body-bandana-front.png",
         "body/body-collar-front.png",
         "body/body-hoodie-front.png",

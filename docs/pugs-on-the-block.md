@@ -29,14 +29,15 @@ Requires Python 3 with Pillow. Output lands in `generated/`. See `generated/READ
 Draw order, back to front:
 
 1. Background
-2. Body (bandana, collar, hoodie, chain wrapping the neck)
+2. Body (back of the wrap behind the pug)
 3. Base pug (wall knocked out)
 4. Face accessory (sunglasses, monocle)
 5. Hat
-6. Block, or the default concrete ledge when Block is None
-7. Body front (hoodie strings, chain medallion, bandana knot over the wall)
-8. Ledge accessory (coffee, bone, toy blocks)
-9. Paws on the ledge
+6. Body neck (bandana, collar, hoodie cowl, chain in front of the neck)
+7. Block, or the default concrete ledge when Block is None
+8. Body front (hoodie strings, chain medallion, bandana bib, collar tag over the wall)
+9. Ledge accessory (coffee, bone, toy blocks)
+10. Paws on the ledge
 
 Hats, clothes, and stoop props are painted onto the same 1024×1024 canvas as the pug, then stacked 1:1. Tokens 1–8 of the generated drop are the eight gallery paintings themselves, so those looks match the site gallery exactly.
 

@@ -14,15 +14,20 @@ export type TraitCategory = {
 };
 
 /** Bump when trait PNGs change so the studio canvas does not keep a stale bitmap. */
-export const TRAIT_ART_VERSION = "gallery-stack-v4";
+export const TRAIT_ART_VERSION = "gallery-stack-v5";
 
 export function traitSrc(path?: string) {
   if (!path) return "";
   return `${path}?v=${TRAIT_ART_VERSION}`;
 }
 
+export function bodyNeckSrc(bodyId: string) {
+  if (!bodyId || bodyId === "none") return "";
+  return traitSrc(`/traits/body/body-${bodyId}-neck.png`);
+}
+
 export function bodyFrontSrc(bodyId: string) {
-  if (!bodyId || bodyId === "none" || bodyId === "bandana" || bodyId === "hoodie") return "";
+  if (!bodyId || bodyId === "none") return "";
   return traitSrc(`/traits/body/body-${bodyId}-front.png`);
 }
 

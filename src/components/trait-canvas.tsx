@@ -5,6 +5,7 @@ import {
   FACE_ACCESSORIES,
   LEDGE_ACCESSORIES,
   bodyFrontSrc,
+  bodyNeckSrc,
   findTrait,
   galleryPinFor,
   pawsSrc,
@@ -47,13 +48,15 @@ export function selectionToLayers(selection: Selection): Layer[] {
     layers.push({ src: traitSrc(trait.image) });
   };
 
-  // Gallery stack: clothes wrap the neck, hat sits on the skull, wall clips
-  // the chest, hanging straps and stoop props sit on the ledge, paws last.
+  // Gallery stack: clothes wrap behind, pug, hat, neck in front, wall,
+  // hanging straps, stoop props, paws last.
   push(background);
   push(body);
   push(base);
   if (FACE_ACCESSORIES.has(selection.accessory)) push(accessory);
   push(hat);
+  const neck = bodyNeckSrc(selection.body);
+  if (neck) layers.push({ src: neck });
   const wall = wallSrc(block?.image);
   if (wall) layers.push({ src: wall });
   const front = bodyFrontSrc(selection.body);
