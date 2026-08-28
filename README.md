@@ -32,7 +32,7 @@ Requires Python 3 with Pillow. Output lands in `generated/`. See `generated/READ
 
 ## Trait stack
 
-Draw order, back to front: background → base pug → block (ledge) → body → hat → accessory.
+Draw order, back to front: background → body → hat → pug → block → body front → hat crown → accessory → paws. Clothes wrap the neck; hats tuck behind the ears.
 
 ## Robinhood Chain + OpenSea
 

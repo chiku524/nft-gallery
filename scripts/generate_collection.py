@@ -203,14 +203,32 @@ def paste_rgba(base: Image.Image, overlay: Image.Image, x: int, y: int) -> Image
     return Image.alpha_composite(base, layer)
 
 
+def paws_for_base(file_name: str) -> str:
+    color = Path(file_name).stem.split("-")[1]
+    return f"base/front-paws-{color}.png"
+
+
 def render(combo: dict[str, dict]) -> Image.Image:
     canvas = Image.new("RGBA", (SIZE, SIZE), (0, 0, 0, 0))
-    for cat in CATEGORIES:
-        trait = combo[cat["id"]]
-        if not trait["file"]:
-            continue
-        overlay = sized(trait["file"], SIZE, SIZE)
-        canvas = Image.alpha_composite(canvas, overlay)
+
+    def add(file_name: str | None) -> None:
+        nonlocal canvas
+        if not file_name:
+            return
+        canvas = Image.alpha_composite(canvas, sized(file_name, SIZE, SIZE))
+
+    add(combo["background"]["file"])
+    add(combo["body"]["file"])
+    add(combo["hat"]["file"])
+    add(combo["base"]["file"])
+    add(combo["block"]["file"])
+    if combo["body"]["file"]:
+        add(combo["body"]["file"].replace(".png", "-front.png"))
+    if combo["hat"]["file"]:
+        add(combo["hat"]["file"].replace(".png", "-crown.png"))
+    add(combo["accessory"]["file"])
+    if combo["base"]["file"]:
+        add(paws_for_base(combo["base"]["file"]))
     return canvas.convert("RGB")
 
 
@@ -259,13 +277,19 @@ def render_token(payload: tuple[int, dict[str, dict]]) -> tuple[int, str, str]:
 
 
 def warmup() -> None:
+    files: list[str] = []
     for cat in CATEGORIES:
         for trait in cat["traits"]:
-            load_trait(trait["file"])
-            scale = trait.get("scale", 1.0)
-            width = max(1, int(SIZE * scale))
-            height = max(1, int(SIZE * scale))
-            sized(trait["file"], width, height)
+            files.append(trait["file"])
+            if cat["id"] == "body":
+                files.append(trait["file"].replace(".png", "-front.png"))
+            if cat["id"] == "hat":
+                files.append(trait["file"].replace(".png", "-crown.png"))
+            if cat["id"] == "base":
+                files.append(paws_for_base(trait["file"]))
+    for file_name in files:
+        load_trait(file_name)
+        sized(file_name, SIZE, SIZE)
 
 
 def write_csv(records: list[dict]) -> None:

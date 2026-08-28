@@ -222,10 +222,12 @@ def paste_bottom(canvas: Image.Image, overlay: Image.Image, cx: int, bottom: int
     paste_centered(canvas, overlay, cx, bottom - overlay.height / 2)
 
 
-def fit_width(im: Image.Image, width: int) -> Image.Image:
+def fit_width(im: Image.Image, width: int, max_height: int | None = None) -> Image.Image:
     if im.width == 0:
         return im
     height = max(1, round(im.height * (width / im.width)))
+    if max_height is not None and height > max_height:
+        height = max_height
     resized = im.resize((width, height), Image.Resampling.LANCZOS)
     # LANCZOS samples transparent neighbors and can reintroduce a light fringe.
     return defringe(resized, **DEFRINGE_OVERLAY)
@@ -273,10 +275,122 @@ def punch_paws(block: Image.Image, pug: Image.Image) -> Image.Image:
     boxes = np.zeros(p.shape[:2], dtype=bool)
     boxes[618:645, 260:400] = True
     boxes[618:645, 640:780] = True
-    paws = fur | (boxes & (p[..., 3] > 80) & (chroma > 18)) 
+    paws = fur | (boxes & (p[..., 3] > 80) & (chroma > 18))
     paws = paws | _neighbors8(paws)
     b[paws, 3] = 0
     return Image.fromarray(clear_transparent(b), "RGBA")
+
+
+def extract_ears(pug: Image.Image) -> Image.Image:
+    """Floppy side lobes, redrawn over hats so the brim tucks under them.
+
+    Stay outside the crown (x 385–640) and above the eyes (y ~330) so this
+    overlay cannot paint fur over the hat's center or the pupils.
+    """
+    arr = np.array(pug.convert("RGBA"))
+    mask = np.zeros(arr.shape[:2], dtype=bool)
+    mask[208:328, 240:388] = arr[208:328, 240:388, 3] > 12
+    mask[208:332, 638:840] = arr[208:332, 638:840, 3] > 12
+    out = np.zeros_like(arr)
+    out[mask] = arr[mask]
+    return Image.fromarray(clear_transparent(out), "RGBA")
+
+
+def hat_crown(hat: Image.Image, pug: Image.Image) -> Image.Image:
+    """Forehead slice of a hat, drawn after the pug so the brim sits on the crown.
+
+    The full hat is drawn behind the pug (ears stay in front). This overlay puts
+    the hat back on the skull, stopping short of the floppy lobes.
+    """
+    arr = np.array(hat.convert("RGBA"))
+    pug_a = np.array(pug.convert("RGBA"))[..., 3] > 12
+    h, w = arr.shape[:2]
+    yy = np.arange(h)[:, None]
+    xx = np.arange(w)[None, :]
+    # Concept art tucks the brim under the inner ear around x 320 / 700.
+    ear = ((xx < 322) | (xx > 702)) & (yy >= 200) & (yy <= 332)
+    crown = pug_a & ~ear & (yy <= 314)
+    # Fade the last few rows so the brim doesn't stamp a hard cut on the brow.
+    dist_y = np.clip((314 - yy) / 8.0, 0.0, 1.0)
+    # Soften the ear junction so the hat doesn't end on a vertical line.
+    left = np.clip((xx - 322) / 16.0, 0.0, 1.0)
+    right = np.clip((702 - xx) / 16.0, 0.0, 1.0)
+    out = arr.copy().astype(np.float32)
+    out[..., 3] *= crown.astype(np.float32) * dist_y * left * right
+    return Image.fromarray(clear_transparent(np.clip(out, 0, 255).astype(np.uint8)), "RGBA")
+
+
+def extract_paws(pug: Image.Image) -> Image.Image:
+    """The two paws on the ledge — drawn last so clothes wrap behind them.
+
+    Do not walk onto the baked-in wall or across the muzzle between the paws;
+    those pixels would punch holes in collars and redraw the ledge on top.
+    """
+    arr = np.array(pug.convert("RGBA"))
+    rgb = arr[..., :3].astype(np.int16)
+    chroma = rgb.max(axis=2) - rgb.min(axis=2)
+    lum = rgb.mean(axis=2)
+    alpha = arr[..., 3] > 12
+    rows = np.arange(arr.shape[0])[:, None]
+    cols = np.arange(arr.shape[1])[None, :]
+    wallish = (chroma <= 24) & (lum >= 70) & (lum <= 220) & (rows >= WALL_TOP - 6)
+    seed = np.zeros(arr.shape[:2], dtype=bool)
+    seed[604:WALL_TOP + 10, 248:412] = alpha[604:WALL_TOP + 10, 248:412]
+    seed[604:WALL_TOP + 10, 628:800] = alpha[604:WALL_TOP + 10, 628:800]
+    seed &= ~wallish
+    walk = alpha & ~wallish
+    walk[:, 430:605] = False
+    filled = seed.copy()
+    for _ in range(16):
+        grow = _neighbors8(filled) & walk & ~filled
+        grow[:598] = False
+        grow[654:] = False
+        if not grow.any():
+            break
+        filled |= grow
+    outline = alpha & (lum < 60) & ~wallish & (rows >= 598) & (rows <= 652)
+    filled |= _neighbors8(filled) & outline
+    filled &= ~((cols >= 430) & (cols <= 605))
+    filled[:598] = False
+    filled[654:] = False
+    out = np.zeros_like(arr)
+    out[filled] = arr[filled]
+    return Image.fromarray(clear_transparent(out), "RGBA")
+
+
+def feather_front(full: Image.Image, split_y: int, fade: int = 14) -> Image.Image:
+    """Lower half of a neck loop, with a soft top so it doesn't look sliced."""
+    arr = np.array(full.convert("RGBA")).astype(np.float32)
+    rows = np.arange(arr.shape[0], dtype=np.float32)[:, None]
+    ramp = np.clip((rows - (split_y - fade)) / fade, 0.0, 1.0)
+    arr[..., 3] *= ramp
+    return Image.fromarray(np.clip(arr, 0, 255).astype(np.uint8), "RGBA")
+
+
+def body_front_strap(
+    full: Image.Image,
+    pug: Image.Image,
+    paws: Image.Image,
+    split_y: int,
+) -> Image.Image:
+    """Hangings over the wall, with paws punched out.
+
+    The full loop stays behind the pug. This overlay is only the lower strap
+    so the buckle / knot / pendant can drape the ledge without covering the face.
+    """
+    del pug
+    lower = feather_front(full, split_y, fade=5)
+    return punch_mask(lower, paws, dilate=10)
+
+
+def punch_mask(overlay: Image.Image, mask_src: Image.Image, dilate: int = 3) -> Image.Image:
+    """Knock a silhouette (paws, etc.) out of an overlay."""
+    overlay_arr = np.array(overlay.convert("RGBA"))
+    mask = np.array(mask_src.convert("RGBA"))[..., 3] > 12
+    for _ in range(dilate):
+        mask = mask | _neighbors8(mask)
+    overlay_arr[mask, 3] = 0
+    return Image.fromarray(clear_transparent(overlay_arr), "RGBA")
 
 
 def blank() -> Image.Image:
@@ -308,28 +422,29 @@ def sticker_from(src_name: str) -> Image.Image:
     return content_crop(defringe(knock_all_white(Image.open(SRC / src_name)), **DEFRINGE_OVERLAY))
 
 
-# Hats sit on the crown: brim on the forehead, not down over the eyes.
-# Values are (source, width, brim-bottom-y). Eyes start ~330; keep a ~40px gap.
+# Hats sit on the crown: (source, width, brim-bottom-y, max-height).
+# Eyes start ~330. Wide brims tuck under the floppy ears (x ~240–388 / 638–840).
 HATS = {
-    "hat/hat-beanie.png": ("hat-only-beanie.png", 236, 286),
-    "hat/hat-crown.png": ("hat-only-crown.png", 216, 284),
-    "hat/hat-snapback.png": ("hat-only-snapback.png", 276, 288),
-    "hat/hat-newsie.png": ("hat-only-newsie.png", 264, 286),
-    "hat/hat-hardhat.png": ("hat-only-hardhat.png", 264, 288),
+    "hat/hat-beanie.png": ("hat-only-beanie.png", 450, 306, 285),
+    "hat/hat-crown.png": ("hat-only-crown.png", 250, 272, None),
+    "hat/hat-snapback.png": ("hat-only-snapback.png", 460, 308, 250),
+    "hat/hat-newsie.png": ("hat-only-newsie.png", 450, 304, 210),
+    "hat/hat-hardhat.png": ("hat-only-hardhat.png", 450, 306, 220),
 }
 
-# Neck items wrap the chin. Loops are sized so the face shows through the
-# opening; the buckle / knot / pendant sits on the ledge, not over the mouth.
+# Neck loops: (source, width, center-y, front-split-y).
+# Full item is drawn behind the pug; the lower front is redrawn over the
+# wall so the buckle / knot / pendant drapes the ledge. Paws sit on top.
 BODIES = {
-    "body/body-bandana.png": ("body-bandana.png", 308, 642),
-    "body/body-collar.png": ("body-collar.png", 276, 665),
-    "body/body-hoodie.png": ("body-hoodie.png", 348, 658),
-    "body/body-gold-chain.png": ("body-gold-chain.png", 290, 648),
+    "body/body-bandana.png": ("body-bandana.png", 340, 588, 612),
+    "body/body-collar.png": ("body-collar.png", 360, 592, 614),
+    "body/body-hoodie.png": ("body-hoodie.png", 420, 590, 612),
+    "body/body-gold-chain.png": ("body-gold-chain.png", 360, 585, 608),
 }
 
 ACCESSORIES = {
-    "accessory/acc-sunglasses.png": ("acc-sunglasses.png", "eyes", 248, 408),
-    "accessory/acc-monocle.png": ("acc-monocle.png", "eye", 118, 392),
+    "accessory/acc-sunglasses.png": ("acc-sunglasses.png", "eyes", 300, 412),
+    "accessory/acc-monocle.png": ("acc-monocle.png", "eye", 118, 400),
     "accessory/acc-coffee.png": ("acc-coffee.png", "ledge", 128, 622),
     "accessory/acc-bone.png": ("acc-bone.png", "ledge", 170, 618),
     "accessory/acc-blocks.png": ("acc-blocks.png", "ledge", 168, 624),
@@ -375,29 +490,49 @@ def prepare() -> None:
         save(punch_paws(prepared, pug_ref), dest)
 
     print("Hats (crop + place on crown)…")
-    for dest, (src, width, bottom) in HATS.items():
-        fitted = fit_width(sticker_from(src), width)
+    pug_ref = Image.open(DST / "base/base-fawn-peek.png")
+    for dest, (src, width, bottom, max_height) in HATS.items():
+        fitted = fit_width(sticker_from(src), width, max_height)
         canvas = blank()
         paste_bottom(canvas, fitted, 512, bottom)
-        save(seal_outline(canvas), dest)
+        full = seal_outline(canvas)
+        save(full, dest)
+        save(hat_crown(full, pug_ref), dest.replace(".png", "-crown.png"))
 
-    print("Body (crop + place on neck)…")
-    for dest, (src, width, cy) in BODIES.items():
+    print("Body (full loop + front strap)…")
+    pug_ref = Image.open(DST / "base/base-fawn-peek.png")
+    paw_union = Image.new("RGBA", (SIZE, SIZE), (0, 0, 0, 0))
+    for dest in BASES:
+        pug = Image.open(DST / dest)
+        paw_union = Image.alpha_composite(paw_union, extract_paws(pug))
+    for dest, (src, width, cy, split_y) in BODIES.items():
         fitted = fit_width(sticker_from(src), width)
         canvas = blank()
         paste_centered(canvas, fitted, 512, cy)
-        save(seal_outline(canvas), dest)
+        full = seal_outline(canvas)
+        save(full, dest)
+        front = body_front_strap(full, pug_ref, paw_union, split_y)
+        front_rel = dest.replace(".png", "-front.png")
+        save(front, front_rel)
+
+    print("Pug foregrounds (ears over hats, paws over clothes)…")
+    for dest in BASES:
+        pug = Image.open(DST / dest)
+        color = Path(dest).stem.split("-")[1]
+        save(extract_ears(pug), f"base/front-ears-{color}.png")
+        save(extract_paws(pug), f"base/front-paws-{color}.png")
 
     print("Accessories…")
     for dest, (src, kind, width, cy) in ACCESSORIES.items():
         fitted = fit_width(sticker_from(src), width)
         canvas = blank()
         if kind == "eye":
-            cx = 428
+            cx = 430
         elif kind == "ledge":
             cx = LEDGE_X
+            cy = 638
         else:
-            cx = 512
+            cx = 516
         paste_centered(canvas, fitted, cx, cy)
         save(seal_outline(canvas), dest)
 
@@ -413,6 +548,39 @@ def composite(layers: list[str], bg: tuple[int, int, int] | None = None) -> Imag
             layer = layer.resize((SIZE, SIZE), Image.Resampling.LANCZOS)
         canvas = Image.alpha_composite(canvas, layer)
     return canvas
+
+
+def worn_stack(
+    background: str,
+    base: str,
+    *,
+    block: str | None = None,
+    body: str | None = None,
+    hat: str | None = None,
+    accessory: str | None = None,
+) -> Image.Image:
+    """Studio/generator draw order: clothes wrap the neck, hats tuck behind ears."""
+    color = Path(base).stem.split("-")[1]
+    layers = [background]
+    if body:
+        layers.append(body)
+    if hat:
+        layers.append(hat)
+    layers.append(base)
+    if block:
+        layers.append(block)
+    if body:
+        front = body.replace(".png", "-front.png")
+        if (DST / front).exists():
+            layers.append(front)
+    if hat:
+        crown = hat.replace(".png", "-crown.png")
+        if (DST / crown).exists():
+            layers.append(crown)
+    if accessory:
+        layers.append(accessory)
+    layers.append(f"base/front-paws-{color}.png")
+    return composite(layers)
 
 
 def _font(size: int) -> ImageFont.ImageFont:
@@ -470,9 +638,7 @@ def test_sheet() -> None:
     hat_tiles = []
     for dest in HATS:
         label = Path(dest).stem
-        img = composite(
-            ["background/bg-stoop-day.png", "base/base-fawn-peek.png", dest]
-        )
+        img = worn_stack("background/bg-stoop-day.png", "base/base-fawn-peek.png", hat=dest)
         hat_tiles.append(labeled_tile(img, label))
         img.convert("RGB").save(TEST_DIR / f"{label}.jpg", "JPEG", quality=90)
     grid(hat_tiles, 5, TEST_DIR / "hats.png")
@@ -480,8 +646,11 @@ def test_sheet() -> None:
     block_tiles = []
     for dest in BLOCKS:
         label = Path(dest).stem
-        img = composite(
-            ["background/bg-stoop-day.png", "base/base-fawn-peek.png", dest, "hat/hat-beanie.png"]
+        img = worn_stack(
+            "background/bg-stoop-day.png",
+            "base/base-fawn-peek.png",
+            block=dest,
+            hat="hat/hat-beanie.png",
         )
         block_tiles.append(labeled_tile(img, label))
         img.convert("RGB").save(TEST_DIR / f"{label}.jpg", "JPEG", quality=90)
@@ -490,8 +659,10 @@ def test_sheet() -> None:
     body_tiles = []
     for dest in BODIES:
         label = Path(dest).stem
-        img = composite(
-            ["background/bg-brownstone.png", "base/base-fawn-peek.png", dest]
+        img = worn_stack(
+            "background/bg-brownstone.png",
+            "base/base-fawn-peek.png",
+            body=dest,
         )
         body_tiles.append(labeled_tile(img, label))
         img.convert("RGB").save(TEST_DIR / f"{label}.jpg", "JPEG", quality=90)
@@ -500,28 +671,30 @@ def test_sheet() -> None:
     acc_tiles = []
     for dest in ACCESSORIES:
         label = Path(dest).stem
-        img = composite(
-            ["background/bg-rooftop-sunset.png", "base/base-cream-peek.png", dest]
+        img = worn_stack(
+            "background/bg-rooftop-sunset.png",
+            "base/base-cream-peek.png",
+            accessory=dest,
         )
         acc_tiles.append(labeled_tile(img, label))
         img.convert("RGB").save(TEST_DIR / f"{label}.jpg", "JPEG", quality=90)
     grid(acc_tiles, 5, TEST_DIR / "accessories.png")
 
     combos = [
-        ("fawn-beanie-bandana.jpg", ["background/bg-brownstone.png", "base/base-fawn-peek.png", "body/body-bandana.png", "hat/hat-beanie.png"]),
-        ("cream-newsie-coffee.jpg", ["background/bg-rooftop-sunset.png", "base/base-cream-peek.png", "hat/hat-newsie.png", "accessory/acc-coffee.png"]),
-        ("black-crown-chain.jpg", ["background/bg-neon-night.png", "base/base-black-peek.png", "body/body-gold-chain.png", "hat/hat-crown.png"]),
-        ("fawn-hardhat-blocks.jpg", ["background/bg-stoop-day.png", "base/base-fawn-peek.png", "hat/hat-hardhat.png", "accessory/acc-blocks.png"]),
-        ("black-snap-shades.jpg", ["background/bg-subway.png", "base/base-black-peek.png", "hat/hat-snapback.png", "accessory/acc-sunglasses.png"]),
-        ("cream-monocle-collar.jpg", ["background/bg-chain-green.png", "base/base-cream-peek.png", "body/body-collar.png", "accessory/acc-monocle.png"]),
-        ("fawn-hoodie-bone.jpg", ["background/bg-cream-brick.png", "base/base-fawn-peek.png", "body/body-hoodie.png", "accessory/acc-bone.png"]),
-        ("black-bandana-shades.jpg", ["background/bg-rooftop-sunset.png", "base/base-black-peek.png", "body/body-bandana.png", "accessory/acc-sunglasses.png"]),
-        ("fawn-snap-hoodie-coffee.jpg", ["background/bg-brownstone.png", "base/base-fawn-peek.png", "body/body-hoodie.png", "hat/hat-snapback.png", "accessory/acc-coffee.png"]),
-        ("cream-beanie-collar-shades.jpg", ["background/bg-stoop-day.png", "base/base-cream-peek.png", "body/body-collar.png", "hat/hat-beanie.png", "accessory/acc-sunglasses.png"]),
+        ("fawn-beanie-bandana.jpg", dict(background="background/bg-brownstone.png", base="base/base-fawn-peek.png", body="body/body-bandana.png", hat="hat/hat-beanie.png")),
+        ("cream-newsie-coffee.jpg", dict(background="background/bg-rooftop-sunset.png", base="base/base-cream-peek.png", hat="hat/hat-newsie.png", accessory="accessory/acc-coffee.png")),
+        ("black-crown-chain.jpg", dict(background="background/bg-neon-night.png", base="base/base-black-peek.png", body="body/body-gold-chain.png", hat="hat/hat-crown.png")),
+        ("fawn-hardhat-blocks.jpg", dict(background="background/bg-stoop-day.png", base="base/base-fawn-peek.png", hat="hat/hat-hardhat.png", accessory="accessory/acc-blocks.png")),
+        ("black-snap-shades.jpg", dict(background="background/bg-subway.png", base="base/base-black-peek.png", hat="hat/hat-snapback.png", accessory="accessory/acc-sunglasses.png")),
+        ("cream-monocle-collar.jpg", dict(background="background/bg-chain-green.png", base="base/base-cream-peek.png", body="body/body-collar.png", accessory="accessory/acc-monocle.png")),
+        ("fawn-hoodie-bone.jpg", dict(background="background/bg-cream-brick.png", base="base/base-fawn-peek.png", body="body/body-hoodie.png", accessory="accessory/acc-bone.png")),
+        ("black-bandana-shades.jpg", dict(background="background/bg-rooftop-sunset.png", base="base/base-black-peek.png", body="body/body-bandana.png", accessory="accessory/acc-sunglasses.png")),
+        ("fawn-snap-hoodie-coffee.jpg", dict(background="background/bg-brownstone.png", base="base/base-fawn-peek.png", body="body/body-hoodie.png", hat="hat/hat-snapback.png", accessory="accessory/acc-coffee.png")),
+        ("cream-beanie-collar-shades.jpg", dict(background="background/bg-stoop-day.png", base="base/base-cream-peek.png", body="body/body-collar.png", hat="hat/hat-beanie.png", accessory="accessory/acc-sunglasses.png")),
     ]
     stack_tiles = []
     for name, layers in combos:
-        canvas = composite(layers)
+        canvas = worn_stack(layers["background"], layers["base"], block=None, body=layers.get("body"), hat=layers.get("hat"), accessory=layers.get("accessory"))
         out = TEST_DIR / name
         canvas.convert("RGB").save(out, "JPEG", quality=90)
         stack_tiles.append(labeled_tile(canvas, name.replace(".jpg", "")))

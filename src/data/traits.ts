@@ -8,6 +8,12 @@ export type Trait = {
   id: string;
   name: string;
   image?: string;
+  /** Foreground slice: body strap over the wall, or hat brim on the crown. */
+  front?: string;
+  /** Floppy ears (debug extract; compositor draws the full pug over the hat). */
+  ears?: string;
+  /** Paws redrawn over clothes and the ledge. */
+  paws?: string;
   rarity: number;
   overlay?: Overlay;
 };
@@ -23,7 +29,7 @@ export type TraitCategory = {
 const none: Overlay = { x: 0, y: 0, scale: 1 };
 
 /** Bump when trait PNGs change so the studio canvas does not keep a stale bitmap. */
-export const TRAIT_ART_VERSION = "7";
+export const TRAIT_ART_VERSION = "11";
 
 export function traitSrc(path?: string) {
   if (!path) return "";
@@ -95,6 +101,8 @@ export const traitCategories: TraitCategory[] = [
         id: "fawn",
         name: "Fawn Peek",
         image: "/traits/base/base-fawn-peek.png",
+        ears: "/traits/base/front-ears-fawn.png",
+        paws: "/traits/base/front-paws-fawn.png",
         rarity: 50,
         overlay: none,
       },
@@ -102,6 +110,8 @@ export const traitCategories: TraitCategory[] = [
         id: "cream",
         name: "Apricot Peek",
         image: "/traits/base/base-cream-peek.png",
+        ears: "/traits/base/front-ears-cream.png",
+        paws: "/traits/base/front-paws-cream.png",
         rarity: 30,
         overlay: none,
       },
@@ -109,6 +119,8 @@ export const traitCategories: TraitCategory[] = [
         id: "black",
         name: "Black Peek",
         image: "/traits/base/base-black-peek.png",
+        ears: "/traits/base/front-ears-black.png",
+        paws: "/traits/base/front-paws-black.png",
         rarity: 20,
         overlay: none,
       },
@@ -152,13 +164,14 @@ export const traitCategories: TraitCategory[] = [
   {
     id: "hat",
     label: "Hat",
-    blurb: "Beanies, newsie caps, hard hats, and the occasional crown.",
+    blurb: "Beanies, newsie caps, hard hats, and the occasional crown — brim on the forehead, ears in front.",
     noneLabel: "Bare head",
     traits: [
       {
         id: "beanie",
         name: "Forest Beanie",
         image: "/traits/hat/hat-beanie.png",
+        front: "/traits/hat/hat-beanie-crown.png",
         rarity: 18,
         overlay: none,
       },
@@ -166,6 +179,7 @@ export const traitCategories: TraitCategory[] = [
         id: "newsie",
         name: "Newsie Cap",
         image: "/traits/hat/hat-newsie.png",
+        front: "/traits/hat/hat-newsie-crown.png",
         rarity: 16,
         overlay: none,
       },
@@ -173,6 +187,7 @@ export const traitCategories: TraitCategory[] = [
         id: "snapback",
         name: "Stoop Snapback",
         image: "/traits/hat/hat-snapback.png",
+        front: "/traits/hat/hat-snapback-crown.png",
         rarity: 14,
         overlay: none,
       },
@@ -180,6 +195,7 @@ export const traitCategories: TraitCategory[] = [
         id: "hardhat",
         name: "Block Hard Hat",
         image: "/traits/hat/hat-hardhat.png",
+        front: "/traits/hat/hat-hardhat-crown.png",
         rarity: 12,
         overlay: none,
       },
@@ -187,6 +203,7 @@ export const traitCategories: TraitCategory[] = [
         id: "crown",
         name: "Stoop Crown",
         image: "/traits/hat/hat-crown.png",
+        front: "/traits/hat/hat-crown-crown.png",
         rarity: 12,
         overlay: none,
       },
@@ -195,13 +212,14 @@ export const traitCategories: TraitCategory[] = [
   {
     id: "body",
     label: "Body",
-    blurb: "Neckerchiefs, collars, hoodies, and a heavy gold chain.",
+    blurb: "Neckerchiefs, collars, hoodies, and a heavy gold chain — split so they wrap the neck, not sit in front of the face.",
     noneLabel: "No clothes",
     traits: [
       {
         id: "bandana",
         name: "Forest Bandana",
         image: "/traits/body/body-bandana.png",
+        front: "/traits/body/body-bandana-front.png",
         rarity: 22,
         overlay: none,
       },
@@ -209,6 +227,7 @@ export const traitCategories: TraitCategory[] = [
         id: "collar",
         name: "Red Collar",
         image: "/traits/body/body-collar.png",
+        front: "/traits/body/body-collar-front.png",
         rarity: 18,
         overlay: none,
       },
@@ -216,6 +235,7 @@ export const traitCategories: TraitCategory[] = [
         id: "hoodie",
         name: "Cream Hoodie",
         image: "/traits/body/body-hoodie.png",
+        front: "/traits/body/body-hoodie-front.png",
         rarity: 16,
         overlay: none,
       },
@@ -223,6 +243,7 @@ export const traitCategories: TraitCategory[] = [
         id: "gold-chain",
         name: "Gold Chain",
         image: "/traits/body/body-gold-chain.png",
+        front: "/traits/body/body-gold-chain-front.png",
         rarity: 12,
         overlay: none,
       },

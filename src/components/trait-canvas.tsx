@@ -29,23 +29,27 @@ export function selectionToLayers(selection: Selection): Layer[] {
   const hat = findTrait("hat", selection.hat);
   const accessory = findTrait("accessory", selection.accessory);
 
-  const push = (trait?: Trait | null) => {
-    if (!trait?.image) return;
+  const push = (src?: string | null, overlay?: Trait["overlay"]) => {
+    if (!src) return;
     layers.push({
-      src: traitSrc(trait.image),
-      x: trait.overlay?.x ?? 0,
-      y: trait.overlay?.y ?? 0,
-      scale: trait.overlay?.scale ?? 1,
+      src: traitSrc(src),
+      x: overlay?.x ?? 0,
+      y: overlay?.y ?? 0,
+      scale: overlay?.scale ?? 1,
     });
   };
 
-  // Block is aligned to the pug ledge so it swaps the wall face without covering the muzzle.
-  push(background);
-  push(base);
-  push(block);
-  push(body);
-  push(hat);
-  push(accessory);
+  // Clothes wrap the neck: full loop behind the pug, front strap over the wall,
+  // paws last. Hats sit behind the ears, with the brim redrawn on the crown.
+  push(background?.image, background?.overlay);
+  push(body?.image, body?.overlay);
+  push(hat?.image, hat?.overlay);
+  push(base?.image, base?.overlay);
+  push(block?.image, block?.overlay);
+  push(body?.front, body?.overlay);
+  push(hat?.front, hat?.overlay);
+  push(accessory?.image, accessory?.overlay);
+  push(base?.paws, base?.overlay);
   return layers;
 }
 
