@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { collection } from "@/data/collection";
+import { potbPath } from "@/lib/potb";
 
 export function SiteFooter() {
   return (
@@ -12,16 +13,19 @@ export function SiteFooter() {
           </p>
         </div>
         <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm">
-          <Link href="/studio" className="hover:underline">
+          <Link href="/" className="hover:underline">
+            NFT Gallery
+          </Link>
+          <Link href={potbPath("/studio")} className="hover:underline">
             Studio
           </Link>
-          <Link href="/traits" className="hover:underline">
+          <Link href={potbPath("/traits")} className="hover:underline">
             Trait sheets
           </Link>
-          <Link href="/gallery" className="hover:underline">
+          <Link href={potbPath("/gallery")} className="hover:underline">
             Sample mints
           </Link>
-          <Link href="/launch" className="hover:underline">
+          <Link href={potbPath("/launch")} className="hover:underline">
             Launch notes
           </Link>
           <a href={collection.chain.docs} className="hover:underline" target="_blank" rel="noreferrer">

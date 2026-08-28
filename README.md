@@ -1,17 +1,20 @@
-# Pugs On The Block
+# NFT Gallery
 
-Neighborhood pugs peeking over the stoop. A **10,000-piece** PFP collection of layered chibi pugs, built to mint on **Robinhood Chain** (chain ID `4663`) and list on **OpenSea**.
+A house of NFT collections. Each drop is its own sub-project — studio, traits, and launch path included.
 
-OpenSea does **not** generate collections from trait layers. For a Drop you upload finished images (max 10,000) plus a CSV. This repo already composited those files.
+**Pugs On The Block** is the first collection on the wall: 10,000 chibi pug PFPs for OpenSea on Robinhood Chain (chain ID `4663`).
 
 ## What’s in this repo
 
-- Trait art at `public/traits/` — background, base, block, hat, body, accessory
-- 10,000 shuffled PFPs at `generated/images/` plus `generated/opensea-metadata.csv`
-- Eight hand-dressed samples in `public/gallery/`
-- Collection logo and banner in `public/brand/`
-- Trait studio at `/studio`
-- `contracts/PugsOnTheBlock.sol` — ERC-721 with a 10,000 supply cap
+| Path | What it is |
+| --- | --- |
+| `/` | NFT Gallery hub — every collection on the wall |
+| `/pugs-on-the-block` | Pugs On The Block drop, studio, traits, gallery, OpenSea notes |
+| `public/traits/` | POTB trait layers (background, base, block, hat, body, accessory) |
+| `generated/` | 10,000 shuffled POTB PFPs + OpenSea CSV |
+| `contracts/PugsOnTheBlock.sol` | ERC-721 with a 10,000 supply cap |
+
+More collections land as sibling routes (same pattern as `/pugs-on-the-block`) and get a card on the hub.
 
 ## Run the site
 
@@ -22,39 +25,23 @@ npm run dev
 
 The app listens on [http://127.0.0.1:43147](http://127.0.0.1:43147).
 
-## Generate the 10,000
+- Gallery home: `/`
+- Pugs On The Block: `/pugs-on-the-block`
+- Trait studio: `/pugs-on-the-block/studio`
+
+## Generate the Pugs On The Block drop
 
 ```bash
-python3 scripts/fit_traits_1024.py   # optional: re-place hats/clothes/toys on the 1024 canvas
+python3 scripts/fit_traits_1024.py
 python3 scripts/generate_collection.py
 ```
 
-Requires Python 3 with Pillow. Output lands in `generated/`. See `generated/README.md` for the OpenSea Drop upload steps.
+Requires Python 3 with Pillow. Output lands in `generated/`. See `generated/README.md` and `docs/pugs-on-the-block.md` for OpenSea Drop upload steps.
 
-## Trait stack
+## Deploy
 
-Draw order, back to front:
-
-1. Background
-2. Block (the ledge)
-3. Base pug
-4. Body (bandana, collar, hoodie, chain)
-5. Hat
-6. Accessory (shades, monocle, or a treat on the ledge)
-
-Hats, clothes, and stoop props are painted onto the same 1024×1024 canvas as the pug, then stacked 1:1 — the same dimensions and look as the eight gallery paintings.
-
-## Robinhood Chain + OpenSea
-
-| | |
-| --- | --- |
-| Network | Robinhood Chain |
-| Chain ID | 4663 (`0x1237`) |
-| RPC | `https://rpc.mainnet.chain.robinhood.com` |
-| Explorer | https://robinhoodchain.blockscout.com |
-| Gas token | ETH |
-| Marketplace | OpenSea Drop (bulk images + CSV) |
+This is a single Next.js app (one Vercel project). Point Vercel at the GitHub repo `nft-gallery`, framework preset Next.js, root directory `.`.
 
 ## License
 
-Art and site code in this repository are for the Pugs On The Block drop. Swap the zero-address fee recipient in `public/metadata/collection.json` before you list.
+Art and site code in this repository are for the collections on the wall. Swap the zero-address fee recipient in `public/metadata/collection.json` before you list Pugs On The Block.

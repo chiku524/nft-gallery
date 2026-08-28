@@ -7,14 +7,15 @@ import { Menu } from "lucide-react";
 import { collection } from "@/data/collection";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { potbPath } from "@/lib/potb";
 import { cn } from "@/lib/utils";
 
 const links = [
-  { href: "/", label: "Drop" },
-  { href: "/studio", label: "Studio" },
-  { href: "/traits", label: "Traits" },
-  { href: "/gallery", label: "Gallery" },
-  { href: "/launch", label: "OpenSea" },
+  { href: potbPath(), label: "Drop" },
+  { href: potbPath("/studio"), label: "Studio" },
+  { href: potbPath("/traits"), label: "Traits" },
+  { href: potbPath("/gallery"), label: "Gallery" },
+  { href: potbPath("/launch"), label: "OpenSea" },
 ];
 
 export function SiteHeader() {
@@ -23,7 +24,7 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-border/80 bg-[color-mix(in_oklch,var(--background)_88%,white)]/90 backdrop-blur-md">
       <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-4 sm:px-6">
-        <Link href="/" className="flex items-center gap-3">
+        <Link href={potbPath()} className="flex items-center gap-3">
           <Image
             src="/brand/logo-pugs-on-the-block.png"
             alt=""
@@ -58,7 +59,7 @@ export function SiteHeader() {
 
         <div className="flex items-center gap-2">
           <Button asChild size="sm" className="hidden sm:inline-flex">
-            <Link href="/studio">Build a pug</Link>
+            <Link href={potbPath("/studio")}>Build a pug</Link>
           </Button>
           <Sheet>
             <SheetTrigger asChild>

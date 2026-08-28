@@ -2,7 +2,7 @@
   "name": "Pugs On The Block #7",
   "description": "A neighborhood pug peeking over the block. Sample mint from the Pugs On The Block collection on Robinhood Chain.",
   "image": "/gallery/mint-07-cream-hoodie.png",
-  "external_url": "/gallery",
+  "external_url": "/pugs-on-the-block/gallery",
   "attributes": [
     {
       "trait_type": "Background",

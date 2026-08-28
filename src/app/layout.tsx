@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import { Fraunces, Nunito_Sans } from "next/font/google";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { SiteHeader } from "@/components/site-header";
-import { SiteFooter } from "@/components/site-footer";
-import { collection } from "@/data/collection";
+import { GalleryChrome } from "@/components/gallery-chrome";
+import { gallery } from "@/data/projects";
 import "./globals.css";
 
 const display = Fraunces({
@@ -18,10 +17,10 @@ const sans = Nunito_Sans({
 
 export const metadata: Metadata = {
   title: {
-    default: `${collection.name} · Robinhood Chain`,
-    template: `%s · ${collection.name}`,
+    default: gallery.name,
+    template: `%s · ${gallery.name}`,
   },
-  description: collection.description,
+  description: gallery.description,
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -32,9 +31,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="flex min-h-full flex-col">
         <TooltipProvider>
-          <SiteHeader />
-          <main className="flex-1">{children}</main>
-          <SiteFooter />
+          <div className="flex min-h-full flex-1 flex-col">
+            <GalleryChrome />
+            {children}
+          </div>
         </TooltipProvider>
       </body>
     </html>
