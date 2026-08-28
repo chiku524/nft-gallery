@@ -285,8 +285,9 @@ def load_trait(file_name: str) -> Image.Image:
     return CACHE[file_name]
 
 
-# Match the original studio / gallery stack, not CATEGORIES metadata order.
-DRAW_ORDER = ["background", "block", "base", "body", "hat", "accessory"]
+# Match the studio stack: clothes wrap the neck, wall clips the chest, paws last.
+FACE_ACCESSORIES = {"sunglasses", "monocle"}
+LEDGE_ACCESSORIES = {"coffee", "bone", "blocks"}
 
 
 def gallery_image_for(combo: dict[str, dict]) -> Image.Image | None:
@@ -304,14 +305,30 @@ def render(combo: dict[str, dict]) -> Image.Image:
             pinned = pinned.resize((SIZE, SIZE), Image.Resampling.LANCZOS)
         return pinned
     canvas = Image.new("RGBA", (SIZE, SIZE), (0, 0, 0, 0))
-    for cat_id in DRAW_ORDER:
-        trait = combo[cat_id]
-        if not trait["file"]:
-            continue
-        overlay = load_trait(trait["file"])
+
+    def comp(file_name: str | None) -> None:
+        nonlocal canvas
+        if not file_name:
+            return
+        overlay = load_trait(file_name)
         if overlay.size != (SIZE, SIZE):
             overlay = overlay.resize((SIZE, SIZE), Image.Resampling.LANCZOS)
         canvas = Image.alpha_composite(canvas, overlay)
+
+    acc_id = combo["accessory"]["id"]
+    body_file = combo["body"]["file"]
+    comp(combo["background"]["file"])
+    comp(body_file)
+    comp(combo["base"]["file"])
+    if acc_id in FACE_ACCESSORIES:
+        comp(combo["accessory"]["file"])
+    comp(combo["hat"]["file"])
+    comp(combo["block"]["file"] or "base/wall-default.png")
+    if body_file:
+        comp(body_file.replace(".png", "-front.png"))
+    if acc_id in LEDGE_ACCESSORIES:
+        comp(combo["accessory"]["file"])
+    comp(f"base/front-paws-{combo['base']['id']}.png")
     return canvas.convert("RGB")
 
 
@@ -363,6 +380,18 @@ def warmup() -> None:
     for cat in CATEGORIES:
         for trait in cat["traits"]:
             load_trait(trait["file"])
+    extras = [
+        "base/wall-default.png",
+        "base/front-paws-fawn.png",
+        "base/front-paws-cream.png",
+        "base/front-paws-black.png",
+        "body/body-bandana-front.png",
+        "body/body-collar-front.png",
+        "body/body-hoodie-front.png",
+        "body/body-gold-chain-front.png",
+    ]
+    for rel in extras:
+        load_trait(rel)
 
 
 def write_csv(records: list[dict]) -> None:

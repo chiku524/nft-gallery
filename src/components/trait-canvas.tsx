@@ -1,7 +1,18 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { findTrait, galleryPinFor, traitSrc, type Selection, type Trait } from "@/data/traits";
+import {
+  FACE_ACCESSORIES,
+  LEDGE_ACCESSORIES,
+  bodyFrontSrc,
+  findTrait,
+  galleryPinFor,
+  pawsSrc,
+  traitSrc,
+  wallSrc,
+  type Selection,
+  type Trait,
+} from "@/data/traits";
 
 type Layer = {
   src: string;
@@ -36,13 +47,20 @@ export function selectionToLayers(selection: Selection): Layer[] {
     layers.push({ src: traitSrc(trait.image) });
   };
 
-  // Gallery stack, back to front: scene, ledge, pug, clothes, hat, stoop prop.
+  // Gallery stack: clothes wrap the neck, hat sits on the skull, wall clips
+  // the chest, hanging straps and stoop props sit on the ledge, paws last.
   push(background);
-  push(block);
-  push(base);
   push(body);
+  push(base);
+  if (FACE_ACCESSORIES.has(selection.accessory)) push(accessory);
   push(hat);
-  push(accessory);
+  const wall = wallSrc(block?.image);
+  if (wall) layers.push({ src: wall });
+  const front = bodyFrontSrc(selection.body);
+  if (front) layers.push({ src: front });
+  if (LEDGE_ACCESSORIES.has(selection.accessory)) push(accessory);
+  const paws = pawsSrc(selection.base);
+  if (paws) layers.push({ src: paws });
   return layers;
 }
 

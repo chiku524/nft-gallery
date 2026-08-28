@@ -14,12 +14,29 @@ export type TraitCategory = {
 };
 
 /** Bump when trait PNGs change so the studio canvas does not keep a stale bitmap. */
-export const TRAIT_ART_VERSION = "gallery-stack-v3";
+export const TRAIT_ART_VERSION = "gallery-stack-v4";
 
 export function traitSrc(path?: string) {
   if (!path) return "";
   return `${path}?v=${TRAIT_ART_VERSION}`;
 }
+
+export function bodyFrontSrc(bodyId: string) {
+  if (!bodyId || bodyId === "none" || bodyId === "bandana" || bodyId === "hoodie") return "";
+  return traitSrc(`/traits/body/body-${bodyId}-front.png`);
+}
+
+export function pawsSrc(baseId: string) {
+  return traitSrc(`/traits/base/front-paws-${baseId}.png`);
+}
+
+export function wallSrc(blockImage?: string) {
+  if (blockImage) return traitSrc(blockImage);
+  return traitSrc("/traits/base/wall-default.png");
+}
+
+export const FACE_ACCESSORIES = new Set(["sunglasses", "monocle"]);
+export const LEDGE_ACCESSORIES = new Set(["coffee", "bone", "blocks"]);
 
 export const traitCategories: TraitCategory[] = [
   {
