@@ -1,0 +1,8 @@
+# Match gitignore: 10k generated PFPs stay off CLI uploads.
+# Git-connected deploys already skip these because they are gitignored.
+/generated/images/
+/generated/json/
+/generated/placement-tests/
+/node_modules/
+/.next/
+/out/
