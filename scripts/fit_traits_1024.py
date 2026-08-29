@@ -866,18 +866,53 @@ def crop_to_brim(im: Image.Image, pad: int = 8) -> Image.Image:
     return Image.fromarray(clear_transparent(a))
 
 
-def place_hat(rel: str, width: int, brim_y: int, max_h: int | None = None) -> Image.Image:
+def crop_hat_top(im: Image.Image, keep_h: int) -> Image.Image:
+    """Some hat sheets fill the head opening with more fabric. Keep the wearable crown only."""
+    a = arr(im).copy()
+    ys = np.where(a[:, :, 3] > 20)[0]
+    if not ys.size:
+        return im
+    a[int(ys.min()) + keep_h :, :, 3] = 0
+    return Image.fromarray(clear_transparent(a))
+
+
+def seat_hat_brim(im: Image.Image, y_center: int, y_sides: int, x0: int = 280, x1: int = 744) -> Image.Image:
+    """Drop a flat crop line: brim higher on the forehead, lower over the ears."""
+    a = arr(im).copy()
+    rows = np.arange(SIZE, dtype=np.float32)[:, None]
+    cols = np.arange(SIZE, dtype=np.float32)[None, :]
+    half = max((x1 - x0) / 2.0, 1.0)
+    t = np.clip(np.abs(cols - 512.0) / half, 0.0, 1.0)
+    bottom = y_center + (y_sides - y_center) * t
+    a[rows > bottom, 3] = 0
+    return Image.fromarray(clear_transparent(a))
+
+
+def place_hat(
+    rel: str,
+    width: int,
+    brim_y: int,
+    max_h: int | None = None,
+    *,
+    keep_h: int | None = None,
+    seat: tuple[int, int] | None = None,
+) -> Image.Image:
     """Original hat art, brim on this pug's forehead."""
-    return harden_overlay(place_bottom(crop_to_brim(load_src(rel)), width, brim_y, 512, max_h), drop_specks=True)
+    src = crop_hat_top(load_src(rel), keep_h) if keep_h else crop_to_brim(load_src(rel))
+    hat = harden_overlay(place_bottom(src, width, brim_y, 512, max_h), drop_specks=True)
+    if seat:
+        hat = harden_overlay(seat_hat_brim(hat, seat[0], seat[1]), drop_specks=True)
+    return hat
 
 
 def fit_hats() -> None:
     """Original hat sheets, seated on this pug the way the eight gallery paintings wear them."""
-    save("hat/hat-beanie.png", place_hat("hat/hat-beanie.png", 390, 365, 230))
-    save("hat/hat-newsie.png", place_hat("hat/hat-newsie.png", 420, 375, 200))
-    save("hat/hat-hardhat.png", place_hat("hat/hat-hardhat.png", 340, 365, 185))
-    save("hat/hat-snapback.png", place_hat("hat/hat-snapback.png", 380, 348, 210))
-    save("hat/hat-crown.png", place_hat("hat/hat-crown.png", 220, 268, 145))
+    # Crop the source crown (keep_h) instead of max_h — max_h shrinks width.
+    save("hat/hat-beanie.png", place_hat("hat/hat-beanie.png", 410, 338, keep_h=210, seat=(324, 358)))
+    save("hat/hat-newsie.png", place_hat("hat/hat-newsie.png", 440, 402, keep_h=175, seat=(388, 406)))
+    save("hat/hat-hardhat.png", place_hat("hat/hat-hardhat.png", 300, 408, keep_h=125, seat=(400, 414)))
+    save("hat/hat-snapback.png", place_hat("hat/hat-snapback.png", 400, 378, keep_h=265))
+    save("hat/hat-crown.png", place_hat("hat/hat-crown.png", 240, 362, 148, seat=(352, 364)))
 
 
 def prepare_hoodie(im: Image.Image) -> Image.Image:
@@ -960,7 +995,7 @@ def tongue_mask(pug: Image.Image) -> np.ndarray:
     alpha = pug_a[:, :, 3] > 20
     rows = np.arange(SIZE)[:, None]
     cols = np.arange(SIZE)[None, :]
-    # Pink tongue only — keep the box tight so the under-chin wrap stays intact.
+    # Actual pink tongue pixels only — neck layer sits in front of the pug.
     return (
         alpha
         & (r > 160)
@@ -970,22 +1005,22 @@ def tongue_mask(pug: Image.Image) -> np.ndarray:
         & (b < 160)
         & (r > g + 20)
         & (rows >= 528)
-        & (rows <= 582)
-        & (cols >= 455)
-        & (cols <= 575)
+        & (rows < WALL_TOP)
+        & (cols >= 445)
+        & (cols <= 585)
     )
 
 
 def clothes_face_punch(pug: Image.Image, kind: str) -> np.ndarray:
-    """Clear leftover loop pixels over the eyes and tongue only. Keep the under-chin wrap."""
+    """Clear leftover loop pixels over the eyes only. Do not carve the under-chin wrap."""
     pug_a = arr(pug)
     alpha = pug_a[:, :, 3] > 20
     rows = np.arange(SIZE)[:, None]
     cols = np.arange(SIZE)[None, :]
-    eyes = alpha & (rows > 350) & (rows < 500) & (cols >= 330) & (cols <= 700)
+    eyes = alpha & (rows > 350) & (rows < 495) & (cols >= 330) & (cols <= 700)
     if kind == "gold-chain":
         eyes = alpha & (rows > 350) & (rows < 490) & (cols >= 350) & (cols <= 680)
-    return eyes | tongue_mask(pug)
+    return eyes
 
 
 def hoodie_charcoal_color(im: Image.Image) -> tuple[int, int, int]:
@@ -1040,38 +1075,21 @@ def ensure_u_wrap(
 
 
 def body_neck_layer(full: Image.Image, pug: Image.Image, kind: str) -> Image.Image:
-    """Wrap in front of the neck: keep clothes above the wall, punch eyes/tongue only."""
+    """Original fabric in front of the neck. No painted fill — placement does the wrap."""
     a = arr(full).copy()
     a[clothes_face_punch(pug, kind), 3] = 0
+    a[tongue_mask(pug), 3] = 0
     a[WALL_TOP:, :, 3] = 0
     neck = Image.fromarray(clear_transparent(a))
-    # Center stays below the tongue; sides rise around the jowls.
+    # Keep the source pixels under the chin. Do not paint a replacement strap.
     curve = {
-        "bandana": (582, 522),
-        "collar": (578, 518),
-        "hoodie": (580, 520),
-        "gold-chain": (532, 498),
+        "bandana": (600, 538),
+        "collar": (605, 548),
+        "gold-chain": (598, 562),
     }.get(kind)
     if curve:
         neck = clip_above_curve(neck, curve[0], curve[1])
-    if kind == "gold-chain":
-        punched = arr(neck).copy()
-        punched[tongue_mask(pug), 3] = 0
-        return Image.fromarray(clear_transparent(punched))
-    if kind == "hoodie":
-        color = hoodie_charcoal_color(neck)
-        neck = drop_hoodie_lining(neck, color)
-    else:
-        color = fabric_fill_color(neck, kind)
-    if color is not None:
-        y_fill = curve[0] if curve else 578
-        neck = fill_interior_gaps(neck, y_fill, WALL_TOP, color)
-        neck = close_row_gaps(neck, y_fill, WALL_TOP, color, max_gap=110)
-        x0, x1 = {"bandana": (305, 735), "collar": (335, 690), "hoodie": (275, 745)}.get(kind, (320, 700))
-        neck = ensure_u_wrap(neck, curve[0], curve[1], x0, x1, color)
-    punched = arr(neck).copy()
-    punched[tongue_mask(pug), 3] = 0
-    return Image.fromarray(clear_transparent(punched))
+    return neck
 
 
 def fabric_fill_color(im: Image.Image, kind: str | None = None) -> tuple[int, int, int] | None:
@@ -1193,7 +1211,7 @@ def bandana_knot_layer(src: Image.Image) -> Image.Image:
     a[:, : int(x0 + 0.66 * (x1 - x0)), 3] = 0
     a[int(y0 + 0.40 * (y1 - y0)) :, :, 3] = 0
     knot = Image.fromarray(clear_transparent(a))
-    return paste_box(knot, (600, 545, 170, 120), "center")
+    return paste_box(knot, (605, 565, 160, 110), "center")
 
 
 def body_hang_layer(full: Image.Image, kind: str) -> Image.Image:
@@ -1265,30 +1283,29 @@ def fit_body(paws: Image.Image) -> None:
     """Original clothes sheets, seated under this pug's chin the way the gallery paintings wear them."""
     pug = load_trait("base/base-fawn-peek.png")
     specs = [
-        ("body/body-bandana.png", load_src("body/body-bandana.png"), "bandana", (180, 420, 660, 280)),
-        ("body/body-collar.png", load_src("body/body-collar.png"), "collar", (220, 450, 580, 260)),
-        ("body/body-hoodie.png", knock_out_hoodie_fill(load_src("body/body-hoodie.png")), "hoodie", (170, 430, 680, 290)),
-        ("body/body-gold-chain.png", load_src("body/body-gold-chain.png"), "gold-chain", (240, 440, 540, 290)),
+        # Scale so the solid bottom of each source loop lands under the chin, not the hole.
+        ("body/body-bandana.png", load_src("body/body-bandana.png"), "bandana", (180, 390, 660, 315)),
+        ("body/body-collar.png", load_src("body/body-collar.png"), "collar", (210, 435, 580, 310)),
+        ("body/body-hoodie.png", knock_out_hoodie_fill(load_src("body/body-hoodie.png")), "hoodie", (170, 400, 680, 280)),
+        ("body/body-gold-chain.png", load_src("body/body-gold-chain.png"), "gold-chain", (190, 380, 644, 370)),
     ]
     for dest, src, kind, box in specs:
-        full = harden_overlay(paste_box(src, box, "bottom"), fill_holes=(kind != "gold-chain"))
+        # Never fill the neck opening — that painted the wraps into flat bars.
+        full = harden_overlay(paste_box(src, box, "bottom"), fill_holes=False)
         if kind == "gold-chain":
             full = punch_chain_holes(full)
         save(dest, full)
-        neck = harden_overlay(body_neck_layer(full, pug, kind), fill_holes=(kind != "gold-chain"))
+        neck = harden_overlay(body_neck_layer(full, pug, kind), fill_holes=False)
         if kind == "bandana":
-            knot = harden_overlay(bandana_knot_layer(src))
+            knot = harden_overlay(bandana_knot_layer(src), fill_holes=False)
             knot_a = arr(knot)
             knot_a[WALL_TOP:, :, 3] = 0
             knot = Image.fromarray(clear_transparent(knot_a))
             neck = Image.alpha_composite(neck, knot)
-            color = fabric_fill_color(neck, "bandana")
-            if color is not None:
-                neck = close_row_gaps(neck, 582, WALL_TOP, color, max_gap=220)
         save(dest.replace(".png", "-neck.png"), neck)
         hang = body_hang_layer(full, kind)
         if (arr(hang)[:, :, 3] > 20).any():
-            hang = harden_overlay(hang, fill_holes=(kind != "gold-chain"))
+            hang = harden_overlay(hang, fill_holes=False)
         else:
             hang = blank()
         save(dest.replace(".png", "-front.png"), hang)
