@@ -906,13 +906,13 @@ def place_hat(
 
 
 def fit_hats() -> None:
-    """Original hat sheets, seated on this pug the way the eight gallery paintings wear them."""
-    # Crop the source crown (keep_h) instead of max_h — max_h shrinks width.
-    save("hat/hat-beanie.png", place_hat("hat/hat-beanie.png", 410, 338, keep_h=210, seat=(324, 358)))
-    save("hat/hat-newsie.png", place_hat("hat/hat-newsie.png", 440, 402, keep_h=175, seat=(388, 406)))
-    save("hat/hat-hardhat.png", place_hat("hat/hat-hardhat.png", 300, 408, keep_h=125, seat=(400, 414)))
-    save("hat/hat-snapback.png", place_hat("hat/hat-snapback.png", 400, 378, keep_h=265))
-    save("hat/hat-crown.png", place_hat("hat/hat-crown.png", 240, 362, 148, seat=(352, 364)))
+    """Place the hat low enough for the ears, then cut an n-brim so the forehead stays clear."""
+    # brim_y is the lowest pixel (over the ears). seat[0] is the forehead.
+    save("hat/hat-beanie.png", place_hat("hat/hat-beanie.png", 440, 368, keep_h=230, seat=(318, 368)))
+    save("hat/hat-newsie.png", place_hat("hat/hat-newsie.png", 430, 385, keep_h=170, seat=(355, 385)))
+    save("hat/hat-hardhat.png", place_hat("hat/hat-hardhat.png", 290, 372, keep_h=140, seat=(348, 372)))
+    save("hat/hat-snapback.png", place_hat("hat/hat-snapback.png", 390, 358, keep_h=230, seat=(338, 358)))
+    save("hat/hat-crown.png", place_hat("hat/hat-crown.png", 255, 332, 165, seat=(316, 332)))
 
 
 def prepare_hoodie(im: Image.Image) -> Image.Image:
@@ -1083,9 +1083,9 @@ def body_neck_layer(full: Image.Image, pug: Image.Image, kind: str) -> Image.Ima
     neck = Image.fromarray(clear_transparent(a))
     # Keep the source pixels under the chin. Do not paint a replacement strap.
     curve = {
-        "bandana": (600, 538),
-        "collar": (605, 548),
-        "gold-chain": (598, 562),
+        "bandana": (535, 510),
+        "collar": (570, 540),
+        "gold-chain": (555, 530),
     }.get(kind)
     if curve:
         neck = clip_above_curve(neck, curve[0], curve[1])
@@ -1211,7 +1211,7 @@ def bandana_knot_layer(src: Image.Image) -> Image.Image:
     a[:, : int(x0 + 0.66 * (x1 - x0)), 3] = 0
     a[int(y0 + 0.40 * (y1 - y0)) :, :, 3] = 0
     knot = Image.fromarray(clear_transparent(a))
-    return paste_box(knot, (605, 565, 160, 110), "center")
+    return paste_box(knot, (575, 548, 155, 105), "center")
 
 
 def body_hang_layer(full: Image.Image, kind: str) -> Image.Image:
@@ -1284,10 +1284,10 @@ def fit_body(paws: Image.Image) -> None:
     pug = load_trait("base/base-fawn-peek.png")
     specs = [
         # Scale so the solid bottom of each source loop lands under the chin, not the hole.
-        ("body/body-bandana.png", load_src("body/body-bandana.png"), "bandana", (180, 390, 660, 315)),
-        ("body/body-collar.png", load_src("body/body-collar.png"), "collar", (210, 435, 580, 310)),
+        ("body/body-bandana.png", load_src("body/body-bandana.png"), "bandana", (180, 320, 660, 340)),
+        ("body/body-collar.png", load_src("body/body-collar.png"), "collar", (250, 460, 520, 240)),
         ("body/body-hoodie.png", knock_out_hoodie_fill(load_src("body/body-hoodie.png")), "hoodie", (170, 400, 680, 280)),
-        ("body/body-gold-chain.png", load_src("body/body-gold-chain.png"), "gold-chain", (190, 380, 644, 370)),
+        ("body/body-gold-chain.png", load_src("body/body-gold-chain.png"), "gold-chain", (180, 360, 660, 400)),
     ]
     for dest, src, kind, box in specs:
         # Never fill the neck opening — that painted the wraps into flat bars.
