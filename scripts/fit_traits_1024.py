@@ -906,13 +906,12 @@ def place_hat(
 
 
 def fit_hats() -> None:
-    """Place the hat low enough for the ears, then cut an n-brim so the forehead stays clear."""
-    # brim_y is the lowest pixel (over the ears). seat[0] is the forehead.
-    save("hat/hat-beanie.png", place_hat("hat/hat-beanie.png", 440, 368, keep_h=230, seat=(318, 368)))
-    save("hat/hat-newsie.png", place_hat("hat/hat-newsie.png", 430, 385, keep_h=170, seat=(355, 385)))
-    save("hat/hat-hardhat.png", place_hat("hat/hat-hardhat.png", 290, 372, keep_h=140, seat=(348, 372)))
-    save("hat/hat-snapback.png", place_hat("hat/hat-snapback.png", 390, 358, keep_h=230, seat=(338, 358)))
-    save("hat/hat-crown.png", place_hat("hat/hat-crown.png", 255, 332, 165, seat=(316, 332)))
+    """Original hat silhouettes. keep_h drops only the filled head opening, never the brim."""
+    save("hat/hat-beanie.png", place_hat("hat/hat-beanie.png", 400, 348, keep_h=260))
+    save("hat/hat-newsie.png", place_hat("hat/hat-newsie.png", 420, 378, keep_h=250))
+    save("hat/hat-hardhat.png", place_hat("hat/hat-hardhat.png", 310, 368))
+    save("hat/hat-snapback.png", place_hat("hat/hat-snapback.png", 400, 358, keep_h=300))
+    save("hat/hat-crown.png", place_hat("hat/hat-crown.png", 250, 338, keep_h=280))
 
 
 def prepare_hoodie(im: Image.Image) -> Image.Image:
@@ -1075,21 +1074,12 @@ def ensure_u_wrap(
 
 
 def body_neck_layer(full: Image.Image, pug: Image.Image, kind: str) -> Image.Image:
-    """Original fabric in front of the neck. No painted fill — placement does the wrap."""
+    """Front of the original garment. Punch the face, keep the drawing intact."""
     a = arr(full).copy()
     a[clothes_face_punch(pug, kind), 3] = 0
     a[tongue_mask(pug), 3] = 0
     a[WALL_TOP:, :, 3] = 0
-    neck = Image.fromarray(clear_transparent(a))
-    # Keep the source pixels under the chin. Do not paint a replacement strap.
-    curve = {
-        "bandana": (535, 510),
-        "collar": (570, 540),
-        "gold-chain": (555, 530),
-    }.get(kind)
-    if curve:
-        neck = clip_above_curve(neck, curve[0], curve[1])
-    return neck
+    return Image.fromarray(clear_transparent(a))
 
 
 def fabric_fill_color(im: Image.Image, kind: str | None = None) -> tuple[int, int, int] | None:
@@ -1283,25 +1273,18 @@ def fit_body(paws: Image.Image) -> None:
     """Original clothes sheets, seated under this pug's chin the way the gallery paintings wear them."""
     pug = load_trait("base/base-fawn-peek.png")
     specs = [
-        # Scale so the solid bottom of each source loop lands under the chin, not the hole.
-        ("body/body-bandana.png", load_src("body/body-bandana.png"), "bandana", (180, 320, 660, 340)),
-        ("body/body-collar.png", load_src("body/body-collar.png"), "collar", (250, 460, 520, 240)),
-        ("body/body-hoodie.png", knock_out_hoodie_fill(load_src("body/body-hoodie.png")), "hoodie", (170, 400, 680, 280)),
-        ("body/body-gold-chain.png", load_src("body/body-gold-chain.png"), "gold-chain", (180, 360, 660, 400)),
+        # Keep the whole drawing in the neck window so it still reads as the source garment.
+        ("body/body-bandana.png", load_src("body/body-bandana.png"), "bandana", (200, 390, 620, 250)),
+        ("body/body-collar.png", load_src("body/body-collar.png"), "collar", (240, 420, 540, 230)),
+        ("body/body-hoodie.png", knock_out_hoodie_fill(load_src("body/body-hoodie.png")), "hoodie", (190, 410, 640, 240)),
+        ("body/body-gold-chain.png", load_src("body/body-gold-chain.png"), "gold-chain", (260, 440, 500, 250)),
     ]
     for dest, src, kind, box in specs:
-        # Never fill the neck opening — that painted the wraps into flat bars.
         full = harden_overlay(paste_box(src, box, "bottom"), fill_holes=False)
         if kind == "gold-chain":
             full = punch_chain_holes(full)
         save(dest, full)
         neck = harden_overlay(body_neck_layer(full, pug, kind), fill_holes=False)
-        if kind == "bandana":
-            knot = harden_overlay(bandana_knot_layer(src), fill_holes=False)
-            knot_a = arr(knot)
-            knot_a[WALL_TOP:, :, 3] = 0
-            knot = Image.fromarray(clear_transparent(knot_a))
-            neck = Image.alpha_composite(neck, knot)
         save(dest.replace(".png", "-neck.png"), neck)
         hang = body_hang_layer(full, kind)
         if (arr(hang)[:, :, 3] > 20).any():

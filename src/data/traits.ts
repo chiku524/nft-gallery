@@ -14,7 +14,7 @@ export type TraitCategory = {
 };
 
 /** Bump when trait PNGs change so the studio canvas does not keep a stale bitmap. */
-export const TRAIT_ART_VERSION = "gallery-stack-v15";
+export const TRAIT_ART_VERSION = "gallery-stack-v16";
 
 export function traitSrc(path?: string) {
   if (!path) return "";
