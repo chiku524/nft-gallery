@@ -953,37 +953,142 @@ def feather_front(full: Image.Image, split_y: int, fade: int = 8) -> Image.Image
     return Image.fromarray(np.clip(data, 0, 255).astype(np.uint8))
 
 
-def clothes_face_punch(pug: Image.Image, kind: str) -> np.ndarray:
-    """Only clear leftover loop pixels over the eyes. Do not cut the under-chin wrap."""
+def tongue_mask(pug: Image.Image) -> np.ndarray:
     pug_a = arr(pug)
     rgb = pug_a[:, :, :3].astype(np.int16)
     r, g, b = rgb[:, :, 0], rgb[:, :, 1], rgb[:, :, 2]
     alpha = pug_a[:, :, 3] > 20
     rows = np.arange(SIZE)[:, None]
-    tongue = alpha & (r > 160) & (g > 80) & (g < 180) & (b > 80) & (b < 160) & (r > g + 20)
     cols = np.arange(SIZE)[None, :]
-    # Clear leftover loop over the eyes and muzzle. Keep jowl/knot fabric.
-    face = alpha & (rows < 510) & (cols >= 360) & (cols <= 670)
-    snout = alpha & (rows >= 500) & (rows <= 586) & (cols >= 430) & (cols <= 600)
+    # Pink tongue only — keep the box tight so the under-chin wrap stays intact.
+    return (
+        alpha
+        & (r > 160)
+        & (g > 80)
+        & (g < 180)
+        & (b > 80)
+        & (b < 160)
+        & (r > g + 20)
+        & (rows >= 528)
+        & (rows <= 582)
+        & (cols >= 455)
+        & (cols <= 575)
+    )
+
+
+def clothes_face_punch(pug: Image.Image, kind: str) -> np.ndarray:
+    """Clear leftover loop pixels over the eyes and tongue only. Keep the under-chin wrap."""
+    pug_a = arr(pug)
+    alpha = pug_a[:, :, 3] > 20
+    rows = np.arange(SIZE)[:, None]
+    cols = np.arange(SIZE)[None, :]
+    eyes = alpha & (rows > 350) & (rows < 500) & (cols >= 330) & (cols <= 700)
     if kind == "gold-chain":
-        face = alpha & (rows < 490) & (cols >= 380) & (cols <= 650)
-    return face | snout | tongue
+        eyes = alpha & (rows > 350) & (rows < 490) & (cols >= 350) & (cols <= 680)
+    return eyes | tongue_mask(pug)
 
 
-def body_neck_layer(full: Image.Image, pug: Image.Image, kind: str) -> Image.Image:
-    """Wrap in front of the neck: keep clothes above the wall, punch mouth/eyes only."""
-    a = arr(full).copy()
-    a[clothes_face_punch(pug, kind), 3] = 0
-    a[WALL_TOP:, :, 3] = 0
-    return Image.fromarray(clear_transparent(a))
-
-
-def fabric_fill_color(im: Image.Image) -> tuple[int, int, int] | None:
+def hoodie_charcoal_color(im: Image.Image) -> tuple[int, int, int]:
+    """Exterior charcoal, not the cream lining that disappears on fawn fur."""
     a = arr(im)
     rgb = a[:, :, :3].astype(np.int16)
     lum = rgb.mean(axis=2)
+    dark = (a[:, :, 3] > 200) & (lum > 12) & (lum < 85)
+    if dark.any():
+        return tuple(int(v) for v in np.median(rgb[dark], axis=0))
+    return (42, 44, 50)
+
+
+def drop_hoodie_lining(im: Image.Image, charcoal: tuple[int, int, int]) -> Image.Image:
+    """Keep the charcoal wrap readable: swap leftover cream lining for exterior fabric."""
+    a = arr(im).copy()
+    lum = a[:, :, :3].astype(np.int16).mean(axis=2)
+    cream = (a[:, :, 3] > 20) & (lum >= 120)
+    a[cream, :3] = np.array(charcoal, dtype=np.uint8)
+    a[cream, 3] = 255
+    return Image.fromarray(clear_transparent(a))
+
+
+def ensure_u_wrap(
+    im: Image.Image,
+    y_center: int,
+    y_sides: int,
+    x0: int,
+    x1: int,
+    color: tuple[int, int, int],
+) -> Image.Image:
+    """Solid strap under the chin; sides only above that, so the mouth stays open."""
+    a = arr(im).copy()
+    sample = np.array(color, dtype=np.uint8)
+    mid = (x0 + x1) // 2
+    for y in range(y_sides, WALL_TOP):
+        if y < y_center:
+            t = (y_center - y) / max(y_center - y_sides, 1)
+            open_w = int((x1 - x0) * 0.42 * t)
+            spans = ((x0, mid - open_w // 2), (mid + open_w // 2, x1))
+        else:
+            spans = ((x0, x1),)
+        for left, right in spans:
+            if right <= left:
+                continue
+            empty = a[y, left:right, 3] < 180
+            if not empty.any():
+                continue
+            a[y, left:right, :3][empty] = sample
+            a[y, left:right, 3][empty] = 255
+    return Image.fromarray(clear_transparent(a))
+
+
+def body_neck_layer(full: Image.Image, pug: Image.Image, kind: str) -> Image.Image:
+    """Wrap in front of the neck: keep clothes above the wall, punch eyes/tongue only."""
+    a = arr(full).copy()
+    a[clothes_face_punch(pug, kind), 3] = 0
+    a[WALL_TOP:, :, 3] = 0
+    neck = Image.fromarray(clear_transparent(a))
+    # Center stays below the tongue; sides rise around the jowls.
+    curve = {
+        "bandana": (582, 522),
+        "collar": (578, 518),
+        "hoodie": (580, 520),
+        "gold-chain": (532, 498),
+    }.get(kind)
+    if curve:
+        neck = clip_above_curve(neck, curve[0], curve[1])
+    if kind == "gold-chain":
+        punched = arr(neck).copy()
+        punched[tongue_mask(pug), 3] = 0
+        return Image.fromarray(clear_transparent(punched))
+    if kind == "hoodie":
+        color = hoodie_charcoal_color(neck)
+        neck = drop_hoodie_lining(neck, color)
+    else:
+        color = fabric_fill_color(neck, kind)
+    if color is not None:
+        y_fill = curve[0] if curve else 578
+        neck = fill_interior_gaps(neck, y_fill, WALL_TOP, color)
+        neck = close_row_gaps(neck, y_fill, WALL_TOP, color, max_gap=110)
+        x0, x1 = {"bandana": (305, 735), "collar": (335, 690), "hoodie": (275, 745)}.get(kind, (320, 700))
+        neck = ensure_u_wrap(neck, curve[0], curve[1], x0, x1, color)
+    punched = arr(neck).copy()
+    punched[tongue_mask(pug), 3] = 0
+    return Image.fromarray(clear_transparent(punched))
+
+
+def fabric_fill_color(im: Image.Image, kind: str | None = None) -> tuple[int, int, int] | None:
+    a = arr(im)
+    rgb = a[:, :, :3].astype(np.int16)
+    r, g, b = rgb[:, :, 0], rgb[:, :, 1], rgb[:, :, 2]
+    lum = rgb.mean(axis=2)
     chroma = rgb.max(axis=2) - rgb.min(axis=2)
-    fabric = (a[:, :, 3] > 200) & (lum > 40) & (lum < 230) & (chroma >= 12)
+    op = a[:, :, 3] > 200
+    if kind == "hoodie":
+        fabric = op & (lum > 12) & (lum < 85)
+    elif kind == "bandana":
+        fabric = op & (lum > 40) & (lum < 200) & (chroma >= 18)
+    elif kind == "collar":
+        fabric = op & (r > g + 20) & (r > b + 20) & (r > 80)
+    else:
+        fabric = op & (lum > 40) & (lum < 230) & (chroma >= 12)
     if not fabric.any():
         return None
     return tuple(int(v) for v in np.median(rgb[fabric], axis=0))
@@ -1088,7 +1193,7 @@ def bandana_knot_layer(src: Image.Image) -> Image.Image:
     a[:, : int(x0 + 0.66 * (x1 - x0)), 3] = 0
     a[int(y0 + 0.40 * (y1 - y0)) :, :, 3] = 0
     knot = Image.fromarray(clear_transparent(a))
-    return paste_box(knot, (580, 520, 180, 140), "center")
+    return paste_box(knot, (600, 545, 170, 120), "center")
 
 
 def body_hang_layer(full: Image.Image, kind: str) -> Image.Image:
@@ -1108,24 +1213,22 @@ def body_hang_layer(full: Image.Image, kind: str) -> Image.Image:
     elif kind == "hoodie":
         strings = (
             alpha
-            & (r > g + 15)
-            & (g > b + 6)
-            & (r > 70)
-            & (r < 180)
-            & (lum < 160)
-            & (chroma >= 28)
-            & (cols >= 450)
-            & (cols <= 575)
-            & (rows >= WALL_TOP - 18)
+            & (rows >= WALL_TOP - 22)
+            & (cols >= 430)
+            & (cols <= 590)
+            & (
+                ((r > g + 4) & (g >= b - 4) & (r > 40) & (lum < 170) & (chroma >= 10))
+                | ((lum < 70) & (cols >= 455) & (cols <= 565))
+            )
         )
-        keep = grow(strings, 1)
+        keep = grow(strings, 2)
     elif kind == "gold-chain":
-        gold = alpha & (r > 140) & (g > 100) & (b < 130) & below
+        gold = alpha & (r > 120) & (g > 80) & (b < 150) & (rows >= WALL_TOP - 36)
         keep = grow(gold, 2)
     elif kind == "collar":
         gold = (r > 140) & (g > 90) & (b < 150)
-        center = (cols >= 440) & (cols <= 590)
-        tag = alpha & (rows >= 600) & (gold | (center & below))
+        center = (cols >= 420) & (cols <= 610)
+        tag = alpha & (rows >= 580) & (gold | (center & (rows >= WALL_TOP - 28)))
         keep = grow(tag, 2)
     else:
         keep = alpha & below
@@ -1162,15 +1265,26 @@ def fit_body(paws: Image.Image) -> None:
     """Original clothes sheets, seated under this pug's chin the way the gallery paintings wear them."""
     pug = load_trait("base/base-fawn-peek.png")
     specs = [
-        ("body/body-bandana.png", load_src("body/body-bandana.png"), "bandana", (210, 400, 600, 230)),
-        ("body/body-collar.png", load_src("body/body-collar.png"), "collar", (230, 410, 560, 220)),
-        ("body/body-hoodie.png", knock_out_hoodie_fill(load_src("body/body-hoodie.png")), "hoodie", (200, 430, 620, 220)),
-        ("body/body-gold-chain.png", load_src("body/body-gold-chain.png"), "gold-chain", (250, 430, 520, 230)),
+        ("body/body-bandana.png", load_src("body/body-bandana.png"), "bandana", (180, 420, 660, 280)),
+        ("body/body-collar.png", load_src("body/body-collar.png"), "collar", (220, 450, 580, 260)),
+        ("body/body-hoodie.png", knock_out_hoodie_fill(load_src("body/body-hoodie.png")), "hoodie", (170, 430, 680, 290)),
+        ("body/body-gold-chain.png", load_src("body/body-gold-chain.png"), "gold-chain", (240, 440, 540, 290)),
     ]
     for dest, src, kind, box in specs:
         full = harden_overlay(paste_box(src, box, "bottom"), fill_holes=(kind != "gold-chain"))
+        if kind == "gold-chain":
+            full = punch_chain_holes(full)
         save(dest, full)
         neck = harden_overlay(body_neck_layer(full, pug, kind), fill_holes=(kind != "gold-chain"))
+        if kind == "bandana":
+            knot = harden_overlay(bandana_knot_layer(src))
+            knot_a = arr(knot)
+            knot_a[WALL_TOP:, :, 3] = 0
+            knot = Image.fromarray(clear_transparent(knot_a))
+            neck = Image.alpha_composite(neck, knot)
+            color = fabric_fill_color(neck, "bandana")
+            if color is not None:
+                neck = close_row_gaps(neck, 582, WALL_TOP, color, max_gap=220)
         save(dest.replace(".png", "-neck.png"), neck)
         hang = body_hang_layer(full, kind)
         if (arr(hang)[:, :, 3] > 20).any():
