@@ -630,7 +630,7 @@ def extract_dressed_hat(dressed_rel: str, kind: str, bottom: int) -> Image.Image
     white = (lum > 200) & (chroma < 40) & alpha & above
     for _ in range(6):
         filled |= neighbors8(filled) & (outline | white | (color & alpha & above))
-    keep = grow(filled, 2) & alpha & above
+    keep = grow(filled, 1) & alpha & above & ~fur
     keep[bottom:] = False
     layer = np.zeros_like(dressed)
     layer[keep] = dressed[keep]
@@ -695,28 +695,44 @@ def recolor_to(im: Image.Image, target: tuple[int, int, int], *, chroma_min: int
     return Image.fromarray(a)
 
 
-def strip_pug_fur(im: Image.Image) -> Image.Image:
-    """Hats extracted from dressed sheets pick up forehead fur under the brim."""
-    a = arr(im).copy()
+def fawn_mask(a: np.ndarray) -> np.ndarray:
+    """Pug-fur / sticker-beige leftover. Leaves gold, yellow hats, and ink alone."""
     rgb = a[:, :, :3].astype(np.int16)
     r, g, b = rgb[:, :, 0], rgb[:, :, 1], rgb[:, :, 2]
+    lum = rgb.mean(axis=2)
     chroma = rgb.max(axis=2) - rgb.min(axis=2)
-    yellow_hat = (r > 180) & (g > 140) & (b < 110)
-    fur = (
-        (a[:, :, 3] > 20)
-        & (r > 165)
-        & (g > 135)
-        & (b > 100)
+    op = a[:, :, 3] > 20
+    gold = (r > 140) & (g > 100) & (b < 150) & (r + g > 2 * b + 10)
+    yellow = (r > 180) & (g > 140) & (b < 115)
+    return (
+        op
+        & ~gold
+        & ~yellow
+        & (r > 140)
+        & (g > 110)
+        & (b > 75)
         & (chroma < 95)
-        & (b > 70)
-        & (r < g + 50)
-        & ~yellow_hat
+        & (lum > 130)
+        & (r < g + 55)
+        & (b > 65)
     )
-    a[fur, 3] = 0
+
+
+def strip_fawn(im: Image.Image, *, protect: np.ndarray | None = None) -> Image.Image:
+    a = arr(im).copy()
+    drop = fawn_mask(a)
+    if protect is not None:
+        drop = drop & ~protect
+    a[drop, 3] = 0
     return Image.fromarray(clear_transparent(a))
 
 
-def strip_hat_halo(im: Image.Image, *, keep_cream: bool = False) -> Image.Image:
+def strip_pug_fur(im: Image.Image) -> Image.Image:
+    """Hats extracted from dressed sheets pick up forehead fur under the brim."""
+    return strip_fawn(im)
+
+
+def strip_hat_halo(im: Image.Image, *, keep_cream: bool = False, kind: str = "") -> Image.Image:
     """Knock sticker-white and leftover fur off the brim so hats sit flush."""
     a = arr(im).copy()
     rgb = a[:, :, :3].astype(np.int16)
@@ -727,14 +743,36 @@ def strip_hat_halo(im: Image.Image, *, keep_cream: bool = False) -> Image.Image:
     ys = np.where(op)[0]
     if not ys.size:
         return im
-    near = np.arange(SIZE)[:, None] >= int(ys.max()) - 24
-    fur = op & (r > 155) & (g > 125) & (b > 85) & (chroma < 95) & (b > 65)
-    white = op & (lum > 198) & (chroma < 48)
-    brown = op & near & (r > 55) & (r < 165) & (g > 35) & (g < 130) & (b < 95) & (chroma < 85)
-    halo = (fur | white | brown) & near
+    y = np.arange(SIZE)[:, None]
+    x = np.arange(SIZE)[None, :]
+    near = y >= int(ys.max()) - 40
+    edge = neighbors8(~op)
+    gold = (r > 140) & (g > 100) & (b < 150) & (r + g > 2 * b + 10)
+    yellow = (r > 180) & (g > 140) & (b < 115)
+    fur = fawn_mask(a)
+    white = op & (lum > 190) & (chroma < 55)
+    # Mid-tan leftover under brims. Skip newsie — that hat is brown fabric.
+    tan = np.zeros_like(op)
+    if kind != "newsie":
+        tan = (
+            op
+            & ~gold
+            & ~yellow
+            & (r > 85)
+            & (g > 40)
+            & (b > 15)
+            & (r < 180)
+            & (g < 135)
+            & (b < 105)
+            & (chroma < 95)
+            & (lum > 70)
+            & (lum < 175)
+        )
+    halo = (fur | white | tan) & (near | edge)
     if keep_cream:
         cream = (r > 155) & (g > 135) & (b > 100) & (chroma < 95)
-        halo = halo & ~cream
+        panel = cream & (y < 310) & (x > 380) & (x < 690) & ~near
+        halo = halo & ~panel
     a[halo, 3] = 0
     return Image.fromarray(clear_transparent(a))
 
@@ -781,6 +819,27 @@ def sit_on(im: Image.Image, target_bottom: int, min_count: int = 50) -> Image.Im
     return shift_layer(im, target_bottom - visual_bottom(im, min_count))
 
 
+def choke_silhouette(im: Image.Image, px: int = 1) -> Image.Image:
+    """Erode the outline by a pixel so leftover brim fur cannot show."""
+    a = arr(im).copy()
+    op = a[:, :, 3] > 20
+    for _ in range(px):
+        a[op & neighbors8(~op), 3] = 0
+        op = a[:, :, 3] > 20
+    return Image.fromarray(clear_transparent(a))
+
+
+def strip_under_brim(im: Image.Image, keep: np.ndarray) -> Image.Image:
+    a = arr(im).copy()
+    op = a[:, :, 3] > 20
+    ys = np.where(op)[0]
+    if not ys.size:
+        return im
+    under = op & (np.arange(SIZE)[:, None] >= int(ys.max()) - 12) & ~keep
+    a[under, 3] = 0
+    return Image.fromarray(clear_transparent(a))
+
+
 def crop_below(im: Image.Image, y: int) -> Image.Image:
     a = arr(im).copy()
     a[y:, :, 3] = 0
@@ -789,21 +848,50 @@ def crop_below(im: Image.Image, y: int) -> Image.Image:
 
 def fit_hats() -> None:
     """Hats off the dressed sheets, seated on this pug the way the gallery paintings wear them."""
-    beanie = strip_hat_halo(strip_pug_fur(extract_dressed_hat("dressed/fawn-beanie.png", "beanie", 375)))
-    save("hat/hat-beanie.png", harden_overlay(recolor_to(sit_on(beanie, 410), (20, 46, 22)), drop_specks=True))
-    hardhat = strip_hat_halo(strip_pug_fur(extract_dressed_hat("dressed/fawn-hardhat.png", "hardhat", 328)))
-    save("hat/hat-hardhat.png", harden_overlay(crop_below(sit_on(hardhat, 396), 404), drop_specks=True))
-    newsie = strip_hat_halo(strip_pug_fur(extract_dressed_hat("dressed/fawn-newsie.png", "newsie", 360)))
-    save("hat/hat-newsie.png", harden_overlay(sit_on(newsie, 412), drop_specks=True))
-    snap = cream_snapback_panel(
-        strip_hat_halo(extract_dressed_hat("dressed/fawn-snapback.png", "snapback", 348), keep_cream=True)
+    beanie = strip_hat_halo(strip_pug_fur(extract_dressed_hat("dressed/fawn-beanie.png", "beanie", 375)), kind="beanie")
+    beanie = harden_overlay(strip_fawn(recolor_to(sit_on(beanie, 410), (20, 46, 22))), drop_specks=True)
+    ba = arr(beanie)
+    br, bg, bb = [ba[:, :, i].astype(np.int16) for i in range(3)]
+    beanie = strip_under_brim(beanie, ((bg > br + 4) & (bg > bb)) | (ba[:, :, :3].mean(axis=2) < 50))
+    save("hat/hat-beanie.png", choke_brim(choke_silhouette(beanie)))
+    hardhat = strip_hat_halo(strip_pug_fur(extract_dressed_hat("dressed/fawn-hardhat.png", "hardhat", 328)), kind="hardhat")
+    hardhat = harden_overlay(strip_fawn(crop_below(sit_on(hardhat, 396), 404)), drop_specks=True)
+    ha = arr(hardhat)
+    hr, hg, hb = [ha[:, :, i].astype(np.int16) for i in range(3)]
+    hardhat = strip_under_brim(
+        hardhat,
+        ((hr > 140) & (hg > 80) & (hb < 140) & (hr > hb + 15)) | (ha[:, :, :3].mean(axis=2) < 50),
     )
-    save("hat/hat-snapback.png", harden_overlay(sit_on(snap, 378, 80), keep_light=True, drop_specks=True))
-    save("hat/hat-crown.png", harden_overlay(place_bottom(load_src("hat/hat-crown.png"), 258, 308, 512, 158), drop_specks=True))
+    save("hat/hat-hardhat.png", choke_brim(choke_silhouette(hardhat), 1))
+    newsie = strip_hat_halo(strip_pug_fur(extract_dressed_hat("dressed/fawn-newsie.png", "newsie", 360)), kind="newsie")
+    newsie = harden_overlay(strip_fawn(sit_on(newsie, 412)), drop_specks=True)
+    na = arr(newsie)
+    nr, ng, nb = [na[:, :, i].astype(np.int16) for i in range(3)]
+    newsie = strip_under_brim(
+        newsie,
+        ((nr > 80) & (nr > nb + 16) & (ng > 40) & (nb < 80)) | (na[:, :, :3].mean(axis=2) < 50),
+    )
+    save("hat/hat-newsie.png", choke_brim(choke_silhouette(newsie)))
+    snap = cream_snapback_panel(
+        strip_hat_halo(extract_dressed_hat("dressed/fawn-snapback.png", "snapback", 348), keep_cream=True, kind="snapback")
+    )
+    snap = harden_overlay(sit_on(snap, 378, 80), keep_light=True, drop_specks=True)
+    sa = arr(snap)
+    sr, sg, sb = [sa[:, :, i].astype(np.int16) for i in range(3)]
+    sx = np.arange(SIZE)[None, :]
+    snap = strip_under_brim(
+        snap,
+        ((sr > sg + 25) & (sr > 120))
+        | (((sr > 155) & (sg > 135) & (sb > 100)) & (sx > 420) & (sx < 600))
+        | (sa[:, :, :3].mean(axis=2) < 50),
+    )
+    save("hat/hat-snapback.png", choke_brim(choke_silhouette(snap)))
+    crown = harden_overlay(strip_fawn(place_bottom(load_src("hat/hat-crown.png"), 258, 308, 512, 158)), drop_specks=True)
+    save("hat/hat-crown.png", choke_silhouette(keep_metal_only(crown, gems=True)))
 
 
 def prepare_hoodie(im: Image.Image) -> Image.Image:
-    """Recolor the cowl cream. Do not fill the head hole — that peeked as blobs behind the ears."""
+    """Paint a smooth cream cowl. Source grain becomes stripes if we remap by luminance."""
     a = arr(im).copy()
     rgb = a[:, :, :3].astype(np.int16)
     r, g, b = rgb[:, :, 0], rgb[:, :, 1], rgb[:, :, 2]
@@ -811,12 +899,60 @@ def prepare_hoodie(im: Image.Image) -> Image.Image:
     chroma = rgb.max(axis=2) - rgb.min(axis=2)
     opaque = a[:, :, 3] > 20
     strings = opaque & (r > g + 8) & (g > b + 4) & (chroma >= 28) & (r > 70) & (lum < 170)
-    fabric = opaque & ~strings
-    cream = np.array([232, 210, 180], dtype=np.float32)
-    shadow = np.array([188, 160, 128], dtype=np.float32)
-    t = np.clip(lum / 200.0, 0.0, 1.0).astype(np.float32)
-    target = shadow[None, None, :] * (1.0 - t[:, :, None]) + cream[None, None, :] * t[:, :, None]
+    ink = opaque & (lum < 48)
+    fabric = opaque & ~strings & ~ink
+    cream = np.array([226, 206, 176], dtype=np.float32)
+    shadow = np.array([200, 178, 148], dtype=np.float32)
+    yy = np.broadcast_to(np.arange(SIZE, dtype=np.float32)[:, None], (SIZE, SIZE))
+    t = np.clip((yy - 555.0) / 74.0, 0.0, 1.0)
+    target = shadow[None, None, :] * t[:, :, None] + cream[None, None, :] * (1.0 - t)[:, :, None]
     a[fabric, :3] = np.clip(target[fabric], 0, 255)
+    return Image.fromarray(clear_transparent(a))
+
+
+def paint_hoodie_cowl(placed: Image.Image) -> Image.Image:
+    """Solid rolled cowl on the wall. Keep source ink and drawstrings only."""
+    src = arr(placed)
+    rgb = src[:, :, :3].astype(np.int16)
+    r, g, b = rgb[:, :, 0], rgb[:, :, 1], rgb[:, :, 2]
+    lum = rgb.mean(axis=2)
+    chroma = rgb.max(axis=2) - rgb.min(axis=2)
+    op = src[:, :, 3] > 20
+    strings = op & (r > g + 8) & (g > b + 4) & (chroma >= 28) & (r > 70) & (lum < 170)
+    ink = op & (lum < 48)
+    cream = np.array([226, 206, 176], dtype=np.uint8)
+    shadow = np.array([196, 174, 144], dtype=np.uint8)
+    a = np.zeros_like(src)
+    yy = np.arange(SIZE)[:, None]
+    xx = np.arange(SIZE)[None, :]
+    x0, x1 = 268, 756
+    # Almost-flat band so side wings cannot read as floating shards.
+    y_center, y_sides = 564, 560
+    half = max((x1 - x0) / 2.0, 1.0)
+    t = np.clip(np.abs(xx - 512.0) / half, 0.0, 1.0)
+    top = y_center + (y_sides - y_center) * t
+    band = (xx >= x0) & (xx <= x1) & (yy >= top) & (yy < WALL_TOP)
+    a[band, :3] = cream
+    a[band, 3] = 255
+    a[band & (yy >= 610), :3] = shadow
+    rim = band & (yy < top + 3)
+    a[rim, :3] = np.array([32, 22, 16], dtype=np.uint8)
+    a[ink] = src[ink]
+    a[strings] = src[strings]
+    return Image.fromarray(clear_transparent(a))
+
+
+def choke_brim(im: Image.Image, px: int = 2) -> Image.Image:
+    """Erode only the underside of a hat so leftover fur cannot hang off the brim."""
+    a = arr(im).copy()
+    op = a[:, :, 3] > 20
+    ys = np.where(op)[0]
+    if not ys.size:
+        return im
+    brim = np.arange(SIZE)[:, None] >= int(ys.max()) - 22
+    for _ in range(px):
+        a[op & brim & neighbors8(~op), 3] = 0
+        op = a[:, :, 3] > 20
     return Image.fromarray(clear_transparent(a))
 
 
@@ -848,10 +984,30 @@ def body_neck_layer(full: Image.Image, pug: Image.Image, kind: str) -> Image.Ima
     return Image.fromarray(clear_transparent(a))
 
 
-def fill_interior_gaps(im: Image.Image, y0: int, y1: int = WALL_TOP) -> Image.Image:
-    """Close the neck-loop hole under the chin using neighboring fabric color."""
+def fabric_fill_color(im: Image.Image) -> tuple[int, int, int] | None:
+    a = arr(im)
+    rgb = a[:, :, :3].astype(np.int16)
+    lum = rgb.mean(axis=2)
+    chroma = rgb.max(axis=2) - rgb.min(axis=2)
+    fabric = (a[:, :, 3] > 200) & (lum > 40) & (lum < 230) & (chroma >= 12)
+    if not fabric.any():
+        return None
+    return tuple(int(v) for v in np.median(rgb[fabric], axis=0))
+
+
+def fill_interior_gaps(
+    im: Image.Image,
+    y0: int,
+    y1: int = WALL_TOP,
+    color: tuple[int, int, int] | None = None,
+) -> Image.Image:
+    """Close the neck-loop hole under the chin with one fabric color."""
     a = arr(im).copy()
+    fill = color or fabric_fill_color(im)
+    if fill is None:
+        return im
     mask = a[:, :, 3] > 20
+    sample = np.array(fill, dtype=np.uint8)
     for y in range(y0, y1):
         xs = np.where(mask[y])[0]
         if xs.size < 8:
@@ -859,15 +1015,75 @@ def fill_interior_gaps(im: Image.Image, y0: int, y1: int = WALL_TOP) -> Image.Im
         left, right = int(xs.min()), int(xs.max())
         if right - left < 40:
             continue
-        solid_xs = xs[a[y, xs, 3] > 200]
-        sample_x = int(solid_xs[min(solid_xs.size // 4, solid_xs.size - 1)]) if solid_xs.size else left
-        sample = a[y, sample_x, :3]
         gap = slice(left, right + 1)
         empty = a[y, gap, 3] < 180
         if not empty.any():
             continue
         a[y, gap, :3][empty] = sample
         a[y, gap, 3][empty] = 255
+    return Image.fromarray(clear_transparent(a))
+
+
+def punch_chain_holes(im: Image.Image) -> Image.Image:
+    """Knock gray/beige sheet-fill out of link openings. Leave gold and highlights."""
+    a = arr(im).copy()
+    rgb = a[:, :, :3].astype(np.int16)
+    r, g, b = rgb[:, :, 0], rgb[:, :, 1], rgb[:, :, 2]
+    lum = rgb.mean(axis=2)
+    chroma = rgb.max(axis=2) - rgb.min(axis=2)
+    op = a[:, :, 3] > 20
+    gray_fill = (
+        op
+        & (chroma < 45)
+        & (lum > 100)
+        & (lum < 200)
+        & (np.abs(r - g) < 28)
+        & (np.abs(g - b) < 28)
+    )
+    a[gray_fill | fawn_mask(a), 3] = 0
+    return Image.fromarray(clear_transparent(a))
+
+
+def keep_metal_only(im: Image.Image, *, gems: bool = False) -> Image.Image:
+    """Crown / chain: drop fur-colored leftover that is not metal, ink, or gems."""
+    a = arr(im).copy()
+    rgb = a[:, :, :3].astype(np.int16)
+    r, g, b = rgb[:, :, 0], rgb[:, :, 1], rgb[:, :, 2]
+    lum = rgb.mean(axis=2)
+    chroma = rgb.max(axis=2) - rgb.min(axis=2)
+    op = a[:, :, 3] > 20
+    gold = (r > 130) & (g > 85) & (b < 140) & (chroma > 35) & (r + g > 2 * b + 8)
+    shine = op & (lum > 220) & (chroma < 45)
+    ink = op & (lum < 60)
+    gem = (r > 120) & (g < 110) & (b < 110) & (r > g + 20) if gems else np.zeros_like(op)
+    keep = grow(gold | shine | ink | gem, 1) & op
+    a[~keep, 3] = 0
+    return Image.fromarray(clear_transparent(a))
+
+
+def close_row_gaps(
+    im: Image.Image,
+    y0: int,
+    y1: int,
+    color: tuple[int, int, int],
+    max_gap: int = 140,
+) -> Image.Image:
+    """Bridge two fabric islands on the same row (bandana wrap → knot)."""
+    a = arr(im).copy()
+    mask = a[:, :, 3] > 20
+    sample = np.array(color, dtype=np.uint8)
+    for y in range(y0, y1):
+        xs = np.where(mask[y])[0]
+        if xs.size < 4:
+            continue
+        breaks = np.where(np.diff(xs) > 1)[0]
+        starts = np.concatenate(([int(xs[0])], xs[breaks + 1].astype(int)))
+        ends = np.concatenate((xs[breaks].astype(int), [int(xs[-1])]))
+        for i in range(len(starts) - 1):
+            gap = int(starts[i + 1] - ends[i])
+            if 2 < gap <= max_gap:
+                a[y, ends[i] + 1 : starts[i + 1], :3] = sample
+                a[y, ends[i] + 1 : starts[i + 1], 3] = 255
     return Image.fromarray(clear_transparent(a))
 
 
@@ -878,7 +1094,7 @@ def bandana_knot_layer(src: Image.Image) -> Image.Image:
     a[:, : int(x0 + 0.66 * (x1 - x0)), 3] = 0
     a[int(y0 + 0.40 * (y1 - y0)) :, :, 3] = 0
     knot = Image.fromarray(clear_transparent(a))
-    return paste_box(knot, (620, 500, 170, 140), "center")
+    return paste_box(knot, (580, 520, 180, 140), "center")
 
 
 def body_hang_layer(full: Image.Image, kind: str) -> Image.Image:
@@ -939,28 +1155,60 @@ def fit_body(paws: Image.Image) -> None:
     """Place the source drawings so the real wrap/knot/tag sit under this pug's chin."""
     pug = load_trait("base/base-fawn-peek.png")
     specs = [
-        ("body/body-bandana.png", recolor_to(load_src("body/body-bandana.png"), (22, 50, 20)), "bandana", 620, 710, 380, 548, 508),
+        ("body/body-bandana.png", recolor_to(load_src("body/body-bandana.png"), (22, 50, 20)), "bandana", 620, 710, 380, 536, 500),
         ("body/body-collar.png", recolor_to(load_src("body/body-collar.png"), (186, 16, 22)), "collar", 540, 700, 260, 575, 538),
-        ("body/body-hoodie.png", prepare_hoodie(load_src("body/body-hoodie.png")), "hoodie", 660, 724, 290, 548, 512),
+        ("body/body-hoodie.png", prepare_hoodie(load_src("body/body-hoodie.png")), "hoodie", 660, 724, 290, 564, 560),
         ("body/body-gold-chain.png", load_src("body/body-gold-chain.png"), "gold-chain", 540, 724, 310, 560, 505),
     ]
+    fill_colors = {
+        "bandana": (22, 50, 20),
+        "collar": (186, 16, 22),
+        "hoodie": (226, 206, 176),
+    }
     for dest, src, kind, width, bottom, max_h, y_center, y_sides in specs:
         full = clip_above_curve(place_bottom(src, width, bottom, 512, max_h), y_center, y_sides)
         if kind == "bandana":
             knot = recolor_to(bandana_knot_layer(load_src("body/body-bandana.png")), (22, 50, 20))
             full = Image.alpha_composite(full, knot)
-        if kind in {"bandana", "collar", "hoodie"}:
-            full = fill_interior_gaps(full, y_center, WALL_TOP + 50)
+            full = close_row_gaps(full, y_center, WALL_TOP + 20, fill_colors[kind], max_gap=160)
+        if kind == "hoodie":
+            full = paint_hoodie_cowl(full)
+        if kind in fill_colors and kind != "hoodie":
+            full = fill_interior_gaps(full, y_center, WALL_TOP + 50, fill_colors[kind])
+        if kind == "gold-chain":
+            full = punch_chain_holes(full)
+        elif kind != "hoodie":
+            full = strip_fawn(full)
         fill_holes = kind != "gold-chain"
-        full = harden_overlay(full, fill_holes=fill_holes)
+        if kind == "hoodie":
+            full = harden_overlay(full, fill_holes=fill_holes)
+        else:
+            full = choke_silhouette(harden_overlay(full, fill_holes=fill_holes))
         save(dest, full)
         neck = body_neck_layer(full, pug, kind)
-        if kind in {"bandana", "collar", "hoodie"}:
-            neck = fill_interior_gaps(neck, y_center)
-        neck = harden_overlay(neck, fill_holes=fill_holes)
+        if kind == "bandana":
+            neck = close_row_gaps(neck, y_center, WALL_TOP, fill_colors[kind], max_gap=160)
+        if kind in fill_colors and kind != "hoodie":
+            neck = fill_interior_gaps(neck, y_center, WALL_TOP, fill_colors[kind])
+        if kind == "gold-chain":
+            neck = punch_chain_holes(neck)
+        elif kind != "hoodie":
+            neck = strip_fawn(neck)
+        if kind == "hoodie":
+            neck = harden_overlay(neck, fill_holes=fill_holes)
+        else:
+            neck = choke_silhouette(harden_overlay(neck, fill_holes=fill_holes))
         save(dest.replace(".png", "-neck.png"), neck)
         hang = body_hang_layer(full, kind)
-        hang = harden_overlay(hang, fill_holes=fill_holes) if (arr(hang)[:, :, 3] > 20).any() else blank()
+        if (arr(hang)[:, :, 3] > 20).any():
+            if kind == "gold-chain":
+                hang = punch_chain_holes(hang)
+            if kind == "hoodie":
+                hang = harden_overlay(hang, fill_holes=fill_holes)
+            else:
+                hang = choke_silhouette(harden_overlay(hang, fill_holes=fill_holes))
+        else:
+            hang = blank()
         save(dest.replace(".png", "-front.png"), hang)
 
 
