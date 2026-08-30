@@ -135,26 +135,50 @@ def save_drop_apng(frames: list[Image.Image], path: Path) -> None:
     )
 
 
+TRAIT_LABELS = (
+    ("sky", "Sky"),
+    ("aura", "Aura"),
+    ("body", "Body"),
+    ("face", "Face"),
+    ("wear", "Wear"),
+    ("charm", "Charm"),
+)
+
+CSV_FIELDS = [
+    "tokenID",
+    "name",
+    "description",
+    "file_name",
+    *(f"attributes[{label}]" for _key, label in TRAIT_LABELS),
+]
+
+
 def token_meta(token_id: int, selection: dict[str, str]) -> dict:
     attributes = [
         {"trait_type": label, "value": name_of(key, selection[key])}
-        for key, label in (
-            ("sky", "Sky"),
-            ("aura", "Aura"),
-            ("body", "Body"),
-            ("face", "Face"),
-            ("wear", "Wear"),
-            ("charm", "Charm"),
-        )
+        for key, label in TRAIT_LABELS
     ]
+    description = "A looping PFP stacked from APNG trait layers."
     return {
         "name": f"Loopkin #{token_id}",
-        "description": "A looping PFP stacked from APNG trait layers.",
+        "description": description,
         "image": f"{token_id}.png",
         "attributes": attributes,
         "animation_loop": True,
         "compiler": "Loopkins APNG stack",
     }
+
+
+def drop_csv_row(token_id: int, meta: dict) -> dict:
+    row = {
+        "tokenID": token_id,
+        "name": meta["name"],
+        "description": meta["description"],
+        "file_name": f"{token_id}.png",
+    }
+    for attr in meta["attributes"]:
+        row[f"attributes[{attr['trait_type']}]"] = attr["value"]
+    return row
 
 
 def bake_one(job: tuple[int, dict[str, str]]) -> tuple[int, dict, int]:
@@ -172,7 +196,7 @@ def bake_one(job: tuple[int, dict[str, str]]) -> tuple[int, dict, int]:
 
 def write_sidecar(count: int, rows: list[dict], stats: Counter[str], total_bytes: int) -> None:
     with (OUT / "opensea-metadata.csv").open("w", newline="", encoding="utf-8") as handle:
-        writer = csv.DictWriter(handle, fieldnames=list(rows[0].keys()))
+        writer = csv.DictWriter(handle, fieldnames=CSV_FIELDS)
         writer.writeheader()
         writer.writerows(rows)
 
@@ -199,6 +223,7 @@ def write_sidecar(count: int, rows: list[dict], stats: Counter[str], total_bytes
         "# Loopkins OpenSea pack\n\n"
         f"{count:,} flattened APNGs at {DROP_SIZE}×{DROP_SIZE}, {FRAMES} frames, {DURATION_MS}ms.\n\n"
         "Upload every file in `images/` (1.png–10000.png) plus `opensea-metadata.csv` to an OpenSea Drop.\n"
+        "The CSV uses OpenSea Studio headers: tokenID, name, description, file_name, and attributes[Trait].\n"
         "OpenSea Drops accept up to 10,000 PNG files and 5GB total. These files are sized for that cap.\n"
         "Studio trait layers stay in `public/traits/` and are not the upload pack.\n",
         encoding="utf-8",
@@ -229,13 +254,7 @@ def main() -> None:
         for token_id, meta, nbytes in pool.imap_unordered(bake_one, jobs, chunksize=4):
             done += 1
             total_bytes += nbytes
-            row = {
-                "tokenID": token_id,
-                "name": meta["name"],
-                "file": f"{token_id}.png",
-                **{a["trait_type"]: a["value"] for a in meta["attributes"]},
-            }
-            rows_by_id[token_id] = row
+            rows_by_id[token_id] = drop_csv_row(token_id, meta)
             for attr in meta["attributes"]:
                 stats[f"{attr['trait_type']}:{attr['value']}"] += 1
             if done % 50 == 0 or done == count:

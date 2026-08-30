@@ -18,7 +18,7 @@ const steps = [
   },
   {
     title: "Bulk-upload APNGs + CSV",
-    body: "Upload every file in generated/images (1.png–10000.png) and generated/opensea-metadata.csv. Animated PNG is the media. Preview the loops, then publish.",
+    body: "Upload every file in generated/images (1.png–10000.png) and generated/opensea-metadata.csv. The CSV already uses OpenSea’s required headers (tokenID, name, description, file_name, attributes[Trait]). Animated PNG is the media. Preview the loops, then publish.",
   },
   {
     title: "Or deploy the ERC-721 yourself",
