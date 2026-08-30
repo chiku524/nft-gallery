@@ -1,31 +1,31 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu } from "lucide-react";
-import { collection } from "@/data/collection";
+import { ApngImage } from "@/components/apng-image";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { potbPath } from "@/lib/potb";
+import { collection } from "@/data/collection";
+import { loopkinsPath } from "@/lib/loopkins";
 import { cn } from "@/lib/utils";
 
 const links = [
-  { href: potbPath(), label: "Drop" },
-  { href: potbPath("/traits"), label: "Traits" },
-  { href: potbPath("/gallery"), label: "Gallery" },
-  { href: potbPath("/launch"), label: "OpenSea" },
+  { href: loopkinsPath(), label: "Drop" },
+  { href: loopkinsPath("/traits"), label: "Traits" },
+  { href: loopkinsPath("/gallery"), label: "Gallery" },
+  { href: loopkinsPath("/launch"), label: "OpenSea" },
 ];
 
 export function SiteHeader() {
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-40 border-b border-border/80 bg-[color-mix(in_oklch,var(--background)_88%,white)]/90 backdrop-blur-md">
+    <header className="sticky top-0 z-40 border-b border-border/80 bg-[color-mix(in_oklch,var(--background)_88%,black)]/90 backdrop-blur-md">
       <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-4 sm:px-6">
-        <Link href={potbPath()} className="flex items-center gap-3">
-          <Image
-            src="/brand/logo-pugs-on-the-block.png"
+        <Link href={loopkinsPath()} className="flex items-center gap-3">
+          <ApngImage
+            src="/brand/logo-loopkins.png"
             alt=""
             width={40}
             height={40}
@@ -34,7 +34,7 @@ export function SiteHeader() {
           <div className="leading-tight">
             <p className="font-heading text-lg tracking-tight">{collection.name}</p>
             <p className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
-              Robinhood Chain
+              APNG layer stack
             </p>
           </div>
         </Link>
@@ -58,7 +58,7 @@ export function SiteHeader() {
 
         <div className="flex items-center gap-2">
           <Button asChild size="sm" className="hidden sm:inline-flex">
-            <Link href={potbPath("/gallery")}>Sample mints</Link>
+            <Link href="/studio">Studio</Link>
           </Button>
           <Sheet>
             <SheetTrigger asChild>
@@ -80,6 +80,9 @@ export function SiteHeader() {
                     {link.label}
                   </Link>
                 ))}
+                <Link href="/studio" className="rounded-xl px-3 py-2 text-base hover:bg-secondary">
+                  Studio
+                </Link>
               </div>
             </SheetContent>
           </Sheet>

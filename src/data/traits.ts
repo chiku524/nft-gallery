@@ -6,252 +6,106 @@ export type Trait = {
 };
 
 export type TraitCategory = {
-  id: "background" | "base" | "block" | "hat" | "body" | "accessory";
+  id: "sky" | "aura" | "body" | "face" | "wear" | "charm";
   label: string;
   blurb: string;
   noneLabel?: string;
   traits: Trait[];
 };
 
-/** Bump when trait PNGs change so the studio canvas does not keep a stale bitmap. */
-export const TRAIT_ART_VERSION = "painted-stack-v1";
+/** Bump when APNG layers change so the studio does not keep a stale loop. */
+export const TRAIT_ART_VERSION = "apng-stack-v1";
+
+export const TRAIT_FRAMES = 12;
+export const TRAIT_DURATION_MS = 80;
 
 export function traitSrc(path?: string) {
   if (!path) return "";
   return `${path}?v=${TRAIT_ART_VERSION}`;
 }
 
-export function pawsSrc(baseId: string) {
-  return traitSrc(`/traits/base/front-paws-${baseId}.png`);
-}
-
-export function wallSrc(blockImage?: string) {
-  if (blockImage) return traitSrc(blockImage);
-  return traitSrc("/traits/base/wall-default.png");
-}
-
-export const FACE_ACCESSORIES = new Set(["sunglasses", "monocle"]);
-export const LEDGE_ACCESSORIES = new Set(["coffee", "bone", "blocks"]);
-
 export const traitCategories: TraitCategory[] = [
   {
-    id: "background",
-    label: "Background",
-    blurb: "The block behind the pug — stoops, rooftops, and neon corners.",
+    id: "sky",
+    label: "Sky",
+    blurb: "Full-canvas loops — drift, flicker, wash, and flash behind the body.",
     traits: [
-      {
-        id: "brownstone",
-        name: "Brownstone",
-        image: "/traits/background/bg-brownstone.png",
-        rarity: 22,
-      },
-      {
-        id: "stoop-day",
-        name: "Sunny Stoop",
-        image: "/traits/background/bg-stoop-day.png",
-        rarity: 18,
-      },
-      {
-        id: "cream-brick",
-        name: "Cream Paper",
-        image: "/traits/background/bg-cream-brick.png",
-        rarity: 16,
-      },
-      {
-        id: "rooftop",
-        name: "Golden Rooftop",
-        image: "/traits/background/bg-rooftop-sunset.png",
-        rarity: 14,
-      },
-      {
-        id: "subway",
-        name: "Subway Platform",
-        image: "/traits/background/bg-subway.png",
-        rarity: 10,
-      },
-      {
-        id: "court",
-        name: "Dusk Court",
-        image: "/traits/background/bg-court-dusk.png",
-        rarity: 8,
-      },
-      {
-        id: "neon",
-        name: "Neon Alley",
-        image: "/traits/background/bg-neon-night.png",
-        rarity: 7,
-      },
-      {
-        id: "chain-green",
-        name: "Grid Green",
-        image: "/traits/background/bg-chain-green.png",
-        rarity: 5,
-      },
+      { id: "midnight", name: "Midnight Drift", image: "/traits/sky/midnight.png", rarity: 18 },
+      { id: "neon", name: "Neon Grid", image: "/traits/sky/neon.png", rarity: 14 },
+      { id: "dawn", name: "Soft Dawn", image: "/traits/sky/dawn.png", rarity: 14 },
+      { id: "forest", name: "Firefly Grove", image: "/traits/sky/forest.png", rarity: 12 },
+      { id: "coral", name: "Coral Dusk", image: "/traits/sky/coral.png", rarity: 12 },
+      { id: "void", name: "Void Speckles", image: "/traits/sky/void.png", rarity: 12 },
+      { id: "candy", name: "Candy Wash", image: "/traits/sky/candy.png", rarity: 10 },
+      { id: "storm", name: "Storm Flicker", image: "/traits/sky/storm.png", rarity: 8 },
     ],
   },
   {
-    id: "base",
-    label: "Base",
-    blurb: "Three coat colors, one signature peek over the ledge.",
+    id: "aura",
+    label: "Aura",
+    blurb: "A glow that sits behind the creature and pulses on the shared clock.",
+    noneLabel: "No aura",
     traits: [
-      {
-        id: "fawn",
-        name: "Fawn Peek",
-        image: "/traits/base/base-fawn-peek.png",
-        rarity: 50,
-      },
-      {
-        id: "cream",
-        name: "Apricot Peek",
-        image: "/traits/base/base-cream-peek.png",
-        rarity: 30,
-      },
-      {
-        id: "black",
-        name: "Black Peek",
-        image: "/traits/base/base-black-peek.png",
-        rarity: 20,
-      },
-    ],
-  },
-  {
-    id: "block",
-    label: "Block",
-    blurb: "The ledge they lean on — concrete, brownstone, crate, or gold.",
-    noneLabel: "Default concrete",
-    traits: [
-      {
-        id: "concrete",
-        name: "Cinder Block",
-        image: "/traits/block/block-concrete.png",
-        rarity: 40,
-      },
-      {
-        id: "brownstone-ledge",
-        name: "Brownstone Ledge",
-        image: "/traits/block/block-brownstone.png",
-        rarity: 28,
-      },
-      {
-        id: "crate",
-        name: "Crate Stack",
-        image: "/traits/block/block-crate.png",
-        rarity: 20,
-      },
-      {
-        id: "gold",
-        name: "Gold Bars",
-        image: "/traits/block/block-gold.png",
-        rarity: 12,
-      },
-    ],
-  },
-  {
-    id: "hat",
-    label: "Hat",
-    blurb: "Beanies, newsie caps, hard hats, and the occasional crown.",
-    noneLabel: "Bare head",
-    traits: [
-      {
-        id: "beanie",
-        name: "Forest Beanie",
-        image: "/traits/hat/hat-beanie.png",
-        rarity: 18,
-      },
-      {
-        id: "newsie",
-        name: "Newsie Cap",
-        image: "/traits/hat/hat-newsie.png",
-        rarity: 16,
-      },
-      {
-        id: "snapback",
-        name: "Stoop Snapback",
-        image: "/traits/hat/hat-snapback.png",
-        rarity: 14,
-      },
-      {
-        id: "hardhat",
-        name: "Block Hard Hat",
-        image: "/traits/hat/hat-hardhat.png",
-        rarity: 12,
-      },
-      {
-        id: "crown",
-        name: "Stoop Crown",
-        image: "/traits/hat/hat-crown.png",
-        rarity: 12,
-      },
+      { id: "mint", name: "Mint Pulse", image: "/traits/aura/mint.png", rarity: 16 },
+      { id: "gold", name: "Gold Ring", image: "/traits/aura/gold.png", rarity: 14 },
+      { id: "magenta", name: "Magenta Haze", image: "/traits/aura/magenta.png", rarity: 14 },
+      { id: "ice", name: "Ice Shimmer", image: "/traits/aura/ice.png", rarity: 12 },
+      { id: "ember", name: "Ember Glow", image: "/traits/aura/ember.png", rarity: 12 },
+      { id: "pixel", name: "Pixel Spark", image: "/traits/aura/pixel.png", rarity: 10 },
     ],
   },
   {
     id: "body",
     label: "Body",
-    blurb: "Neckerchiefs, collars, hoodies, and a heavy gold chain.",
-    noneLabel: "No clothes",
+    blurb: "Six silhouettes. Each one bobs on the same 12-frame breathe.",
     traits: [
-      {
-        id: "bandana",
-        name: "Forest Bandana",
-        image: "/traits/body/body-bandana.png",
-        rarity: 22,
-      },
-      {
-        id: "collar",
-        name: "Red Collar",
-        image: "/traits/body/body-collar.png",
-        rarity: 18,
-      },
-      {
-        id: "hoodie",
-        name: "Cream Hoodie",
-        image: "/traits/body/body-hoodie.png",
-        rarity: 16,
-      },
-      {
-        id: "gold-chain",
-        name: "Gold Chain",
-        image: "/traits/body/body-gold-chain.png",
-        rarity: 12,
-      },
+      { id: "pudding", name: "Pudding", image: "/traits/body/pudding.png", rarity: 22 },
+      { id: "fox", name: "Fox", image: "/traits/body/fox.png", rarity: 18 },
+      { id: "owl", name: "Owl", image: "/traits/body/owl.png", rarity: 16 },
+      { id: "frog", name: "Frog", image: "/traits/body/frog.png", rarity: 16 },
+      { id: "cat", name: "Cat", image: "/traits/body/cat.png", rarity: 16 },
+      { id: "beetle", name: "Beetle", image: "/traits/body/beetle.png", rarity: 12 },
     ],
   },
   {
-    id: "accessory",
-    label: "Accessory",
-    blurb: "Shades on the snout, or a treat parked on the ledge.",
-    noneLabel: "Empty paws",
+    id: "face",
+    label: "Face",
+    blurb: "Eyes and mouths locked to the body bob, with their own blinks.",
     traits: [
-      {
-        id: "bone",
-        name: "Chewed Bone",
-        image: "/traits/accessory/acc-bone.png",
-        rarity: 18,
-      },
-      {
-        id: "coffee",
-        name: "Stoop Coffee",
-        image: "/traits/accessory/acc-coffee.png",
-        rarity: 16,
-      },
-      {
-        id: "sunglasses",
-        name: "Round Shades",
-        image: "/traits/accessory/acc-sunglasses.png",
-        rarity: 14,
-      },
-      {
-        id: "blocks",
-        name: "Toy Blocks",
-        image: "/traits/accessory/acc-blocks.png",
-        rarity: 12,
-      },
-      {
-        id: "monocle",
-        name: "Gold Monocle",
-        image: "/traits/accessory/acc-monocle.png",
-        rarity: 10,
-      },
+      { id: "blink", name: "Blink", image: "/traits/face/blink.png", rarity: 24 },
+      { id: "sleepy", name: "Sleepy", image: "/traits/face/sleepy.png", rarity: 18 },
+      { id: "spark", name: "Spark", image: "/traits/face/spark.png", rarity: 16 },
+      { id: "wink", name: "Wink", image: "/traits/face/wink.png", rarity: 16 },
+      { id: "glow", name: "Glow", image: "/traits/face/glow.png", rarity: 14 },
+      { id: "specs", name: "Specs", image: "/traits/face/specs.png", rarity: 12 },
+    ],
+  },
+  {
+    id: "wear",
+    label: "Wear",
+    blurb: "Hats and signals that ride the same bob so they stay glued on.",
+    noneLabel: "Bare head",
+    traits: [
+      { id: "cap", name: "Mint Cap", image: "/traits/wear/cap.png", rarity: 16 },
+      { id: "antenna", name: "Signal Antenna", image: "/traits/wear/antenna.png", rarity: 14 },
+      { id: "sprout", name: "Sprout", image: "/traits/wear/sprout.png", rarity: 14 },
+      { id: "crown", name: "Tiny Crown", image: "/traits/wear/crown.png", rarity: 12 },
+      { id: "hood", name: "Night Hood", image: "/traits/wear/hood.png", rarity: 12 },
+      { id: "halo", name: "Soft Halo", image: "/traits/wear/halo.png", rarity: 10 },
+    ],
+  },
+  {
+    id: "charm",
+    label: "Charm",
+    blurb: "Front-layer loops — orbits, floats, and spins on their own path.",
+    noneLabel: "None",
+    traits: [
+      { id: "star", name: "Orbit Star", image: "/traits/charm/star.png", rarity: 16 },
+      { id: "heart", name: "Float Heart", image: "/traits/charm/heart.png", rarity: 14 },
+      { id: "bubble", name: "Bubble", image: "/traits/charm/bubble.png", rarity: 14 },
+      { id: "leaf", name: "Leaf", image: "/traits/charm/leaf.png", rarity: 12 },
+      { id: "coin", name: "Spin Coin", image: "/traits/charm/coin.png", rarity: 12 },
+      { id: "spark", name: "Spark Trail", image: "/traits/charm/spark.png", rarity: 8 },
     ],
   },
 ];
@@ -270,12 +124,12 @@ export function findTrait(categoryId: TraitCategory["id"], traitId: string) {
 }
 
 export const defaultSelection = {
-  background: "brownstone",
-  base: "fawn",
-  block: "none",
-  hat: "beanie",
-  body: "bandana",
-  accessory: "none",
+  sky: "midnight",
+  aura: "mint",
+  body: "pudding",
+  face: "blink",
+  wear: "cap",
+  charm: "star",
 } as const;
 
 export type Selection = Record<TraitCategory["id"], string>;
@@ -283,7 +137,7 @@ export type Selection = Record<TraitCategory["id"], string>;
 export function randomSelection(): Selection {
   const pick = (category: TraitCategory) => {
     const pool: Trait[] = category.noneLabel
-      ? [{ id: "none", name: category.noneLabel, rarity: 28 }, ...category.traits]
+      ? [{ id: "none", name: category.noneLabel, rarity: 22 }, ...category.traits]
       : category.traits;
     const total = pool.reduce((sum, trait) => sum + Math.max(trait.rarity, 1), 0);
     let roll = Math.random() * total;
@@ -295,12 +149,12 @@ export function randomSelection(): Selection {
   };
 
   return {
-    background: pick(categoryById("background")),
-    base: pick(categoryById("base")),
-    block: pick(categoryById("block")),
-    hat: pick(categoryById("hat")),
+    sky: pick(categoryById("sky")),
+    aura: pick(categoryById("aura")),
     body: pick(categoryById("body")),
-    accessory: pick(categoryById("accessory")),
+    face: pick(categoryById("face")),
+    wear: pick(categoryById("wear")),
+    charm: pick(categoryById("charm")),
   };
 }
 
@@ -309,4 +163,11 @@ export function combinationCount() {
     const extra = category.noneLabel ? 1 : 0;
     return product * (category.traits.length + extra);
   }, 1);
+}
+
+export function selectionToLayers(selection: Selection) {
+  return (["sky", "aura", "body", "face", "wear", "charm"] as const)
+    .map((id) => findTrait(id, selection[id]))
+    .filter((trait): trait is Trait => Boolean(trait?.image))
+    .map((trait) => traitSrc(trait.image));
 }

@@ -1,0 +1,498 @@
+[
+  {
+    "id": 1,
+    "name": "Loopkin #1",
+    "image": "/generated-preview/1.png",
+    "attributes": [
+      {
+        "trait_type": "Sky",
+        "value": "Midnight Drift"
+      },
+      {
+        "trait_type": "Aura",
+        "value": "Mint Pulse"
+      },
+      {
+        "trait_type": "Body",
+        "value": "Pudding"
+      },
+      {
+        "trait_type": "Face",
+        "value": "Blink"
+      },
+      {
+        "trait_type": "Wear",
+        "value": "Mint Cap"
+      },
+      {
+        "trait_type": "Charm",
+        "value": "Orbit Star"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Loopkin #2",
+    "image": "/generated-preview/2.png",
+    "attributes": [
+      {
+        "trait_type": "Sky",
+        "value": "Neon Grid"
+      },
+      {
+        "trait_type": "Aura",
+        "value": "Gold Ring"
+      },
+      {
+        "trait_type": "Body",
+        "value": "Fox"
+      },
+      {
+        "trait_type": "Face",
+        "value": "Spark"
+      },
+      {
+        "trait_type": "Wear",
+        "value": "Tiny Crown"
+      },
+      {
+        "trait_type": "Charm",
+        "value": "None"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Loopkin #3",
+    "image": "/generated-preview/3.png",
+    "attributes": [
+      {
+        "trait_type": "Sky",
+        "value": "Soft Dawn"
+      },
+      {
+        "trait_type": "Aura",
+        "value": "Ice Shimmer"
+      },
+      {
+        "trait_type": "Body",
+        "value": "Owl"
+      },
+      {
+        "trait_type": "Face",
+        "value": "Sleepy"
+      },
+      {
+        "trait_type": "Wear",
+        "value": "Bare head"
+      },
+      {
+        "trait_type": "Charm",
+        "value": "Bubble"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Loopkin #4",
+    "image": "/generated-preview/4.png",
+    "attributes": [
+      {
+        "trait_type": "Sky",
+        "value": "Firefly Grove"
+      },
+      {
+        "trait_type": "Aura",
+        "value": "No aura"
+      },
+      {
+        "trait_type": "Body",
+        "value": "Frog"
+      },
+      {
+        "trait_type": "Face",
+        "value": "Wink"
+      },
+      {
+        "trait_type": "Wear",
+        "value": "Sprout"
+      },
+      {
+        "trait_type": "Charm",
+        "value": "Leaf"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Loopkin #5",
+    "image": "/generated-preview/5.png",
+    "attributes": [
+      {
+        "trait_type": "Sky",
+        "value": "Void Speckles"
+      },
+      {
+        "trait_type": "Aura",
+        "value": "Magenta Haze"
+      },
+      {
+        "trait_type": "Body",
+        "value": "Cat"
+      },
+      {
+        "trait_type": "Face",
+        "value": "Glow"
+      },
+      {
+        "trait_type": "Wear",
+        "value": "Night Hood"
+      },
+      {
+        "trait_type": "Charm",
+        "value": "Spark Trail"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Loopkin #6",
+    "image": "/generated-preview/6.png",
+    "attributes": [
+      {
+        "trait_type": "Sky",
+        "value": "Storm Flicker"
+      },
+      {
+        "trait_type": "Aura",
+        "value": "Ember Glow"
+      },
+      {
+        "trait_type": "Body",
+        "value": "Beetle"
+      },
+      {
+        "trait_type": "Face",
+        "value": "Specs"
+      },
+      {
+        "trait_type": "Wear",
+        "value": "Soft Halo"
+      },
+      {
+        "trait_type": "Charm",
+        "value": "Spin Coin"
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Loopkin #7",
+    "image": "/generated-preview/7.png",
+    "attributes": [
+      {
+        "trait_type": "Sky",
+        "value": "Candy Wash"
+      },
+      {
+        "trait_type": "Aura",
+        "value": "Pixel Spark"
+      },
+      {
+        "trait_type": "Body",
+        "value": "Pudding"
+      },
+      {
+        "trait_type": "Face",
+        "value": "Specs"
+      },
+      {
+        "trait_type": "Wear",
+        "value": "Signal Antenna"
+      },
+      {
+        "trait_type": "Charm",
+        "value": "Float Heart"
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "name": "Loopkin #8",
+    "image": "/generated-preview/8.png",
+    "attributes": [
+      {
+        "trait_type": "Sky",
+        "value": "Coral Dusk"
+      },
+      {
+        "trait_type": "Aura",
+        "value": "Gold Ring"
+      },
+      {
+        "trait_type": "Body",
+        "value": "Fox"
+      },
+      {
+        "trait_type": "Face",
+        "value": "Blink"
+      },
+      {
+        "trait_type": "Wear",
+        "value": "Mint Cap"
+      },
+      {
+        "trait_type": "Charm",
+        "value": "None"
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "name": "Loopkin #9",
+    "image": "/generated-preview/9.png",
+    "attributes": [
+      {
+        "trait_type": "Sky",
+        "value": "Midnight Drift"
+      },
+      {
+        "trait_type": "Aura",
+        "value": "Ice Shimmer"
+      },
+      {
+        "trait_type": "Body",
+        "value": "Owl"
+      },
+      {
+        "trait_type": "Face",
+        "value": "Glow"
+      },
+      {
+        "trait_type": "Wear",
+        "value": "Soft Halo"
+      },
+      {
+        "trait_type": "Charm",
+        "value": "Orbit Star"
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "name": "Loopkin #10",
+    "image": "/generated-preview/10.png",
+    "attributes": [
+      {
+        "trait_type": "Sky",
+        "value": "Neon Grid"
+      },
+      {
+        "trait_type": "Aura",
+        "value": "Mint Pulse"
+      },
+      {
+        "trait_type": "Body",
+        "value": "Frog"
+      },
+      {
+        "trait_type": "Face",
+        "value": "Spark"
+      },
+      {
+        "trait_type": "Wear",
+        "value": "Signal Antenna"
+      },
+      {
+        "trait_type": "Charm",
+        "value": "None"
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "name": "Loopkin #11",
+    "image": "/generated-preview/11.png",
+    "attributes": [
+      {
+        "trait_type": "Sky",
+        "value": "Soft Dawn"
+      },
+      {
+        "trait_type": "Aura",
+        "value": "No aura"
+      },
+      {
+        "trait_type": "Body",
+        "value": "Cat"
+      },
+      {
+        "trait_type": "Face",
+        "value": "Wink"
+      },
+      {
+        "trait_type": "Wear",
+        "value": "Tiny Crown"
+      },
+      {
+        "trait_type": "Charm",
+        "value": "Float Heart"
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "name": "Loopkin #12",
+    "image": "/generated-preview/12.png",
+    "attributes": [
+      {
+        "trait_type": "Sky",
+        "value": "Firefly Grove"
+      },
+      {
+        "trait_type": "Aura",
+        "value": "Pixel Spark"
+      },
+      {
+        "trait_type": "Body",
+        "value": "Beetle"
+      },
+      {
+        "trait_type": "Face",
+        "value": "Blink"
+      },
+      {
+        "trait_type": "Wear",
+        "value": "Bare head"
+      },
+      {
+        "trait_type": "Charm",
+        "value": "Leaf"
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "name": "Loopkin #13",
+    "image": "/generated-preview/13.png",
+    "attributes": [
+      {
+        "trait_type": "Sky",
+        "value": "Void Speckles"
+      },
+      {
+        "trait_type": "Aura",
+        "value": "Gold Ring"
+      },
+      {
+        "trait_type": "Body",
+        "value": "Pudding"
+      },
+      {
+        "trait_type": "Face",
+        "value": "Sleepy"
+      },
+      {
+        "trait_type": "Wear",
+        "value": "Sprout"
+      },
+      {
+        "trait_type": "Charm",
+        "value": "Spin Coin"
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "name": "Loopkin #14",
+    "image": "/generated-preview/14.png",
+    "attributes": [
+      {
+        "trait_type": "Sky",
+        "value": "Storm Flicker"
+      },
+      {
+        "trait_type": "Aura",
+        "value": "Magenta Haze"
+      },
+      {
+        "trait_type": "Body",
+        "value": "Fox"
+      },
+      {
+        "trait_type": "Face",
+        "value": "Glow"
+      },
+      {
+        "trait_type": "Wear",
+        "value": "Night Hood"
+      },
+      {
+        "trait_type": "Charm",
+        "value": "Bubble"
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "name": "Loopkin #15",
+    "image": "/generated-preview/15.png",
+    "attributes": [
+      {
+        "trait_type": "Sky",
+        "value": "Candy Wash"
+      },
+      {
+        "trait_type": "Aura",
+        "value": "Ember Glow"
+      },
+      {
+        "trait_type": "Body",
+        "value": "Owl"
+      },
+      {
+        "trait_type": "Face",
+        "value": "Specs"
+      },
+      {
+        "trait_type": "Wear",
+        "value": "Mint Cap"
+      },
+      {
+        "trait_type": "Charm",
+        "value": "Spark Trail"
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "name": "Loopkin #16",
+    "image": "/generated-preview/16.png",
+    "attributes": [
+      {
+        "trait_type": "Sky",
+        "value": "Coral Dusk"
+      },
+      {
+        "trait_type": "Aura",
+        "value": "Mint Pulse"
+      },
+      {
+        "trait_type": "Body",
+        "value": "Cat"
+      },
+      {
+        "trait_type": "Face",
+        "value": "Spark"
+      },
+      {
+        "trait_type": "Wear",
+        "value": "Signal Antenna"
+      },
+      {
+        "trait_type": "Charm",
+        "value": "Orbit Star"
+      }
+    ]
+  }
+]

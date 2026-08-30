@@ -1,15 +1,17 @@
 {
-  "name": "Pugs On The Block",
-  "size": 1024,
-  "format": ["png"],
+  "name": "Loopkins",
+  "size": 512,
+  "frames": 12,
+  "durationMs": 80,
+  "format": "apng",
+  "loop": 0,
   "order": [
-    "background",
-    "base",
-    "face-accessory",
+    "sky",
+    "aura",
     "body",
-    "hat",
-    "block",
-    "ledge-accessory",
-    "paws"
-  ]
+    "face",
+    "wear",
+    "charm"
+  ],
+  "note": "Each trait is an APNG. Studio stacks them live. Minted tokens flatten the same frame clock."
 }

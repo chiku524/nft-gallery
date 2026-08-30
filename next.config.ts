@@ -9,9 +9,11 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
-      { source: "/traits", destination: "/pugs-on-the-block/traits", permanent: true },
-      { source: "/gallery", destination: "/pugs-on-the-block/gallery", permanent: true },
-      { source: "/launch", destination: "/pugs-on-the-block/launch", permanent: true },
+      { source: "/traits", destination: "/loopkins/traits", permanent: false },
+      { source: "/gallery", destination: "/loopkins/gallery", permanent: false },
+      { source: "/launch", destination: "/loopkins/launch", permanent: false },
+      { source: "/pugs-on-the-block", destination: "/loopkins", permanent: false },
+      { source: "/pugs-on-the-block/:path*", destination: "/loopkins/:path*", permanent: false },
     ];
   },
 };

@@ -40,7 +40,7 @@ export function AddChainButton() {
           },
         ],
       });
-      setMessage("Robinhood Chain is on this wallet.");
+      setMessage(`${collection.chain.name} is on this wallet.`);
     } catch (error) {
       const text = error instanceof Error ? error.message : "Wallet rejected the request.";
       setMessage(text);
@@ -52,7 +52,7 @@ export function AddChainButton() {
   return (
     <div className="space-y-2">
       <Button type="button" onClick={addChain} disabled={busy} size="lg">
-        {busy ? "Waiting on wallet…" : "Add Robinhood Chain"}
+        {busy ? "Waiting on wallet…" : `Add ${collection.chain.name}`}
       </Button>
       {message ? <p className="text-sm text-muted-foreground">{message}</p> : null}
     </div>

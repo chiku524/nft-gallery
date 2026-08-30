@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
-import { Fraunces, Nunito_Sans } from "next/font/google";
+import { Outfit, Syne } from "next/font/google";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { GalleryChrome } from "@/components/gallery-chrome";
 import { gallery } from "@/data/projects";
 import "./globals.css";
 
-const display = Fraunces({
+const display = Syne({
   variable: "--font-display",
   subsets: ["latin"],
 });
 
-const sans = Nunito_Sans({
+const sans = Outfit({
   variable: "--font-sans",
   subsets: ["latin"],
 });
@@ -27,7 +27,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${display.variable} ${sans.variable} h-full antialiased`}
+      className={`${display.variable} ${sans.variable} h-full antialiased dark`}
     >
       <body className="flex min-h-full flex-col">
         <TooltipProvider>

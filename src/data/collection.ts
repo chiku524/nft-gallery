@@ -1,11 +1,14 @@
 export const collection = {
-  name: "Pugs On The Block",
-  symbol: "POTB",
-  tagline: "Neighborhood pugs, peeking over the stoop.",
+  name: "Loopkins",
+  symbol: "LOOP",
+  tagline: "Layered APNG PFPs that never sit still.",
   description:
-    "Pugs On The Block is a 10,000-piece PFP collection of chibi pugs caught mid-peek over the city block. Every pug is assembled from layered traits — background, base, the block, hat, body, and accessory — ready to mint as ERC-721s on Robinhood Chain and list as an OpenSea Drop.",
-  supply: 10000,
-  mintPriceEth: "0.004",
+    "Loopkins is a 3,333-piece PFP collection of looping creatures. Every token is stacked from APNG trait layers — skies pulse, auras breathe, faces blink, charms orbit — then flattened onto one shared 12-frame clock for mint.",
+  supply: 3333,
+  mintPriceEth: "0.005",
+  frames: 12,
+  frameDurationMs: 80,
+  canvas: 512,
   chain: {
     name: "Robinhood Chain",
     chainId: 4663,

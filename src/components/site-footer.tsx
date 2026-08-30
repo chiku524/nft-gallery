@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { collection } from "@/data/collection";
-import { potbPath } from "@/lib/potb";
+import { loopkinsPath } from "@/lib/loopkins";
 
 export function SiteFooter() {
   return (
@@ -9,7 +9,7 @@ export function SiteFooter() {
         <div>
           <p className="font-heading text-lg">{collection.name}</p>
           <p className="text-sm text-muted-foreground">
-            {collection.supply.toLocaleString()} pugs · {collection.chain.name} · OpenSea
+            {collection.supply.toLocaleString()} loops · {collection.chain.name} · OpenSea
           </p>
         </div>
         <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm">
@@ -19,13 +19,13 @@ export function SiteFooter() {
           <Link href="/studio" className="hover:underline">
             Studio
           </Link>
-          <Link href={potbPath("/traits")} className="hover:underline">
-            Trait sheets
+          <Link href={loopkinsPath("/traits")} className="hover:underline">
+            Trait loops
           </Link>
-          <Link href={potbPath("/gallery")} className="hover:underline">
+          <Link href={loopkinsPath("/gallery")} className="hover:underline">
             Sample mints
           </Link>
-          <Link href={potbPath("/launch")} className="hover:underline">
+          <Link href={loopkinsPath("/launch")} className="hover:underline">
             Launch notes
           </Link>
           <a href={collection.chain.docs} className="hover:underline" target="_blank" rel="noreferrer">

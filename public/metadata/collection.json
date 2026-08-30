@@ -1,9 +1,9 @@
 {
-  "name": "Pugs On The Block",
-  "description": "Neighborhood pugs peeking over the stoop. A 10,000-piece PFP collection of layered chibi pugs launching on Robinhood Chain and OpenSea.",
-  "image": "/brand/logo-pugs-on-the-block.png",
-  "banner_image": "/brand/banner-pugs-on-the-block.png",
-  "external_link": "/pugs-on-the-block",
+  "name": "Loopkins",
+  "description": "A 3,333-piece PFP collection of looping creatures assembled from layered APNG traits.",
+  "image": "/brand/logo-loopkins.png",
+  "banner_image": "/brand/banner-loopkins.png",
+  "external_link": "/loopkins",
   "seller_fee_basis_points": 500,
   "fee_recipient": "0x0000000000000000000000000000000000000000"
 }
