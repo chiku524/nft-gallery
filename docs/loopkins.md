@@ -1,6 +1,6 @@
 # Loopkins
 
-Looping creatures stacked from **APNG trait layers**. A **3,333-piece** PFP collection built to mint on **Robinhood Chain** (chain ID `4663`) and list on **OpenSea**.
+Looping creatures stacked from **APNG trait layers**. A **10,000-piece** PFP collection built to mint on **Robinhood Chain** (chain ID `4663`) and list on **OpenSea**.
 
 This collection lives inside **NFT Gallery** at `/loopkins`.
 
@@ -12,14 +12,14 @@ OpenSea does **not** assemble collections from trait layers. For a Drop you uplo
 - Sample tokens at `public/generated-preview/`
 - Collection logo and banner in `public/brand/`
 - Trait studio at `/studio` — a live CSS stack of APNG `<img>` layers (not a flattened canvas)
-- `contracts/Loopkins.sol` — ERC-721 with a 3,333 supply cap
+- `contracts/Loopkins.sol` — ERC-721 with a 10,000 supply cap
 
 ## Generate traits and tokens
 
 ```bash
 python3 scripts/build_loopkins.py
 python3 scripts/generate_collection.py        # 16 samples
-python3 scripts/generate_collection.py --all  # full 3,333
+python3 scripts/generate_collection.py --all  # full 10,000
 ```
 
 Requires Python 3 with Pillow and NumPy. Output lands in `generated/`.

@@ -1,8 +1,11 @@
 #!/usr/bin/env python3
 """Compose Loopkins tokens from layered APNG traits.
 
-Default: 16 signature samples already baked by build_loopkins.py.
-Pass --all to shuffle the full 3,333 on the shared 12-frame clock.
+Default: 16 signature samples.
+Pass --all to shuffle the full 10,000 on the shared 12-frame clock.
+
+Drop files are 384×384 APNGs so a 10,000 pack can fit OpenSea's 5GB media cap.
+Studio traits stay 512×512 in public/traits/.
 """
 
 from __future__ import annotations
@@ -14,7 +17,10 @@ import json
 import random
 import sys
 from collections import Counter
+from multiprocessing import Pool, cpu_count
 from pathlib import Path
+
+from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
@@ -27,16 +33,18 @@ from build_loopkins import (  # noqa: E402
     SIZE,
     STACK,
     TRAIT_SPEC,
-    compose_selection,
     name_of,
-    save_apng,
+    trait_path,
 )
 
 OUT = ROOT / "generated"
 IMAGE_DIR = OUT / "images"
 JSON_DIR = OUT / "json"
-TOTAL = 3333
-SEED = 4663_3333
+TOTAL = 10_000
+SEED = 4663_10000
+DROP_SIZE = 256
+
+_CACHE: dict[tuple[str, str], list[Image.Image]] | None = None
 
 
 def pick(category: str, rng: random.Random) -> str:
@@ -68,9 +76,66 @@ def build_roster(count: int) -> list[dict[str, str]]:
     return roster
 
 
-def write_token(token_id: int, selection: dict[str, str]) -> dict:
-    frames = compose_selection(selection)
-    save_apng(frames, IMAGE_DIR / f"{token_id}.png")
+def load_trait_frames(path: Path) -> list[Image.Image]:
+    with Image.open(path) as im:
+        im.load()
+        frames = []
+        for i in range(getattr(im, "n_frames", 1)):
+            im.seek(i)
+            frames.append(im.convert("RGBA").copy())
+        return frames
+
+
+def load_cache() -> dict[tuple[str, str], list[Image.Image]]:
+    cache: dict[tuple[str, str], list[Image.Image]] = {}
+    for category, traits in TRAIT_SPEC.items():
+        for trait_id, _name, _rarity in traits:
+            if trait_id == "none":
+                continue
+            cache[(category, trait_id)] = load_trait_frames(trait_path(category, trait_id))
+    return cache
+
+
+def init_worker() -> None:
+    global _CACHE
+    _CACHE = load_cache()
+
+
+def compose_cached(selection: dict[str, str]) -> list[Image.Image]:
+    assert _CACHE is not None
+    layers = []
+    for category in STACK:
+        trait_id = selection[category]
+        if trait_id == "none":
+            continue
+        layers.append(_CACHE[(category, trait_id)])
+    out = []
+    for i in range(FRAMES):
+        canvas = Image.new("RGBA", (SIZE, SIZE), (0, 0, 0, 0))
+        for frames in layers:
+            canvas = Image.alpha_composite(canvas, frames[i % len(frames)])
+        if DROP_SIZE != SIZE:
+            canvas = canvas.resize((DROP_SIZE, DROP_SIZE), Image.Resampling.LANCZOS)
+        out.append(canvas)
+    return out
+
+
+def save_drop_apng(frames: list[Image.Image], path: Path) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    frames[0].save(
+        path,
+        save_all=True,
+        append_images=frames[1:],
+        duration=[DURATION_MS] * len(frames),
+        loop=0,
+        format="PNG",
+        disposal=1,
+        blend=0,
+        compress_level=9,
+    )
+
+
+def token_meta(token_id: int, selection: dict[str, str]) -> dict:
     attributes = [
         {"trait_type": label, "value": name_of(key, selection[key])}
         for key, label in (
@@ -82,7 +147,7 @@ def write_token(token_id: int, selection: dict[str, str]) -> dict:
             ("charm", "Charm"),
         )
     ]
-    meta = {
+    return {
         "name": f"Loopkin #{token_id}",
         "description": "A looping PFP stacked from APNG trait layers.",
         "image": f"{token_id}.png",
@@ -90,14 +155,61 @@ def write_token(token_id: int, selection: dict[str, str]) -> dict:
         "animation_loop": True,
         "compiler": "Loopkins APNG stack",
     }
+
+
+def bake_one(job: tuple[int, dict[str, str]]) -> tuple[int, dict, int]:
+    token_id, selection = job
+    dest = IMAGE_DIR / f"{token_id}.png"
+    meta = token_meta(token_id, selection)
+    if dest.exists() and dest.stat().st_size > 0:
+        (JSON_DIR / f"{token_id}.json").write_text(json.dumps(meta) + "\n", encoding="utf-8")
+        return token_id, meta, dest.stat().st_size
+    frames = compose_cached(selection)
+    save_drop_apng(frames, dest)
     (JSON_DIR / f"{token_id}.json").write_text(json.dumps(meta) + "\n", encoding="utf-8")
-    return meta
+    return token_id, meta, dest.stat().st_size
+
+
+def write_sidecar(count: int, rows: list[dict], stats: Counter[str], total_bytes: int) -> None:
+    with (OUT / "opensea-metadata.csv").open("w", newline="", encoding="utf-8") as handle:
+        writer = csv.DictWriter(handle, fieldnames=list(rows[0].keys()))
+        writer.writeheader()
+        writer.writerows(rows)
+
+    digest = hashlib.sha256()
+    for i in range(1, count + 1):
+        digest.update((IMAGE_DIR / f"{i}.png").read_bytes())
+    (OUT / "provenance.json").write_text(
+        json.dumps(
+            {
+                "hash": digest.hexdigest(),
+                "count": count,
+                "frames": FRAMES,
+                "durationMs": DURATION_MS,
+                "size": DROP_SIZE,
+                "bytes": total_bytes,
+            },
+            indent=2,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    (OUT / "stats.json").write_text(json.dumps(dict(stats), indent=2) + "\n", encoding="utf-8")
+    (OUT / "README.md").write_text(
+        "# Loopkins OpenSea pack\n\n"
+        f"{count:,} flattened APNGs at {DROP_SIZE}×{DROP_SIZE}, {FRAMES} frames, {DURATION_MS}ms.\n\n"
+        "Upload every file in `images/` (1.png–10000.png) plus `opensea-metadata.csv` to an OpenSea Drop.\n"
+        "OpenSea Drops accept up to 10,000 PNG files and 5GB total. These files are sized for that cap.\n"
+        "Studio trait layers stay in `public/traits/` and are not the upload pack.\n",
+        encoding="utf-8",
+    )
 
 
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--all", action="store_true", help=f"Bake all {TOTAL} tokens")
     parser.add_argument("--count", type=int, default=16)
+    parser.add_argument("--workers", type=int, default=max(1, min(6, cpu_count() or 1)))
     args = parser.parse_args()
     count = TOTAL if args.all else min(args.count, TOTAL)
 
@@ -105,37 +217,36 @@ def main() -> None:
     JSON_DIR.mkdir(parents=True, exist_ok=True)
     PREVIEW_DIR.mkdir(parents=True, exist_ok=True)
     roster = build_roster(count)
+    jobs = list(enumerate(roster, start=1))
 
-    rows = []
+    rows_by_id: dict[int, dict] = {}
     stats: Counter[str] = Counter()
-    for token_id, selection in enumerate(roster, start=1):
-        print(f"  token {token_id}/{count}")
-        meta = write_token(token_id, selection)
-        if token_id <= 16:
-            (PREVIEW_DIR / f"{token_id}.png").write_bytes((IMAGE_DIR / f"{token_id}.png").read_bytes())
-        rows.append({"tokenID": token_id, "name": meta["name"], "file": f"{token_id}.png", **{a["trait_type"]: a["value"] for a in meta["attributes"]}})
-        for attr in meta["attributes"]:
-            stats[f"{attr['trait_type']}:{attr['value']}"] += 1
+    total_bytes = 0
+    done = 0
 
-    with (OUT / "opensea-metadata.csv").open("w", newline="", encoding="utf-8") as handle:
-        writer = csv.DictWriter(handle, fieldnames=list(rows[0].keys()))
-        writer.writeheader()
-        writer.writerows(rows)
+    print(f"Baking {count} Loopkins at {DROP_SIZE}px with {args.workers} workers…")
+    with Pool(processes=args.workers, initializer=init_worker) as pool:
+        for token_id, meta, nbytes in pool.imap_unordered(bake_one, jobs, chunksize=4):
+            done += 1
+            total_bytes += nbytes
+            row = {
+                "tokenID": token_id,
+                "name": meta["name"],
+                "file": f"{token_id}.png",
+                **{a["trait_type"]: a["value"] for a in meta["attributes"]},
+            }
+            rows_by_id[token_id] = row
+            for attr in meta["attributes"]:
+                stats[f"{attr['trait_type']}:{attr['value']}"] += 1
+            if done % 50 == 0 or done == count:
+                print(f"  {done}/{count}  {total_bytes / 1_000_000:.1f} MB")
 
-    blob = b"".join((IMAGE_DIR / f"{i}.png").read_bytes() for i in range(1, count + 1))
-    (OUT / "provenance.json").write_text(
-        json.dumps({"hash": hashlib.sha256(blob).hexdigest(), "count": count, "frames": FRAMES, "durationMs": DURATION_MS, "size": SIZE}, indent=2)
-        + "\n",
-        encoding="utf-8",
-    )
-    (OUT / "stats.json").write_text(json.dumps(dict(stats), indent=2) + "\n", encoding="utf-8")
-    (OUT / "README.md").write_text(
-        "# Loopkins drop files\n\n"
-        "Each token is a flattened APNG. Traits themselves stay layered in `public/traits/`.\n"
-        "Upload `images/*.png` plus `opensea-metadata.csv` to an OpenSea Drop.\n",
-        encoding="utf-8",
-    )
-    print(f"Wrote {count} Loopkins to generated/")
+    rows = [rows_by_id[i] for i in range(1, count + 1)]
+    for token_id in range(1, min(16, count) + 1):
+        (PREVIEW_DIR / f"{token_id}.png").write_bytes((IMAGE_DIR / f"{token_id}.png").read_bytes())
+
+    write_sidecar(count, rows, stats, total_bytes)
+    print(f"Wrote {count} Loopkins to generated/images ({total_bytes / 1_000_000:.1f} MB)")
 
 
 if __name__ == "__main__":

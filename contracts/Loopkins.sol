@@ -7,11 +7,11 @@ import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 import {Strings} from "@openzeppelin/contracts/utils/Strings.sol";
 
 /// @title Loopkins
-/// @notice 3,333 looping APNG PFPs for Robinhood Chain (chain ID 4663).
+/// @notice 10,000 looping APNG PFPs for Robinhood Chain (chain ID 4663).
 contract Loopkins is ERC721, ERC721Enumerable, Ownable {
     using Strings for uint256;
 
-    uint256 public constant MAX_SUPPLY = 3333;
+    uint256 public constant MAX_SUPPLY = 10000;
     uint256 public mintPrice = 0.005 ether;
     string private _baseTokenURI;
     bool public mintOpen;

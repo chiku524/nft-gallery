@@ -2,7 +2,7 @@
 
 A house of NFT collections. Each drop is its own sub-project — studio, traits, and launch path included.
 
-**Loopkins** is the first collection on the wall: 3,333 looping PFP creatures built from layered APNG traits, for OpenSea on Robinhood Chain (chain ID `4663`).
+**Loopkins** is the first collection on the wall: 10,000 looping PFP creatures built from layered APNG traits, for OpenSea on Robinhood Chain (chain ID `4663`).
 
 ## What’s in this repo
 
@@ -13,7 +13,7 @@ A house of NFT collections. Each drop is its own sub-project — studio, traits,
 | `/studio` | Live APNG layer mixer |
 | `public/traits/` | Loopkins APNG layers (sky, aura, body, face, wear, charm) |
 | `generated/` | Flattened Loopkins APNGs + OpenSea CSV |
-| `contracts/Loopkins.sol` | ERC-721 with a 3,333 supply cap |
+| `contracts/Loopkins.sol` | ERC-721 with a 10,000 supply cap |
 
 ## Run the site
 

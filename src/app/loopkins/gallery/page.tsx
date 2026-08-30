@@ -16,7 +16,7 @@ export default function GalleryPage() {
       <h1 className="mt-2 font-heading text-4xl">Flattened APNGs</h1>
       <p className="mt-3 max-w-2xl text-muted-foreground">
         Tokens 1–8 are the signature looks. Each file is one APNG: every trait layer composited on the
-        same 12-frame clock. The rest of the 3,333 lives in{" "}
+        same 12-frame clock. The rest of the 10,000 lives in{" "}
         <code className="rounded bg-secondary px-1.5 py-0.5 text-sm">generated/images</code> after you
         run the generator.
       </p>

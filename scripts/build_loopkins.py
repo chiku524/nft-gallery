@@ -798,7 +798,7 @@ def build_brand() -> None:
         json.dumps(
             {
                 "name": "Loopkins",
-                "description": "A 3,333-piece PFP collection of looping creatures assembled from layered APNG traits.",
+                "description": "A 10,000-piece PFP collection of looping creatures assembled from layered APNG traits.",
                 "image": "/brand/logo-loopkins.png",
                 "banner_image": "/brand/banner-loopkins.png",
                 "external_link": "/loopkins",
