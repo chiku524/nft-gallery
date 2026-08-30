@@ -1,0 +1,10 @@
+{
+  "name": "Afterimages",
+  "symbol": "AFTER",
+  "description": "Afterimages is a 12-piece OpenSea drop of unique looping paintings. Each token is a finished APNG \u2014 not stacked traits, not a generative shuffle. One canvas, one clock, one artwork. Minting on Robinhood Chain.",
+  "image": "/brand/collection-afterimages.gif",
+  "banner_image": "/brand/banner-afterimages.png",
+  "external_link": "/afterimages",
+  "seller_fee_basis_points": 750,
+  "fee_recipient": "0x0000000000000000000000000000000000000000"
+}
