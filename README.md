@@ -9,7 +9,7 @@ A house of NFT collections. Each drop is its own sub-project — studio, traits,
 | Path | What it is |
 | --- | --- |
 | `/` | NFT Gallery hub — every collection on the wall |
-| `/pugs-on-the-block` | Pugs On The Block drop, studio, traits, gallery, OpenSea notes |
+| `/pugs-on-the-block` | Pugs On The Block drop, traits, gallery, OpenSea notes |
 | `public/traits/` | POTB trait layers (background, base, block, hat, body, accessory) |
 | `generated/` | 10,000 shuffled POTB PFPs + OpenSea CSV |
 | `contracts/PugsOnTheBlock.sol` | ERC-721 with a 10,000 supply cap |
@@ -27,7 +27,7 @@ The app listens on [http://127.0.0.1:43147](http://127.0.0.1:43147).
 
 - Gallery home: `/`
 - Pugs On The Block: `/pugs-on-the-block`
-- Trait studio: `/pugs-on-the-block/studio`
+- Trait studio: `/studio`
 
 ## Generate the Pugs On The Block drop
 

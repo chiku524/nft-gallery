@@ -11,7 +11,7 @@ OpenSea does **not** generate collections from trait layers. For a Drop you uplo
 - Trait art at `public/traits/` — painted PNG layers, already seated on the 1024 canvas
 - 10,000 shuffled PFPs at `generated/images/` plus `generated/opensea-metadata.csv`
 - Collection logo and banner in `public/brand/`
-- Trait studio at `/pugs-on-the-block/studio`
+- Trait studio is now the empty gallery studio at `/studio`
 - `contracts/PugsOnTheBlock.sol` — ERC-721 with a 10,000 supply cap
 
 ## Generate the 10,000

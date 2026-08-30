@@ -74,7 +74,7 @@ export default function GalleryHomePage() {
                     </Link>
                   </Button>
                   <Button asChild size="lg" variant="secondary">
-                    <Link href={potbPath("/studio")}>Open the studio</Link>
+                    <Link href="/studio">Open the studio</Link>
                   </Button>
                 </div>
               </div>

@@ -10,6 +10,9 @@ export function GalleryFooter() {
           <p className="text-sm text-muted-foreground">{gallery.tagline}</p>
         </div>
         <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm">
+          <Link href="/studio" className="hover:underline">
+            Studio
+          </Link>
           {projects.map((project) => (
             <Link key={project.slug} href={project.href} className="hover:underline">
               {project.name}

@@ -22,6 +22,17 @@ export function GalleryChrome() {
           {gallery.name}
         </Link>
         <nav className="flex min-w-0 items-center gap-1 overflow-x-auto text-xs sm:text-sm">
+          <Link
+            href="/studio"
+            className={cn(
+              "shrink-0 rounded-full px-2.5 py-1 transition-colors",
+              pathname === "/studio" || pathname.startsWith("/studio/")
+                ? "bg-[#f4eadc] text-[#1c1410]"
+                : "text-[#f4eadc]/70 hover:bg-white/10 hover:text-white",
+            )}
+          >
+            Studio
+          </Link>
           {projects.map((project) => {
             const active = pathname === project.href || pathname.startsWith(`${project.href}/`);
             return (

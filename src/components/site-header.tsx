@@ -12,7 +12,6 @@ import { cn } from "@/lib/utils";
 
 const links = [
   { href: potbPath(), label: "Drop" },
-  { href: potbPath("/studio"), label: "Studio" },
   { href: potbPath("/traits"), label: "Traits" },
   { href: potbPath("/gallery"), label: "Gallery" },
   { href: potbPath("/launch"), label: "OpenSea" },
@@ -59,7 +58,7 @@ export function SiteHeader() {
 
         <div className="flex items-center gap-2">
           <Button asChild size="sm" className="hidden sm:inline-flex">
-            <Link href={potbPath("/studio")}>Build a pug</Link>
+            <Link href={potbPath("/gallery")}>Sample mints</Link>
           </Button>
           <Sheet>
             <SheetTrigger asChild>

@@ -16,7 +16,7 @@ export function SiteFooter() {
           <Link href="/" className="hover:underline">
             NFT Gallery
           </Link>
-          <Link href={potbPath("/studio")} className="hover:underline">
+          <Link href="/studio" className="hover:underline">
             Studio
           </Link>
           <Link href={potbPath("/traits")} className="hover:underline">

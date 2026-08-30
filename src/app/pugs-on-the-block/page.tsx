@@ -31,8 +31,8 @@ export default function HomePage() {
           <p className="mt-3 max-w-xl text-base text-white/85 sm:text-lg">{collection.tagline}</p>
           <div className="mt-6 flex flex-wrap gap-3">
             <Button asChild size="lg">
-              <Link href={potbPath("/studio")}>
-                Open the trait studio
+              <Link href={potbPath("/gallery")}>
+                See sample mints
                 <ArrowRight data-icon="inline-end" />
               </Link>
             </Button>
