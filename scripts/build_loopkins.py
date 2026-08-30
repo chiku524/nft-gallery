@@ -794,12 +794,28 @@ def build_brand() -> None:
     ICON_PATH.parent.mkdir(parents=True, exist_ok=True)
     logo.resize((256, 256), Image.Resampling.LANCZOS).save(ICON_PATH)
 
+    gif_frames = [
+        frame.resize((1000, 1000), Image.Resampling.LANCZOS).convert("RGB") for frame in logo_frames
+    ]
+    palette = gif_frames[0].quantize(colors=240, method=Image.Quantize.MEDIANCUT, dither=Image.Dither.NONE)
+    gif_q = [frame.quantize(palette=palette, dither=Image.Dither.FLOYDSTEINBERG) for frame in gif_frames]
+    gif_q[0].save(
+        BRAND_DIR / "collection-loopkins.gif",
+        save_all=True,
+        append_images=gif_q[1:],
+        duration=DURATION_MS,
+        loop=0,
+        optimize=True,
+        disposal=2,
+    )
+
     (META_DIR / "collection.json").write_text(
         json.dumps(
             {
                 "name": "Loopkins",
-                "description": "A 10,000-piece PFP collection of looping creatures assembled from layered APNG traits.",
-                "image": "/brand/logo-loopkins.png",
+                "symbol": "LOOP",
+                "description": "Loopkins is a 10,000-piece collection of looping PFP creatures. Each Loopkin is stacked from animated APNG trait layers — skies pulse, auras breathe, faces blink, and charms orbit — then flattened onto one shared 12-frame clock. Minting on Robinhood Chain.",
+                "image": "/brand/collection-loopkins.gif",
                 "banner_image": "/brand/banner-loopkins.png",
                 "external_link": "/loopkins",
                 "seller_fee_basis_points": 500,

@@ -3,7 +3,7 @@ export const collection = {
   symbol: "LOOP",
   tagline: "Layered APNG PFPs that never sit still.",
   description:
-    "Loopkins is a 10,000-piece PFP collection of looping creatures. Every token is stacked from APNG trait layers — skies pulse, auras breathe, faces blink, charms orbit — then flattened onto one shared 12-frame clock for mint.",
+    "Loopkins is a 10,000-piece collection of looping PFP creatures. Each Loopkin is stacked from animated APNG trait layers — skies pulse, auras breathe, faces blink, and charms orbit — then flattened onto one shared 12-frame clock. Minting on Robinhood Chain.",
   supply: 10000,
   mintPriceEth: "0.005",
   frames: 12,
