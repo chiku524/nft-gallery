@@ -4,7 +4,7 @@ Looping creatures stacked from **APNG trait layers**. A **10,000-piece** PFP col
 
 This collection lives inside **NFT Gallery** at `/loopkins`.
 
-OpenSea does **not** assemble collections from trait layers. For a Drop you upload finished APNGs (max 10,000) plus a CSV. The generator flattens the live stack onto one 12-frame clock.
+OpenSea does **not** assemble collections from trait layers. For a Drop you upload finished GIFs (max 10,000) plus a CSV. The generator flattens the live stack onto one 12-frame clock, then bakes those APNGs to GIF.
 
 ## What’s in the drop
 
@@ -20,6 +20,7 @@ OpenSea does **not** assemble collections from trait layers. For a Drop you uplo
 python3 scripts/build_loopkins.py
 python3 scripts/generate_collection.py        # 16 samples
 python3 scripts/generate_collection.py --all  # full 10,000
+python3 scripts/gif_bake.py --loopkins --all  # OpenSea GIFs
 ```
 
 Requires Python 3 with Pillow and NumPy. Output lands in `generated/`.
@@ -39,6 +40,6 @@ Body, face, and wear share one bob so the creature stays locked. Sky, aura, and 
 
 Tokens 1–8 of the generated drop are the eight signature looks.
 
-## Why APNG, not GIF or MP4
+## Why APNG in the studio, GIF on OpenSea
 
-APNG keeps per-pixel alpha, so transparent layers can stack in the browser. GIF cannot. A marketplace still wants one file per token — that file is a flattened APNG of the same frames.
+APNG keeps per-pixel alpha, so transparent layers can stack in the browser. GIF cannot. OpenSea Drops play GIF, not APNG — upload `generated/gifs` plus `generated/LOOPKINS-opensea-drop.csv`.

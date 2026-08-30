@@ -46,8 +46,10 @@ __pycache__/
 
 # generated collection binaries (CSV/stats stay tracked)
 /generated/images/
+/generated/gifs/
 /generated/json/
 /generated/afterimages/images/
+/generated/afterimages/gifs/
 /generated/afterimages/json/
 /generated/placement-tests/
 /generated/art-raw/

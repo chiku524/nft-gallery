@@ -15,12 +15,15 @@ from pathlib import Path
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 
+from gif_bake import save_loop_gif
+
 ROOT = Path(__file__).resolve().parents[1]
 PUBLIC_DIR = ROOT / "public" / "afterimages"
 BRAND_DIR = ROOT / "public" / "brand"
 META_DIR = ROOT / "public" / "metadata"
 OUT = ROOT / "generated" / "afterimages"
 IMAGE_DIR = OUT / "images"
+GIF_DIR = OUT / "gifs"
 JSON_DIR = OUT / "json"
 
 SIZE = 640
@@ -646,7 +649,7 @@ def token_meta(work: dict) -> dict:
     return {
         "name": work["title"],
         "description": work["description"],
-        "image": f"{work['id']}.png",
+        "image": f"{work['id']}.gif",
         "external_url": f"/afterimages/{work['id']}",
         "attributes": attributes,
         "animation_loop": True,
@@ -672,7 +675,7 @@ def drop_csv_row(work: dict, meta: dict) -> dict:
         "tokenID": work["id"],
         "name": meta["name"],
         "description": meta["description"],
-        "file_name": f"{work['id']}.png",
+        "file_name": f"{work['id']}.gif",
     }
     for attr in meta["attributes"]:
         row[f"attributes[{attr['trait_type']}]"] = attr["value"]
@@ -728,10 +731,10 @@ def write_sidecars(rows: list[dict]) -> None:
         writer.writerows(rows)
     (OUT / "README.md").write_text(
         "# Afterimages OpenSea pack\n\n"
-        "12 unique 1:1 APNG paintings at 640×640, 16 frames, 100ms.\n\n"
-        "Upload every file in `images/` (1.png–12.png) plus `opensea-metadata.csv` to an OpenSea Drop.\n"
-        "The CSV uses OpenSea Studio headers: `tokenID`, `name`, `description`, `file_name`, and `attributes[Trait]`.\n"
-        "These are finished artworks, not flattened trait stacks.\n",
+        "12 unique 1:1 loops at 640×640, 16 frames, 100ms.\n\n"
+        "Upload every file in `gifs/` (1.gif–12.gif) plus `opensea-metadata.csv` to an OpenSea Drop.\n"
+        "OpenSea Drops play GIF, not APNG. Site previews stay APNG in public/afterimages/.\n"
+        "The CSV uses OpenSea Studio headers: `tokenID`, `name`, `description`, `file_name`, and `attributes[Trait]`.\n",
         encoding="utf-8",
     )
     (META_DIR).mkdir(parents=True, exist_ok=True)
@@ -757,6 +760,7 @@ def write_sidecars(rows: list[dict]) -> None:
 def main() -> None:
     PUBLIC_DIR.mkdir(parents=True, exist_ok=True)
     IMAGE_DIR.mkdir(parents=True, exist_ok=True)
+    GIF_DIR.mkdir(parents=True, exist_ok=True)
     JSON_DIR.mkdir(parents=True, exist_ok=True)
     frames_by_id: dict[int, list[Image.Image]] = {}
     rows: list[dict] = []
@@ -769,6 +773,7 @@ def main() -> None:
         drop_path = IMAGE_DIR / f"{work['id']}.png"
         save_apng(frames, site_path)
         drop_path.write_bytes(site_path.read_bytes())
+        save_loop_gif(frames, GIF_DIR / f"{work['id']}.gif", DURATION_MS)
         meta = token_meta(work)
         (JSON_DIR / f"{work['id']}.json").write_text(json.dumps(meta, indent=2) + "\n", encoding="utf-8")
         rows.append(drop_csv_row(work, meta))

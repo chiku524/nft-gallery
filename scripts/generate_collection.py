@@ -36,9 +36,11 @@ from build_loopkins import (  # noqa: E402
     name_of,
     trait_path,
 )
+from gif_bake import load_apng_frames, save_loop_gif  # noqa: E402
 
 OUT = ROOT / "generated"
 IMAGE_DIR = OUT / "images"
+GIF_DIR = OUT / "gifs"
 JSON_DIR = OUT / "json"
 TOTAL = 10_000
 SEED = 4663_10000
@@ -162,7 +164,7 @@ def token_meta(token_id: int, selection: dict[str, str]) -> dict:
     return {
         "name": f"Loopkin #{token_id}",
         "description": description,
-        "image": f"{token_id}.png",
+        "image": f"{token_id}.gif",
         "attributes": attributes,
         "animation_loop": True,
         "compiler": "Loopkins APNG stack",
@@ -174,7 +176,7 @@ def drop_csv_row(token_id: int, meta: dict) -> dict:
         "tokenID": token_id,
         "name": meta["name"],
         "description": meta["description"],
-        "file_name": f"{token_id}.png",
+        "file_name": f"{token_id}.gif",
     }
     for attr in meta["attributes"]:
         row[f"attributes[{attr['trait_type']}]"] = attr["value"]
@@ -184,12 +186,16 @@ def drop_csv_row(token_id: int, meta: dict) -> dict:
 def bake_one(job: tuple[int, dict[str, str]]) -> tuple[int, dict, int]:
     token_id, selection = job
     dest = IMAGE_DIR / f"{token_id}.png"
+    gif_dest = GIF_DIR / f"{token_id}.gif"
     meta = token_meta(token_id, selection)
-    if dest.exists() and dest.stat().st_size > 0:
-        (JSON_DIR / f"{token_id}.json").write_text(json.dumps(meta) + "\n", encoding="utf-8")
-        return token_id, meta, dest.stat().st_size
-    frames = compose_cached(selection)
-    save_drop_apng(frames, dest)
+    frames = None
+    if not dest.exists() or dest.stat().st_size == 0:
+        frames = compose_cached(selection)
+        save_drop_apng(frames, dest)
+    if not gif_dest.exists() or gif_dest.stat().st_size == 0:
+        if frames is None:
+            frames, _duration = load_apng_frames(dest)
+        save_loop_gif(frames, gif_dest, DURATION_MS)
     (JSON_DIR / f"{token_id}.json").write_text(json.dumps(meta) + "\n", encoding="utf-8")
     return token_id, meta, dest.stat().st_size
 
@@ -221,10 +227,10 @@ def write_sidecar(count: int, rows: list[dict], stats: Counter[str], total_bytes
     (OUT / "stats.json").write_text(json.dumps(dict(stats), indent=2) + "\n", encoding="utf-8")
     (OUT / "README.md").write_text(
         "# Loopkins OpenSea pack\n\n"
-        f"{count:,} flattened APNGs at {DROP_SIZE}×{DROP_SIZE}, {FRAMES} frames, {DURATION_MS}ms.\n\n"
-        "Upload every file in `images/` (1.png–10000.png) plus `opensea-metadata.csv` to an OpenSea Drop.\n"
+        f"{count:,} flattened loops at {DROP_SIZE}×{DROP_SIZE}, {FRAMES} frames, {DURATION_MS}ms.\n\n"
+        "Upload every file in `gifs/` (1.gif–10000.gif) plus `opensea-metadata.csv` to an OpenSea Drop.\n"
+        "OpenSea Drops play GIF, not APNG. APNGs stay in `images/` for the site and restacks.\n"
         "The CSV uses OpenSea Studio headers: tokenID, name, description, file_name, and attributes[Trait].\n"
-        "OpenSea Drops accept up to 10,000 PNG files and 5GB total. These files are sized for that cap.\n"
         "Studio trait layers stay in `public/traits/` and are not the upload pack.\n",
         encoding="utf-8",
     )
@@ -239,6 +245,7 @@ def main() -> None:
     count = TOTAL if args.all else min(args.count, TOTAL)
 
     IMAGE_DIR.mkdir(parents=True, exist_ok=True)
+    GIF_DIR.mkdir(parents=True, exist_ok=True)
     JSON_DIR.mkdir(parents=True, exist_ok=True)
     PREVIEW_DIR.mkdir(parents=True, exist_ok=True)
     roster = build_roster(count)

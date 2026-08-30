@@ -1,0 +1,186 @@
+#!/usr/bin/env python3
+"""Bake looping GIFs from Afterimages and Loopkins APNGs for OpenSea Drops.
+
+OpenSea Drops play GIF, not APNG. The site keeps the APNGs. This writes
+quantized looping GIFs and points the Studio CSVs at those files.
+"""
+
+from __future__ import annotations
+
+import argparse
+import csv
+import sys
+from multiprocessing import Pool, cpu_count
+from pathlib import Path
+
+from PIL import Image
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "scripts"))
+
+LOOPKINS_APNG = ROOT / "generated" / "images"
+LOOPKINS_GIF = ROOT / "generated" / "gifs"
+AFTER_APNG = ROOT / "generated" / "afterimages" / "images"
+AFTER_GIF = ROOT / "generated" / "afterimages" / "gifs"
+AFTER_PUBLIC = ROOT / "public" / "afterimages"
+
+LOOPKINS_DURATION_MS = 80
+AFTER_DURATION_MS = 100
+LOOPKINS_TOTAL = 10_000
+AFTER_TOTAL = 12
+
+
+def load_apng_frames(path: Path) -> tuple[list[Image.Image], int]:
+    with Image.open(path) as im:
+        duration = im.info.get("duration", LOOPKINS_DURATION_MS)
+        if isinstance(duration, (list, tuple)):
+            duration = duration[0] if duration else LOOPKINS_DURATION_MS
+        frames = []
+        for index in range(getattr(im, "n_frames", 1)):
+            im.seek(index)
+            frames.append(im.convert("RGBA").copy())
+        return frames, int(duration)
+
+
+def palette_source(frames: list[Image.Image]) -> Image.Image:
+    step = max(1, len(frames) // 4)
+    picks = frames[::step][:4]
+    width, height = picks[0].size
+    mosaic = Image.new("RGB", (width * len(picks), height))
+    for index, frame in enumerate(picks):
+        mosaic.paste(frame, (index * width, 0))
+    return mosaic
+
+
+def save_loop_gif(
+    frames: list[Image.Image],
+    path: Path,
+    duration_ms: int,
+    colors: int = 240,
+) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    rgb_frames = [frame.convert("RGB") for frame in frames]
+    palette = palette_source(rgb_frames).quantize(
+        colors=colors,
+        method=Image.Quantize.MEDIANCUT,
+        dither=Image.Dither.NONE,
+    )
+    quantized = [frame.quantize(palette=palette, dither=Image.Dither.FLOYDSTEINBERG) for frame in rgb_frames]
+    quantized[0].save(
+        path,
+        save_all=True,
+        append_images=quantized[1:],
+        duration=duration_ms,
+        loop=0,
+        optimize=True,
+        disposal=2,
+        format="GIF",
+    )
+
+
+def rewrite_csv_filenames(csv_path: Path, extension: str = ".gif") -> None:
+    if not csv_path.exists():
+        return
+    with csv_path.open("r", newline="", encoding="utf-8") as handle:
+        reader = csv.DictReader(handle)
+        fieldnames = list(reader.fieldnames or [])
+        rows = list(reader)
+    if "file_name" not in fieldnames:
+        return
+    for row in rows:
+        name = row.get("file_name") or ""
+        stem = Path(name).stem or name
+        row["file_name"] = f"{stem}{extension}"
+    with csv_path.open("w", newline="", encoding="utf-8") as handle:
+        writer = csv.DictWriter(handle, fieldnames=fieldnames)
+        writer.writeheader()
+        writer.writerows(rows)
+
+
+def convert_one(job: tuple[str, str, int]) -> tuple[int, int]:
+    src_text, dest_text, duration_ms = job
+    src = Path(src_text)
+    dest = Path(dest_text)
+    token_id = int(src.stem)
+    if dest.exists() and dest.stat().st_size > 0:
+        return token_id, dest.stat().st_size
+    frames, detected = load_apng_frames(src)
+    save_loop_gif(frames, dest, duration_ms or detected)
+    return token_id, dest.stat().st_size
+
+
+def jobs_for(src_dir: Path, dest_dir: Path, count: int, duration_ms: int) -> list[tuple[str, str, int]]:
+    dest_dir.mkdir(parents=True, exist_ok=True)
+    jobs: list[tuple[str, str, int]] = []
+    for token_id in range(1, count + 1):
+        src = src_dir / f"{token_id}.png"
+        if not src.exists() and src_dir == AFTER_APNG:
+            src = AFTER_PUBLIC / f"{token_id}.png"
+        if not src.exists():
+            continue
+        jobs.append((str(src), str(dest_dir / f"{token_id}.gif"), duration_ms))
+    return jobs
+
+
+def bake(label: str, jobs: list[tuple[str, str, int]], workers: int) -> int:
+    if not jobs:
+        print(f"No {label} APNGs found to convert.")
+        return 0
+    dest_dir = Path(jobs[0][1]).parent
+    print(f"Baking {len(jobs)} {label} GIFs into {dest_dir.relative_to(ROOT)} with {workers} workers…")
+    done = 0
+    total_bytes = 0
+    with Pool(processes=workers) as pool:
+        for _token_id, nbytes in pool.imap_unordered(convert_one, jobs, chunksize=8):
+            done += 1
+            total_bytes += nbytes
+            if done % 50 == 0 or done == len(jobs):
+                print(f"  {done}/{len(jobs)}  {total_bytes / 1_000_000:.1f} MB")
+    return total_bytes
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--afterimages", action="store_true", help="Bake Afterimages GIFs only")
+    parser.add_argument("--loopkins", action="store_true", help="Bake Loopkins GIFs only")
+    parser.add_argument("--all", action="store_true", help=f"Bake all {LOOPKINS_TOTAL} Loopkins")
+    parser.add_argument("--count", type=int, default=16, help="Loopkins count when not using --all")
+    parser.add_argument("--workers", type=int, default=max(1, min(6, cpu_count() or 1)))
+    args = parser.parse_args()
+    do_after = args.afterimages or not (args.afterimages or args.loopkins)
+    do_loopkins = args.loopkins or not (args.afterimages or args.loopkins)
+
+    if do_after:
+        after_jobs = jobs_for(AFTER_APNG, AFTER_GIF, AFTER_TOTAL, AFTER_DURATION_MS)
+        bake("Afterimages", after_jobs, args.workers)
+        rewrite_csv_filenames(ROOT / "generated" / "afterimages" / "opensea-metadata.csv")
+        (ROOT / "generated" / "afterimages" / "README.md").write_text(
+            "# Afterimages OpenSea pack\n\n"
+            "12 unique 1:1 loops. Site files stay APNG. OpenSea Drop files are GIFs.\n\n"
+            "Upload every file in `gifs/` (1.gif–12.gif) plus `opensea-metadata.csv`.\n"
+            "OpenSea Drops play GIF, PNG, JPG, and SVG — not APNG.\n"
+            "The CSV uses OpenSea Studio headers: `tokenID`, `name`, `description`, `file_name`, and `attributes[Trait]`.\n",
+            encoding="utf-8",
+        )
+
+    if do_loopkins:
+        count = LOOPKINS_TOTAL if args.all else min(args.count, LOOPKINS_TOTAL)
+        loop_jobs = jobs_for(LOOPKINS_APNG, LOOPKINS_GIF, count, LOOPKINS_DURATION_MS)
+        bake("Loopkins", loop_jobs, args.workers)
+        rewrite_csv_filenames(ROOT / "generated" / "opensea-metadata.csv")
+        rewrite_csv_filenames(ROOT / "generated" / "LOOPKINS-opensea-drop.csv")
+        (ROOT / "generated" / "README.md").write_text(
+            "# Loopkins OpenSea pack\n\n"
+            f"{count:,} flattened loops at 256×256, 12 frames, 80ms.\n\n"
+            "Upload every file in `gifs/` (1.gif–10000.gif) plus `LOOPKINS-opensea-drop.csv` "
+            "or `opensea-metadata.csv` to an OpenSea Drop.\n"
+            "OpenSea Drops play GIF, not APNG. APNGs stay in `images/` for the site and restacks.\n"
+            "The CSV uses OpenSea Studio headers: tokenID, name, description, file_name, and attributes[Trait].\n",
+            encoding="utf-8",
+        )
+
+    print("Done.")
+
+
+if __name__ == "__main__":
+    main()

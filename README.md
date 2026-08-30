@@ -16,8 +16,8 @@ A house of NFT collections. Each drop is its own sub-project — studio, traits,
 | `/studio` | Live APNG layer mixer (Loopkins) |
 | `public/traits/` | Loopkins APNG layers (sky, aura, body, face, wear, charm) |
 | `public/afterimages/` | Afterimages 1:1 APNG paintings |
-| `generated/` | Flattened Loopkins APNGs + OpenSea CSV |
-| `generated/afterimages/` | Afterimages OpenSea pack |
+| `generated/` | Flattened Loopkins APNGs, OpenSea GIFs + CSV |
+| `generated/afterimages/` | Afterimages OpenSea GIF pack |
 | `contracts/Loopkins.sol` | ERC-721 with a 10,000 supply cap |
 | `contracts/Afterimages.sol` | ERC-721 that mints a chosen 1:1 (IDs 1–12) |
 
@@ -41,6 +41,8 @@ The app listens on [http://127.0.0.1:43147](http://127.0.0.1:43147).
 python3 scripts/build_loopkins.py
 python3 scripts/generate_collection.py
 python3 scripts/build_afterimages.py
+python3 scripts/gif_bake.py --afterimages
+python3 scripts/gif_bake.py --loopkins --all
 ```
 
 Requires Python 3 with Pillow and NumPy. See `docs/loopkins.md` and `docs/afterimages.md` for OpenSea Drop upload steps.

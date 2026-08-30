@@ -7,8 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "generate": "python3 scripts/build_loopkins.py && python3 scripts/generate_collection.py && python3 scripts/build_afterimages.py",
-    "generate:afterimages": "python3 scripts/build_afterimages.py"
+    "generate": "python3 scripts/build_loopkins.py && python3 scripts/generate_collection.py && python3 scripts/build_afterimages.py && python3 scripts/gif_bake.py",
+    "generate:afterimages": "python3 scripts/build_afterimages.py",
+    "generate:gifs": "python3 scripts/gif_bake.py --afterimages && python3 scripts/gif_bake.py --loopkins --all"
   },
   "dependencies": {
     "class-variance-authority": "^0.7.1",

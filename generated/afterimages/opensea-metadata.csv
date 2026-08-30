@@ -1,13 +1,13 @@
 tokenID,name,description,file_name,attributes[Series],attributes[Palette],attributes[Motion],attributes[Season],attributes[Medium]
-1,Moonrise Over Still Water,A silver moon climbs a indigo inlet. The water holds the climb a beat later.,1.png,Afterimages,Indigo Silver,Rise,Night,APNG
-2,Stained Glass Breath,Jewel panes inhale gold. Lead lines hold while the colors keep changing their mind.,2.png,Afterimages,Jewel Gold,Pulse,Dusk,APNG
-3,Petal Storm,Blush petals fall through cream light and never quite land.,3.png,Afterimages,Blush Cream,Fall,Spring,APNG
-4,Lighthouse Sweep,An amber beam turns over navy water. Foam remembers the last pass.,4.png,Afterimages,Navy Amber,Sweep,Night,APNG
-5,Coral Bloom,Anemones open under teal water. A gold fish threads the bloom.,5.png,Afterimages,Teal Salmon,Bloom,Tide,APNG
-6,Neon Dusk,A city silhouette holds still while magenta and cyan signs keep arguing.,6.png,Afterimages,Magenta Cyan,Flicker,Dusk,APNG
-7,Firefly Grove,"Dark pines, a wet floor, and gold specks that refuse a single path.",7.png,Afterimages,Forest Gold,Drift,Night,APNG
-8,Corona,A black disc covers the sun. The flare keeps finding new edges.,8.png,Afterimages,Black Gold,Flare,Eclipse,APNG
-9,Koi Mirror,Orange and white koi turn under a jade surface. The pond is the painting.,9.png,Afterimages,Jade Orange,Orbit,Garden,APNG
-10,Heat Shimmer,Dunes wait. The air above them will not.,10.png,Afterimages,Ochre Sky,Shimmer,Noon,APNG
-11,Ice Fracture,A frozen lake splits. Light travels the crack before the ice does.,11.png,Afterimages,Ice Navy,Crack,Winter,APNG
-12,Nave Light,Stone holds. A honey shaft of dust keeps rewriting the aisle.,12.png,Afterimages,Stone Honey,Motes,Afternoon,APNG
+1,Moonrise Over Still Water,A silver moon climbs a indigo inlet. The water holds the climb a beat later.,1.gif,Afterimages,Indigo Silver,Rise,Night,APNG
+2,Stained Glass Breath,Jewel panes inhale gold. Lead lines hold while the colors keep changing their mind.,2.gif,Afterimages,Jewel Gold,Pulse,Dusk,APNG
+3,Petal Storm,Blush petals fall through cream light and never quite land.,3.gif,Afterimages,Blush Cream,Fall,Spring,APNG
+4,Lighthouse Sweep,An amber beam turns over navy water. Foam remembers the last pass.,4.gif,Afterimages,Navy Amber,Sweep,Night,APNG
+5,Coral Bloom,Anemones open under teal water. A gold fish threads the bloom.,5.gif,Afterimages,Teal Salmon,Bloom,Tide,APNG
+6,Neon Dusk,A city silhouette holds still while magenta and cyan signs keep arguing.,6.gif,Afterimages,Magenta Cyan,Flicker,Dusk,APNG
+7,Firefly Grove,"Dark pines, a wet floor, and gold specks that refuse a single path.",7.gif,Afterimages,Forest Gold,Drift,Night,APNG
+8,Corona,A black disc covers the sun. The flare keeps finding new edges.,8.gif,Afterimages,Black Gold,Flare,Eclipse,APNG
+9,Koi Mirror,Orange and white koi turn under a jade surface. The pond is the painting.,9.gif,Afterimages,Jade Orange,Orbit,Garden,APNG
+10,Heat Shimmer,Dunes wait. The air above them will not.,10.gif,Afterimages,Ochre Sky,Shimmer,Noon,APNG
+11,Ice Fracture,A frozen lake splits. Light travels the crack before the ice does.,11.gif,Afterimages,Ice Navy,Crack,Winter,APNG
+12,Nave Light,Stone holds. A honey shaft of dust keeps rewriting the aisle.,12.gif,Afterimages,Stone Honey,Motes,Afternoon,APNG

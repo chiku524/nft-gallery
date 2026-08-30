@@ -4,21 +4,21 @@ import { afterimages } from "@/data/afterimages";
 
 export const metadata: Metadata = {
   title: "OpenSea launch",
-  description: "Upload twelve Afterimages APNGs to an OpenSea Drop on Robinhood Chain.",
+  description: "Upload twelve Afterimages GIFs to an OpenSea Drop on Robinhood Chain.",
 };
 
 const steps = [
   {
     title: "These files are already finished.",
-    body: "Afterimages is not a trait stack. Each painting is one APNG. The site previews in public/afterimages and the drop pack in generated/afterimages/images are the same 12 files.",
+    body: "Afterimages is not a trait stack. Each painting is one APNG on the site. OpenSea does not play APNG, so the Drop pack is a GIF bake of the same 16-frame loop.",
   },
   {
     title: "Create a Drop on Robinhood Chain",
     body: `In OpenSea Studio, create a Drop on ${afterimages.chain.name} (chain ID ${afterimages.chain.chainId}). Set supply to ${afterimages.supply}, edition style to unique 1:1s, add the logo and banner from public/brand, and keep the mint price at ${afterimages.mintPriceEth} ETH or whatever you choose.`,
   },
   {
-    title: "Bulk-upload APNGs + CSV",
-    body: "Upload every file in generated/afterimages/images (1.png–12.png) and generated/afterimages/opensea-metadata.csv. The CSV already uses OpenSea’s required headers (tokenID, name, description, file_name, attributes[Trait]). Animated PNG is the media. Preview the loops, then publish.",
+    title: "Bulk-upload GIFs + CSV",
+    body: "Upload every file in generated/afterimages/gifs (1.gif–12.gif) and generated/afterimages/opensea-metadata.csv. The CSV already uses OpenSea’s required headers (tokenID, name, description, file_name, attributes[Trait]). GIF is the media OpenSea will play. Preview the loops, then publish.",
   },
   {
     title: "Or deploy the ERC-721 yourself",
@@ -32,8 +32,8 @@ export default function AfterimagesLaunchPage() {
       <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground">Marketplace</p>
       <h1 className="mt-2 font-heading text-4xl">Launch on OpenSea, Robinhood Chain.</h1>
       <p className="mt-4 text-muted-foreground">
-        Afterimages ships as twelve finished APNG paintings plus a Studio CSV. Marketplaces want those
-        files. There is no flatten step and no leftover generative roster.
+        Afterimages ships as twelve finished APNG paintings for the site, plus a GIF bake for OpenSea.
+        There is no flatten step and no leftover generative roster.
       </p>
 
       <dl className="mt-8 grid gap-3 sm:grid-cols-2">

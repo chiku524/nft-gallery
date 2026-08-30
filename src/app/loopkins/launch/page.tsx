@@ -4,21 +4,21 @@ import { collection } from "@/data/collection";
 
 export const metadata: Metadata = {
   title: "OpenSea launch",
-  description: "Upload flattened Loopkins APNGs to an OpenSea Drop on Robinhood Chain.",
+  description: "Upload flattened Loopkins GIFs to an OpenSea Drop on Robinhood Chain.",
 };
 
 const steps = [
   {
     title: "Traits stay layered. The drop is flattened.",
-    body: "OpenSea does not stack APNG layers for you. Studio is a live compositor. For a Drop you upload finished APNGs plus a CSV. Run the generator to bake each token onto the shared 12-frame clock.",
+    body: "OpenSea does not stack APNG layers for you. Studio is a live compositor. For a Drop you upload finished GIFs plus a CSV. Run the generator to bake each token onto the shared 12-frame clock, then gif_bake.py to make the marketplace loops.",
   },
   {
     title: "Create a Drop on Robinhood Chain",
     body: `In OpenSea Studio, create a Drop on ${collection.chain.name} (chain ID ${collection.chain.chainId}). Set supply to ${collection.supply.toLocaleString()}, add the logo and banner from public/brand, and keep the mint price at ${collection.mintPriceEth} ETH or whatever you choose.`,
   },
   {
-    title: "Bulk-upload APNGs + CSV",
-    body: "Upload every file in generated/images (1.png–10000.png) and generated/opensea-metadata.csv. The CSV already uses OpenSea’s required headers (tokenID, name, description, file_name, attributes[Trait]). Animated PNG is the media. Preview the loops, then publish.",
+    title: "Bulk-upload GIFs + CSV",
+    body: "Upload every file in generated/gifs (1.gif–10000.gif) and generated/LOOPKINS-opensea-drop.csv. The CSV already uses OpenSea’s required headers (tokenID, name, description, file_name, attributes[Trait]). OpenSea plays GIF, not APNG. Preview the loops, then publish.",
   },
   {
     title: "Or deploy the ERC-721 yourself",
@@ -32,8 +32,8 @@ export default function LaunchPage() {
       <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground">Marketplace</p>
       <h1 className="mt-2 font-heading text-4xl">Launch on OpenSea, Robinhood Chain.</h1>
       <p className="mt-4 text-muted-foreground">
-        Loopkins ships as layered APNG traits and as flattened token files. Marketplaces want the
-        flattened loops. The layer stack stays in this repo for the studio and any later restack.
+        Loopkins ships as layered APNG traits and as flattened token files. OpenSea wants the GIF
+        bake of those loops. The APNG stack stays in this repo for the studio and any later restack.
       </p>
 
       <dl className="mt-8 grid gap-3 sm:grid-cols-2">
