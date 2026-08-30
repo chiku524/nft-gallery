@@ -9,7 +9,7 @@ export const sampleMints: SampleMint[] = [
   {
     id: 1,
     name: "Pugs On The Block #1",
-    image: "/gallery/mint-01-stoop-beanie.png",
+    image: "/generated-preview/1.jpg",
     attributes: [
       { trait_type: "Background", value: "Brownstone" },
       { trait_type: "Base", value: "Fawn Peek" },
@@ -22,7 +22,7 @@ export const sampleMints: SampleMint[] = [
   {
     id: 2,
     name: "Pugs On The Block #2",
-    image: "/gallery/mint-02-neon-crown.png",
+    image: "/generated-preview/2.jpg",
     attributes: [
       { trait_type: "Background", value: "Neon Alley" },
       { trait_type: "Base", value: "Black Peek" },
@@ -35,7 +35,7 @@ export const sampleMints: SampleMint[] = [
   {
     id: 3,
     name: "Pugs On The Block #3",
-    image: "/gallery/mint-03-rooftop-newsie.png",
+    image: "/generated-preview/3.jpg",
     attributes: [
       { trait_type: "Background", value: "Golden Rooftop" },
       { trait_type: "Base", value: "Apricot Peek" },
@@ -48,7 +48,7 @@ export const sampleMints: SampleMint[] = [
   {
     id: 4,
     name: "Pugs On The Block #4",
-    image: "/gallery/mint-04-day-hardhat.png",
+    image: "/generated-preview/4.jpg",
     attributes: [
       { trait_type: "Background", value: "Sunny Stoop" },
       { trait_type: "Base", value: "Fawn Peek" },
@@ -61,7 +61,7 @@ export const sampleMints: SampleMint[] = [
   {
     id: 5,
     name: "Pugs On The Block #5",
-    image: "/gallery/mint-05-subway-snapback.png",
+    image: "/generated-preview/5.jpg",
     attributes: [
       { trait_type: "Background", value: "Subway Platform" },
       { trait_type: "Base", value: "Black Peek" },
@@ -74,7 +74,7 @@ export const sampleMints: SampleMint[] = [
   {
     id: 6,
     name: "Pugs On The Block #6",
-    image: "/gallery/mint-06-green-monocle.png",
+    image: "/generated-preview/6.jpg",
     attributes: [
       { trait_type: "Background", value: "Grid Green" },
       { trait_type: "Base", value: "Apricot Peek" },
@@ -87,7 +87,7 @@ export const sampleMints: SampleMint[] = [
   {
     id: 7,
     name: "Pugs On The Block #7",
-    image: "/gallery/mint-07-cream-hoodie.png",
+    image: "/generated-preview/7.jpg",
     attributes: [
       { trait_type: "Background", value: "Cream Paper" },
       { trait_type: "Base", value: "Fawn Peek" },
@@ -100,7 +100,7 @@ export const sampleMints: SampleMint[] = [
   {
     id: 8,
     name: "Pugs On The Block #8",
-    image: "/gallery/mint-08-sunset-bandana.png",
+    image: "/generated-preview/8.jpg",
     attributes: [
       { trait_type: "Background", value: "Golden Rooftop" },
       { trait_type: "Base", value: "Black Peek" },

@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "generate": "python3 scripts/generate_collection.py"
+    "generate": "python3 scripts/build_traits.py && python3 scripts/generate_collection.py"
   },
   "dependencies": {
     "class-variance-authority": "^0.7.1",

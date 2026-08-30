@@ -14,8 +14,8 @@ export default function TraitsPage() {
       <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground">Layer library</p>
       <h1 className="mt-2 font-heading text-4xl">Trait sheets</h1>
       <p className="mt-3 max-w-2xl text-muted-foreground">
-        Transparent PNG layers, 1024×1024, stacked background → block → base → body → hat →
-        accessory. The eight gallery paintings are the finished look for those exact combos.
+        Each trait is drawn in place as SVG and PNG on a 1024×1024 canvas. Studio stacks
+        background → base → face accessory → body → hat → ledge → stoop toy → paws.
       </p>
 
       <div className="mt-10 space-y-14">

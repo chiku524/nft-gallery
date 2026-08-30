@@ -12,9 +12,8 @@ export default function StudioPage() {
       <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground">Generator</p>
       <h1 className="mt-2 font-heading text-4xl">Build a pug on the block.</h1>
       <p className="mt-3 max-w-2xl text-muted-foreground">
-        This is the same layer stack the collection mints from — background, clothes,
-        pug, hat, the ledge, hanging straps, then paws on top. The eight gallery looks
-        stamp the finished painting when those exact traits are selected.
+        This is the same SVG/PNG stack the collection mints from — background, pug,
+        face accessory, clothes, hat, the ledge, a stoop toy, then paws on top.
       </p>
       <div className="mt-8">
         <StudioMixer />

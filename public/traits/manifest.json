@@ -1,5 +1,15 @@
 {
   "name": "Pugs On The Block",
   "size": 1024,
-  "order": ["background", "block", "base", "body", "hat", "accessory"]
+  "format": ["svg", "png"],
+  "order": [
+    "background",
+    "base",
+    "face-accessory",
+    "body",
+    "hat",
+    "block",
+    "ledge-accessory",
+    "paws"
+  ]
 }

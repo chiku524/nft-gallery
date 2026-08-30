@@ -8,9 +8,8 @@ OpenSea does **not** generate collections from trait layers. For a Drop you uplo
 
 ## What’s in the drop
 
-- Trait art at `public/traits/` — background, base, block, hat, body, accessory
+- Trait art at `public/traits/` — each trait is an in-place SVG plus a matching PNG
 - 10,000 shuffled PFPs at `generated/images/` plus `generated/opensea-metadata.csv`
-- Eight hand-dressed samples in `public/gallery/`
 - Collection logo and banner in `public/brand/`
 - Trait studio at `/pugs-on-the-block/studio`
 - `contracts/PugsOnTheBlock.sol` — ERC-721 with a 10,000 supply cap
@@ -18,28 +17,26 @@ OpenSea does **not** generate collections from trait layers. For a Drop you uplo
 ## Generate the 10,000
 
 ```bash
-python3 scripts/fit_traits_1024.py   # optional: re-place hats/clothes/toys on the 1024 canvas
+python3 scripts/build_traits.py
 python3 scripts/generate_collection.py
 ```
 
-Requires Python 3 with Pillow. Output lands in `generated/`. See `generated/README.md` for the OpenSea Drop upload steps.
+Requires Python 3 with Pillow. `build_traits.py` redraws every SVG/PNG from `scripts/potb_art.py`. Output lands in `generated/`. See `generated/README.md` for the OpenSea Drop upload steps.
 
 ## Trait stack
 
-Draw order, back to front:
+Every layer is already seated on the 1024×1024 canvas. Studio and the generator only stack:
 
 1. Background
-2. Body (back of the wrap behind the pug)
-3. Base pug (wall knocked out)
-4. Face accessory (sunglasses, monocle)
+2. Base pug
+3. Face accessory (sunglasses, monocle)
+4. Body (bandana, collar, hoodie, gold chain)
 5. Hat
-6. Body neck (bandana, collar, hoodie cowl, chain in front of the neck)
-7. Block, or the default concrete ledge when Block is None
-8. Body front (hoodie strings, chain medallion, bandana bib, collar tag over the wall)
-9. Ledge accessory (coffee, bone, toy blocks)
-10. Paws on the ledge
+6. Block, or the default concrete ledge when Block is None
+7. Ledge accessory (coffee, bone, toy blocks)
+8. Paws on the ledge
 
-Hats, clothes, and stoop props are painted onto the same 1024×1024 canvas as the pug, then stacked 1:1. Tokens 1–8 of the generated drop are the eight gallery paintings themselves, so those looks match the site gallery exactly.
+Tokens 1–8 of the generated drop are the eight signature stoop looks.
 
 ## Robinhood Chain + OpenSea
 

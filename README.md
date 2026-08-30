@@ -32,7 +32,7 @@ The app listens on [http://127.0.0.1:43147](http://127.0.0.1:43147).
 ## Generate the Pugs On The Block drop
 
 ```bash
-python3 scripts/fit_traits_1024.py
+python3 scripts/build_traits.py
 python3 scripts/generate_collection.py
 ```
 

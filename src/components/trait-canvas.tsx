@@ -4,10 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import {
   FACE_ACCESSORIES,
   LEDGE_ACCESSORIES,
-  bodyFrontSrc,
-  bodyNeckSrc,
   findTrait,
-  galleryPinFor,
   pawsSrc,
   traitSrc,
   wallSrc,
@@ -30,11 +27,6 @@ function loadImage(src: string) {
 }
 
 export function selectionToLayers(selection: Selection): Layer[] {
-  const pinned = galleryPinFor(selection);
-  if (pinned) {
-    return [{ src: traitSrc(pinned) }];
-  }
-
   const layers: Layer[] = [];
   const background = findTrait("background", selection.background);
   const block = findTrait("block", selection.block);
@@ -48,19 +40,14 @@ export function selectionToLayers(selection: Selection): Layer[] {
     layers.push({ src: traitSrc(trait.image) });
   };
 
-  // Gallery stack: clothes wrap behind, pug, hat, neck in front, wall,
-  // hanging straps, stoop props, paws last.
+  // SVG/PNG stack: clothes sit on the neck in front of the pug.
   push(background);
-  push(body);
   push(base);
   if (FACE_ACCESSORIES.has(selection.accessory)) push(accessory);
+  push(body);
   push(hat);
-  const neck = bodyNeckSrc(selection.body);
-  if (neck) layers.push({ src: neck });
   const wall = wallSrc(block?.image);
   if (wall) layers.push({ src: wall });
-  const front = bodyFrontSrc(selection.body);
-  if (front) layers.push({ src: front });
   if (LEDGE_ACCESSORIES.has(selection.accessory)) push(accessory);
   const paws = pawsSrc(selection.base);
   if (paws) layers.push({ src: paws });

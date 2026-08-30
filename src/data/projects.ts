@@ -21,7 +21,7 @@ export const projects = [
     supply: collection.supply,
     mintPriceEth: collection.mintPriceEth,
     cover: "/brand/banner-pugs-on-the-block.png",
-    thumb: "/gallery/mint-01-stoop-beanie.png",
+    thumb: "/generated-preview/1.jpg",
     status: "on the wall" as const,
   },
 ] as const;
