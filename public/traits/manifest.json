@@ -1,7 +1,7 @@
 {
   "name": "Pugs On The Block",
   "size": 1024,
-  "format": ["svg", "png"],
+  "format": ["png"],
   "order": [
     "background",
     "base",

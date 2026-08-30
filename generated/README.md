@@ -15,7 +15,7 @@ This folder is that pack.
 | `provenance.json` | SHA-256 of each image plus a concatenated collection hash |
 | `metadata.jsonl` | One JSON object per token |
 
-Regenerate with:
+Traits are painted PNG layers. Regenerate with:
 
 ```bash
 python3 scripts/build_traits.py

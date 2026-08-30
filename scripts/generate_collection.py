@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Generate 10,000 unique Pugs On The Block PFPs + OpenSea Drop metadata.
 
-Traits are in-place SVG/PNG layers. This script stacks the PNGs. OpenSea Drops
+Traits are in-place painted PNG layers. This script stacks them. OpenSea Drops
 want finished images plus a CSV — they do not assemble layers for you.
 """
 

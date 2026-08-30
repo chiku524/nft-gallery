@@ -40,7 +40,7 @@ export function selectionToLayers(selection: Selection): Layer[] {
     layers.push({ src: traitSrc(trait.image) });
   };
 
-  // SVG/PNG stack: clothes sit on the neck in front of the pug.
+  // Painted PNG stack: clothes sit on the neck in front of the pug.
   push(background);
   push(base);
   if (FACE_ACCESSORIES.has(selection.accessory)) push(accessory);

@@ -8,7 +8,7 @@ OpenSea does **not** generate collections from trait layers. For a Drop you uplo
 
 ## What’s in the drop
 
-- Trait art at `public/traits/` — each trait is an in-place SVG plus a matching PNG
+- Trait art at `public/traits/` — painted PNG layers, already seated on the 1024 canvas
 - 10,000 shuffled PFPs at `generated/images/` plus `generated/opensea-metadata.csv`
 - Collection logo and banner in `public/brand/`
 - Trait studio at `/pugs-on-the-block/studio`
@@ -21,7 +21,7 @@ python3 scripts/build_traits.py
 python3 scripts/generate_collection.py
 ```
 
-Requires Python 3 with Pillow. `build_traits.py` redraws every SVG/PNG from `scripts/potb_art.py`. Output lands in `generated/`. See `generated/README.md` for the OpenSea Drop upload steps.
+Requires Python 3 with Pillow and NumPy. `build_traits.py` seats the painted PNG sources. Output lands in `generated/`. See `generated/README.md` for the OpenSea Drop upload steps.
 
 ## Trait stack
 
