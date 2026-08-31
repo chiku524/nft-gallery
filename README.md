@@ -4,7 +4,7 @@ A house of NFT collections. Each drop is its own sub-project — studio, traits,
 
 **Loopkins** is the first collection on the wall: 10,000 looping PFP creatures built from layered APNG traits, for OpenSea on Robinhood Chain (chain ID `4663`).
 
-**Afterimages** is the second: a 24-piece OpenSea drop of unique 1:1 APNG paintings. No trait stack — each token is a finished loop.
+**Afterimages** is the second: a 50-piece OpenSea drop of unique 1:1 APNG paintings. No trait stack — each token is a finished loop.
 
 **Inklings** is the third: 5,555 cartoon-squid PFP GIFs, for OpenSea on Ink (chain ID `57073`).
 

@@ -7,11 +7,11 @@ import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 import {Strings} from "@openzeppelin/contracts/utils/Strings.sol";
 
 /// @title Afterimages
-/// @notice 24 one-of-one looping APNG paintings for Robinhood Chain (chain ID 4663).
+/// @notice 50 one-of-one looping APNG paintings for Robinhood Chain (chain ID 4663).
 contract Afterimages is ERC721, ERC721Enumerable, Ownable {
     using Strings for uint256;
 
-    uint256 public constant MAX_SUPPLY = 24;
+    uint256 public constant MAX_SUPPLY = 50;
     uint256 public mintPrice = 0.08 ether;
     string private _baseTokenURI;
     bool public mintOpen;

@@ -508,6 +508,188 @@ WORKS = [
             "Medium": "APNG",
         },
     },
+    {
+        "id": 25,
+        "slug": "thunderhead",
+        "title": "Thunderhead",
+        "description": "A bruise of cloud holds the spark. The field waits for the same flash twice.",
+        "attributes": {"Series": "Afterimages", "Palette": "Storm Brass", "Motion": "Flash", "Season": "Storm", "Medium": "APNG"},
+    },
+    {
+        "id": 26,
+        "slug": "moon-gate",
+        "title": "Moon Gate",
+        "description": "A round door frames a rounder moon. Stone pretends not to notice.",
+        "attributes": {"Series": "Afterimages", "Palette": "Ink Silver", "Motion": "Rise", "Season": "Night", "Medium": "APNG"},
+    },
+    {
+        "id": 27,
+        "slug": "ember-forge",
+        "title": "Ember Forge",
+        "description": "Coals keep a private sun. Sparks leave without asking.",
+        "attributes": {"Series": "Afterimages", "Palette": "Coal Orange", "Motion": "Spark", "Season": "Night", "Medium": "APNG"},
+    },
+    {
+        "id": 28,
+        "slug": "lotus-night",
+        "title": "Lotus Night",
+        "description": "A pale flower opens on black water. The pond keeps the petals’ secret.",
+        "attributes": {"Series": "Afterimages", "Palette": "Pearl Ink", "Motion": "Open", "Season": "Night", "Medium": "APNG"},
+    },
+    {
+        "id": 29,
+        "slug": "clockwork-sky",
+        "title": "Clockwork Sky",
+        "description": "Orbits pretending to be hours. The sky is late on purpose.",
+        "attributes": {"Series": "Afterimages", "Palette": "Brass Night", "Motion": "Turn", "Season": "Void", "Medium": "APNG"},
+    },
+    {
+        "id": 30,
+        "slug": "snowbound-cabin",
+        "title": "Snowbound Cabin",
+        "description": "One chimney writes in white. The rest of the hill is listening.",
+        "attributes": {"Series": "Afterimages", "Palette": "Pine Snow", "Motion": "Fall", "Season": "Winter", "Medium": "APNG"},
+    },
+    {
+        "id": 31,
+        "slug": "magma-vein",
+        "title": "Magma Vein",
+        "description": "The rock remembers fire. A crack keeps the memory warm.",
+        "attributes": {"Series": "Afterimages", "Palette": "Obsidian Ember", "Motion": "Pulse", "Season": "Night", "Medium": "APNG"},
+    },
+    {
+        "id": 32,
+        "slug": "bamboo-wind",
+        "title": "Bamboo Wind",
+        "description": "Green columns take the wind in shifts. None of them finish first.",
+        "attributes": {"Series": "Afterimages", "Palette": "Jade Mist", "Motion": "Sway", "Season": "Spring", "Medium": "APNG"},
+    },
+    {
+        "id": 33,
+        "slug": "harbor-cranes",
+        "title": "Harbor Cranes",
+        "description": "Steel birds sleep standing. Their eyes blink in amber anyway.",
+        "attributes": {"Series": "Afterimages", "Palette": "Rust Sodium", "Motion": "Blink", "Season": "Dusk", "Medium": "APNG"},
+    },
+    {
+        "id": 34,
+        "slug": "prism-fall",
+        "title": "Prism Fall",
+        "description": "White light forgets itself into color. The floor catches every name.",
+        "attributes": {"Series": "Afterimages", "Palette": "Spectrum Stone", "Motion": "Fall", "Season": "Afternoon", "Medium": "APNG"},
+    },
+    {
+        "id": 35,
+        "slug": "owl-hollow",
+        "title": "Owl Hollow",
+        "description": "A tree keeps two coins of gold. They open only for the dark.",
+        "attributes": {"Series": "Afterimages", "Palette": "Bark Gold", "Motion": "Blink", "Season": "Night", "Medium": "APNG"},
+    },
+    {
+        "id": 36,
+        "slug": "mirage-well",
+        "title": "Mirage Well",
+        "description": "A circle of water that may not be water. The air argues both ways.",
+        "attributes": {"Series": "Afterimages", "Palette": "Sand Cyan", "Motion": "Wobble", "Season": "Noon", "Medium": "APNG"},
+    },
+    {
+        "id": 37,
+        "slug": "vinyl-groove",
+        "title": "Vinyl Groove",
+        "description": "A black sun with a silver path. It turns so the quiet can last.",
+        "attributes": {"Series": "Afterimages", "Palette": "Obsidian Chrome", "Motion": "Spin", "Season": "Night", "Medium": "APNG"},
+    },
+    {
+        "id": 38,
+        "slug": "bridge-fog",
+        "title": "Bridge Fog",
+        "description": "Cables hold a city that the fog has borrowed. Lights remain as IOUs.",
+        "attributes": {"Series": "Afterimages", "Palette": "Pearl Steel", "Motion": "Drift", "Season": "Fog", "Medium": "APNG"},
+    },
+    {
+        "id": 39,
+        "slug": "radio-tower",
+        "title": "Radio Tower",
+        "description": "A thin needle talks to nowhere. The blink is the whole sentence.",
+        "attributes": {"Series": "Afterimages", "Palette": "Night Red", "Motion": "Beacon", "Season": "Night", "Medium": "APNG"},
+    },
+    {
+        "id": 40,
+        "slug": "glacier-blue",
+        "title": "Glacier Blue",
+        "description": "A wall of old weather. Melt writes a slow signature.",
+        "attributes": {"Series": "Afterimages", "Palette": "Ice Teal", "Motion": "Drip", "Season": "Winter", "Medium": "APNG"},
+    },
+    {
+        "id": 41,
+        "slug": "sunflower-tilt",
+        "title": "Sunflower Tilt",
+        "description": "Heads follow a sun that already left. They keep the habit anyway.",
+        "attributes": {"Series": "Afterimages", "Palette": "Gold Leaf", "Motion": "Nod", "Season": "Harvest", "Medium": "APNG"},
+    },
+    {
+        "id": 42,
+        "slug": "ink-bloom",
+        "title": "Ink Bloom",
+        "description": "A drop decides to become a garden. Paper has no vote.",
+        "attributes": {"Series": "Afterimages", "Palette": "Sumi Cream", "Motion": "Bloom", "Season": "Afternoon", "Medium": "APNG"},
+    },
+    {
+        "id": 43,
+        "slug": "terrace-lights",
+        "title": "Terrace Lights",
+        "description": "A hillside of small gold rooms. Each one keeps a different hour.",
+        "attributes": {"Series": "Afterimages", "Palette": "Umber Gold", "Motion": "Twinkle", "Season": "Dusk", "Medium": "APNG"},
+    },
+    {
+        "id": 44,
+        "slug": "meteor-choir",
+        "title": "Meteor Choir",
+        "description": "Many brief lines share one sky. None of them stay for the encore.",
+        "attributes": {"Series": "Afterimages", "Palette": "Ash White", "Motion": "Streak", "Season": "Void", "Medium": "APNG"},
+    },
+    {
+        "id": 45,
+        "slug": "orchid-house",
+        "title": "Orchid House",
+        "description": "A magenta thought in still air. The glass around it fogs on the beat.",
+        "attributes": {"Series": "Afterimages", "Palette": "Magenta Fog", "Motion": "Breathe", "Season": "Garden", "Medium": "APNG"},
+    },
+    {
+        "id": 46,
+        "slug": "night-pier",
+        "title": "Night Pier",
+        "description": "Planks walk out over black glass. Lamps practice being moons.",
+        "attributes": {"Series": "Afterimages", "Palette": "Teak Gold", "Motion": "Shimmer", "Season": "Night", "Medium": "APNG"},
+    },
+    {
+        "id": 47,
+        "slug": "copper-storm",
+        "title": "Copper Storm",
+        "description": "Clouds rust in place. Lightning is only a rumor they keep repeating.",
+        "attributes": {"Series": "Afterimages", "Palette": "Verdigris Copper", "Motion": "Rumble", "Season": "Storm", "Medium": "APNG"},
+    },
+    {
+        "id": 48,
+        "slug": "quiet-orbit",
+        "title": "Quiet Orbit",
+        "description": "A small moon keeps a larger promise. The dark is the agreement.",
+        "attributes": {"Series": "Afterimages", "Palette": "Slate Gold", "Motion": "Orbit", "Season": "Void", "Medium": "APNG"},
+    },
+    {
+        "id": 49,
+        "slug": "train-signal",
+        "title": "Train Signal",
+        "description": "Red and green take turns at being the future. The rails do not care.",
+        "attributes": {"Series": "Afterimages", "Palette": "Signal Night", "Motion": "Switch", "Season": "Night", "Medium": "APNG"},
+    },
+    {
+        "id": 50,
+        "slug": "last-firefly",
+        "title": "Last Firefly",
+        "description": "One gold thought left in a dark meadow. It refuses to land.",
+        "attributes": {"Series": "Afterimages", "Palette": "Meadow Gold", "Motion": "Drift", "Season": "Night", "Medium": "APNG"},
+    },
 ]
 
 
@@ -1013,6 +1195,367 @@ def paint_harvest_field(frame: int) -> np.ndarray:
     return dst
 
 
+def paint_thunderhead(frame: int) -> np.ndarray:
+    t = phase(frame)
+    dst = vertical_wash(rgb("#1a2438"), rgb("#2a2018"), 0.8)
+    xx, yy = grid()
+    cloud = blank()
+    cloud[..., :3] = rgb("#3a4458")
+    cloud[..., 3] = np.exp(-0.5 * (((xx - 320) / 180) ** 2 + ((yy - 180) / 70) ** 2)) * 0.85
+    over(dst, cloud)
+    flash = 0.15 + 0.75 * max(0.0, math.sin(t * 4))
+    glow(dst, 300, 260, 90, rgb("#f4e6a8"), flash)
+    rect(dst, 292, 250, 308, 420, rgb("#fff6c8"), flash * 0.8)
+    rect(dst, 0, 480, 640, 640, rgb("#1c1810"), 0.95)
+    return dst
+
+
+def paint_moon_gate(frame: int) -> np.ndarray:
+    t = phase(frame)
+    dst = vertical_wash(rgb("#1a1020"), rgb("#0c0812"))
+    moon_y = 240 - 12 * math.sin(t)
+    glow(dst, 320, moon_y, 90, rgb("#d7deef"), 0.3)
+    disc(dst, 320, moon_y, 48, rgb("#f4f1ff"), 0.95)
+    ellipse(dst, 320, 360, 150, 150, rgb("#2a1c18"), 0.0)
+    # gate ring
+    xx, yy = grid()
+    d = np.sqrt((xx - 320) ** 2 + (yy - 360) ** 2)
+    ring = blank()
+    ring[..., :3] = rgb("#3a2a22")
+    ring[..., 3] = (smoothstep(148, 132, d) * smoothstep(110, 126, d)).astype(np.float32) * 0.95
+    over(dst, ring)
+    rect(dst, 0, 500, 640, 640, rgb("#161014"), 0.9)
+    return dst
+
+
+def paint_ember_forge(frame: int) -> np.ndarray:
+    t = phase(frame)
+    dst = vertical_wash(rgb("#140c0a"), rgb("#0a0606"))
+    glow(dst, 320, 420, 160, rgb("#e85d4c"), 0.3 + 0.1 * math.sin(t * 2))
+    for i in range(8):
+        glow(dst, 220 + i * 28, 460 + 8 * math.sin(t + i), 22, rgb("#f2a65a"), 0.4)
+        disc(dst, 220 + i * 28, 468, 10, rgb("#c43c2e"), 0.8)
+    rng = np.random.default_rng(5)
+    for i in range(22):
+        seed = rng.random(2)
+        x = 180 + seed[0] * 280
+        y = (200 + seed[1] * 280 - frame * 10) % 360 + 80
+        disc(dst, x, y, 1.8, rgb("#ffe39a"), 0.5)
+    return dst
+
+
+def paint_lotus_night(frame: int) -> np.ndarray:
+    t = phase(frame)
+    dst = vertical_wash(rgb("#0a1420"), rgb("#081018"))
+    ellipse(dst, 320, 400, 220, 80, rgb("#0c2430"), 0.8)
+    open_amt = 28 + 14 * (0.5 + 0.5 * math.sin(t))
+    for k in range(8):
+        ang = k * (math.pi / 4) - math.pi / 2
+        ellipse(dst, 320 + math.cos(ang) * open_amt, 340 + math.sin(ang) * open_amt * 0.55, 18, 32, rgb("#f4e8e0"), 0.88)
+    disc(dst, 320, 340, 16, rgb("#e8c14a"), 0.9)
+    glow(dst, 320, 340, 50, rgb("#fff4d8"), 0.18)
+    ellipse(dst, 320, 430, 40, 8, rgb("#c9d7ff"), 0.15 + 0.08 * math.sin(t))
+    return dst
+
+
+def paint_clockwork_sky(frame: int) -> np.ndarray:
+    t = phase(frame)
+    dst = vertical_wash(rgb("#0c1018"), rgb("#161018"))
+    for i, r in enumerate((90, 140, 190, 250)):
+        ang = t * (1.2 - i * 0.2)
+        ellipse(dst, 320, 300, r, r, rgb("#c9a227"), 0.08)
+        disc(dst, 320 + math.cos(ang) * r, 300 + math.sin(ang) * r, 8, rgb("#f0c878"), 0.85)
+    disc(dst, 320, 300, 18, rgb("#f4e6b0"), 0.9)
+    return dst
+
+
+def paint_snowbound_cabin(frame: int) -> np.ndarray:
+    t = phase(frame)
+    dst = vertical_wash(rgb("#1a2438"), rgb("#c9d4e0"), 1.4)
+    rect(dst, 0, 420, 640, 640, rgb("#d8e4ee"), 0.95)
+    rect(dst, 240, 300, 400, 430, rgb("#2a2018"), 0.95)
+    rect(dst, 220, 270, 420, 310, rgb("#3a2a1c"), 0.95)
+    glow(dst, 280, 350, 24, rgb("#f2c15a"), 0.45 + 0.2 * math.sin(t * 2))
+    rect(dst, 268, 338, 292, 362, rgb("#f0c878"), 0.7)
+    rect(dst, 330, 250, 348, 300, rgb("#1a1410"), 0.9)
+    glow(dst, 339, 230, 16, rgb("#e8eef4"), 0.25)
+    rng = np.random.default_rng(9)
+    for i in range(36):
+        seed = rng.random(2)
+        x = seed[0] * W
+        y = (seed[1] * H + frame * 8) % H
+        disc(dst, x, y, 1.6, rgb("#ffffff"), 0.45)
+    return dst
+
+
+def paint_magma_vein(frame: int) -> np.ndarray:
+    t = phase(frame)
+    dst = vertical_wash(rgb("#120c0c"), rgb("#1a1010"))
+    xx, yy = grid()
+    vein_x = 220 + (yy - 80) * 0.25 + 8 * np.sin(yy / 30.0 + t)
+    dist = np.abs(xx - vein_x)
+    pulse = 0.45 + 0.35 * (0.5 + 0.5 * math.sin(t * 2))
+    layer = blank()
+    layer[..., :3] = rgb("#e85d4c")
+    layer[..., 3] = smoothstep(16, 3, dist) * pulse
+    over(dst, layer)
+    glow(dst, 320, 360, 80, rgb("#f2a65a"), 0.16 * pulse)
+    return dst
+
+
+def paint_bamboo_wind(frame: int) -> np.ndarray:
+    t = phase(frame)
+    dst = vertical_wash(rgb("#d7ead0"), rgb("#8fb88a"))
+    for i, x0 in enumerate((80, 160, 250, 340, 430, 520)):
+        sway = 12 * math.sin(t + i * 0.5)
+        rect(dst, x0 + sway, 40, x0 + 18 + sway, 560, rgb("#2f6b45"), 0.85)
+        for k in range(5):
+            rect(dst, x0 + sway - 4, 80 + k * 90, x0 + 22 + sway, 88 + k * 90, rgb("#3d8b6e"), 0.7)
+    glow(dst, 480, 80, 100, rgb("#fff6ea"), 0.2)
+    return dst
+
+
+def paint_harbor_cranes(frame: int) -> np.ndarray:
+    t = phase(frame)
+    dst = vertical_wash(rgb("#2a2430"), rgb("#1a1820"))
+    water = blank()
+    xx, yy = grid()
+    water[..., :3] = rgb("#1a2430")
+    water[..., 3] = smoothstep(430, 460, yy)
+    over(dst, water)
+    for i, x in enumerate((140, 280, 430)):
+        rect(dst, x, 180, x + 16, 460, rgb("#3a3438"), 0.95)
+        rect(dst, x - 40, 200, x + 90, 214, rgb("#4a4448"), 0.9)
+        on = 0.3 + 0.7 * (0.5 + 0.5 * math.sin(t * 2 + i))
+        disc(dst, x + 70, 196, 5, rgb("#f2c15a"), on)
+    return dst
+
+
+def paint_prism_fall(frame: int) -> np.ndarray:
+    t = phase(frame)
+    dst = vertical_wash(rgb("#f4efe6"), rgb("#d8cfc2"))
+    glow(dst, 320, 80, 120, rgb("#ffffff"), 0.45)
+    colors = ("#e85d4c", "#f2a65a", "#f0e07a", "#49d17c", "#3aa7b8", "#5c2d8a")
+    for i, color in enumerate(colors):
+        x = 160 + i * 54 + 6 * math.sin(t + i)
+        rect(dst, x, 140, x + 36, 520, rgb(color), 0.55 + 0.2 * math.sin(t + i))
+        glow(dst, x + 18, 500, 30, rgb(color), 0.2)
+    return dst
+
+
+def paint_owl_hollow(frame: int) -> np.ndarray:
+    t = phase(frame)
+    dst = vertical_wash(rgb("#0c1410"), rgb("#1a1810"))
+    rect(dst, 250, 80, 390, 600, rgb("#2a2218"), 0.95, radius=40)
+    blink = 0.2 + 0.8 * (0.5 + 0.5 * math.sin(t * 2))
+    disc(dst, 292, 300, 16, rgb("#f0c878"), blink)
+    disc(dst, 348, 300, 16, rgb("#f0c878"), blink)
+    disc(dst, 292, 300, 6, rgb("#1a1410"), 0.9)
+    disc(dst, 348, 300, 6, rgb("#1a1410"), 0.9)
+    glow(dst, 320, 300, 50, rgb("#f0c878"), 0.12 * blink)
+    return dst
+
+
+def paint_mirage_well(frame: int) -> np.ndarray:
+    t = phase(frame)
+    dst = vertical_wash(rgb("#e8d2a8"), rgb("#c9844a"), 0.6)
+    wobble = 1.0 + 0.08 * math.sin(t * 2)
+    ellipse(dst, 320, 360, 90 * wobble, 28 * wobble, rgb("#3aa7b8"), 0.55)
+    ellipse(dst, 320, 360, 60 * wobble, 16, rgb("#d7f3f6"), 0.35 + 0.1 * math.sin(t))
+    glow(dst, 320, 340, 70, rgb("#fff4d8"), 0.16)
+    for i in range(6):
+        ellipse(dst, 320, 330 - i * 12, 40 + i * 8, 6, rgb("#fff6ea"), 0.08)
+    return dst
+
+
+def paint_vinyl_groove(frame: int) -> np.ndarray:
+    t = phase(frame)
+    dst = vertical_wash(rgb("#1a1418"), rgb("#0c0a0c"))
+    disc(dst, 320, 320, 210, rgb("#1a1a1c"), 0.98)
+    for r in (60, 100, 140, 180):
+        ellipse(dst, 320, 320, r, r, rgb("#3a3a40"), 0.18)
+    ang = t
+    disc(dst, 320 + math.cos(ang) * 150, 320 + math.sin(ang) * 150, 6, rgb("#d7deef"), 0.8)
+    disc(dst, 320, 320, 22, rgb("#f4efe6"), 0.95)
+    disc(dst, 320, 320, 8, rgb("#1a1a1c"), 0.95)
+    return dst
+
+
+def paint_bridge_fog(frame: int) -> np.ndarray:
+    t = phase(frame)
+    dst = vertical_wash(rgb("#9aa8b4"), rgb("#6a787e"))
+    glow(dst, 320, 220, 200, rgb("#e8eef4"), 0.22 + 0.08 * math.sin(t))
+    for i, x in enumerate((80, 200, 320, 440, 560)):
+        rect(dst, x - 4, 180, x + 4, 480, rgb("#4a5258"), 0.55)
+    rect(dst, 40, 240, 600, 256, rgb("#3a4248"), 0.8)
+    for i in range(8):
+        glow(dst, 80 + i * 70, 248, 10, rgb("#f4e6b0"), 0.25 + 0.2 * math.sin(t + i))
+    return dst
+
+
+def paint_radio_tower(frame: int) -> np.ndarray:
+    t = phase(frame)
+    dst = vertical_wash(rgb("#0c1420"), rgb("#1a1020"))
+    rect(dst, 312, 80, 328, 520, rgb("#d8d2c4"), 0.9)
+    for y in (140, 240, 340):
+        rect(dst, 280, y, 360, y + 6, rgb("#c9c0b0"), 0.8)
+    blink = 0.2 + 0.8 * (0.5 + 0.5 * math.sin(t * 3))
+    glow(dst, 320, 70, 40, rgb("#e85d4c"), blink)
+    disc(dst, 320, 70, 8, rgb("#ff6b5a"), blink)
+    rect(dst, 0, 520, 640, 640, rgb("#12141a"), 0.95)
+    return dst
+
+
+def paint_glacier_blue(frame: int) -> np.ndarray:
+    t = phase(frame)
+    dst = vertical_wash(rgb("#8ec4d8"), rgb("#1a4a62"))
+    xx, yy = grid()
+    wall = blank()
+    wall[..., :3] = mix(rgb("#d7eef8"), rgb("#3aa7b8"), (yy - 80) / 400)
+    wall[..., 3] = (xx > 180 + 20 * np.sin(yy / 40.0)).astype(np.float32) * 0.85
+    over(dst, wall)
+    drip_y = 120 + (frame * 18) % 360
+    disc(dst, 260, drip_y, 4, rgb("#e8f6ff"), 0.7)
+    glow(dst, 300, 200, 80, rgb("#b9e7ff"), 0.16)
+    return dst
+
+
+def paint_sunflower_tilt(frame: int) -> np.ndarray:
+    t = phase(frame)
+    dst = vertical_wash(rgb("#8ec4e8"), rgb("#6a9e4a"))
+    rect(dst, 0, 380, 640, 640, rgb("#5a8a3a"), 0.9)
+    for i, (cx, cy) in enumerate(((160, 300), (320, 250), (480, 310), (240, 360), (400, 340))):
+        nod = 10 * math.sin(t + i)
+        disc(dst, cx + nod, cy, 28, rgb("#f0c14a"), 0.95)
+        disc(dst, cx + nod, cy, 12, rgb("#5c2d14"), 0.9)
+        rect(dst, cx - 3, cy + 20, cx + 3, 500, rgb("#2f6b45"), 0.85)
+    glow(dst, 500, 80, 100, rgb("#fff4d0"), 0.3)
+    return dst
+
+
+def paint_ink_bloom(frame: int) -> np.ndarray:
+    t = phase(frame)
+    dst = vertical_wash(rgb("#f4efe6"), rgb("#e8dcc8"))
+    scale = 0.55 + 0.45 * (0.5 + 0.5 * math.sin(t))
+    glow(dst, 320, 320, 160 * scale, rgb("#1a1418"), 0.35)
+    disc(dst, 300, 300, 70 * scale, rgb("#1a1a1c"), 0.9, soft=12)
+    disc(dst, 360, 340, 40 * scale, rgb("#2a2428"), 0.7, soft=10)
+    disc(dst, 250, 360, 28 * scale, rgb("#121014"), 0.6, soft=8)
+    return dst
+
+
+def paint_terrace_lights(frame: int) -> np.ndarray:
+    t = phase(frame)
+    dst = vertical_wash(rgb("#2a1c28"), rgb("#1a1218"))
+    rng = np.random.default_rng(11)
+    for i in range(28):
+        seed = rng.random(3)
+        x = 40 + seed[0] * 560
+        y = 80 + seed[1] * 480
+        on = 0.25 + 0.75 * (0.5 + 0.5 * math.sin(t * 2 + i * 0.7))
+        rect(dst, x, y, x + 10 + seed[2] * 8, y + 7, rgb("#f2c15a"), on)
+        glow(dst, x + 6, y + 3, 8, rgb("#f6d27a"), 0.2 * on)
+    return dst
+
+
+def paint_meteor_choir(frame: int) -> np.ndarray:
+    t = phase(frame)
+    dst = vertical_wash(rgb("#07060c"), rgb("#120c14"))
+    rng = np.random.default_rng(3)
+    for i in range(10):
+        seed = rng.random(3)
+        progress = (frame / FRAMES + seed[0]) % 1.0
+        x = 40 + progress * 620
+        y = 40 + seed[1] * 360 + progress * 80
+        glow(dst, x, y, 16, rgb("#f4e6b0"), 0.35)
+        rect(dst, x - 28, y - 4, x, y, rgb("#d7deef"), 0.45)
+    for i in range(18):
+        seed = rng.random(2)
+        disc(dst, 30 + seed[0] * 580, 30 + seed[1] * 400, 1.3, rgb("#e8eef8"), 0.4)
+    return dst
+
+
+def paint_orchid_house(frame: int) -> np.ndarray:
+    t = phase(frame)
+    dst = vertical_wash(rgb("#e8dce8"), rgb("#c8b0c4"))
+    rect(dst, 80, 60, 560, 560, rgb("#f4eef4"), 0.35, radius=12)
+    scale = 1.0 + 0.08 * math.sin(t)
+    glow(dst, 320, 300, 80 * scale, rgb("#c084fc"), 0.22)
+    for k in range(5):
+        ang = k * (math.pi * 0.4) - math.pi / 2
+        ellipse(dst, 320 + math.cos(ang) * 28 * scale, 300 + math.sin(ang) * 22 * scale, 16, 28, rgb("#c43c8e"), 0.85)
+    disc(dst, 320, 300, 10, rgb("#f0c14a"), 0.9)
+    return dst
+
+
+def paint_night_pier(frame: int) -> np.ndarray:
+    t = phase(frame)
+    dst = vertical_wash(rgb("#0c1428"), rgb("#08101c"))
+    water = blank()
+    xx, yy = grid()
+    water[..., :3] = rgb("#102030")
+    water[..., 3] = smoothstep(360, 390, yy)
+    over(dst, water)
+    rect(dst, 200, 280, 440, 300, rgb("#3a2a1c"), 0.95)
+    for i, x in enumerate((220, 280, 340, 400)):
+        rect(dst, x, 300, x + 10, 520, rgb("#2a2018"), 0.85)
+        glow(dst, x + 5, 270, 16, rgb("#f2c15a"), 0.3 + 0.15 * math.sin(t + i))
+        disc(dst, x + 5, 268, 5, rgb("#ffe39a"), 0.8)
+        ellipse(dst, x + 5, 430 + 6 * math.sin(t + i), 10, 4, rgb("#f2c15a"), 0.18)
+    return dst
+
+
+def paint_copper_storm(frame: int) -> np.ndarray:
+    t = phase(frame)
+    dst = vertical_wash(rgb("#4a2a1c"), rgb("#2a1814"))
+    glow(dst, 280, 180, 180, rgb("#c9844a"), 0.28 + 0.1 * math.sin(t))
+    glow(dst, 420, 220, 140, rgb("#3d8b6e"), 0.18)
+    flash = max(0.0, math.sin(t * 3))
+    glow(dst, 360, 260, 70, rgb("#f0c878"), 0.2 * flash)
+    rect(dst, 0, 500, 640, 640, rgb("#3a2418"), 0.9)
+    return dst
+
+
+def paint_quiet_orbit(frame: int) -> np.ndarray:
+    t = phase(frame)
+    dst = vertical_wash(rgb("#080a12"), rgb("#12141c"))
+    disc(dst, 320, 340, 110, rgb("#4a525c"), 0.95)
+    disc(dst, 290, 310, 36, rgb("#6a727c"), 0.4, soft=10)
+    glow(dst, 320, 340, 140, rgb("#c9a227"), 0.12)
+    mx = 320 + math.cos(t) * 170
+    my = 340 + math.sin(t) * 70
+    glow(dst, mx, my, 22, rgb("#f4e6b0"), 0.45)
+    disc(dst, mx, my, 10, rgb("#f4efe6"), 0.95)
+    return dst
+
+
+def paint_train_signal(frame: int) -> np.ndarray:
+    t = phase(frame)
+    dst = vertical_wash(rgb("#0c1014"), rgb("#16181c"))
+    rect(dst, 300, 80, 340, 520, rgb("#2a2a2c"), 0.95)
+    red_on = 0.5 + 0.5 * math.sin(t * 2)
+    green_on = 1.0 - red_on
+    disc(dst, 320, 160, 28, rgb("#e85d4c"), 0.25 + 0.7 * red_on)
+    disc(dst, 320, 250, 28, rgb("#49d17c"), 0.25 + 0.7 * green_on)
+    glow(dst, 320, 160, 40, rgb("#e85d4c"), 0.25 * red_on)
+    glow(dst, 320, 250, 40, rgb("#49d17c"), 0.25 * green_on)
+    rect(dst, 80, 560, 560, 580, rgb("#3a3a40"), 0.8)
+    return dst
+
+
+def paint_last_firefly(frame: int) -> np.ndarray:
+    t = phase(frame)
+    dst = vertical_wash(rgb("#0a140f"), rgb("#06100c"))
+    rect(dst, 0, 480, 640, 640, rgb("#102418"), 0.9)
+    x = 200 + 180 * math.sin(t)
+    y = 220 + 90 * math.cos(t * 1.3)
+    glow(dst, x, y, 28, rgb("#f4e07a"), 0.55)
+    disc(dst, x, y, 3, rgb("#fff6b0"), 0.95)
+    for i, gx in enumerate((80, 180, 400, 520)):
+        ellipse(dst, gx, 500, 40, 12, rgb("#14301c"), 0.5)
+    return dst
+
+
 PAINTERS = {
     1: paint_moonrise,
     2: paint_stained_glass,
@@ -1038,6 +1581,32 @@ PAINTERS = {
     22: paint_subway_glow,
     23: paint_whale_breach,
     24: paint_harvest_field,
+    25: paint_thunderhead,
+    26: paint_moon_gate,
+    27: paint_ember_forge,
+    28: paint_lotus_night,
+    29: paint_clockwork_sky,
+    30: paint_snowbound_cabin,
+    31: paint_magma_vein,
+    32: paint_bamboo_wind,
+    33: paint_harbor_cranes,
+    34: paint_prism_fall,
+    35: paint_owl_hollow,
+    36: paint_mirage_well,
+    37: paint_vinyl_groove,
+    38: paint_bridge_fog,
+    39: paint_radio_tower,
+    40: paint_glacier_blue,
+    41: paint_sunflower_tilt,
+    42: paint_ink_bloom,
+    43: paint_terrace_lights,
+    44: paint_meteor_choir,
+    45: paint_orchid_house,
+    46: paint_night_pier,
+    47: paint_copper_storm,
+    48: paint_quiet_orbit,
+    49: paint_train_signal,
+    50: paint_last_firefly,
 }
 
 
