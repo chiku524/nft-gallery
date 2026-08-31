@@ -42,7 +42,9 @@ export default function AfterimagesHomePage() {
         <div className="grid gap-8 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground">The drop</p>
-            <h2 className="mt-2 font-heading text-3xl sm:text-4xl">Twelve finished APNGs. No trait stack.</h2>
+            <h2 className="mt-2 font-heading text-3xl sm:text-4xl">
+              {afterimages.supply} finished APNGs. No trait stack.
+            </h2>
             <p className="mt-4 text-muted-foreground">{afterimages.description}</p>
             <dl className="mt-8 grid grid-cols-2 gap-4">
               {[
@@ -59,7 +61,7 @@ export default function AfterimagesHomePage() {
             </dl>
           </div>
           <div className="grid grid-cols-2 gap-3 lg:col-span-7 sm:grid-cols-3">
-            {afterimageWorks.slice(0, 6).map((work) => (
+            {afterimageWorks.slice(0, 9).map((work) => (
               <Link
                 key={work.id}
                 href={afterimagesPath(`/${work.id}`)}
@@ -82,8 +84,8 @@ export default function AfterimagesHomePage() {
         <div className="mx-auto grid w-full max-w-6xl gap-6 px-4 py-14 sm:px-6 md:grid-cols-3">
           {[
             ["Finished paintings", "Each token is one complete APNG. OpenSea lists the file you see — nothing is assembled at mint."],
-            ["One of one", "Twelve titles, twelve clocks. No shuffle, no leftover combinations, no studio mixer."],
-            ["Drop-ready", "The pack is 1.png–12.png plus a Studio CSV. Upload it as an OpenSea Drop on Robinhood Chain."],
+            ["One of one", `${afterimages.supply} titles, ${afterimages.supply} clocks. No shuffle, no leftover combinations, no studio mixer.`],
+            ["Drop-ready", `The pack is 1.gif–${afterimages.supply}.gif plus a Studio CSV. Upload it as an OpenSea Drop on Robinhood Chain.`],
           ].map(([title, body]) => (
             <div key={title}>
               <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">1:1</p>

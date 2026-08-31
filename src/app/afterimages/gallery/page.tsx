@@ -6,14 +6,14 @@ import { afterimagesPath } from "@/lib/afterimages";
 
 export const metadata: Metadata = {
   title: "Gallery",
-  description: "Twelve one-of-one Afterimages APNG paintings.",
+  description: `${afterimages.supply} one-of-one Afterimages APNG paintings.`,
 };
 
 export default function AfterimagesGalleryPage() {
   return (
     <div className="mx-auto w-full max-w-6xl px-4 py-10 sm:px-6">
       <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground">Viewing room</p>
-      <h1 className="mt-2 font-heading text-4xl">Twelve 1:1 loops</h1>
+      <h1 className="mt-2 font-heading text-4xl">{afterimages.supply} 1:1 loops</h1>
       <p className="mt-3 max-w-2xl text-muted-foreground">
         Every file is a finished APNG — {afterimages.canvas}×{afterimages.canvas}, {afterimages.frames}{" "}
         frames, {afterimages.frameDurationMs}ms. Open one and it keeps playing. These are the tokens

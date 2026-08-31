@@ -30,7 +30,7 @@ LOOPKINS_DURATION_MS = 80
 AFTER_DURATION_MS = 100
 INKLINGS_DURATION_MS = 90
 LOOPKINS_TOTAL = 10_000
-AFTER_TOTAL = 12
+AFTER_TOTAL = 24
 INKLINGS_TOTAL = 5555
 
 
@@ -163,8 +163,8 @@ def main() -> None:
         rewrite_csv_filenames(ROOT / "generated" / "afterimages" / "opensea-metadata.csv")
         (ROOT / "generated" / "afterimages" / "README.md").write_text(
             "# Afterimages OpenSea pack\n\n"
-            "12 unique 1:1 loops. Site files stay APNG. OpenSea Drop files are GIFs.\n\n"
-            "Upload every file in `gifs/` (1.gif–12.gif) plus `opensea-metadata.csv`.\n"
+            f"{AFTER_TOTAL} unique 1:1 loops. Site files stay APNG. OpenSea Drop files are GIFs.\n\n"
+            f"Upload every file in `gifs/` (1.gif–{AFTER_TOTAL}.gif) plus `opensea-metadata.csv`.\n"
             "OpenSea Drops play GIF, PNG, JPG, and SVG — not APNG.\n"
             "The CSV uses OpenSea Studio headers: `tokenID`, `name`, `description`, `file_name`, and `attributes[Trait]`.\n",
             encoding="utf-8",

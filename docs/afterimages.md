@@ -1,6 +1,6 @@
 # Afterimages
 
-**12 unique 1:1 APNG paintings.** An **OpenSea Drop** on **Robinhood Chain** (chain ID `4663`).
+**24 unique 1:1 APNG paintings.** An **OpenSea Drop** on **Robinhood Chain** (chain ID `4663`).
 
 This collection lives inside **NFT Gallery** at `/afterimages`.
 
@@ -8,11 +8,11 @@ Unlike Loopkins, Afterimages is not assembled from trait layers. Each token is a
 
 ## What’s in the drop
 
-- Site previews at `public/afterimages/1.png`–`12.png`
+- Site previews at `public/afterimages/1.png`–`24.png`
 - Collection logo, banner, and 1000×1000 collection GIF in `public/brand/`
 - Viewing room at `/afterimages/gallery` and a page per painting at `/afterimages/[id]`
 - OpenSea pack at `generated/afterimages/` (GIFs in `gifs/`)
-- `contracts/Afterimages.sol` — ERC-721 that mints a chosen token ID 1–12
+- `contracts/Afterimages.sol` — ERC-721 that mints a chosen token ID 1–24
 
 ## Generate the paintings
 
@@ -25,7 +25,7 @@ Requires Python 3 with Pillow and NumPy.
 
 ## OpenSea Drop
 
-OpenSea Drops play GIF, PNG, JPG, and SVG — not APNG. Upload `generated/afterimages/gifs` (1.gif–12.gif) plus `generated/afterimages/opensea-metadata.csv`. The CSV uses OpenSea Studio headers: `tokenID`, `name`, `description`, `file_name`, and `attributes[Trait]`.
+OpenSea Drops play GIF, PNG, JPG, and SVG — not APNG. Upload `generated/afterimages/gifs` (1.gif–24.gif) plus `generated/afterimages/opensea-metadata.csv`. The CSV uses OpenSea Studio headers: `tokenID`, `name`, `description`, `file_name`, and `attributes[Trait]`.
 
 ## Why APNG on the site, GIF on OpenSea
 

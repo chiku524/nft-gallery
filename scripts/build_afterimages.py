@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Paint Afterimages — 12 unique 1:1 APNG paintings for an OpenSea Drop.
+"""Paint Afterimages — unique 1:1 APNG paintings for an OpenSea Drop.
 
 Each token is a finished looping painting, not a trait stack.
 16 frames, 100ms, 640×640. Upload pack + site previews land together.
@@ -15,7 +15,7 @@ from pathlib import Path
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 
-from gif_bake import save_loop_gif
+from gif_bake import load_apng_frames, save_loop_gif
 
 ROOT = Path(__file__).resolve().parents[1]
 PUBLIC_DIR = ROOT / "public" / "afterimages"
@@ -352,6 +352,162 @@ WORKS = [
             "Medium": "APNG",
         },
     },
+    {
+        "id": 13,
+        "slug": "lantern-rain",
+        "title": "Paper Lantern Rain",
+        "description": "Warm paper suns hang in a wet street. The rain keeps missing them on purpose.",
+        "attributes": {
+            "Series": "Afterimages",
+            "Palette": "Cinnabar Night",
+            "Motion": "Rain",
+            "Season": "Night",
+            "Medium": "APNG",
+        },
+    },
+    {
+        "id": 14,
+        "slug": "comet-wake",
+        "title": "Comet Wake",
+        "description": "A pale ember crosses black silk. The wake is longer than the night.",
+        "attributes": {
+            "Series": "Afterimages",
+            "Palette": "Ice Ember",
+            "Motion": "Trail",
+            "Season": "Void",
+            "Medium": "APNG",
+        },
+    },
+    {
+        "id": 15,
+        "slug": "tide-pool",
+        "title": "Tide Pool",
+        "description": "Stone bowls hold the sea for a minute. Starfish keep the minute.",
+        "attributes": {
+            "Series": "Afterimages",
+            "Palette": "Kelp Sand",
+            "Motion": "Ripple",
+            "Season": "Tide",
+            "Medium": "APNG",
+        },
+    },
+    {
+        "id": 16,
+        "slug": "aurora-spine",
+        "title": "Aurora Spine",
+        "description": "A green vertebra of sky. Violet keeps trying the same thought.",
+        "attributes": {
+            "Series": "Afterimages",
+            "Palette": "Green Violet",
+            "Motion": "Curtain",
+            "Season": "Winter",
+            "Medium": "APNG",
+        },
+    },
+    {
+        "id": 17,
+        "slug": "candle-window",
+        "title": "Candle Window",
+        "description": "One room is awake. Moths write circles the house cannot read.",
+        "attributes": {
+            "Series": "Afterimages",
+            "Palette": "Umber Flame",
+            "Motion": "Flicker",
+            "Season": "Night",
+            "Medium": "APNG",
+        },
+    },
+    {
+        "id": 18,
+        "slug": "fog-bell",
+        "title": "Fog Bell",
+        "description": "A buoy speaks in rings. The fog answers by getting thicker.",
+        "attributes": {
+            "Series": "Afterimages",
+            "Palette": "Pewter Sage",
+            "Motion": "Ring",
+            "Season": "Fog",
+            "Medium": "APNG",
+        },
+    },
+    {
+        "id": 19,
+        "slug": "greenhouse-rain",
+        "title": "Greenhouse Rain",
+        "description": "Glass keeps a summer. Outside, the rain is trying to get in.",
+        "attributes": {
+            "Series": "Afterimages",
+            "Palette": "Leaf Glass",
+            "Motion": "Streak",
+            "Season": "Rain",
+            "Medium": "APNG",
+        },
+    },
+    {
+        "id": 20,
+        "slug": "red-giant",
+        "title": "Red Giant",
+        "description": "An old star takes up the room. The dark around it is patient.",
+        "attributes": {
+            "Series": "Afterimages",
+            "Palette": "Crimson Coal",
+            "Motion": "Breathe",
+            "Season": "Void",
+            "Medium": "APNG",
+        },
+    },
+    {
+        "id": 21,
+        "slug": "salt-flats",
+        "title": "Salt Flats",
+        "description": "The ground is a sky that forgot to stand up. Puddles keep the secret.",
+        "attributes": {
+            "Series": "Afterimages",
+            "Palette": "Bone Sky",
+            "Motion": "Gleam",
+            "Season": "Noon",
+            "Medium": "APNG",
+        },
+    },
+    {
+        "id": 22,
+        "slug": "subway-glow",
+        "title": "Subway Glow",
+        "description": "A tunnel recedes on purpose. Amber lights keep count.",
+        "attributes": {
+            "Series": "Afterimages",
+            "Palette": "Amber Black",
+            "Motion": "Recede",
+            "Season": "Night",
+            "Medium": "APNG",
+        },
+    },
+    {
+        "id": 23,
+        "slug": "whale-breach",
+        "title": "Whale Breach",
+        "description": "A dark continent of water lifts. Spray writes the return.",
+        "attributes": {
+            "Series": "Afterimages",
+            "Palette": "Deep Silver",
+            "Motion": "Breach",
+            "Season": "Tide",
+            "Medium": "APNG",
+        },
+    },
+    {
+        "id": 24,
+        "slug": "harvest-field",
+        "title": "Harvest Field",
+        "description": "Wheat takes the wind in rows. The sun stays low so the gold can work.",
+        "attributes": {
+            "Series": "Afterimages",
+            "Palette": "Wheat Dusk",
+            "Motion": "Wave",
+            "Season": "Harvest",
+            "Medium": "APNG",
+        },
+    },
 ]
 
 
@@ -623,6 +779,240 @@ def paint_nave_light(frame: int) -> np.ndarray:
     return dst
 
 
+def paint_lantern_rain(frame: int) -> np.ndarray:
+    t = phase(frame)
+    dst = vertical_wash(rgb("#1a0c14"), rgb("#0c0810"))
+    rect(dst, 0, 500, 640, 640, rgb("#1a1218"), 0.95)
+    lanterns = ((160, 210, "#e85d4c"), (320, 160, "#f0a05a"), (470, 230, "#d94a3a"), (250, 280, "#f4c07a"))
+    for i, (cx, cy, color) in enumerate(lanterns):
+        bob_y = cy + 6 * math.sin(t + i * 0.8)
+        glow(dst, cx, bob_y, 48, rgb(color), 0.28 + 0.08 * math.sin(t + i))
+        ellipse(dst, cx, bob_y, 22, 28, rgb(color), 0.92)
+        rect(dst, cx - 2, 40, cx + 2, bob_y - 26, rgb("#3a2a22"), 0.7)
+        disc(dst, cx, bob_y + 28, 4, rgb("#f6d7a0"), 0.6)
+        ellipse(dst, cx, 530, 18, 5, rgb(color), 0.18 + 0.08 * math.sin(t + i))
+    rng = np.random.default_rng(19)
+    for i in range(40):
+        seed = rng.random(2)
+        x = seed[0] * W
+        y = (seed[1] * H + frame * 22 + i * 13) % (H + 20) - 10
+        rect(dst, x, y, x + 1.4, y + 14, rgb("#c8d4e8"), 0.28)
+    return dst
+
+
+def paint_comet_wake(frame: int) -> np.ndarray:
+    t = phase(frame)
+    dst = vertical_wash(rgb("#07060c"), rgb("#100c18"))
+    rng = np.random.default_rng(4)
+    for i in range(24):
+        seed = rng.random(3)
+        disc(dst, 40 + seed[0] * 560, 40 + seed[1] * 400, 1.2 + seed[2] * 1.6, rgb("#e8eef8"), 0.35 + 0.4 * seed[2])
+    progress = (frame / FRAMES)
+    cx = 80 + progress * 520
+    cy = 140 + 80 * math.sin(t * 0.5)
+    for k in range(10):
+        back = k * 22
+        glow(dst, cx - back, cy + back * 0.18, 18 + k * 3, mix(rgb("#9ad4ff"), rgb("#f6b27a"), k / 10), 0.22 - k * 0.015)
+    glow(dst, cx, cy, 40, rgb("#fff4d8"), 0.55)
+    disc(dst, cx, cy, 8, rgb("#fff8ee"), 0.95)
+    return dst
+
+
+def paint_tide_pool(frame: int) -> np.ndarray:
+    t = phase(frame)
+    dst = vertical_wash(rgb("#c9b08a"), rgb("#8a6a48"), 0.7)
+    glow(dst, 480, 80, 140, rgb("#f4e6c8"), 0.3)
+    pools = ((180, 280, 90, 40), (360, 360, 110, 48), (250, 470, 70, 28), (470, 250, 60, 26))
+    for i, (cx, cy, rx, ry) in enumerate(pools):
+        ellipse(dst, cx, cy, rx, ry, rgb("#1d4a4a"), 0.85)
+        pulse = 0.2 + 0.12 * math.sin(t + i)
+        ellipse(dst, cx, cy, rx * (0.72 + pulse * 0.1), ry * (0.65 + pulse * 0.1), rgb("#3a8a86"), 0.55)
+        ellipse(dst, cx - 10, cy - 6, 12, 5, rgb("#d7f3ee"), 0.25 + 0.1 * math.sin(t + i))
+    for i, (cx, cy) in enumerate(((220, 300), (400, 380), (280, 490))):
+        ang = t + i
+        for k in range(5):
+            a = ang + k * (math.pi * 0.4)
+            ellipse(dst, cx + math.cos(a) * 16, cy + math.sin(a) * 10, 7, 4, rgb("#d3542c"), 0.85)
+        disc(dst, cx, cy, 5, rgb("#f0c14a"), 0.8)
+    return dst
+
+
+def paint_aurora_spine(frame: int) -> np.ndarray:
+    t = phase(frame)
+    dst = vertical_wash(rgb("#071018"), rgb("#0c1c22"))
+    xx, yy = grid()
+    for i, color in enumerate(("#49d17c", "#7af0c2", "#c084fc")):
+        shift = 40 * math.sin(t + i * 0.9)
+        spine = 260 + i * 50 + shift + 18 * np.sin(yy / 28.0 + t + i)
+        dist = np.abs(xx - spine)
+        width = 28 + 10 * np.sin(yy / 40.0 + t)
+        a = np.exp(-0.5 * (dist / np.maximum(width, 6)) ** 2) * (0.22 + 0.1 * (1.0 - yy / H))
+        layer = blank()
+        layer[..., :3] = rgb(color)
+        layer[..., 3] = a * (yy < 520).astype(np.float32)
+        over(dst, layer)
+    rect(dst, 0, 500, 640, 640, rgb("#0a1418"), 0.9)
+    rng = np.random.default_rng(22)
+    for i in range(20):
+        seed = rng.random(2)
+        disc(dst, seed[0] * W, 80 + seed[1] * 380, 1.4, rgb("#e8fff4"), 0.35)
+    return dst
+
+
+def paint_candle_window(frame: int) -> np.ndarray:
+    t = phase(frame)
+    dst = vertical_wash(rgb("#10182a"), rgb("#0a1018"))
+    rect(dst, 180, 220, 460, 560, rgb("#1a1614"), 0.96, radius=6)
+    rect(dst, 160, 200, 480, 230, rgb("#241c18"), 0.95)
+    flicker = 0.55 + 0.35 * (0.5 + 0.5 * math.sin(t * 3))
+    rect(dst, 280, 300, 360, 400, rgb("#f2c15a"), flicker, radius=4)
+    glow(dst, 320, 350, 70, rgb("#f6d27a"), 0.25 * flicker)
+    disc(dst, 320, 368, 5, rgb("#fff1c0"), flicker)
+    for i in range(6):
+        ang = t * 2 + i * 1.1
+        mx = 320 + math.cos(ang) * (28 + 8 * math.sin(t + i))
+        my = 330 + math.sin(ang * 1.3) * 22
+        ellipse(dst, mx, my, 5, 2.4, rgb("#d8c8b0"), 0.7)
+    rect(dst, 0, 560, 640, 640, rgb("#0c1014"), 1.0)
+    return dst
+
+
+def paint_fog_bell(frame: int) -> np.ndarray:
+    t = phase(frame)
+    dst = vertical_wash(rgb("#9aa8a4"), rgb("#6a7874"), 0.8)
+    glow(dst, 320, 200, 180, rgb("#d7e4de"), 0.25)
+    ring = 0.2 + 0.8 * ((frame % FRAMES) / FRAMES)
+    for k in range(4):
+        r = 40 + (ring * 140 + k * 28) % 180
+        ellipse(dst, 320, 300, r, r * 0.35, rgb("#e8f0ea"), 0.12)
+    ellipse(dst, 320, 300, 36, 44, rgb("#3a403c"), 0.92)
+    ellipse(dst, 320, 292, 22, 16, rgb("#4a524c"), 0.9)
+    disc(dst, 320, 348, 6, rgb("#2a302c"), 0.9)
+    rect(dst, 314, 348, 326, 430, rgb("#2a302c"), 0.9)
+    ellipse(dst, 320, 500, 90, 18, rgb("#5a6864"), 0.5)
+    glow(dst, 320, 280, 50, rgb("#f0f6f2"), 0.1 + 0.08 * math.sin(t * 2))
+    return dst
+
+
+def paint_greenhouse_rain(frame: int) -> np.ndarray:
+    t = phase(frame)
+    dst = vertical_wash(rgb("#d8e8d0"), rgb("#8fb88a"))
+    glow(dst, 320, 240, 180, rgb("#f4e8b0"), 0.22)
+    rect(dst, 90, 80, 550, 560, rgb("#c5e0c0"), 0.35, radius=8)
+    for x in (90, 210, 320, 430, 550):
+        rect(dst, x - 3, 80, x + 3, 560, rgb("#d7efe0"), 0.55)
+    for y in (80, 220, 360, 560):
+        rect(dst, 90, y - 3, 550, y + 3, rgb("#d7efe0"), 0.5)
+    for i, (cx, cy) in enumerate(((200, 420), (320, 390), (440, 430))):
+        ellipse(dst, cx, cy, 40, 22, rgb("#2f6b45"), 0.7)
+        glow(dst, cx, cy - 20, 30, rgb("#49a36a"), 0.25)
+        disc(dst, cx, cy - 8, 16 + 3 * math.sin(t + i), rgb("#3d8b6e"), 0.8)
+    rng = np.random.default_rng(8)
+    for i in range(36):
+        seed = rng.random(2)
+        x = 100 + seed[0] * 440
+        y = (80 + seed[1] * 480 + frame * 16) % 500
+        rect(dst, x, y, x + 1.2, y + 16, rgb("#e8f4ee"), 0.4)
+    return dst
+
+
+def paint_red_giant(frame: int) -> np.ndarray:
+    t = phase(frame)
+    dst = vertical_wash(rgb("#12060a"), rgb("#1a0a0c"))
+    scale = 1.0 + 0.06 * math.sin(t)
+    glow(dst, 300, 340, 220 * scale, rgb("#e85d4c"), 0.28 + 0.08 * math.sin(t))
+    glow(dst, 300, 340, 140 * scale, rgb("#f2a65a"), 0.22)
+    disc(dst, 300, 340, 110 * scale, rgb("#c43c2e"), 0.95, soft=6)
+    disc(dst, 270, 310, 36, rgb("#e07a5f"), 0.35, soft=10)
+    disc(dst, 300, 340, 70 * scale, rgb("#8b1e18"), 0.25)
+    rng = np.random.default_rng(2)
+    for i in range(16):
+        seed = rng.random(3)
+        disc(dst, 40 + seed[0] * 560, 40 + seed[1] * 240, 1.3, rgb("#f4d0c8"), 0.25 + 0.3 * seed[2])
+    return dst
+
+
+def paint_salt_flats(frame: int) -> np.ndarray:
+    t = phase(frame)
+    dst = vertical_wash(rgb("#c9d8e8"), rgb("#e8e0d0"), 0.45)
+    glow(dst, 480, 90, 150, rgb("#fff6e0"), 0.4)
+    disc(dst, 500, 80, 32, rgb("#fff8e8"), 0.95)
+    xx, yy = grid()
+    flats = blank()
+    flats[..., :3] = mix(rgb("#f4efe6"), rgb("#d8cfc2"), (yy - 280) / 360)
+    flats[..., 3] = smoothstep(270, 300, yy)
+    over(dst, flats)
+    for i in range(8):
+        crack_x = 80 + i * 70
+        rect(dst, crack_x, 320 + 10 * math.sin(t + i), crack_x + 1.5, 620, rgb("#c4b8a8"), 0.35)
+    for i in range(5):
+        px = 140 + i * 90
+        py = 400 + 20 * math.sin(t * 0.7 + i)
+        ellipse(dst, px, py, 36, 8, rgb("#b8cce0"), 0.22 + 0.1 * math.sin(t + i))
+        ellipse(dst, px, py, 18, 4, rgb("#f4f8ff"), 0.18)
+    return dst
+
+
+def paint_subway_glow(frame: int) -> np.ndarray:
+    t = phase(frame)
+    dst = vertical_wash(rgb("#0c0a0c"), rgb("#161214"))
+    for i in range(9):
+        scale = 1.0 - i * 0.08
+        w = 520 * scale
+        h = 360 * scale
+        x0 = 320 - w / 2
+        y0 = 80 + i * 28
+        rect(dst, x0, y0, x0 + w, y0 + h, rgb("#1a1618"), 0.18)
+        pulse = 0.35 + 0.55 * (0.5 + 0.5 * math.sin(t * 2 + i * 0.6))
+        rect(dst, x0 + 16, y0 + h * 0.35, x0 + 28, y0 + h * 0.38, rgb("#f2c15a"), pulse)
+        rect(dst, x0 + w - 28, y0 + h * 0.35, x0 + w - 16, y0 + h * 0.38, rgb("#f2c15a"), pulse)
+    glow(dst, 320, 420, 90, rgb("#f0c878"), 0.12 + 0.06 * math.sin(t))
+    rect(dst, 0, 520, 640, 640, rgb("#0a080a"), 0.95)
+    return dst
+
+
+def paint_whale_breach(frame: int) -> np.ndarray:
+    t = phase(frame)
+    dst = vertical_wash(rgb("#8ec4d8"), rgb("#1a4a62"), 0.7)
+    glow(dst, 500, 70, 120, rgb("#fff4d0"), 0.35)
+    disc(dst, 520, 70, 28, rgb("#fff6dc"), 0.9)
+    lift = 40 * math.sin(t)
+    ellipse(dst, 300, 360 - lift, 130, 46, rgb("#1b2a36"), 0.95)
+    ellipse(dst, 220, 340 - lift, 36, 22, rgb("#1b2a36"), 0.9)
+    disc(dst, 190, 332 - lift, 7, rgb("#0e1620"), 0.85)
+    ellipse(dst, 360, 348 - lift, 18, 10, rgb("#3a5164"), 0.5)
+    water = blank()
+    xx, yy = grid()
+    water[..., :3] = mix(rgb("#2a6a82"), rgb("#123848"), (yy - 380) / 260)
+    water[..., 3] = smoothstep(400, 430, yy)
+    over(dst, water)
+    for i in range(12):
+        sx = 240 + i * 18 + 8 * math.sin(t + i)
+        sy = 390 - lift * 0.4 - (i % 4) * 10
+        disc(dst, sx, sy, 3 + i % 3, rgb("#d7eef8"), 0.35)
+    return dst
+
+
+def paint_harvest_field(frame: int) -> np.ndarray:
+    t = phase(frame)
+    dst = vertical_wash(rgb("#f2c48a"), rgb("#c9844a"), 0.55)
+    glow(dst, 120, 90, 140, rgb("#fff1c0"), 0.45)
+    disc(dst, 110, 90, 34, rgb("#ffe39a"), 0.95)
+    xx, yy = grid()
+    for i in range(7):
+        band_y = 280 + i * 48
+        wave = 10 * np.sin(xx / 36.0 + t + i * 0.4)
+        field = blank()
+        field[..., :3] = mix(rgb("#e0a54a"), rgb("#8d5a18"), i / 7)
+        field[..., 3] = smoothstep(band_y + wave - 16, band_y + wave + 18, yy) * 0.55
+        over(dst, field)
+    for i in range(3):
+        bx = 420 + i * 50
+        by = 160 + 12 * math.sin(t * 2 + i)
+        ellipse(dst, bx, by, 8, 4, rgb("#2a2018"), 0.8)
+    return dst
+
+
 PAINTERS = {
     1: paint_moonrise,
     2: paint_stained_glass,
@@ -636,6 +1026,18 @@ PAINTERS = {
     10: paint_heat_shimmer,
     11: paint_ice_fracture,
     12: paint_nave_light,
+    13: paint_lantern_rain,
+    14: paint_comet_wake,
+    15: paint_tide_pool,
+    16: paint_aurora_spine,
+    17: paint_candle_window,
+    18: paint_fog_bell,
+    19: paint_greenhouse_rain,
+    20: paint_red_giant,
+    21: paint_salt_flats,
+    22: paint_subway_glow,
+    23: paint_whale_breach,
+    24: paint_harvest_field,
 }
 
 
@@ -731,8 +1133,8 @@ def write_sidecars(rows: list[dict]) -> None:
         writer.writerows(rows)
     (OUT / "README.md").write_text(
         "# Afterimages OpenSea pack\n\n"
-        "12 unique 1:1 loops at 640×640, 16 frames, 100ms.\n\n"
-        "Upload every file in `gifs/` (1.gif–12.gif) plus `opensea-metadata.csv` to an OpenSea Drop.\n"
+        f"{len(WORKS)} unique 1:1 loops at 640×640, 16 frames, 100ms.\n\n"
+        f"Upload every file in `gifs/` (1.gif–{len(WORKS)}.gif) plus `opensea-metadata.csv` to an OpenSea Drop.\n"
         "OpenSea Drops play GIF, not APNG. Site previews stay APNG in public/afterimages/.\n"
         "The CSV uses OpenSea Studio headers: `tokenID`, `name`, `description`, `file_name`, and `attributes[Trait]`.\n",
         encoding="utf-8",
@@ -743,7 +1145,7 @@ def write_sidecars(rows: list[dict]) -> None:
             {
                 "name": "Afterimages",
                 "symbol": "AFTER",
-                "description": "Afterimages is a 12-piece OpenSea drop of unique looping paintings. Each token is a finished APNG — not stacked traits, not a generative shuffle. One canvas, one clock, one artwork. Minting on Robinhood Chain.",
+                "description": f"Afterimages is a {len(WORKS)}-piece OpenSea drop of unique looping paintings. Each token is a finished APNG — not stacked traits, not a generative shuffle. One canvas, one clock, one artwork. Minting on Robinhood Chain.",
                 "image": "/brand/collection-afterimages.gif",
                 "banner_image": "/brand/banner-afterimages.png",
                 "external_link": "/afterimages",
@@ -762,23 +1164,28 @@ def main() -> None:
     IMAGE_DIR.mkdir(parents=True, exist_ok=True)
     GIF_DIR.mkdir(parents=True, exist_ok=True)
     JSON_DIR.mkdir(parents=True, exist_ok=True)
-    frames_by_id: dict[int, list[Image.Image]] = {}
     rows: list[dict] = []
     print("Painting Afterimages 1:1 APNGs…")
     for work in WORKS:
-        print(f"  #{work['id']} {work['title']}")
-        frames = render_work(work["id"])
-        frames_by_id[work["id"]] = frames
         site_path = PUBLIC_DIR / f"{work['id']}.png"
         drop_path = IMAGE_DIR / f"{work['id']}.png"
-        save_apng(frames, site_path)
-        drop_path.write_bytes(site_path.read_bytes())
-        save_loop_gif(frames, GIF_DIR / f"{work['id']}.gif", DURATION_MS)
+        gif_path = GIF_DIR / f"{work['id']}.gif"
+        if site_path.exists() and site_path.stat().st_size > 0:
+            print(f"  #{work['id']} {work['title']} (exists)")
+            drop_path.write_bytes(site_path.read_bytes())
+            if not gif_path.exists() or gif_path.stat().st_size == 0:
+                frames, _duration = load_apng_frames(site_path)
+                save_loop_gif(frames, gif_path, DURATION_MS)
+        else:
+            print(f"  #{work['id']} {work['title']}")
+            frames = render_work(work["id"])
+            save_apng(frames, site_path)
+            drop_path.write_bytes(site_path.read_bytes())
+            save_loop_gif(frames, gif_path, DURATION_MS)
         meta = token_meta(work)
         (JSON_DIR / f"{work['id']}.json").write_text(json.dumps(meta, indent=2) + "\n", encoding="utf-8")
         rows.append(drop_csv_row(work, meta))
-    print("Writing brand and OpenSea sidecars…")
-    build_brand(frames_by_id)
+    print("Writing OpenSea sidecars…")
     write_sidecars(rows)
     print("Done.")
 

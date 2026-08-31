@@ -4,7 +4,7 @@ import { afterimages } from "@/data/afterimages";
 
 export const metadata: Metadata = {
   title: "OpenSea launch",
-  description: "Upload twelve Afterimages GIFs to an OpenSea Drop on Robinhood Chain.",
+  description: `Upload ${afterimages.supply} Afterimages GIFs to an OpenSea Drop on Robinhood Chain.`,
 };
 
 const steps = [
@@ -18,7 +18,7 @@ const steps = [
   },
   {
     title: "Bulk-upload GIFs + CSV",
-    body: "Upload every file in generated/afterimages/gifs (1.gif–12.gif) and generated/afterimages/opensea-metadata.csv. The CSV already uses OpenSea’s required headers (tokenID, name, description, file_name, attributes[Trait]). GIF is the media OpenSea will play. Preview the loops, then publish.",
+    body: `Upload every file in generated/afterimages/gifs (1.gif–${afterimages.supply}.gif) and generated/afterimages/opensea-metadata.csv. The CSV already uses OpenSea’s required headers (tokenID, name, description, file_name, attributes[Trait]). GIF is the media OpenSea will play. Preview the loops, then publish.`,
   },
   {
     title: "Or deploy the ERC-721 yourself",
@@ -32,8 +32,8 @@ export default function AfterimagesLaunchPage() {
       <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground">Marketplace</p>
       <h1 className="mt-2 font-heading text-4xl">Launch on OpenSea, Robinhood Chain.</h1>
       <p className="mt-4 text-muted-foreground">
-        Afterimages ships as twelve finished APNG paintings for the site, plus a GIF bake for OpenSea.
-        There is no flatten step and no leftover generative roster.
+        Afterimages ships as {afterimages.supply} finished APNG paintings for the site, plus a GIF bake
+        for OpenSea. There is no flatten step and no leftover generative roster.
       </p>
 
       <dl className="mt-8 grid gap-3 sm:grid-cols-2">
