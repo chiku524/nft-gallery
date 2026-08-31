@@ -1,14 +1,17 @@
 import { afterimages, afterimageWorks } from "@/data/afterimages";
 import { collection } from "@/data/collection";
+import { inklingSamples } from "@/data/inkling-gallery";
+import { inklings } from "@/data/inklings";
 import { sampleMints } from "@/data/gallery";
 import { AFTERIMAGES_BASE } from "@/lib/afterimages";
+import { INKLINGS_BASE } from "@/lib/inklings";
 import { LOOPKINS_BASE } from "@/lib/loopkins";
 
 export const gallery = {
   name: "NFT Gallery",
   tagline: "Collections on the wall. One drop at a time.",
   description:
-    "NFT Gallery is a house of on-chain collections — each drop keeps its own studio, traits, and launch path. Loopkins is the layered PFP. Afterimages is the 1:1 APNG drop.",
+    "NFT Gallery is a house of on-chain collections — each drop keeps its own studio, traits, and launch path. Loopkins is the layered PFP. Afterimages is the 1:1 APNG drop. Inklings is the ink-wash PFP GIF drop on Ink.",
 } as const;
 
 export const projects = [
@@ -43,10 +46,28 @@ export const projects = [
     mintPriceEth: afterimages.mintPriceEth,
     cover: "/brand/banner-afterimages.png",
     thumb: afterimageWorks[0].image,
-    status: "new on the wall" as const,
+    status: "on the wall" as const,
     kind: "1of1" as const,
     previews: afterimageWorks.map((work) => work.image),
     studioHref: null,
+  },
+  {
+    slug: "inklings",
+    href: INKLINGS_BASE,
+    name: inklings.name,
+    symbol: inklings.symbol,
+    tagline: inklings.tagline,
+    description: inklings.description,
+    chain: inklings.chain.name,
+    chainId: inklings.chain.chainId,
+    supply: inklings.supply,
+    mintPriceEth: inklings.mintPriceEth,
+    cover: "/brand/banner-inklings.png",
+    thumb: inklingSamples[0].image,
+    status: "new on the wall" as const,
+    kind: "layered-pfp" as const,
+    previews: inklingSamples.map((mint) => mint.image),
+    studioHref: "/inklings/studio" as const,
   },
 ] as const;
 

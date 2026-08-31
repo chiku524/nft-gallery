@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Bake looping GIFs from Afterimages and Loopkins APNGs for OpenSea Drops.
+"""Bake looping GIFs from Afterimages, Loopkins, and Inklings APNGs for OpenSea Drops.
 
 OpenSea Drops play GIF, not APNG. The site keeps the APNGs. This writes
 quantized looping GIFs and points the Studio CSVs at those files.
@@ -23,11 +23,15 @@ LOOPKINS_GIF = ROOT / "generated" / "gifs"
 AFTER_APNG = ROOT / "generated" / "afterimages" / "images"
 AFTER_GIF = ROOT / "generated" / "afterimages" / "gifs"
 AFTER_PUBLIC = ROOT / "public" / "afterimages"
+INKLINGS_APNG = ROOT / "generated" / "inklings" / "images"
+INKLINGS_GIF = ROOT / "generated" / "inklings" / "gifs"
 
 LOOPKINS_DURATION_MS = 80
 AFTER_DURATION_MS = 100
+INKLINGS_DURATION_MS = 90
 LOOPKINS_TOTAL = 10_000
 AFTER_TOTAL = 12
+INKLINGS_TOTAL = 5555
 
 
 def load_apng_frames(path: Path) -> tuple[list[Image.Image], int]:
@@ -143,12 +147,15 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--afterimages", action="store_true", help="Bake Afterimages GIFs only")
     parser.add_argument("--loopkins", action="store_true", help="Bake Loopkins GIFs only")
-    parser.add_argument("--all", action="store_true", help=f"Bake all {LOOPKINS_TOTAL} Loopkins")
-    parser.add_argument("--count", type=int, default=16, help="Loopkins count when not using --all")
+    parser.add_argument("--inklings", action="store_true", help="Bake Inklings GIFs only")
+    parser.add_argument("--all", action="store_true", help="Bake the full collection supply")
+    parser.add_argument("--count", type=int, default=16, help="Count when not using --all")
     parser.add_argument("--workers", type=int, default=max(1, min(6, cpu_count() or 1)))
     args = parser.parse_args()
-    do_after = args.afterimages or not (args.afterimages or args.loopkins)
-    do_loopkins = args.loopkins or not (args.afterimages or args.loopkins)
+    selected = args.afterimages or args.loopkins or args.inklings
+    do_after = args.afterimages or not selected
+    do_loopkins = args.loopkins or not selected
+    do_inklings = args.inklings or not selected
 
     if do_after:
         after_jobs = jobs_for(AFTER_APNG, AFTER_GIF, AFTER_TOTAL, AFTER_DURATION_MS)
@@ -174,6 +181,22 @@ def main() -> None:
             f"{count:,} flattened loops at 256×256, 12 frames, 80ms.\n\n"
             "Upload every file in `gifs/` (1.gif–10000.gif) plus `LOOPKINS-opensea-drop.csv` "
             "or `opensea-metadata.csv` to an OpenSea Drop.\n"
+            "OpenSea Drops play GIF, not APNG. APNGs stay in `images/` for the site and restacks.\n"
+            "The CSV uses OpenSea Studio headers: tokenID, name, description, file_name, and attributes[Trait].\n",
+            encoding="utf-8",
+        )
+
+    if do_inklings:
+        count = INKLINGS_TOTAL if args.all else min(args.count, INKLINGS_TOTAL)
+        ink_jobs = jobs_for(INKLINGS_APNG, INKLINGS_GIF, count, INKLINGS_DURATION_MS)
+        bake("Inklings", ink_jobs, args.workers)
+        rewrite_csv_filenames(ROOT / "generated" / "inklings" / "opensea-metadata.csv")
+        rewrite_csv_filenames(ROOT / "generated" / "inklings" / "INKLINGS-opensea-drop.csv")
+        (ROOT / "generated" / "inklings" / "README.md").write_text(
+            "# Inklings OpenSea pack\n\n"
+            f"{count:,} flattened ink-wash loops at 512×512, 16 frames, 90ms.\n\n"
+            "Upload every file in `gifs/` (1.gif–5555.gif) plus `INKLINGS-opensea-drop.csv` "
+            "or `opensea-metadata.csv` to an OpenSea Drop on Ink.\n"
             "OpenSea Drops play GIF, not APNG. APNGs stay in `images/` for the site and restacks.\n"
             "The CSV uses OpenSea Studio headers: tokenID, name, description, file_name, and attributes[Trait].\n",
             encoding="utf-8",

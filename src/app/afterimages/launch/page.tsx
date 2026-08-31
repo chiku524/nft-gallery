@@ -58,7 +58,7 @@ export default function AfterimagesLaunchPage() {
           Explorer {afterimages.chain.explorer}
         </p>
         <div className="mt-4">
-          <AddChainButton />
+          <AddChainButton chain={afterimages.chain} />
         </div>
       </div>
 

@@ -4,11 +4,9 @@ import { ApngImage } from "@/components/apng-image";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import type { GalleryProject } from "@/data/projects";
-import { afterimagesPath } from "@/lib/afterimages";
-import { loopkinsPath } from "@/lib/loopkins";
 
 export function CollectionCard({ drop }: { drop: GalleryProject }) {
-  const galleryHref = drop.kind === "1of1" ? afterimagesPath("/gallery") : loopkinsPath("/gallery");
+  const galleryHref = `${drop.href}/gallery`;
   const thumbs = drop.previews.slice(0, drop.kind === "1of1" ? 6 : 8);
 
   return (

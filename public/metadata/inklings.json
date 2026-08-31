@@ -1,0 +1,10 @@
+{
+  "name": "Inklings",
+  "symbol": "INKL",
+  "description": "Inklings is a 5,555-piece collection of illustrated PFP portraits. Each face is stacked from painterly GIF layers \u2014 paper washes drift, blooms breathe, visages bob, eyes blink \u2014 then flattened onto one shared 16-frame clock. Soft edges only. Minting on Ink.",
+  "image": "/brand/collection-inklings.gif",
+  "banner_image": "/brand/banner-inklings.png",
+  "external_link": "/inklings",
+  "seller_fee_basis_points": 500,
+  "fee_recipient": "0x0000000000000000000000000000000000000000"
+}

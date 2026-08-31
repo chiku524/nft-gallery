@@ -1,8 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import { collection } from "@/data/collection";
 import { Button } from "@/components/ui/button";
+
+export type WalletChain = {
+  name: string;
+  chainIdHex: string;
+  currency: string;
+  rpcUrl: string;
+  explorer: string;
+};
 
 declare global {
   interface Window {
@@ -12,7 +19,7 @@ declare global {
   }
 }
 
-export function AddChainButton() {
+export function AddChainButton({ chain }: { chain: WalletChain }) {
   const [message, setMessage] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
 
@@ -28,19 +35,19 @@ export function AddChainButton() {
         method: "wallet_addEthereumChain",
         params: [
           {
-            chainId: collection.chain.chainIdHex,
-            chainName: collection.chain.name,
+            chainId: chain.chainIdHex,
+            chainName: chain.name,
             nativeCurrency: {
               name: "Ether",
-              symbol: collection.chain.currency,
+              symbol: chain.currency,
               decimals: 18,
             },
-            rpcUrls: [collection.chain.rpcUrl],
-            blockExplorerUrls: [collection.chain.explorer],
+            rpcUrls: [chain.rpcUrl],
+            blockExplorerUrls: [chain.explorer],
           },
         ],
       });
-      setMessage(`${collection.chain.name} is on this wallet.`);
+      setMessage(`${chain.name} is on this wallet.`);
     } catch (error) {
       const text = error instanceof Error ? error.message : "Wallet rejected the request.";
       setMessage(text);
@@ -52,7 +59,7 @@ export function AddChainButton() {
   return (
     <div className="space-y-2">
       <Button type="button" onClick={addChain} disabled={busy} size="lg">
-        {busy ? "Waiting on wallet…" : `Add ${collection.chain.name}`}
+        {busy ? "Waiting on wallet…" : `Add ${chain.name}`}
       </Button>
       {message ? <p className="text-sm text-muted-foreground">{message}</p> : null}
     </div>

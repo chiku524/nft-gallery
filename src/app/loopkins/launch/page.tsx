@@ -58,7 +58,7 @@ export default function LaunchPage() {
           Explorer {collection.chain.explorer}
         </p>
         <div className="mt-4">
-          <AddChainButton />
+          <AddChainButton chain={collection.chain} />
         </div>
       </div>
 

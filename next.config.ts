@@ -5,6 +5,7 @@ const nextConfig: NextConfig = {
     localPatterns: [
       { pathname: "/**" },
       { pathname: "/traits/**", search: "?v=*" },
+      { pathname: "/inklings-traits/**", search: "?v=*" },
     ],
   },
   async redirects() {

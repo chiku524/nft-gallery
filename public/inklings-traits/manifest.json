@@ -1,0 +1,17 @@
+{
+  "name": "Inklings",
+  "size": 640,
+  "frames": 16,
+  "durationMs": 90,
+  "format": "apng",
+  "loop": 0,
+  "order": [
+    "paper",
+    "bloom",
+    "visage",
+    "gaze",
+    "mark",
+    "adorn"
+  ],
+  "note": "Each trait is a soft ink-wash APNG. Studio stacks them live. Minted tokens flatten to GIF."
+}
