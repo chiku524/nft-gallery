@@ -34,7 +34,7 @@ export function InklingsHeader() {
           <div className="leading-tight">
             <p className="font-heading text-lg tracking-tight">{inklings.name}</p>
             <p className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
-              Ink-wash PFP GIFs
+              Cartoon squid PFPs
             </p>
           </div>
         </Link>

@@ -162,7 +162,7 @@ def token_meta(token_id: int, selection: dict[str, str]) -> dict:
     ]
     return {
         "name": f"Inkling #{token_id}",
-        "description": "A looping ink-wash PFP stacked from painterly trait layers. Minted on Ink.",
+        "description": "A looping cartoon-squid PFP stacked from painterly trait layers. Minted on Ink.",
         "image": f"{token_id}.gif",
         "attributes": attributes,
         "animation_loop": True,
@@ -229,7 +229,7 @@ def write_sidecar(count: int, rows: list[dict], stats: Counter[str], total_bytes
     (OUT / "stats.json").write_text(json.dumps(dict(stats), indent=2) + "\n", encoding="utf-8")
     (OUT / "README.md").write_text(
         "# Inklings OpenSea pack\n\n"
-        f"{count:,} flattened ink-wash loops at {DROP_SIZE}×{DROP_SIZE}, {FRAMES} frames, {DURATION_MS}ms.\n\n"
+        f"{count:,} flattened cartoon-squid loops at {DROP_SIZE}×{DROP_SIZE}, {FRAMES} frames, {DURATION_MS}ms.\n\n"
         "Upload every file in `gifs/` (1.gif–5555.gif) plus `INKLINGS-opensea-drop.csv` "
         "or `opensea-metadata.csv` to an OpenSea Drop on Ink (chain ID 57073).\n"
         "OpenSea Drops play GIF, not APNG. APNGs stay in `images/` for the site and restacks.\n"

@@ -194,7 +194,7 @@ def main() -> None:
         rewrite_csv_filenames(ROOT / "generated" / "inklings" / "INKLINGS-opensea-drop.csv")
         (ROOT / "generated" / "inklings" / "README.md").write_text(
             "# Inklings OpenSea pack\n\n"
-            f"{count:,} flattened ink-wash loops at 512×512, 16 frames, 90ms.\n\n"
+            f"{count:,} flattened cartoon-squid loops at 512×512, 16 frames, 90ms.\n\n"
             "Upload every file in `gifs/` (1.gif–5555.gif) plus `INKLINGS-opensea-drop.csv` "
             "or `opensea-metadata.csv` to an OpenSea Drop on Ink.\n"
             "OpenSea Drops play GIF, not APNG. APNGs stay in `images/` for the site and restacks.\n"

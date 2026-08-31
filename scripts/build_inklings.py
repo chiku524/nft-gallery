@@ -233,178 +233,207 @@ def paint_bloom(kind: str, frame: int) -> np.ndarray:
     return arr
 
 
-# --- visages ----------------------------------------------------------------
+# --- visages: cartoon squids ------------------------------------------------
 
 VISAGES = {
-    "fox": {
-        "fur": "c46a32",
+    "bobtail": {
+        "body": "c46a32",
         "shade": "8a3e18",
-        "cream": "f3d7b0",
+        "belly": "f3d7b0",
         "blush": "e89a8a",
         "dark": "5a2e16",
         "accent": "e8a090",
     },
-    "crane": {
-        "fur": "f4efe6",
-        "shade": "c8b8a0",
-        "cream": "eadcc4",
-        "blush": "e8b4b0",
-        "dark": "4a5568",
-        "accent": "c43c3c",
-    },
-    "koi": {
-        "fur": "e07a3a",
-        "shade": "b04a20",
-        "cream": "f6e8c8",
+    "reef": {
+        "body": "3aa090",
+        "shade": "1e6a60",
+        "belly": "c8f0e4",
         "blush": "f0a090",
-        "dark": "2a2420",
-        "accent": "f8f4ea",
+        "dark": "143c38",
+        "accent": "7edcc8",
     },
-    "cat": {
-        "fur": "c8b8a8",
-        "shade": "8a7a6c",
-        "cream": "efe4d4",
-        "blush": "e8a8a0",
-        "dark": "4a3a32",
-        "accent": "e8b0a4",
+    "dumbo": {
+        "body": "d478a0",
+        "shade": "9a4870",
+        "belly": "f8d0e0",
+        "blush": "f090a8",
+        "dark": "5a2840",
+        "accent": "f0b0c8",
     },
-    "moth": {
-        "fur": "c4b0d4",
-        "shade": "8a7a9a",
-        "cream": "efe8f0",
-        "blush": "d4a0c0",
-        "dark": "3a2a48",
-        "accent": "b090c8",
+    "cuttle": {
+        "body": "6a7ab0",
+        "shade": "3a4a78",
+        "belly": "d8e0f0",
+        "blush": "e8a0b0",
+        "dark": "242848",
+        "accent": "90a0d0",
     },
-    "moon": {
-        "fur": "e8e4dc",
-        "shade": "b8b0a4",
-        "cream": "f4f0e8",
-        "blush": "e0c8b0",
-        "dark": "9a9488",
-        "accent": "d4b86a",
+    "glass": {
+        "body": "d8e8e8",
+        "shade": "90a8b0",
+        "belly": "f8fcfc",
+        "blush": "e8c0c0",
+        "dark": "5a7078",
+        "accent": "c0d8d8",
     },
-    "otter": {
-        "fur": "8a5a3a",
+    "firefly": {
+        "body": "3a2a68",
+        "shade": "1e1840",
+        "belly": "c8b8e8",
+        "blush": "e890c0",
+        "dark": "140c28",
+        "accent": "e8c87a",
+    },
+    "giant": {
+        "body": "8a5a3a",
         "shade": "5a3820",
-        "cream": "f0e0c8",
+        "belly": "f0e0c8",
         "blush": "d49078",
         "dark": "4a2e1e",
         "accent": "c89068",
     },
-    "hare": {
-        "fur": "c4a888",
-        "shade": "8a6e52",
-        "cream": "f2e6d4",
-        "blush": "e8b0a4",
-        "dark": "5a4030",
-        "accent": "d4b898",
+    "inked": {
+        "body": "2a2438",
+        "shade": "14101c",
+        "belly": "6a6080",
+        "blush": "c07090",
+        "dark": "0c0814",
+        "accent": "4a4060",
     },
 }
 
 
+def paint_arms(
+    arr: np.ndarray,
+    cx: float,
+    cy: float,
+    body: np.ndarray,
+    shade: np.ndarray,
+    belly: np.ndarray,
+    sway: float,
+    extra_len: float = 0.0,
+    spread: float = 1.0,
+    long_tentacles: bool = True,
+) -> None:
+    if long_tentacles:
+        for sign in (-1.0, 1.0):
+            tx = cx + sign * (78 + sway * 0.55)
+            ty = cy + 168 + extra_len * 0.28
+            ellipse(arr, tx, ty, 13, 92 + extra_len, body, 0.96, soft=11)
+            ellipse(arr, tx + sign * 22, ty + 72 + extra_len * 0.15, 30, 20, body, 0.94, soft=10)
+            disc(arr, tx + sign * 14, ty + 70, 8, belly, 0.55, soft=5)
+            disc(arr, tx + sign * 24, ty + 78, 6.5, belly, 0.48, soft=5)
+            disc(arr, tx + sign * 8, ty + 40, 5, shade, 0.28, soft=4)
+    arms = (
+        (-78, 0.28, 22, 38),
+        (-56, 0.5, 16, 52),
+        (-34, 0.78, 13, 64),
+        (-12, 1.0, 12, 70),
+        (12, 1.0, 12, 70),
+        (34, 0.78, 13, 64),
+        (56, 0.5, 16, 52),
+        (78, 0.28, 22, 38),
+    )
+    for i, (ox, vert, rx, ry) in enumerate(arms):
+        ox *= spread
+        length = ry + extra_len * 0.16
+        tx = cx + ox + sway * (0.4 if i % 2 == 0 else -0.4)
+        ty = cy + 108 + length * 0.42 * vert
+        ellipse(arr, tx, ty, rx, length * 0.5, body, 0.97, soft=10)
+        disc(arr, tx, ty + length * 0.22 * vert, 6.5, belly, 0.55, soft=5)
+        disc(arr, tx + (4 if ox > 0 else -4), ty + length * 0.08, 4.5, shade, 0.22, soft=4)
+
+
+def paint_fins(
+    arr: np.ndarray,
+    cx: float,
+    cy: float,
+    body: np.ndarray,
+    accent: np.ndarray,
+    blush: np.ndarray,
+    mx: float,
+    kind: str,
+) -> None:
+    if kind == "dumbo":
+        ellipse(arr, cx - 122, cy - 6, 76, 52, accent, 0.9, soft=16)
+        ellipse(arr, cx + 122, cy - 6, 76, 52, accent, 0.9, soft=16)
+        ellipse(arr, cx - 118, cy - 2, 36, 22, blush, 0.38, soft=12)
+        ellipse(arr, cx + 118, cy - 2, 36, 22, blush, 0.38, soft=12)
+        return
+    if kind == "cuttle":
+        ellipse(arr, cx, cy + 8, 188, 40, accent, 0.8, soft=18)
+        ellipse(arr, cx, cy - 40, 158, 30, accent, 0.58, soft=16)
+        return
+    fy = cy - 42
+    ellipse(arr, cx - mx * 0.95, fy, 52, 38, body, 0.96, soft=13)
+    ellipse(arr, cx + mx * 0.95, fy, 52, 38, body, 0.96, soft=13)
+    ellipse(arr, cx - mx * 1.08, fy - 8, 28, 22, accent, 0.4, soft=10)
+    ellipse(arr, cx + mx * 1.08, fy - 8, 28, 22, accent, 0.4, soft=10)
+
+
 def paint_visage(kind: str, frame: int) -> np.ndarray:
     palette = VISAGES[kind]
-    fur, shade, cream, blush, dark, accent = (rgb(palette[k]) for k in ("fur", "shade", "cream", "blush", "dark", "accent"))
+    body, shade, belly, blush, dark, accent = (
+        rgb(palette[k]) for k in ("body", "shade", "belly", "blush", "dark", "accent")
+    )
     arr = blank()
     cx, cy = HEAD[0], HEAD[1] + bob(frame)
-    ellipse(arr, cx, cy + 168, 168, 92, shade, 0.95, soft=22)
-    ellipse(arr, cx, cy + 160, 150, 82, fur, 0.98, soft=18)
-    ellipse(arr, cx, cy + 172, 70, 48, cream, 0.88, soft=16)
-    ellipse(arr, cx, cy + 86, 52, 46, fur, 0.96, soft=14)
+    sway = math.sin(phase(frame)) * 7
+    extra = 36.0 if kind == "reef" else (22.0 if kind == "giant" else 0.0)
+    spread = 0.72 if kind == "bobtail" else (1.14 if kind == "giant" else 1.0)
+    paint_arms(
+        arr,
+        cx,
+        cy,
+        body,
+        shade,
+        belly,
+        sway,
+        extra_len=extra,
+        spread=spread,
+        long_tentacles=kind != "bobtail",
+    )
 
-    if kind == "fox":
-        ellipse(arr, cx - 78, cy - 118, 34, 72, fur, 0.98, soft=12)
-        ellipse(arr, cx + 78, cy - 118, 34, 72, fur, 0.98, soft=12)
-        ellipse(arr, cx - 78, cy - 112, 16, 40, accent, 0.9, soft=10)
-        ellipse(arr, cx + 78, cy - 112, 16, 40, accent, 0.9, soft=10)
-        ellipse(arr, cx, cy - 8, 118, 128, fur, 0.99, soft=18)
-        glow(arr, cx - 40, cy + 10, 50, shade, 0.18)
-        glow(arr, cx + 40, cy + 10, 50, shade, 0.18)
-        ellipse(arr, cx, cy + 38, 62, 48, cream, 0.96, soft=14)
-        disc(arr, cx - 48, cy + 18, 26, blush, 0.28, soft=16)
-        disc(arr, cx + 48, cy + 18, 26, blush, 0.28, soft=16)
-        ellipse(arr, cx, cy + 28, 14, 10, dark, 0.88, soft=6)
-        ellipse(arr, cx, cy + 58, 22, 8, dark, 0.35, soft=6)
-    elif kind == "crane":
-        ellipse(arr, cx, cy - 8, 104, 122, fur, 0.99, soft=18)
-        glow(arr, cx, cy + 16, 70, shade, 0.16)
-        disc(arr, cx, cy - 108, 28, accent, 0.92, soft=12)
-        disc(arr, cx, cy - 108, 14, rgb("f4efe6"), 0.55, soft=8)
-        ellipse(arr, cx, cy + 42, 18, 28, dark, 0.88, soft=8)
-        disc(arr, cx - 40, cy + 16, 22, blush, 0.22, soft=14)
-        disc(arr, cx + 40, cy + 16, 22, blush, 0.22, soft=14)
-        ellipse(arr, cx, cy + 62, 16, 5, dark, 0.28, soft=5)
-    elif kind == "koi":
-        ellipse(arr, cx, cy - 4, 124, 126, cream, 0.99, soft=18)
-        disc(arr, cx - 46, cy - 36, 48, fur, 0.92, soft=16)
-        disc(arr, cx + 52, cy + 18, 40, fur, 0.88, soft=16)
-        disc(arr, cx + 20, cy - 70, 22, dark, 0.55, soft=12)
-        glow(arr, cx, cy + 20, 60, blush, 0.16)
-        disc(arr, cx - 50, cy + 16, 24, blush, 0.24, soft=14)
-        disc(arr, cx + 50, cy + 16, 24, blush, 0.24, soft=14)
-        ellipse(arr, cx, cy + 32, 12, 8, dark, 0.8, soft=6)
-        ellipse(arr, cx - 70, cy + 28, 28, 5, dark, 0.28, soft=6)
-        ellipse(arr, cx + 70, cy + 28, 28, 5, dark, 0.28, soft=6)
-        ellipse(arr, cx, cy + 58, 24, 8, dark, 0.28, soft=6)
-    elif kind == "cat":
-        ellipse(arr, cx - 72, cy - 108, 32, 48, fur, 0.98, soft=12)
-        ellipse(arr, cx + 72, cy - 108, 32, 48, fur, 0.98, soft=12)
-        ellipse(arr, cx - 72, cy - 104, 14, 24, accent, 0.88, soft=9)
-        ellipse(arr, cx + 72, cy - 104, 14, 24, accent, 0.88, soft=9)
-        ellipse(arr, cx, cy - 6, 120, 124, fur, 0.99, soft=18)
-        glow(arr, cx, cy + 18, 64, shade, 0.14)
-        ellipse(arr, cx, cy + 36, 52, 40, cream, 0.9, soft=14)
-        disc(arr, cx - 46, cy + 16, 24, blush, 0.26, soft=14)
-        disc(arr, cx + 46, cy + 16, 24, blush, 0.26, soft=14)
-        ellipse(arr, cx, cy + 26, 11, 8, accent, 0.92, soft=5)
-        ellipse(arr, cx, cy + 56, 18, 6, dark, 0.3, soft=5)
-    elif kind == "moth":
-        ellipse(arr, cx - 110, cy - 20, 70, 110, accent, 0.55, soft=22)
-        ellipse(arr, cx + 110, cy - 20, 70, 110, accent, 0.55, soft=22)
-        ellipse(arr, cx - 96, cy - 140, 10, 56, shade, 0.7, soft=10)
-        ellipse(arr, cx + 96, cy - 140, 10, 56, shade, 0.7, soft=10)
-        disc(arr, cx - 96, cy - 188, 10, cream, 0.7, soft=8)
-        disc(arr, cx + 96, cy - 188, 10, cream, 0.7, soft=8)
-        ellipse(arr, cx, cy - 4, 116, 122, fur, 0.99, soft=18)
-        glow(arr, cx, cy + 16, 60, shade, 0.18)
-        disc(arr, cx - 44, cy + 18, 24, blush, 0.22, soft=14)
-        disc(arr, cx + 44, cy + 18, 24, blush, 0.22, soft=14)
-        ellipse(arr, cx, cy + 30, 10, 7, dark, 0.7, soft=5)
-        ellipse(arr, cx, cy + 56, 16, 5, dark, 0.24, soft=5)
-    elif kind == "moon":
-        ellipse(arr, cx, cy - 6, 122, 126, fur, 0.99, soft=20)
-        glow(arr, cx - 30, cy - 20, 80, cream, 0.22)
-        glow(arr, cx + 40, cy + 24, 70, shade, 0.14)
-        ellipse(arr, cx + 36, cy + 8, 34, 52, accent, 0.28, soft=16)
-        disc(arr, cx - 46, cy + 18, 24, blush, 0.2, soft=16)
-        disc(arr, cx + 46, cy + 18, 24, blush, 0.2, soft=16)
-        ellipse(arr, cx, cy + 30, 10, 7, dark, 0.45, soft=6)
-        ellipse(arr, cx, cy + 56, 16, 5, dark, 0.22, soft=5)
-    elif kind == "otter":
-        ellipse(arr, cx - 62, cy - 96, 28, 28, fur, 0.96, soft=12)
-        ellipse(arr, cx + 62, cy - 96, 28, 28, fur, 0.96, soft=12)
-        ellipse(arr, cx, cy - 4, 122, 124, fur, 0.99, soft=18)
-        ellipse(arr, cx, cy + 28, 70, 58, cream, 0.94, soft=16)
-        glow(arr, cx, cy + 10, 56, shade, 0.16)
-        disc(arr, cx - 48, cy + 14, 24, blush, 0.24, soft=14)
-        disc(arr, cx + 48, cy + 14, 24, blush, 0.24, soft=14)
-        ellipse(arr, cx, cy + 26, 13, 9, dark, 0.86, soft=6)
-        ellipse(arr, cx - 74, cy + 24, 30, 4, dark, 0.26, soft=5)
-        ellipse(arr, cx + 74, cy + 24, 30, 4, dark, 0.26, soft=5)
-        ellipse(arr, cx, cy + 58, 20, 7, dark, 0.3, soft=5)
-    else:  # hare
-        ellipse(arr, cx - 58, cy - 150, 26, 88, fur, 0.98, soft=14)
-        ellipse(arr, cx + 58, cy - 150, 26, 88, fur, 0.98, soft=14)
-        ellipse(arr, cx - 58, cy - 146, 12, 58, accent, 0.82, soft=10)
-        ellipse(arr, cx + 58, cy - 146, 12, 58, accent, 0.82, soft=10)
-        ellipse(arr, cx, cy - 6, 118, 124, fur, 0.99, soft=18)
-        glow(arr, cx, cy + 16, 60, shade, 0.14)
-        ellipse(arr, cx, cy + 36, 54, 42, cream, 0.9, soft=14)
-        disc(arr, cx - 46, cy + 16, 24, blush, 0.26, soft=14)
-        disc(arr, cx + 46, cy + 16, 24, blush, 0.26, soft=14)
-        ellipse(arr, cx, cy + 28, 11, 8, accent, 0.9, soft=5)
-        ellipse(arr, cx, cy + 56, 18, 6, dark, 0.28, soft=5)
+    mx, my = 120.0, 132.0
+    if kind == "bobtail":
+        mx, my = 128.0, 116.0
+    elif kind == "giant":
+        mx, my = 138.0, 146.0
+    elif kind == "glass":
+        mx, my = 114.0, 128.0
+    elif kind == "cuttle":
+        mx, my = 128.0, 118.0
+
+    paint_fins(arr, cx, cy, body, accent, blush, mx, kind)
+
+    mantle_opacity = 0.76 if kind == "glass" else 0.99
+    ellipse(arr, cx, cy - 10, mx + 10, my + 8, shade, 0.42, soft=16)
+    ellipse(arr, cx, cy - 14, mx, my, body, mantle_opacity, soft=15)
+    ellipse(arr, cx, cy - my * 0.62, mx * 0.52, my * 0.42, body, mantle_opacity, soft=13)
+    glow(arr, cx, cy + 16, 72, shade, 0.16)
+    ellipse(arr, cx, cy + 38, mx * 0.56, my * 0.36, belly, 0.64 if kind != "glass" else 0.38, soft=16)
+    disc(arr, cx - 72, cy + 28, 22, blush, 0.28, soft=14)
+    disc(arr, cx + 72, cy + 28, 22, blush, 0.28, soft=14)
+    ellipse(arr, cx + mx * 0.48, cy + 52, 20, 11, shade, 0.55, soft=8)
+    ellipse(arr, cx, cy + 62, 16, 10, shade, 0.5, soft=7)
+    ellipse(arr, cx, cy + 74, 20, 6, dark, 0.28, soft=5)
+
+    if kind == "firefly":
+        for i, (px, py, r) in enumerate(((-40, -58, 10), (36, -40, 8), (8, 20, 7), (-18, -12, 6))):
+            pulse = 0.45 + 0.35 * math.sin(phase(frame) + i * 0.9)
+            glow(arr, cx + px, cy + py, r * 2.2, accent, pulse)
+            disc(arr, cx + px, cy + py, r, accent, 0.8, soft=6)
+    elif kind == "inked":
+        disc(arr, cx + 78, cy + 96, 36, dark, 0.48, soft=18)
+        disc(arr, cx - 70, cy + 118, 24, dark, 0.34, soft=14)
+        disc(arr, cx + 22, cy - 56, 18, accent, 0.35, soft=12)
+    elif kind == "glass":
+        glow(arr, cx - 24, cy - 48, 72, belly, 0.3)
+        ellipse(arr, cx - 28, cy - 44, 36, 22, rgb("ffffff"), 0.24, soft=12)
+    elif kind == "reef":
+        ellipse(arr, cx - 32, cy - 64, 22, 16, accent, 0.48, soft=10)
+        ellipse(arr, cx + 44, cy - 24, 18, 14, accent, 0.36, soft=10)
+        disc(arr, cx - 8, cy - 20, 10, accent, 0.32, soft=8)
     return arr
 
 
@@ -413,8 +442,8 @@ def paint_visage(kind: str, frame: int) -> np.ndarray:
 def paint_gaze(kind: str, frame: int) -> np.ndarray:
     arr = blank()
     cx, cy = HEAD[0], HEAD[1] + bob(frame)
-    ly, ry = cx - 38, cx + 38
-    ey = cy - 8
+    ly, ry = cx - 48, cx + 48
+    ey = cy + 4
     closed = blink_amount(frame)
     left_closed = 1.0 if kind == "wink" else closed
     right_closed = closed
@@ -435,22 +464,23 @@ def paint_gaze(kind: str, frame: int) -> np.ndarray:
 
     def one_eye(ex: float, shut: float) -> None:
         open_amt = 1.0 - shut
-        ry_eye = 18.0 * max(open_amt, 0.08)
+        ry_eye = 28.0 * max(open_amt, 0.08)
         if shut >= 0.92:
-            ellipse(arr, ex, ey, 20, 4, lid, 0.75, soft=5)
+            ellipse(arr, ex, ey, 30, 5, lid, 0.78, soft=5)
             return
-        ellipse(arr, ex, ey, 22, ry_eye, sclera, 0.96, soft=6)
-        iris_y = ey + (2 if kind == "lidded" else 0)
-        ellipse(arr, ex, iris_y, 12, 12 * open_amt, iris, 0.96, soft=5)
-        ellipse(arr, ex, iris_y, 6, 6 * open_amt, pupil, 0.94, soft=3)
+        ellipse(arr, ex, ey, 32, ry_eye, sclera, 0.98, soft=6)
+        iris_y = ey + (3 if kind == "lidded" else 0)
+        ellipse(arr, ex, iris_y, 18, 18 * open_amt, iris, 0.97, soft=5)
+        ellipse(arr, ex, iris_y, 9, 9 * open_amt, pupil, 0.95, soft=3)
         if kind == "ember":
-            glow(arr, ex, iris_y, 16, rgb("ff8a50"), 0.35 * open_amt)
-        disc(arr, ex - 4, ey - 5 * open_amt, 3.4, shine, 0.85 * open_amt, soft=3)
+            glow(arr, ex, iris_y, 22, rgb("ff8a50"), 0.38 * open_amt)
+        disc(arr, ex - 6, ey - 8 * open_amt, 5.2, shine, 0.9 * open_amt, soft=3)
+        disc(arr, ex + 8, ey + 4 * open_amt, 2.4, shine, 0.55 * open_amt, soft=2)
         if kind == "dew":
-            disc(arr, ex + 5, ey + 4 * open_amt, 2.2, shine, 0.7 * open_amt, soft=2)
-            disc(arr, ex, ey + 16, 3.0, rgb("c8d8e8"), 0.35 * open_amt, soft=4)
+            disc(arr, ex + 6, ey + 6 * open_amt, 2.6, shine, 0.7 * open_amt, soft=2)
+            disc(arr, ex, ey + 22, 3.4, rgb("c8d8e8"), 0.35 * open_amt, soft=4)
         if kind in ("lidded", "sleepy"):
-            ellipse(arr, ex, ey - ry_eye * 0.7, 22, 7, lid, 0.28, soft=6)
+            ellipse(arr, ex, ey - ry_eye * 0.72, 32, 9, lid, 0.3, soft=6)
 
     one_eye(ly, left_closed)
     one_eye(ry, right_closed)
@@ -494,21 +524,22 @@ def paint_adorn(kind: str, frame: int) -> np.ndarray:
     t = phase(frame)
     sway = math.sin(t) * 6
     if kind == "flow":
-        hair = rgb("2a1840")
-        shine = rgb("6a4a8a")
-        ellipse(arr, cx - 110 + sway * 0.3, cy + 20, 56, 130, hair, 0.88, soft=20)
-        ellipse(arr, cx + 110 + sway * 0.3, cy + 20, 56, 130, hair, 0.88, soft=20)
-        ellipse(arr, cx, cy - 118, 100, 46, hair, 0.86, soft=18)
-        glow(arr, cx - 90, cy + 10, 40, shine, 0.18)
-        glow(arr, cx + 90, cy + 10, 40, shine, 0.18)
+        kelp = rgb("1e3a32")
+        shine = rgb("4a8a72")
+        ellipse(arr, cx - 118 + sway * 0.4, cy + 8, 28, 150, kelp, 0.82, soft=16)
+        ellipse(arr, cx + 118 + sway * 0.4, cy + 8, 28, 150, kelp, 0.82, soft=16)
+        ellipse(arr, cx - 96 + sway * 0.25, cy + 40, 18, 120, kelp, 0.7, soft=14)
+        ellipse(arr, cx + 96 + sway * 0.25, cy + 40, 18, 120, kelp, 0.7, soft=14)
+        disc(arr, cx - 118, cy - 40, 10, shine, 0.28, soft=8)
+        disc(arr, cx + 118, cy - 20, 8, shine, 0.22, soft=7)
     elif kind == "bun":
-        silk = rgb("2a1840")
-        pin = rgb("e8c87a")
-        ellipse(arr, cx, cy - 128, 48, 42, silk, 0.94, soft=14)
-        disc(arr, cx, cy - 136, 28, rgb("3a2460"), 0.8, soft=12)
-        disc(arr, cx + 2, cy - 140, 8, pin, 0.8, soft=6)
-        ellipse(arr, cx - 92, cy - 20, 36, 80, silk, 0.55, soft=16)
-        ellipse(arr, cx + 92, cy - 20, 36, 80, silk, 0.55, soft=16)
+        pearl = rgb("f4efe6")
+        gold = rgb("e8c87a")
+        disc(arr, cx, cy - 142, 22, pearl, 0.95, soft=8)
+        disc(arr, cx - 22, cy - 128, 16, pearl, 0.9, soft=7)
+        disc(arr, cx + 22, cy - 128, 16, pearl, 0.9, soft=7)
+        disc(arr, cx, cy - 148, 7, gold, 0.7, soft=4)
+        disc(arr, cx - 6, cy - 146, 5, rgb("ffffff"), 0.55, soft=3)
     elif kind == "ribbon":
         ribbon = rgb("c43c3c")
         ellipse(arr, cx - 8, cy - 108, 70, 14, ribbon, 0.82, soft=10)
@@ -558,14 +589,14 @@ TRAIT_SPEC = {
         ("silver", "Silver Veil", 12),
     ],
     "visage": [
-        ("fox", "Fox", 16),
-        ("crane", "Crane", 14),
-        ("koi", "Koi", 14),
-        ("cat", "Cat", 14),
-        ("moth", "Moth", 12),
-        ("moon", "Moon", 12),
-        ("otter", "Otter", 10),
-        ("hare", "Hare", 8),
+        ("bobtail", "Bobtail", 16),
+        ("reef", "Reef", 14),
+        ("dumbo", "Dumbo", 14),
+        ("cuttle", "Cuttle", 14),
+        ("glass", "Glass", 12),
+        ("firefly", "Firefly", 12),
+        ("giant", "Giant", 10),
+        ("inked", "Inked", 8),
     ],
     "gaze": [
         ("bright", "Bright", 22),
@@ -576,16 +607,16 @@ TRAIT_SPEC = {
         ("dew", "Dew", 14),
     ],
     "mark": [
-        ("none", "Clean face", 34),
+        ("none", "Clean mantle", 34),
         ("splash", "Ink Splash", 16),
         ("drip", "Slow Drip", 14),
         ("seal", "Red Seal", 12),
         ("streak", "Brush Streak", 12),
     ],
     "adorn": [
-        ("none", "Bare head", 22),
-        ("flow", "Flow Hair", 16),
-        ("bun", "Silk Bun", 14),
+        ("none", "Bare mantle", 22),
+        ("flow", "Kelp Flow", 16),
+        ("bun", "Pearl Cluster", 14),
         ("ribbon", "Ink Ribbon", 14),
         ("crown", "Soft Crown", 12),
         ("hood", "Wash Hood", 10),
@@ -604,22 +635,22 @@ PAINTERS = {
 STACK = ("paper", "bloom", "visage", "gaze", "mark", "adorn")
 
 SIGNATURES = [
-    {"paper": "indigo", "bloom": "violet", "visage": "fox", "gaze": "bright", "mark": "none", "adorn": "flow"},
-    {"paper": "peach", "bloom": "gold", "visage": "crane", "gaze": "lidded", "mark": "seal", "adorn": "bun"},
-    {"paper": "celadon", "bloom": "teal", "visage": "koi", "gaze": "dew", "mark": "splash", "adorn": "none"},
-    {"paper": "charcoal", "bloom": "none", "visage": "cat", "gaze": "wink", "mark": "drip", "adorn": "ribbon"},
-    {"paper": "rose", "bloom": "coral", "visage": "moth", "gaze": "ember", "mark": "none", "adorn": "hood"},
-    {"paper": "storm", "bloom": "silver", "visage": "moon", "gaze": "sleepy", "mark": "streak", "adorn": "crown"},
-    {"paper": "wine", "bloom": "gold", "visage": "otter", "gaze": "bright", "mark": "seal", "adorn": "flow"},
-    {"paper": "cream", "bloom": "violet", "visage": "hare", "gaze": "dew", "mark": "none", "adorn": "bun"},
-    {"paper": "indigo", "bloom": "silver", "visage": "crane", "gaze": "ember", "mark": "streak", "adorn": "hood"},
-    {"paper": "peach", "bloom": "coral", "visage": "fox", "gaze": "wink", "mark": "splash", "adorn": "crown"},
-    {"paper": "celadon", "bloom": "none", "visage": "otter", "gaze": "lidded", "mark": "none", "adorn": "ribbon"},
-    {"paper": "charcoal", "bloom": "violet", "visage": "moth", "gaze": "bright", "mark": "drip", "adorn": "flow"},
-    {"paper": "rose", "bloom": "gold", "visage": "moon", "gaze": "dew", "mark": "seal", "adorn": "none"},
-    {"paper": "storm", "bloom": "teal", "visage": "cat", "gaze": "sleepy", "mark": "none", "adorn": "bun"},
-    {"paper": "wine", "bloom": "coral", "visage": "hare", "gaze": "ember", "mark": "splash", "adorn": "hood"},
-    {"paper": "cream", "bloom": "gold", "visage": "koi", "gaze": "bright", "mark": "streak", "adorn": "crown"},
+    {"paper": "indigo", "bloom": "violet", "visage": "bobtail", "gaze": "bright", "mark": "none", "adorn": "flow"},
+    {"paper": "peach", "bloom": "gold", "visage": "reef", "gaze": "lidded", "mark": "seal", "adorn": "bun"},
+    {"paper": "celadon", "bloom": "teal", "visage": "dumbo", "gaze": "dew", "mark": "splash", "adorn": "none"},
+    {"paper": "charcoal", "bloom": "none", "visage": "cuttle", "gaze": "wink", "mark": "drip", "adorn": "ribbon"},
+    {"paper": "rose", "bloom": "coral", "visage": "glass", "gaze": "ember", "mark": "none", "adorn": "hood"},
+    {"paper": "storm", "bloom": "silver", "visage": "firefly", "gaze": "sleepy", "mark": "streak", "adorn": "crown"},
+    {"paper": "wine", "bloom": "gold", "visage": "giant", "gaze": "bright", "mark": "seal", "adorn": "flow"},
+    {"paper": "cream", "bloom": "violet", "visage": "inked", "gaze": "dew", "mark": "none", "adorn": "bun"},
+    {"paper": "indigo", "bloom": "silver", "visage": "reef", "gaze": "ember", "mark": "streak", "adorn": "hood"},
+    {"paper": "peach", "bloom": "coral", "visage": "bobtail", "gaze": "wink", "mark": "splash", "adorn": "crown"},
+    {"paper": "celadon", "bloom": "none", "visage": "giant", "gaze": "lidded", "mark": "none", "adorn": "ribbon"},
+    {"paper": "charcoal", "bloom": "violet", "visage": "glass", "gaze": "bright", "mark": "drip", "adorn": "flow"},
+    {"paper": "rose", "bloom": "gold", "visage": "firefly", "gaze": "dew", "mark": "seal", "adorn": "none"},
+    {"paper": "storm", "bloom": "teal", "visage": "cuttle", "gaze": "sleepy", "mark": "none", "adorn": "bun"},
+    {"paper": "wine", "bloom": "coral", "visage": "inked", "gaze": "ember", "mark": "splash", "adorn": "hood"},
+    {"paper": "cream", "bloom": "gold", "visage": "dumbo", "gaze": "bright", "mark": "streak", "adorn": "crown"},
 ]
 
 
@@ -717,16 +748,16 @@ def build_samples() -> None:
 
 
 COLLECTION_DESCRIPTION = (
-    "Inklings is a 5,555-piece collection of looping ink-wash portraits on Ink. "
-    "Each face is stacked from six painterly layers — paper, bloom, visage, gaze, mark, and adorn — "
-    "then flattened onto one 16-frame GIF. Washes drift, eyes blink, edges stay soft. Nothing is pixelated."
+    "Inklings is a 5,555-piece collection of looping cartoon-squid PFPs on Ink. "
+    "Each squid is stacked from six painterly layers — paper, bloom, visage, gaze, mark, and adorn — "
+    "then flattened onto one 16-frame GIF. Washes drift, eyes blink, tentacles sway. Nothing is pixelated."
 )
 
 COLLECTION_STORY = (
-    "Inklings are painted, not pixelated.\n\n"
-    "A 5,555-piece collection of looping ink-wash PFP portraits on Ink, Kraken’s Ethereum layer 2. "
+    "Inklings are painted cartoon squids, not pixel art.\n\n"
+    "A 5,555-piece collection of looping ink-wash squid PFPs on Ink, Kraken’s Ethereum layer 2. "
     "Each Inkling is stacked from six painterly layers — paper, bloom, visage, gaze, mark, and adorn — "
-    "then flattened onto one 16-frame GIF. Dye drifts. Eyes blink. Soft edges only.\n\n"
+    "then flattened onto one 16-frame GIF. Dye drifts. Eyes blink. Tentacles sway. Soft edges only.\n\n"
     "Minting on Ink (chain ID 57073). Gas is ETH. 0.006 ETH to mint."
 )
 

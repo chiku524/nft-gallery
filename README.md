@@ -6,7 +6,7 @@ A house of NFT collections. Each drop is its own sub-project — studio, traits,
 
 **Afterimages** is the second: a 12-piece OpenSea drop of unique 1:1 APNG paintings. No trait stack — each token is a finished loop.
 
-**Inklings** is the third: 5,555 smooth ink-wash PFP GIFs, for OpenSea on Ink (chain ID `57073`).
+**Inklings** is the third: 5,555 cartoon-squid PFP GIFs, for OpenSea on Ink (chain ID `57073`).
 
 ## What’s in this repo
 

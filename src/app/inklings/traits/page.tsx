@@ -17,7 +17,7 @@ export default function InklingsTraitsPage() {
       <p className="mt-3 max-w-2xl text-muted-foreground">
         Each file is an APNG on a {inklings.canvas}×{inklings.canvas} canvas: {INKLING_FRAMES} frames,{" "}
         {INKLING_DURATION_MS}ms, looping. Studio stacks paper → bloom → visage → gaze → mark → adorn.
-        Visage, gaze, mark, and adorn share one breathe so the portrait stays locked.
+        Visage, gaze, mark, and adorn share one breathe so the squid stays locked.
       </p>
 
       <div className="mt-10 space-y-14">

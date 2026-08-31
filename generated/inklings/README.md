@@ -1,6 +1,6 @@
 # Inklings OpenSea pack
 
-5,555 flattened ink-wash loops at 512×512, 16 frames, 90ms.
+5,555 flattened cartoon-squid loops at 512×512, 16 frames, 90ms.
 
 Upload every file in `gifs/` (1.gif–5555.gif) plus `INKLINGS-opensea-drop.csv` or `opensea-metadata.csv` to an OpenSea Drop on Ink (chain ID 57073).
 OpenSea Drops play GIF, not APNG. APNGs stay in `images/` for the site and restacks.

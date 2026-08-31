@@ -14,7 +14,7 @@ export default function InklingsStudioPage() {
       <h1 className="mt-2 font-heading text-4xl">Layered ink-wash mixer</h1>
       <p className="mt-3 max-w-2xl text-muted-foreground">
         {inklings.name} plays every trait as its own looping wash. The preview is a live stack — paper,
-        blooms, visages, and marks keep moving instead of baking to a still.
+        blooms, squids, and marks keep moving instead of baking to a still.
       </p>
       <div className="mt-10">
         <InklingsStudio />

@@ -45,7 +45,7 @@ export default function InklingsHomePage() {
         <div className="grid gap-8 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground">The drop</p>
-            <h2 className="mt-2 font-heading text-3xl sm:text-4xl">Painted, not pixelated. On Ink.</h2>
+            <h2 className="mt-2 font-heading text-3xl sm:text-4xl">Cartoon squids, painted on Ink.</h2>
             <div className="mt-4 space-y-4 text-muted-foreground">
               {inklings.story.split("\n\n").map((paragraph) => (
                 <p key={paragraph.slice(0, 40)}>{paragraph}</p>
@@ -109,7 +109,7 @@ export default function InklingsHomePage() {
               <p className="text-xs uppercase tracking-[0.22em] text-[#e8c87a]">How the stack works</p>
               <h2 className="mt-2 font-heading text-4xl">Studio plays layers. The drop flattens them.</h2>
               <p className="mt-4 text-[#f6efe4]/75">
-                Each trait is its own looping wash. The studio stacks those files so paper, faces, and
+                Each trait is its own looping wash. The studio stacks those files so paper, squids, and
                 marks keep moving. Minted tokens composite the same 16 frames into one GIF OpenSea can
                 list on Ink.
               </p>

@@ -1,10 +1,10 @@
 # Inklings
 
-Looping **ink-wash PFP GIFs**. A **5,555-piece** illustrated portrait collection built to mint on **Ink** (chain ID `57073`) and list on **OpenSea**.
+Looping **cartoon-squid PFP GIFs**. A **5,555-piece** illustrated squid collection built to mint on **Ink** (chain ID `57073`) and list on **OpenSea**.
 
 This collection lives inside **NFT Gallery** at `/inklings`.
 
-Nothing is pixelated. Every layer is a soft, anti-aliased wash — paper grain, painterly visages, blinking eyes — composited onto one 16-frame clock. OpenSea Drops play GIF, so the marketplace pack is the GIF bake.
+Nothing is pixelated. Every layer is a soft, anti-aliased wash — paper grain, cartoon squids, blinking eyes — composited onto one 16-frame clock. OpenSea Drops play GIF, so the marketplace pack is the GIF bake.
 
 ## What’s in the drop
 
@@ -37,7 +37,7 @@ Every layer is already seated on the 640 canvas. Studio and the generator only s
 5. Mark
 6. Adorn
 
-Visage, gaze, mark, and adorn share one breathe so the portrait stays locked. Paper and bloom move on their own washes. Minted tokens composite frame *n* of every layer so the marketplace file stays in sync.
+Visage, gaze, mark, and adorn share one breathe so the squid stays locked. Paper and bloom move on their own washes. Minted tokens composite frame *n* of every layer so the marketplace file stays in sync.
 
 Tokens 1–8 of the generated drop are the eight signature looks.
 

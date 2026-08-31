@@ -9,7 +9,7 @@ export function InklingsFooter() {
         <div>
           <p className="font-heading text-lg">{inklings.name}</p>
           <p className="text-sm text-muted-foreground">
-            {inklings.supply.toLocaleString()} ink-wash PFPs · {inklings.chain.name} · OpenSea
+            {inklings.supply.toLocaleString()} cartoon squid PFPs · {inklings.chain.name} · OpenSea
           </p>
         </div>
         <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm">

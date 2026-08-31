@@ -14,7 +14,7 @@ export type InklingTraitCategory = {
 };
 
 /** Bump when APNG layers change so the studio does not keep a stale loop. */
-export const INKLING_ART_VERSION = "ink-wash-v1";
+export const INKLING_ART_VERSION = "cartoon-squid-v1";
 
 export const INKLING_FRAMES = 16;
 export const INKLING_DURATION_MS = 90;
@@ -43,7 +43,7 @@ export const inklingTraitCategories: InklingTraitCategory[] = [
   {
     id: "bloom",
     label: "Bloom",
-    blurb: "A soft aura that sits behind the portrait and breathes.",
+    blurb: "A soft aura that sits behind the squid and breathes.",
     noneLabel: "No bloom",
     traits: [
       { id: "violet", name: "Violet Haze", image: "/inklings-traits/bloom/violet.png", rarity: 16 },
@@ -56,22 +56,22 @@ export const inklingTraitCategories: InklingTraitCategory[] = [
   {
     id: "visage",
     label: "Visage",
-    blurb: "Eight illustrated faces. Soft edges, ink-wash fur, one shared breathe.",
+    blurb: "Eight cartoon squids. Mantle, fins, tentacles, one shared breathe.",
     traits: [
-      { id: "fox", name: "Fox", image: "/inklings-traits/visage/fox.png", rarity: 16 },
-      { id: "crane", name: "Crane", image: "/inklings-traits/visage/crane.png", rarity: 14 },
-      { id: "koi", name: "Koi", image: "/inklings-traits/visage/koi.png", rarity: 14 },
-      { id: "cat", name: "Cat", image: "/inklings-traits/visage/cat.png", rarity: 14 },
-      { id: "moth", name: "Moth", image: "/inklings-traits/visage/moth.png", rarity: 12 },
-      { id: "moon", name: "Moon", image: "/inklings-traits/visage/moon.png", rarity: 12 },
-      { id: "otter", name: "Otter", image: "/inklings-traits/visage/otter.png", rarity: 10 },
-      { id: "hare", name: "Hare", image: "/inklings-traits/visage/hare.png", rarity: 8 },
+      { id: "bobtail", name: "Bobtail", image: "/inklings-traits/visage/bobtail.png", rarity: 16 },
+      { id: "reef", name: "Reef", image: "/inklings-traits/visage/reef.png", rarity: 14 },
+      { id: "dumbo", name: "Dumbo", image: "/inklings-traits/visage/dumbo.png", rarity: 14 },
+      { id: "cuttle", name: "Cuttle", image: "/inklings-traits/visage/cuttle.png", rarity: 14 },
+      { id: "glass", name: "Glass", image: "/inklings-traits/visage/glass.png", rarity: 12 },
+      { id: "firefly", name: "Firefly", image: "/inklings-traits/visage/firefly.png", rarity: 12 },
+      { id: "giant", name: "Giant", image: "/inklings-traits/visage/giant.png", rarity: 10 },
+      { id: "inked", name: "Inked", image: "/inklings-traits/visage/inked.png", rarity: 8 },
     ],
   },
   {
     id: "gaze",
     label: "Gaze",
-    blurb: "Eyes locked to the visage bob, with their own blinks and shine.",
+    blurb: "Big cartoon eyes locked to the squid bob, with their own blinks and shine.",
     traits: [
       { id: "bright", name: "Bright", image: "/inklings-traits/gaze/bright.png", rarity: 22 },
       { id: "lidded", name: "Lidded", image: "/inklings-traits/gaze/lidded.png", rarity: 18 },
@@ -84,8 +84,8 @@ export const inklingTraitCategories: InklingTraitCategory[] = [
   {
     id: "mark",
     label: "Mark",
-    blurb: "Wet ink on the portrait — splashes, drips, and seals.",
-    noneLabel: "Clean face",
+    blurb: "Wet ink on the squid — splashes, drips, and seals.",
+    noneLabel: "Clean mantle",
     traits: [
       { id: "splash", name: "Ink Splash", image: "/inklings-traits/mark/splash.png", rarity: 16 },
       { id: "drip", name: "Slow Drip", image: "/inklings-traits/mark/drip.png", rarity: 14 },
@@ -96,11 +96,11 @@ export const inklingTraitCategories: InklingTraitCategory[] = [
   {
     id: "adorn",
     label: "Adorn",
-    blurb: "Hair and ornaments that ride the same bob so they stay glued on.",
-    noneLabel: "Bare head",
+    blurb: "Kelp, pearls, and ornaments that ride the same bob so they stay glued on.",
+    noneLabel: "Bare mantle",
     traits: [
-      { id: "flow", name: "Flow Hair", image: "/inklings-traits/adorn/flow.png", rarity: 16 },
-      { id: "bun", name: "Silk Bun", image: "/inklings-traits/adorn/bun.png", rarity: 14 },
+      { id: "flow", name: "Kelp Flow", image: "/inklings-traits/adorn/flow.png", rarity: 16 },
+      { id: "bun", name: "Pearl Cluster", image: "/inklings-traits/adorn/bun.png", rarity: 14 },
       { id: "ribbon", name: "Ink Ribbon", image: "/inklings-traits/adorn/ribbon.png", rarity: 14 },
       { id: "crown", name: "Soft Crown", image: "/inklings-traits/adorn/crown.png", rarity: 12 },
       { id: "hood", name: "Wash Hood", image: "/inklings-traits/adorn/hood.png", rarity: 10 },
@@ -124,7 +124,7 @@ export function findInklingTrait(categoryId: InklingTraitCategory["id"], traitId
 export const defaultInklingSelection = {
   paper: "indigo",
   bloom: "violet",
-  visage: "fox",
+  visage: "bobtail",
   gaze: "bright",
   mark: "none",
   adorn: "flow",
