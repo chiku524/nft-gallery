@@ -3,7 +3,9 @@ export const inklings = {
   symbol: "INKL",
   tagline: "Smooth ink-wash PFP GIFs that never sit still.",
   description:
-    "Inklings is a 5,555-piece collection of illustrated PFP portraits. Each face is stacked from painterly GIF layers — paper washes drift, blooms breathe, visages bob, eyes blink — then flattened onto one shared 16-frame clock. Soft edges only. Minting on Ink.",
+    "Inklings is a 5,555-piece collection of looping ink-wash portraits on Ink. Each face is stacked from six painterly layers — paper, bloom, visage, gaze, mark, and adorn — then flattened onto one 16-frame GIF. Washes drift, eyes blink, edges stay soft. Nothing is pixelated.",
+  story:
+    "Inklings are painted, not pixelated.\n\nA 5,555-piece collection of looping ink-wash PFP portraits on Ink, Kraken’s Ethereum layer 2. Each Inkling is stacked from six painterly layers — paper, bloom, visage, gaze, mark, and adorn — then flattened onto one 16-frame GIF. Dye drifts. Eyes blink. Soft edges only.\n\nMinting on Ink (chain ID 57073). Gas is ETH. 0.006 ETH to mint.",
   supply: 5555,
   mintPriceEth: "0.006",
   frames: 16,

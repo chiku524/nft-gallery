@@ -10,7 +10,8 @@ Nothing is pixelated. Every layer is a soft, anti-aliased wash — paper grain, 
 
 - Trait art at `public/inklings-traits/` — each file is an APNG on a shared 640×640, 16-frame, 90ms loop
 - Sample tokens at `public/inklings-preview/` (GIFs)
-- Collection logo, banner, and 1000×1000 collection GIF in `public/brand/`
+- Collection logo, featured image, OpenSea banner, site banner, and 1000×1000 collection GIF in `public/brand/`
+- Paste-ready project description at `public/metadata/inklings-description.txt`
 - Trait studio at `/inklings/studio` — a live CSS stack of APNG `<img>` layers
 - `contracts/Inklings.sol` — ERC-721 with a 5,555 supply cap
 

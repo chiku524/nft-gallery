@@ -1,0 +1,5 @@
+Inklings are painted, not pixelated.
+
+A 5,555-piece collection of looping ink-wash PFP portraits on Ink, Kraken’s Ethereum layer 2. Each Inkling is stacked from six painterly layers — paper, bloom, visage, gaze, mark, and adorn — then flattened onto one 16-frame GIF. Dye drifts. Eyes blink. Soft edges only.
+
+Minting on Ink (chain ID 57073). Gas is ETH. 0.006 ETH to mint.

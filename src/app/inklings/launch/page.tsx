@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { AddChainButton } from "@/components/add-chain-button";
+import { ApngImage } from "@/components/apng-image";
 import { inklings } from "@/data/inklings";
 
 export const metadata: Metadata = {
@@ -14,7 +15,7 @@ const steps = [
   },
   {
     title: "Create a Drop on Ink",
-    body: `In OpenSea Studio, create a Drop on ${inklings.chain.name} (chain ID ${inklings.chain.chainId}). Set supply to ${inklings.supply.toLocaleString()}, add the logo and banner from public/brand, and keep the mint price at ${inklings.mintPriceEth} ETH or whatever you choose.`,
+    body: `In OpenSea Studio, create a Drop on ${inklings.chain.name} (chain ID ${inklings.chain.chainId}). Set supply to ${inklings.supply.toLocaleString()}, paste the project description, upload the listing kit from public/brand, and keep the mint price at ${inklings.mintPriceEth} ETH or whatever you choose.`,
   },
   {
     title: "Bulk-upload GIFs + CSV",
@@ -49,6 +50,44 @@ export default function InklingsLaunchPage() {
           </div>
         ))}
       </dl>
+
+      <div className="mt-10 rounded-[1.75rem] border bg-card p-6 sm:p-8">
+        <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground">Project description</p>
+        <h2 className="mt-2 font-heading text-2xl">Paste this into OpenSea.</h2>
+        <p className="mt-2 text-sm text-muted-foreground">
+          Collection name {inklings.name}. Symbol {inklings.symbol}. Category PFPs. The same copy lives in{" "}
+          <code className="rounded bg-secondary px-1.5 py-0.5 text-xs">public/metadata/inklings-description.txt</code>.
+        </p>
+        <pre className="mt-5 overflow-x-auto whitespace-pre-wrap rounded-2xl bg-background p-4 text-sm leading-relaxed text-foreground">
+          {inklings.story}
+        </pre>
+      </div>
+
+      <div className="mt-8 rounded-[1.75rem] border bg-card p-6 sm:p-8">
+        <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground">Listing kit</p>
+        <h2 className="mt-2 font-heading text-2xl">Logo, featured, banner, collection GIF.</h2>
+        <p className="mt-2 text-sm text-muted-foreground">
+          OpenSea wants a square logo, a 3:2 featured image, and a wide 4:1 banner — three different pictures,
+          no type on the marketplace images. The site hero can reuse the taller banner.
+        </p>
+        <ul className="mt-6 grid gap-4 sm:grid-cols-2">
+          {[
+            ["Logo", "public/brand/logo-inklings.png", "512×512, 1:1", "/brand/logo-inklings.png"],
+            ["Featured", "public/brand/featured-inklings.jpg", "1200×800, 3:2", "/brand/featured-inklings.jpg"],
+            ["OpenSea banner", "public/brand/banner-inklings-opensea.jpg", "2800×700, 4:1", "/brand/banner-inklings-opensea.jpg"],
+            ["Collection GIF", "public/brand/collection-inklings.gif", "1000×1000 loop", "/brand/collection-inklings.gif"],
+          ].map(([label, path, size, src]) => (
+            <li key={label} className="overflow-hidden rounded-2xl border bg-background">
+              <ApngImage src={src} alt={`${label} preview`} className="aspect-[3/2] w-full object-cover" />
+              <div className="space-y-1 p-3">
+                <p className="font-medium">{label}</p>
+                <p className="text-xs text-muted-foreground">{size}</p>
+                <p className="break-all text-xs text-muted-foreground">{path}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
 
       <div className="mt-8 rounded-2xl border bg-card p-5">
         <p className="font-heading text-xl">Wallet setup</p>

@@ -1,9 +1,11 @@
 {
   "name": "Inklings",
   "symbol": "INKL",
-  "description": "Inklings is a 5,555-piece collection of illustrated PFP portraits. Each face is stacked from painterly GIF layers \u2014 paper washes drift, blooms breathe, visages bob, eyes blink \u2014 then flattened onto one shared 16-frame clock. Soft edges only. Minting on Ink.",
+  "description": "Inklings is a 5,555-piece collection of looping ink-wash portraits on Ink. Each face is stacked from six painterly layers \u2014 paper, bloom, visage, gaze, mark, and adorn \u2014 then flattened onto one 16-frame GIF. Washes drift, eyes blink, edges stay soft. Nothing is pixelated.",
   "image": "/brand/collection-inklings.gif",
+  "featured_image": "/brand/featured-inklings.jpg",
   "banner_image": "/brand/banner-inklings.png",
+  "opensea_banner_image": "/brand/banner-inklings-opensea.jpg",
   "external_link": "/inklings",
   "seller_fee_basis_points": 500,
   "fee_recipient": "0x0000000000000000000000000000000000000000"

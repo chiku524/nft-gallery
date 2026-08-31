@@ -45,8 +45,12 @@ export default function InklingsHomePage() {
         <div className="grid gap-8 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground">The drop</p>
-            <h2 className="mt-2 font-heading text-3xl sm:text-4xl">Six painterly layers. One shared clock.</h2>
-            <p className="mt-4 text-muted-foreground">{inklings.description}</p>
+            <h2 className="mt-2 font-heading text-3xl sm:text-4xl">Painted, not pixelated. On Ink.</h2>
+            <div className="mt-4 space-y-4 text-muted-foreground">
+              {inklings.story.split("\n\n").map((paragraph) => (
+                <p key={paragraph.slice(0, 40)}>{paragraph}</p>
+              ))}
+            </div>
             <dl className="mt-8 grid grid-cols-2 gap-4">
               {[
                 ["Supply", inklings.supply.toLocaleString()],

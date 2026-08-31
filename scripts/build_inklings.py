@@ -10,11 +10,12 @@ from __future__ import annotations
 
 import json
 import math
+import argparse
 import sys
 from pathlib import Path
 
 import numpy as np
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
@@ -715,50 +716,76 @@ def build_samples() -> None:
     (META_DIR / "inklings-samples.json").write_text(json.dumps(samples, indent=2) + "\n", encoding="utf-8")
 
 
-def build_brand() -> None:
-    BRAND_DIR.mkdir(parents=True, exist_ok=True)
-    logo_frames = compose_selection(SIGNATURES[0])
-    logo = logo_frames[0].copy()
-    mask = Image.new("L", (SIZE, SIZE), 0)
-    ImageDraw.Draw(mask).ellipse((28, 28, SIZE - 28, SIZE - 28), fill=255)
-    logo.putalpha(Image.composite(logo.split()[-1], Image.new("L", (SIZE, SIZE), 0), mask))
-    logo.save(BRAND_DIR / "logo-inklings.png")
-    save_apng(logo_frames, BRAND_DIR / "logo-inklings-loop.png")
+COLLECTION_DESCRIPTION = (
+    "Inklings is a 5,555-piece collection of looping ink-wash portraits on Ink. "
+    "Each face is stacked from six painterly layers — paper, bloom, visage, gaze, mark, and adorn — "
+    "then flattened onto one 16-frame GIF. Washes drift, eyes blink, edges stay soft. Nothing is pixelated."
+)
 
-    banner = Image.new("RGBA", (1500, 560), (26, 16, 40, 255))
-    for i, paper_id in enumerate(("indigo", "peach", "celadon")):
-        paper = to_image(paint_paper(paper_id, 0)).resize((520, 520), Image.Resampling.LANCZOS)
-        banner.alpha_composite(paper, (i * 490 - 20, 20))
-    for i, sel in enumerate((SIGNATURES[0], SIGNATURES[1], SIGNATURES[2])):
-        face = compose_selection(sel)[0].resize((360, 360), Image.Resampling.LANCZOS)
-        banner.alpha_composite(face, (70 + i * 460, 140))
-    draw = ImageDraw.Draw(banner)
-    try:
-        font = ImageFont.truetype("C:/Windows/Fonts/arialbd.ttf", 72)
-        small = ImageFont.truetype("C:/Windows/Fonts/arial.ttf", 28)
-    except OSError:
-        font = ImageFont.load_default()
-        small = font
-    draw.text((64, 36), "INKLINGS", font=font, fill=(246, 239, 228, 255))
-    draw.text((68, 112), "Smooth ink-wash PFP GIFs on Ink.", font=small, fill=(232, 200, 122, 255))
-    banner.convert("RGB").save(BRAND_DIR / "banner-inklings.png", quality=94)
+COLLECTION_STORY = (
+    "Inklings are painted, not pixelated.\n\n"
+    "A 5,555-piece collection of looping ink-wash PFP portraits on Ink, Kraken’s Ethereum layer 2. "
+    "Each Inkling is stacked from six painterly layers — paper, bloom, visage, gaze, mark, and adorn — "
+    "then flattened onto one 16-frame GIF. Dye drifts. Eyes blink. Soft edges only.\n\n"
+    "Minting on Ink (chain ID 57073). Gas is ETH. 0.006 ETH to mint."
+)
 
-    gif_frames = [frame.resize((1000, 1000), Image.Resampling.LANCZOS) for frame in logo_frames]
-    save_loop_gif(gif_frames, BRAND_DIR / "collection-inklings.gif", DURATION_MS)
 
+def panoramic_wash(width: int, height: int, frame: int = 0) -> Image.Image:
+    left = np.asarray(to_image(paint_paper("indigo", frame)).resize((width, height), Image.Resampling.LANCZOS), dtype=np.float32)
+    mid = np.asarray(to_image(paint_paper("peach", frame)).resize((width, height), Image.Resampling.LANCZOS), dtype=np.float32)
+    right = np.asarray(to_image(paint_paper("celadon", frame)).resize((width, height), Image.Resampling.LANCZOS), dtype=np.float32)
+    x = np.linspace(0.0, 1.0, width, dtype=np.float32)[None, :, None]
+    w_left = np.clip(1.0 - x / 0.42, 0.0, 1.0)
+    w_right = np.clip((x - 0.58) / 0.42, 0.0, 1.0)
+    w_mid = np.clip(1.0 - w_left - w_right, 0.0, 1.0)
+    out = left * w_left + mid * w_mid + right * w_right
+    return Image.fromarray(np.clip(out, 0, 255).astype(np.uint8)).convert("RGBA")
+
+
+def rounded_portrait(portrait: Image.Image, size: int, radius: int = 56) -> Image.Image:
+    face = portrait.resize((size, size), Image.Resampling.LANCZOS).convert("RGBA")
+    mask = Image.new("L", (size, size), 0)
+    ImageDraw.Draw(mask).rounded_rectangle((0, 0, size - 1, size - 1), radius=radius, fill=255)
+    face.putalpha(Image.composite(face.split()[-1], Image.new("L", (size, size), 0), mask))
+    return face
+
+
+def place_portrait(canvas: Image.Image, portrait: Image.Image, x: int, y: int, size: int, radius: int = 56) -> None:
+    face = rounded_portrait(portrait, size, radius)
+    shadow = Image.new("RGBA", (size + 24, size + 24), (0, 0, 0, 0))
+    ImageDraw.Draw(shadow).rounded_rectangle((8, 14, size + 8, size + 18), radius=radius, fill=(10, 6, 18, 90))
+    canvas.alpha_composite(shadow, (x - 8, y - 6))
+    canvas.alpha_composite(face, (x, y))
+
+
+def lineup_banner(width: int, height: int, portraits: list[Image.Image]) -> Image.Image:
+    canvas = panoramic_wash(width, height, frame=4)
+    count = len(portraits)
+    size = int(height * 0.82)
+    overlap = size // 5
+    total = size * count - overlap * (count - 1)
+    start_x = (width - total) // 2
+    y = (height - size) // 2 + int(height * 0.04)
+    for index, portrait in enumerate(portraits):
+        x = start_x + index * (size - overlap)
+        place_portrait(canvas, portrait, x, y, size, radius=max(36, size // 10))
+    return canvas
+
+
+def write_collection_meta() -> None:
+    META_DIR.mkdir(parents=True, exist_ok=True)
+    (META_DIR / "inklings-description.txt").write_text(COLLECTION_STORY + "\n", encoding="utf-8")
     (META_DIR / "inklings.json").write_text(
         json.dumps(
             {
                 "name": "Inklings",
                 "symbol": "INKL",
-                "description": (
-                    "Inklings is a 5,555-piece collection of illustrated PFP portraits. "
-                    "Each face is stacked from painterly GIF layers — paper washes drift, blooms breathe, "
-                    "visages bob, eyes blink — then flattened onto one shared 16-frame clock. "
-                    "Soft edges only. Minting on Ink."
-                ),
+                "description": COLLECTION_DESCRIPTION,
                 "image": "/brand/collection-inklings.gif",
+                "featured_image": "/brand/featured-inklings.jpg",
                 "banner_image": "/brand/banner-inklings.png",
+                "opensea_banner_image": "/brand/banner-inklings-opensea.jpg",
                 "external_link": "/inklings",
                 "seller_fee_basis_points": 500,
                 "fee_recipient": "0x0000000000000000000000000000000000000000",
@@ -770,7 +797,47 @@ def build_brand() -> None:
     )
 
 
+def build_brand() -> None:
+    BRAND_DIR.mkdir(parents=True, exist_ok=True)
+    portraits = [compose_selection(selection)[0] for selection in SIGNATURES[:7]]
+    logo_frames = compose_selection(SIGNATURES[0])
+
+    logo = logo_frames[0].copy()
+    mask = Image.new("L", (SIZE, SIZE), 0)
+    ImageDraw.Draw(mask).ellipse((18, 18, SIZE - 18, SIZE - 18), fill=255)
+    logo.putalpha(Image.composite(logo.split()[-1], Image.new("L", (SIZE, SIZE), 0), mask))
+    ring = Image.new("RGBA", (SIZE, SIZE), (0, 0, 0, 0))
+    ImageDraw.Draw(ring).ellipse((10, 10, SIZE - 10, SIZE - 10), outline=(232, 200, 122, 220), width=10)
+    logo = Image.alpha_composite(logo, ring)
+    logo.resize((512, 512), Image.Resampling.LANCZOS).save(BRAND_DIR / "logo-inklings.png")
+    save_apng([frame.resize((512, 512), Image.Resampling.LANCZOS) for frame in logo_frames], BRAND_DIR / "logo-inklings-loop.png")
+
+    site_banner = lineup_banner(1500, 560, portraits[:5])
+    site_banner.convert("RGB").save(BRAND_DIR / "banner-inklings.png", quality=94)
+
+    opensea_banner = lineup_banner(2800, 700, portraits)
+    opensea_banner.convert("RGB").save(BRAND_DIR / "banner-inklings-opensea.jpg", quality=90)
+
+    featured = panoramic_wash(1200, 800, frame=8)
+    place_portrait(featured, portraits[0], 90, 110, 560, radius=64)
+    place_portrait(featured, portraits[2], 540, 130, 560, radius=64)
+    featured.convert("RGB").save(BRAND_DIR / "featured-inklings.jpg", quality=90)
+
+    gif_frames = [frame.resize((1000, 1000), Image.Resampling.LANCZOS) for frame in logo_frames]
+    save_loop_gif(gif_frames, BRAND_DIR / "collection-inklings.gif", DURATION_MS)
+    write_collection_meta()
+
+
+
 def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--brand-only", action="store_true", help="Rebuild logo, banners, and listing copy")
+    args = parser.parse_args()
+    if args.brand_only:
+        print("Writing Inklings brand kit…")
+        build_brand()
+        print("Done.")
+        return
     print("Building Inklings ink-wash traits…")
     build_traits()
     print("Compositing sample GIF tokens…")
