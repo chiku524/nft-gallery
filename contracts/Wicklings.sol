@@ -7,11 +7,11 @@ import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 import {Strings} from "@openzeppelin/contracts/utils/Strings.sol";
 
 /// @title Wicklings
-/// @notice 10,000 looping paper-lantern PFP GIFs for Arbitrum (chain ID 42161).
+/// @notice 8,888 looping paper-lantern PFP GIFs for Arbitrum (chain ID 42161).
 contract Wicklings is ERC721, ERC721Enumerable, Ownable {
     using Strings for uint256;
 
-    uint256 public constant MAX_SUPPLY = 10000;
+    uint256 public constant MAX_SUPPLY = 8888;
     uint256 public mintPrice = 0.003 ether;
     string private _baseTokenURI;
     bool public mintOpen;

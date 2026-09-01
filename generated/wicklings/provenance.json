@@ -1,10 +1,11 @@
 {
-  "hash": "052c8afe708ebaa158fc7909b536a1059383bc268ebe251b40e2df17e1a2ff6f",
-  "count": 10000,
+  "hash": "e9005c3b9d2874ab67545b1958cb82f9585528109a2ed360824bab700f4456b9",
+  "count": 8888,
   "frames": 12,
   "durationMs": 80,
   "size": 512,
-  "bytes": 11572712498,
+  "bytes": 10285264506,
+  "gifBytes": 10381261554,
   "chain": "arbitrum",
   "chainId": 42161
 }

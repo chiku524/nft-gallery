@@ -899,14 +899,14 @@ def build_samples() -> None:
 
 
 COLLECTION_DESCRIPTION = (
-    "Wicklings is a 10,000-piece collection of looping paper-lantern PFP GIFs on Arbitrum. "
+    "Wicklings is an 8,888-piece collection of looping paper-lantern PFP GIFs on Arbitrum. "
     "Each one is a little flame living in a paper house — stacked from night, halo, vessel, wick, wrap, and drift, "
     "then flattened onto one 12-frame GIF. The lantern sways. The wick blinks. Moths never land."
 )
 
 COLLECTION_STORY = (
     "Wicklings never go out.\n\n"
-    "A 10,000-piece collection of looping paper-lantern PFP GIFs on Arbitrum. "
+    "An 8,888-piece collection of looping paper-lantern PFP GIFs on Arbitrum. "
     "Each Wickling is a little flame that moved into a paper house. The lantern sways. "
     "The wick is the face — it blinks, it flickers, it never cools. Nights hang behind them. "
     "Halos breathe. Moths orbit and never land.\n\n"

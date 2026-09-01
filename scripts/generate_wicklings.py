@@ -2,7 +2,7 @@
 """Compose Wicklings tokens from layered APNG traits.
 
 Default: 16 signature samples.
-Pass --all to shuffle the full 10,000 on the shared 12-frame clock.
+Pass --all to shuffle the full 8,888 on the shared 12-frame clock.
 
 Drop files are 512×512 APNGs. Studio traits stay 512×512 in public/wicklings-traits/.
 """
@@ -42,7 +42,7 @@ OUT = ROOT / "generated" / "wicklings"
 IMAGE_DIR = OUT / "images"
 GIF_DIR = OUT / "gifs"
 JSON_DIR = OUT / "json"
-TOTAL = 10_000
+TOTAL = 8888
 SEED = 42161_10000
 DROP_SIZE = 512
 
@@ -221,7 +221,7 @@ def write_sidecar(count: int, rows: list[dict], stats: Counter[str], total_bytes
     (OUT / "README.md").write_text(
         "# Wicklings OpenSea pack\n\n"
         f"{count:,} flattened lantern loops at {DROP_SIZE}×{DROP_SIZE}, {FRAMES} frames, {DURATION_MS}ms.\n\n"
-        "Upload every file in `gifs/` (1.gif–10000.gif) plus `WICKLINGS-opensea-drop.csv` "
+        f"Upload every file in `gifs/` (1.gif–{count}.gif) plus `WICKLINGS-opensea-drop.csv` "
         "or `opensea-metadata.csv` to an OpenSea Drop on Arbitrum (chain ID 42161).\n"
         "OpenSea Drops play GIF, not APNG. APNGs stay in `images/` for the site and restacks.\n"
         "The CSV uses OpenSea Studio headers: tokenID, name, description, file_name, and attributes[Trait].\n"

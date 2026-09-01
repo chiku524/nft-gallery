@@ -3,10 +3,10 @@ export const wicklings = {
   symbol: "WICK",
   tagline: "Paper lanterns. A little flame that never goes out.",
   description:
-    "Wicklings is a 10,000-piece collection of looping paper-lantern PFP GIFs on Arbitrum. Each one is a little flame living in a paper house — stacked from night, halo, vessel, wick, wrap, and drift, then flattened onto one 12-frame GIF. The lantern sways. The wick blinks. Moths never land.",
+    "Wicklings is an 8,888-piece collection of looping paper-lantern PFP GIFs on Arbitrum. Each one is a little flame living in a paper house — stacked from night, halo, vessel, wick, wrap, and drift, then flattened onto one 12-frame GIF. The lantern sways. The wick blinks. Moths never land.",
   story:
-    "Wicklings never go out.\n\nA 10,000-piece collection of looping paper-lantern PFP GIFs on Arbitrum. Each Wickling is a little flame that moved into a paper house. The lantern sways. The wick is the face — it blinks, it flickers, it never cools. Nights hang behind them. Halos breathe. Moths orbit and never land.\n\nSix layers on one 12-frame clock: night, halo, vessel, wick, wrap, and drift. Soft discs. Translucent paper. Warm amber on night indigo.\n\nMinting on Arbitrum (chain ID 42161). Gas is ETH.",
-  supply: 10000,
+    "Wicklings never go out.\n\nAn 8,888-piece collection of looping paper-lantern PFP GIFs on Arbitrum. Each Wickling is a little flame that moved into a paper house. The lantern sways. The wick is the face — it blinks, it flickers, it never cools. Nights hang behind them. Halos breathe. Moths orbit and never land.\n\nSix layers on one 12-frame clock: night, halo, vessel, wick, wrap, and drift. Soft discs. Translucent paper. Warm amber on night indigo.\n\nMinting on Arbitrum (chain ID 42161). Gas is ETH.",
+  supply: 8888,
   mintPriceEth: "0.003",
   frames: 12,
   frameDurationMs: 80,
