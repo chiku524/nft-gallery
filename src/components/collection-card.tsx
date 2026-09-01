@@ -57,6 +57,11 @@ export function CollectionCard({ drop }: { drop: GalleryProject }) {
                 <Link href={galleryHref}>See the 1:1s</Link>
               </Button>
             )}
+            <Button asChild size="lg" variant="outline">
+              <a href={drop.opensea} target="_blank" rel="noreferrer">
+                View on OpenSea
+              </a>
+            </Button>
           </div>
         </div>
         <div

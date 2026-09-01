@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { AddChainButton } from "@/components/add-chain-button";
 import { ApngImage } from "@/components/apng-image";
+import { Button } from "@/components/ui/button";
 import { inklings } from "@/data/inklings";
 
 export const metadata: Metadata = {
@@ -36,6 +37,13 @@ export default function InklingsLaunchPage() {
         Inklings ships as layered ink-wash APNG traits and as flattened GIF tokens. OpenSea wants the
         GIF bake of those loops. The APNG stack stays in this repo for the studio and any later restack.
       </p>
+      <div className="mt-6">
+        <Button asChild>
+          <a href={inklings.opensea.collection} target="_blank" rel="noreferrer">
+            View the live collection on OpenSea
+          </a>
+        </Button>
+      </div>
 
       <dl className="mt-8 grid gap-3 sm:grid-cols-2">
         {[
@@ -119,6 +127,10 @@ export default function InklingsLaunchPage() {
         Drop upload notes:{" "}
         <a className="underline" href={inklings.opensea.metadataGuide} target="_blank" rel="noreferrer">
           Preparing metadata for your drop
+        </a>
+        . Live collection:{" "}
+        <a className="underline" href={inklings.opensea.collection} target="_blank" rel="noreferrer">
+          opensea.io/collection/inklings-on-ink
         </a>
         . OpenSea on Ink:{" "}
         <a className="underline" href={inklings.opensea.blog} target="_blank" rel="noreferrer">

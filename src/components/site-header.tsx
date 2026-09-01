@@ -10,11 +10,12 @@ import { collection } from "@/data/collection";
 import { loopkinsPath } from "@/lib/loopkins";
 import { cn } from "@/lib/utils";
 
-const links = [
+const links: { href: string; label: string; external?: boolean }[] = [
   { href: loopkinsPath(), label: "Drop" },
   { href: loopkinsPath("/traits"), label: "Traits" },
   { href: loopkinsPath("/gallery"), label: "Gallery" },
-  { href: loopkinsPath("/launch"), label: "OpenSea" },
+  { href: loopkinsPath("/launch"), label: "Launch" },
+  { href: collection.opensea.collection, label: "OpenSea", external: true },
 ];
 
 export function SiteHeader() {
@@ -40,20 +41,23 @@ export function SiteHeader() {
         </Link>
 
         <nav className="hidden items-center gap-1 md:flex">
-          {links.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={cn(
-                "rounded-full px-3 py-1.5 text-sm transition-colors",
-                pathname === link.href
-                  ? "bg-foreground text-background"
-                  : "text-muted-foreground hover:bg-secondary hover:text-foreground",
-              )}
-            >
-              {link.label}
-            </Link>
-          ))}
+          {links.map((link) => {
+            const className = cn(
+              "rounded-full px-3 py-1.5 text-sm transition-colors",
+              !link.external && pathname === link.href
+                ? "bg-foreground text-background"
+                : "text-muted-foreground hover:bg-secondary hover:text-foreground",
+            );
+            return link.external ? (
+              <a key={link.href} href={link.href} target="_blank" rel="noreferrer" className={className}>
+                {link.label}
+              </a>
+            ) : (
+              <Link key={link.href} href={link.href} className={className}>
+                {link.label}
+              </Link>
+            );
+          })}
         </nav>
 
         <div className="flex items-center gap-2">
@@ -71,15 +75,23 @@ export function SiteHeader() {
                 <SheetTitle>{collection.name}</SheetTitle>
               </SheetHeader>
               <div className="mt-6 flex flex-col gap-2 px-4">
-                {links.map((link) => (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    className="rounded-xl px-3 py-2 text-base hover:bg-secondary"
-                  >
-                    {link.label}
-                  </Link>
-                ))}
+                {links.map((link) =>
+                  link.external ? (
+                    <a
+                      key={link.href}
+                      href={link.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="rounded-xl px-3 py-2 text-base hover:bg-secondary"
+                    >
+                      {link.label}
+                    </a>
+                  ) : (
+                    <Link key={link.href} href={link.href} className="rounded-xl px-3 py-2 text-base hover:bg-secondary">
+                      {link.label}
+                    </Link>
+                  ),
+                )}
                 <Link href="/studio" className="rounded-xl px-3 py-2 text-base hover:bg-secondary">
                   Studio
                 </Link>

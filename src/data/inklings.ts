@@ -22,8 +22,9 @@ export const inklings = {
   },
   opensea: {
     chainSlug: "ink",
+    collection: "https://opensea.io/collection/inklings-on-ink/overview",
     blog: "https://opensea.io/learn/blockchain/blockchains-compatible-with-opensea",
-    explore: "https://opensea.io",
+    explore: "https://opensea.io/collection/inklings-on-ink/overview",
     metadataGuide: "https://support.opensea.io/en/articles/8867060-preparing-metadata-for-your-drop",
   },
 } as const;

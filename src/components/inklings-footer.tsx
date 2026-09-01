@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { OpenSeaLink } from "@/components/opensea-link";
 import { inklings } from "@/data/inklings";
 import { inklingsPath } from "@/lib/inklings";
 
@@ -9,7 +10,10 @@ export function InklingsFooter() {
         <div>
           <p className="font-heading text-lg">{inklings.name}</p>
           <p className="text-sm text-muted-foreground">
-            {inklings.supply.toLocaleString()} cartoon squid PFPs · {inklings.chain.name} · OpenSea
+            {inklings.supply.toLocaleString()} cartoon squid PFPs · {inklings.chain.name} ·{" "}
+            <OpenSeaLink href={inklings.opensea.collection} className="hover:underline">
+              OpenSea
+            </OpenSeaLink>
           </p>
         </div>
         <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm">
@@ -28,6 +32,7 @@ export function InklingsFooter() {
           <Link href={inklingsPath("/launch")} className="hover:underline">
             Launch notes
           </Link>
+          <OpenSeaLink href={inklings.opensea.collection} className="hover:underline" />
           <a href={inklings.chain.docs} className="hover:underline" target="_blank" rel="noreferrer">
             Chain docs
           </a>

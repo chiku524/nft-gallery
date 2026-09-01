@@ -10,10 +10,11 @@ import { afterimages } from "@/data/afterimages";
 import { afterimagesPath } from "@/lib/afterimages";
 import { cn } from "@/lib/utils";
 
-const links = [
+const links: { href: string; label: string; external?: boolean }[] = [
   { href: afterimagesPath(), label: "Drop" },
   { href: afterimagesPath("/gallery"), label: "Gallery" },
-  { href: afterimagesPath("/launch"), label: "OpenSea" },
+  { href: afterimagesPath("/launch"), label: "Launch" },
+  { href: afterimages.opensea.collection, label: "OpenSea", external: true },
 ];
 
 export function AfterimagesHeader() {
@@ -37,20 +38,23 @@ export function AfterimagesHeader() {
         </Link>
 
         <nav className="hidden items-center gap-1 md:flex">
-          {links.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={cn(
-                "rounded-full px-3 py-1.5 text-sm transition-colors",
-                pathname === link.href
-                  ? "bg-foreground text-background"
-                  : "text-muted-foreground hover:bg-secondary hover:text-foreground",
-              )}
-            >
-              {link.label}
-            </Link>
-          ))}
+          {links.map((link) => {
+            const className = cn(
+              "rounded-full px-3 py-1.5 text-sm transition-colors",
+              !link.external && pathname === link.href
+                ? "bg-foreground text-background"
+                : "text-muted-foreground hover:bg-secondary hover:text-foreground",
+            );
+            return link.external ? (
+              <a key={link.href} href={link.href} target="_blank" rel="noreferrer" className={className}>
+                {link.label}
+              </a>
+            ) : (
+              <Link key={link.href} href={link.href} className={className}>
+                {link.label}
+              </Link>
+            );
+          })}
         </nav>
 
         <div className="flex items-center gap-2">
@@ -68,15 +72,23 @@ export function AfterimagesHeader() {
                 <SheetTitle>{afterimages.name}</SheetTitle>
               </SheetHeader>
               <div className="mt-6 flex flex-col gap-2 px-4">
-                {links.map((link) => (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    className="rounded-xl px-3 py-2 text-base hover:bg-secondary"
-                  >
-                    {link.label}
-                  </Link>
-                ))}
+                {links.map((link) =>
+                  link.external ? (
+                    <a
+                      key={link.href}
+                      href={link.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="rounded-xl px-3 py-2 text-base hover:bg-secondary"
+                    >
+                      {link.label}
+                    </a>
+                  ) : (
+                    <Link key={link.href} href={link.href} className="rounded-xl px-3 py-2 text-base hover:bg-secondary">
+                      {link.label}
+                    </Link>
+                  ),
+                )}
               </div>
             </SheetContent>
           </Sheet>

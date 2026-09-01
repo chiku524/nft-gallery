@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { AddChainButton } from "@/components/add-chain-button";
+import { Button } from "@/components/ui/button";
 import { collection } from "@/data/collection";
 
 export const metadata: Metadata = {
@@ -35,6 +36,13 @@ export default function LaunchPage() {
         Loopkins ships as layered APNG traits and as flattened token files. OpenSea wants the GIF
         bake of those loops. The APNG stack stays in this repo for the studio and any later restack.
       </p>
+      <div className="mt-6">
+        <Button asChild>
+          <a href={collection.opensea.collection} target="_blank" rel="noreferrer">
+            View the live collection on OpenSea
+          </a>
+        </Button>
+      </div>
 
       <dl className="mt-8 grid gap-3 sm:grid-cols-2">
         {[
@@ -85,6 +93,10 @@ export default function LaunchPage() {
           rel="noreferrer"
         >
           Preparing metadata for your drop
+        </a>
+        . Live collection:{" "}
+        <a className="underline" href={collection.opensea.collection} target="_blank" rel="noreferrer">
+          opensea.io/collection/loopkins
         </a>
         . OpenSea on Robinhood Chain:{" "}
         <a className="underline" href={collection.opensea.blog} target="_blank" rel="noreferrer">

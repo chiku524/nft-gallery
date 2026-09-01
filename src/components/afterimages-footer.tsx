@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { OpenSeaLink } from "@/components/opensea-link";
 import { afterimages } from "@/data/afterimages";
 import { afterimagesPath } from "@/lib/afterimages";
 
@@ -9,7 +10,10 @@ export function AfterimagesFooter() {
         <div>
           <p className="font-heading text-lg">{afterimages.name}</p>
           <p className="text-sm text-muted-foreground">
-            {afterimages.supply} one-of-ones · {afterimages.chain.name} · OpenSea
+            {afterimages.supply} one-of-ones · {afterimages.chain.name} ·{" "}
+            <OpenSeaLink href={afterimages.opensea.collection} className="hover:underline">
+              OpenSea
+            </OpenSeaLink>
           </p>
         </div>
         <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm">
@@ -22,6 +26,7 @@ export function AfterimagesFooter() {
           <Link href={afterimagesPath("/launch")} className="hover:underline">
             Launch notes
           </Link>
+          <OpenSeaLink href={afterimages.opensea.collection} className="hover:underline" />
           <a href={afterimages.chain.docs} className="hover:underline" target="_blank" rel="noreferrer">
             Chain docs
           </a>

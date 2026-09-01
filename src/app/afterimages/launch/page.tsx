@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { AddChainButton } from "@/components/add-chain-button";
+import { Button } from "@/components/ui/button";
 import { afterimages } from "@/data/afterimages";
 
 export const metadata: Metadata = {
@@ -35,6 +36,13 @@ export default function AfterimagesLaunchPage() {
         Afterimages ships as {afterimages.supply} finished APNG paintings for the site, plus a GIF bake
         for OpenSea. There is no flatten step and no leftover generative roster.
       </p>
+      <div className="mt-6">
+        <Button asChild>
+          <a href={afterimages.opensea.collection} target="_blank" rel="noreferrer">
+            View the live collection on OpenSea
+          </a>
+        </Button>
+      </div>
 
       <dl className="mt-8 grid gap-3 sm:grid-cols-2">
         {[
@@ -80,6 +88,10 @@ export default function AfterimagesLaunchPage() {
         Drop upload notes:{" "}
         <a className="underline" href={afterimages.opensea.metadataGuide} target="_blank" rel="noreferrer">
           Preparing metadata for your drop
+        </a>
+        . Live collection:{" "}
+        <a className="underline" href={afterimages.opensea.collection} target="_blank" rel="noreferrer">
+          opensea.io/collection/the-afterimages
         </a>
         . OpenSea on Robinhood Chain:{" "}
         <a className="underline" href={afterimages.opensea.blog} target="_blank" rel="noreferrer">

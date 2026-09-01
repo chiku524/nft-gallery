@@ -32,6 +32,11 @@ export default function AfterimagesHomePage() {
               </Link>
             </Button>
             <Button asChild size="lg" variant="secondary">
+              <a href={afterimages.opensea.collection} target="_blank" rel="noreferrer">
+                View on OpenSea
+              </a>
+            </Button>
+            <Button asChild size="lg" variant="outline" className="border-white/30 bg-transparent text-white hover:bg-white/10">
               <Link href={afterimagesPath("/launch")}>OpenSea drop notes</Link>
             </Button>
           </div>

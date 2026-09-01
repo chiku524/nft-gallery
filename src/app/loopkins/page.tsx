@@ -37,6 +37,11 @@ export default function LoopkinsHomePage() {
             <Button asChild size="lg" variant="secondary">
               <Link href={loopkinsPath("/gallery")}>See sample loops</Link>
             </Button>
+            <Button asChild size="lg" variant="outline" className="border-white/30 bg-transparent text-white hover:bg-white/10">
+              <a href={collection.opensea.collection} target="_blank" rel="noreferrer">
+                View on OpenSea
+              </a>
+            </Button>
           </div>
         </div>
       </section>

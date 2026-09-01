@@ -32,6 +32,7 @@ export const projects = [
     kind: "layered-pfp" as const,
     previews: sampleMints.slice(0, 8).map((mint) => mint.image),
     studioHref: "/studio" as const,
+    opensea: collection.opensea.collection,
   },
   {
     slug: "afterimages",
@@ -50,6 +51,7 @@ export const projects = [
     kind: "1of1" as const,
     previews: afterimageWorks.map((work) => work.image),
     studioHref: null,
+    opensea: afterimages.opensea.collection,
   },
   {
     slug: "inklings",
@@ -68,6 +70,7 @@ export const projects = [
     kind: "layered-pfp" as const,
     previews: inklingSamples.map((mint) => mint.image),
     studioHref: "/inklings/studio" as const,
+    opensea: inklings.opensea.collection,
   },
 ] as const;
 

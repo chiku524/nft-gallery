@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { OpenSeaLink } from "@/components/opensea-link";
 import { collection } from "@/data/collection";
 import { loopkinsPath } from "@/lib/loopkins";
 
@@ -9,7 +10,10 @@ export function SiteFooter() {
         <div>
           <p className="font-heading text-lg">{collection.name}</p>
           <p className="text-sm text-muted-foreground">
-            {collection.supply.toLocaleString()} loops · {collection.chain.name} · OpenSea
+            {collection.supply.toLocaleString()} loops · {collection.chain.name} ·{" "}
+            <OpenSeaLink href={collection.opensea.collection} className="hover:underline">
+              OpenSea
+            </OpenSeaLink>
           </p>
         </div>
         <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm">
@@ -28,6 +32,7 @@ export function SiteFooter() {
           <Link href={loopkinsPath("/launch")} className="hover:underline">
             Launch notes
           </Link>
+          <OpenSeaLink href={collection.opensea.collection} className="hover:underline" />
           <a href={collection.chain.docs} className="hover:underline" target="_blank" rel="noreferrer">
             Chain docs
           </a>

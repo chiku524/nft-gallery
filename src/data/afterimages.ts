@@ -21,8 +21,9 @@ export const afterimages = {
   },
   opensea: {
     chainSlug: "robinhood",
+    collection: "https://opensea.io/collection/the-afterimages",
     blog: "https://opensea.io/blog/articles/robinhood-chain-is-live-on-opensea",
-    explore: "https://opensea.io",
+    explore: "https://opensea.io/collection/the-afterimages",
     metadataGuide: "https://support.opensea.io/en/articles/8867060-preparing-metadata-for-your-drop",
   },
 } as const;
