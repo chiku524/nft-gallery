@@ -14,7 +14,7 @@ export type PartyPandaTraitCategory = {
 };
 
 /** Bump when APNG layers change so the studio does not keep a stale loop. */
-export const PARTY_PANDA_ART_VERSION = "party-pandas-v1";
+export const PARTY_PANDA_ART_VERSION = "party-pandas-v2";
 
 export const PARTY_PANDA_FRAMES = 12;
 export const PARTY_PANDA_DURATION_MS = 80;
@@ -28,7 +28,7 @@ export const partyPandaTraitCategories: PartyPandaTraitCategory[] = [
   {
     id: "venue",
     label: "Venue",
-    blurb: "Full-canvas party rooms — clubs, lounges, rooftops, and gardens behind the panda.",
+    blurb: "Illustrated party rooms — disco floors, neon signs, bamboo, rooftops, gardens.",
     traits: [
       { id: "disco", name: "Disco Night", image: "/party-pandas-traits/venue/disco.png", rarity: 16 },
       { id: "neon", name: "Neon Club", image: "/party-pandas-traits/venue/neon.png", rarity: 14 },
@@ -56,7 +56,7 @@ export const partyPandaTraitCategories: PartyPandaTraitCategory[] = [
   {
     id: "panda",
     label: "Panda",
-    blurb: "Six party pandas. Each one bobs on the same 12-frame breathe.",
+    blurb: "Six cartoon pandas with real markings — black ears, eye patches, and limbs.",
     traits: [
       { id: "classic", name: "Classic", image: "/party-pandas-traits/panda/classic.png", rarity: 20 },
       { id: "chubby", name: "Chubby", image: "/party-pandas-traits/panda/chubby.png", rarity: 18 },

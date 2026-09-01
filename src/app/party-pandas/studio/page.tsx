@@ -14,7 +14,7 @@ export default function PartyPandasStudioPage() {
       <h1 className="mt-2 font-heading text-4xl">Layered party mixer</h1>
       <p className="mt-3 max-w-2xl text-muted-foreground">
         {partyPandas.name} plays every trait as its own looping APNG. The preview is a live stack —
-        venues, pandas, and extras keep moving instead of baking to a still.
+        illustrated rooms, cartoon pandas, and party extras keep moving instead of baking to a still.
       </p>
       <div className="mt-10">
         <PartyPandasStudio />

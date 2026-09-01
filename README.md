@@ -8,7 +8,7 @@ A house of NFT collections. Each drop is its own sub-project — studio, traits,
 
 **Inklings** is the third: 5,555 cartoon-squid PFP GIFs, for OpenSea on Ink (chain ID `57073`).
 
-**Party Pandas** is the fourth: 4,444 looping party-panda PFP GIFs, for OpenSea on Base (chain ID `8453`). Same 12-frame GIF clock as Loopkins.
+**Party Pandas** is the fourth: 4,444 looping cartoon party-panda PFP GIFs with real panda markings, for OpenSea on Base (chain ID `8453`). Same 12-frame GIF clock as Loopkins.
 
 ## What’s in this repo
 

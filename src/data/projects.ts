@@ -14,7 +14,7 @@ export const gallery = {
   name: "NFT Gallery",
   tagline: "Collections on the wall. One drop at a time.",
   description:
-    "NFT Gallery is a house of on-chain collections — each drop keeps its own studio, traits, and launch path. Loopkins is the layered PFP. Afterimages is the 1:1 APNG drop. Inklings is the cartoon-squid PFP GIF drop on Ink. Party Pandas is the looping party-panda GIF drop on Base.",
+    "NFT Gallery is a house of on-chain collections — each drop keeps its own studio, traits, and launch path. Loopkins is the layered PFP. Afterimages is the 1:1 APNG drop. Inklings is the cartoon-squid PFP GIF drop on Ink. Party Pandas is the cartoon party-panda GIF drop on Base.",
 } as const;
 
 export const projects = [

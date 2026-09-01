@@ -153,7 +153,7 @@ def token_meta(token_id: int, selection: dict[str, str]) -> dict:
     ]
     return {
         "name": f"Party Panda #{token_id}",
-        "description": "A looping party-panda PFP stacked from trait layers. Minted on Base.",
+        "description": "A looping cartoon party-panda PFP with real panda markings. Minted on Base.",
         "image": f"{token_id}.gif",
         "attributes": attributes,
         "animation_loop": True,
@@ -265,7 +265,10 @@ def main() -> None:
     for token_id in range(1, min(16, count) + 1):
         src_gif = GIF_DIR / f"{token_id}.gif"
         if src_gif.exists():
-            (PREVIEW_DIR / f"{token_id}.gif").write_bytes(src_gif.read_bytes())
+            try:
+                (PREVIEW_DIR / f"{token_id}.gif").write_bytes(src_gif.read_bytes())
+            except OSError:
+                pass
 
     write_sidecar(count, rows, stats, total_bytes)
     print(f"Wrote {count} Party Pandas to generated/party-pandas ({total_bytes / 1_000_000:.1f} MB)")

@@ -10,6 +10,7 @@ from __future__ import annotations
 import argparse
 import csv
 import sys
+from io import BytesIO
 from multiprocessing import Pool, cpu_count
 from pathlib import Path
 
@@ -74,8 +75,9 @@ def save_loop_gif(
         dither=Image.Dither.NONE,
     )
     quantized = [frame.quantize(palette=palette, dither=Image.Dither.FLOYDSTEINBERG) for frame in rgb_frames]
+    buffer = BytesIO()
     quantized[0].save(
-        path,
+        buffer,
         save_all=True,
         append_images=quantized[1:],
         duration=duration_ms,
@@ -84,6 +86,20 @@ def save_loop_gif(
         disposal=2,
         format="GIF",
     )
+    data = buffer.getvalue()
+    last_error: OSError | None = None
+    for attempt in range(8):
+        try:
+            path.write_bytes(data)
+            last_error = None
+            break
+        except OSError as error:
+            last_error = error
+            import time
+
+            time.sleep(0.15 * (attempt + 1))
+    if last_error is not None:
+        raise last_error
 
 
 def rewrite_csv_filenames(csv_path: Path, extension: str = ".gif") -> None:

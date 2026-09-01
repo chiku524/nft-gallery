@@ -3,9 +3,9 @@ export const partyPandas = {
   symbol: "PAND",
   tagline: "Looping party-panda PFP GIFs that never sit still.",
   description:
-    "Party Pandas is a 4,444-piece collection of looping party-panda PFP GIFs on Base. Each panda is stacked from six layers — venue, glow, panda, mood, fit, and extra — then flattened onto one 12-frame GIF. Disco lights sweep, hats bounce, confetti never lands.",
+    "Party Pandas is a 4,444-piece collection of looping party-panda PFP GIFs on Base. Each panda is stacked from six layers — venue, glow, panda, mood, fit, and extra — then flattened onto one 12-frame GIF. Classic black-and-white markings, crisp outlines, fluffy fur. Clubs pulse. Hats bounce. Confetti never lands.",
   story:
-    "Party Pandas never sit still.\n\nA 4,444-piece collection of looping party-panda PFP GIFs on Base. Each panda is stacked from six layers — venue, glow, panda, mood, fit, and extra — then flattened onto one 12-frame GIF, the same clock Loopkins uses. Clubs pulse. Eyes blink. Balloons drift. Soft edges only.\n\nMinting on Base (chain ID 8453). Gas is ETH.",
+    "Party Pandas never sit still.\n\nA 4,444-piece collection of looping party-panda PFP GIFs on Base. Each panda is stacked from six layers — venue, glow, panda, mood, fit, and extra — then flattened onto one 12-frame GIF. Clubs pulse. Eyes blink. Hats bounce. Confetti never lands.\n\nCartoon pandas with classic black-and-white markings, crisp outlines, and fluffy fur. Soft edges. One shared clock.\n\nMinting on Base (chain ID 8453). Gas is ETH.",
   supply: 4444,
   mintPriceEth: "0.004",
   frames: 12,

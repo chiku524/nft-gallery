@@ -1,6 +1,6 @@
 # Party Pandas
 
-Looping **party-panda PFP GIFs**. A **4,444-piece** collection built to mint on **Base** (chain ID `8453`) and list on **OpenSea**.
+Looping **cartoon party-panda PFP GIFs** with real panda markings — crisp outlines, cel shading, classic black-and-white patches. A **4,444-piece** collection built to mint on **Base** (chain ID `8453`) and list on **OpenSea**.
 
 This collection lives inside **NFT Gallery** at `/party-pandas`.
 
