@@ -16,7 +16,7 @@ const steps = [
   },
   {
     title: "Create a Drop on Ink",
-    body: `In OpenSea Studio, create a Drop on ${inklings.chain.name} (chain ID ${inklings.chain.chainId}). Set supply to ${inklings.supply.toLocaleString()}, paste the project description, upload the listing kit from public/brand, and keep the mint price at ${inklings.mintPriceEth} ETH or whatever you choose.`,
+    body: `In OpenSea Studio, create a Drop on ${inklings.chain.name} (chain ID ${inklings.chain.chainId}). Set supply to ${inklings.supply.toLocaleString()}, paste the project description, and upload the listing kit from public/brand.`,
   },
   {
     title: "Bulk-upload GIFs + CSV",

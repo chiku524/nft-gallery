@@ -15,7 +15,7 @@ const steps = [
   },
   {
     title: "Create a Drop on Robinhood Chain",
-    body: `In OpenSea Studio, create a Drop on ${afterimages.chain.name} (chain ID ${afterimages.chain.chainId}). Set supply to ${afterimages.supply}, edition style to unique 1:1s, add the logo and banner from public/brand, and keep the mint price at ${afterimages.mintPriceEth} ETH or whatever you choose.`,
+    body: `In OpenSea Studio, create a Drop on ${afterimages.chain.name} (chain ID ${afterimages.chain.chainId}). Set supply to ${afterimages.supply}, edition style to unique 1:1s, and add the logo and banner from public/brand.`,
   },
   {
     title: "Bulk-upload GIFs + CSV",

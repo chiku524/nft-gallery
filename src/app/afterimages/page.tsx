@@ -55,7 +55,6 @@ export default function AfterimagesHomePage() {
               {[
                 ["Supply", String(afterimages.supply)],
                 ["Edition", afterimages.edition],
-                ["Mint", `${afterimages.mintPriceEth} ETH`],
                 ["Loop", `${afterimages.frames} × ${afterimages.frameDurationMs}ms`],
               ].map(([label, value]) => (
                 <div key={label} className="rounded-2xl border bg-card p-4">

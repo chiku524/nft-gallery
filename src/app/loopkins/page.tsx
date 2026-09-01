@@ -56,7 +56,6 @@ export default function LoopkinsHomePage() {
               {[
                 ["Supply", collection.supply.toLocaleString()],
                 ["Possible combos", combinationCount().toLocaleString()],
-                ["Mint", `${collection.mintPriceEth} ETH`],
                 ["Loop", `${collection.frames} × ${collection.frameDurationMs}ms`],
               ].map(([label, value]) => (
                 <div key={label} className="rounded-2xl border bg-card p-4">

@@ -32,7 +32,6 @@ export function CollectionCard({ drop }: { drop: GalleryProject }) {
             {[
               ["Supply", drop.kind === "1of1" ? `${drop.supply} × 1/1` : drop.supply.toLocaleString()],
               ["Chain", drop.chain],
-              ["Mint", `${drop.mintPriceEth} ETH`],
               ["Chain ID", String(drop.chainId)],
             ].map(([label, value]) => (
               <div key={label} className="rounded-2xl border bg-background/60 p-3">

@@ -60,7 +60,6 @@ export default function InklingsHomePage() {
               {[
                 ["Supply", inklings.supply.toLocaleString()],
                 ["Possible combos", inklingCombinationCount().toLocaleString()],
-                ["Mint", `${inklings.mintPriceEth} ETH`],
                 ["Loop", `${inklings.frames} × ${inklings.frameDurationMs}ms`],
               ].map(([label, value]) => (
                 <div key={label} className="rounded-2xl border bg-card p-4">
