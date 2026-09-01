@@ -1,0 +1,12 @@
+{
+  "name": "Wicklings",
+  "symbol": "WICK",
+  "description": "Wicklings is a 3,333-piece collection of looping paper-lantern PFP GIFs on Arbitrum. Each lantern is stacked from six layers \u2014 night, halo, vessel, wick, wrap, and drift \u2014 then flattened onto one 12-frame GIF. Paper glows. The wick blinks. Moths never land.",
+  "image": "/brand/collection-wicklings.gif",
+  "featured_image": "/brand/featured-wicklings.jpg",
+  "banner_image": "/brand/banner-wicklings.png",
+  "opensea_banner_image": "/brand/banner-wicklings-opensea.jpg",
+  "external_link": "/wicklings",
+  "seller_fee_basis_points": 500,
+  "fee_recipient": "0x0000000000000000000000000000000000000000"
+}

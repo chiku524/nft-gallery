@@ -5,16 +5,19 @@ import { inklings } from "@/data/inklings";
 import { partyPandaSamples } from "@/data/party-panda-gallery";
 import { partyPandas } from "@/data/party-pandas";
 import { sampleMints } from "@/data/gallery";
+import { wicklingSamples } from "@/data/wickling-gallery";
+import { wicklings } from "@/data/wicklings";
 import { AFTERIMAGES_BASE } from "@/lib/afterimages";
 import { INKLINGS_BASE } from "@/lib/inklings";
 import { LOOPKINS_BASE } from "@/lib/loopkins";
 import { PARTY_PANDAS_BASE } from "@/lib/party-pandas";
+import { WICKLINGS_BASE } from "@/lib/wicklings";
 
 export const gallery = {
   name: "NFT Gallery",
   tagline: "Collections on the wall. One drop at a time.",
   description:
-    "NFT Gallery is a house of on-chain collections — each drop keeps its own studio, traits, and launch path. Loopkins is the layered PFP. Afterimages is the 1:1 APNG drop. Inklings is the cartoon-squid PFP GIF drop on Ink. Party Pandas is the cartoon party-panda GIF drop on Base.",
+    "NFT Gallery is a house of on-chain collections — each drop keeps its own studio, traits, and launch path. Loopkins is the layered PFP. Afterimages is the 1:1 APNG drop. Inklings is the cartoon-squid PFP GIF drop on Ink. Party Pandas is the cartoon party-panda GIF drop on Base. Wicklings is the paper-lantern PFP GIF drop on Arbitrum.",
 } as const;
 
 export const projects = [
@@ -84,11 +87,29 @@ export const projects = [
     supply: partyPandas.supply,
     cover: "/brand/banner-party-pandas.png",
     thumb: partyPandaSamples[0].image,
-    status: "new on the wall" as const,
+    status: "on the wall" as const,
     kind: "layered-pfp" as const,
     previews: partyPandaSamples.map((mint) => mint.image),
     studioHref: "/party-pandas/studio" as const,
     opensea: partyPandas.opensea.collection,
+  },
+  {
+    slug: "wicklings",
+    href: WICKLINGS_BASE,
+    name: wicklings.name,
+    symbol: wicklings.symbol,
+    tagline: wicklings.tagline,
+    description: wicklings.description,
+    chain: wicklings.chain.name,
+    chainId: wicklings.chain.chainId,
+    supply: wicklings.supply,
+    cover: "/brand/banner-wicklings.png",
+    thumb: wicklingSamples[0].image,
+    status: "new on the wall" as const,
+    kind: "layered-pfp" as const,
+    previews: wicklingSamples.map((mint) => mint.image),
+    studioHref: "/wicklings/studio" as const,
+    opensea: wicklings.opensea.collection,
   },
 ] as const;
 

@@ -1,0 +1,17 @@
+{
+  "name": "Wicklings",
+  "size": 512,
+  "frames": 12,
+  "durationMs": 80,
+  "format": "apng",
+  "loop": 0,
+  "order": [
+    "night",
+    "halo",
+    "vessel",
+    "wick",
+    "wrap",
+    "drift"
+  ],
+  "note": "Each trait is a looping APNG. Studio stacks them live. Minted tokens flatten to GIF."
+}

@@ -7,11 +7,12 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "generate": "python3 scripts/build_loopkins.py && python3 scripts/generate_collection.py && python3 scripts/build_afterimages.py && python3 scripts/build_inklings.py && python3 scripts/generate_inklings.py && python3 scripts/build_party_pandas.py && python3 scripts/generate_party_pandas.py && python3 scripts/gif_bake.py",
+    "generate": "python3 scripts/build_loopkins.py && python3 scripts/generate_collection.py && python3 scripts/build_afterimages.py && python3 scripts/build_inklings.py && python3 scripts/generate_inklings.py && python3 scripts/build_party_pandas.py && python3 scripts/generate_party_pandas.py && python3 scripts/build_wicklings.py && python3 scripts/generate_wicklings.py && python3 scripts/gif_bake.py",
     "generate:afterimages": "python3 scripts/build_afterimages.py",
     "generate:inklings": "python3 scripts/build_inklings.py && python3 scripts/generate_inklings.py",
     "generate:party-pandas": "python3 scripts/build_party_pandas.py && python3 scripts/generate_party_pandas.py",
-    "generate:gifs": "python3 scripts/gif_bake.py --afterimages && python3 scripts/gif_bake.py --loopkins --all && python3 scripts/gif_bake.py --inklings --all && python3 scripts/gif_bake.py --party-pandas --all"
+    "generate:wicklings": "python3 scripts/build_wicklings.py && python3 scripts/generate_wicklings.py",
+    "generate:gifs": "python3 scripts/gif_bake.py --afterimages && python3 scripts/gif_bake.py --loopkins --all && python3 scripts/gif_bake.py --inklings --all && python3 scripts/gif_bake.py --party-pandas --all && python3 scripts/gif_bake.py --wicklings --all"
   },
   "dependencies": {
     "class-variance-authority": "^0.7.1",
