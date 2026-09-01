@@ -10,7 +10,7 @@ A house of NFT collections. Each drop is its own sub-project — studio, traits,
 
 **Party Pandas** is the fourth: 4,444 looping cartoon party-panda PFP GIFs with real panda markings, for OpenSea on Base (chain ID `8453`). Same 12-frame GIF clock as Loopkins.
 
-**Wicklings** is the fifth: 3,333 looping paper-lantern PFP GIFs, for OpenSea on Arbitrum (chain ID `42161`). Same 12-frame GIF clock as Loopkins.
+**Wicklings** is the fifth: 10,000 looping paper-lantern PFP GIFs, for OpenSea on Arbitrum (chain ID `42161`). Same 12-frame GIF clock as Loopkins.
 
 ## What’s in this repo
 
@@ -40,7 +40,7 @@ A house of NFT collections. Each drop is its own sub-project — studio, traits,
 | `contracts/Afterimages.sol` | ERC-721 that mints a chosen 1:1 (IDs 1–12) |
 | `contracts/Inklings.sol` | ERC-721 with a 5,555 supply cap |
 | `contracts/PartyPandas.sol` | ERC-721 with a 4,444 supply cap |
-| `contracts/Wicklings.sol` | ERC-721 with a 3,333 supply cap |
+| `contracts/Wicklings.sol` | ERC-721 with a 10,000 supply cap |
 
 ## Run the site
 

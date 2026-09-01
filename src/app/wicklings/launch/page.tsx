@@ -20,7 +20,7 @@ const steps = [
   },
   {
     title: "Bulk-upload GIFs + CSV",
-    body: "Upload every file in generated/wicklings/gifs (1.gif–3333.gif) and generated/wicklings/WICKLINGS-opensea-drop.csv. The CSV already uses OpenSea’s required headers (tokenID, name, description, file_name, attributes[Trait]). OpenSea plays GIF, not APNG. Preview the loops, then publish.",
+    body: "Upload every file in generated/wicklings/gifs (1.gif–10000.gif) and generated/wicklings/WICKLINGS-opensea-drop.csv. The CSV already uses OpenSea’s required headers (tokenID, name, description, file_name, attributes[Trait]). OpenSea plays GIF, not APNG. Preview the loops, then publish.",
   },
   {
     title: "Or deploy the ERC-721 yourself",

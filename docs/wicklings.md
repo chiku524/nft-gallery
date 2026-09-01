@@ -1,6 +1,6 @@
 # Wicklings
 
-Looping **paper-lantern PFP GIFs** — soft discs, translucent paper, a little flame with a face. A **3,333-piece** collection built to mint on **Arbitrum** (chain ID `42161`) and list on **OpenSea**.
+Looping **paper-lantern PFP GIFs** — soft discs, translucent paper, a little flame with a face. A **10,000-piece** collection built to mint on **Arbitrum** (chain ID `42161`) and list on **OpenSea**.
 
 This collection lives inside **NFT Gallery** at `/wicklings`.
 
@@ -13,14 +13,14 @@ OpenSea does **not** assemble collections from trait layers. For a Drop you uplo
 - Collection logo, featured image, OpenSea banner, site banner, and 1000×1000 collection GIF in `public/brand/`
 - Paste-ready project description at `public/metadata/wicklings-description.txt`
 - Trait studio at `/wicklings/studio` — a live CSS stack of APNG `<img>` layers
-- `contracts/Wicklings.sol` — ERC-721 with a 3,333 supply cap
+- `contracts/Wicklings.sol` — ERC-721 with a 10,000 supply cap
 
 ## Generate traits and tokens
 
 ```bash
 python3 scripts/build_wicklings.py
 python3 scripts/generate_wicklings.py        # 16 samples
-python3 scripts/generate_wicklings.py --all  # full 3,333
+python3 scripts/generate_wicklings.py --all  # full 10,000
 python3 scripts/gif_bake.py --wicklings --all
 ```
 

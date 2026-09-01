@@ -3,10 +3,10 @@ export const wicklings = {
   symbol: "WICK",
   tagline: "Paper lanterns. A little flame that never goes out.",
   description:
-    "Wicklings is a 3,333-piece collection of looping paper-lantern PFP GIFs on Arbitrum. Each lantern is stacked from six layers — night, halo, vessel, wick, wrap, and drift — then flattened onto one 12-frame GIF. Paper glows. The wick blinks. Moths never land.",
+    "Wicklings is a 10,000-piece collection of looping paper-lantern PFP GIFs on Arbitrum. Each lantern is stacked from six layers — night, halo, vessel, wick, wrap, and drift — then flattened onto one 12-frame GIF. Paper glows. The wick blinks. Moths never land.",
   story:
-    "Wicklings never go out.\n\nA 3,333-piece collection of looping paper-lantern PFP GIFs on Arbitrum. Each lantern is stacked from six layers — night, halo, vessel, wick, wrap, and drift — then flattened onto one 12-frame GIF. Paper glows. The wick blinks. Moths never land.\n\nSoft discs, translucent paper, a little flame with a face. One shared clock.\n\nMinting on Arbitrum (chain ID 42161). Gas is ETH.",
-  supply: 3333,
+    "Wicklings never go out.\n\nA 10,000-piece collection of looping paper-lantern PFP GIFs on Arbitrum. Each lantern is stacked from six layers — night, halo, vessel, wick, wrap, and drift — then flattened onto one 12-frame GIF. Paper glows. The wick blinks. Moths never land.\n\nSoft discs, translucent paper, a little flame with a face. One shared clock.\n\nMinting on Arbitrum (chain ID 42161). Gas is ETH.",
+  supply: 10000,
   mintPriceEth: "0.003",
   frames: 12,
   frameDurationMs: 80,

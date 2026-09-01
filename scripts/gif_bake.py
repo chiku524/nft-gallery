@@ -40,7 +40,7 @@ LOOPKINS_TOTAL = 10_000
 AFTER_TOTAL = 50
 INKLINGS_TOTAL = 5555
 PANDAS_TOTAL = 4444
-WICKLINGS_TOTAL = 3333
+WICKLINGS_TOTAL = 10_000
 
 
 def load_apng_frames(path: Path) -> tuple[list[Image.Image], int]:
@@ -255,7 +255,7 @@ def main() -> None:
         (ROOT / "generated" / "wicklings" / "README.md").write_text(
             "# Wicklings OpenSea pack\n\n"
             f"{count:,} flattened lantern loops at 512×512, 12 frames, 80ms.\n\n"
-            "Upload every file in `gifs/` (1.gif–3333.gif) plus `WICKLINGS-opensea-drop.csv` "
+            "Upload every file in `gifs/` (1.gif–10000.gif) plus `WICKLINGS-opensea-drop.csv` "
             "or `opensea-metadata.csv` to an OpenSea Drop on Arbitrum.\n"
             "OpenSea Drops play GIF, not APNG. APNGs stay in `images/` for the site and restacks.\n"
             "The CSV uses OpenSea Studio headers: tokenID, name, description, file_name, and attributes[Trait].\n",
