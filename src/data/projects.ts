@@ -2,16 +2,19 @@ import { afterimages, afterimageWorks } from "@/data/afterimages";
 import { collection } from "@/data/collection";
 import { inklingSamples } from "@/data/inkling-gallery";
 import { inklings } from "@/data/inklings";
+import { partyPandaSamples } from "@/data/party-panda-gallery";
+import { partyPandas } from "@/data/party-pandas";
 import { sampleMints } from "@/data/gallery";
 import { AFTERIMAGES_BASE } from "@/lib/afterimages";
 import { INKLINGS_BASE } from "@/lib/inklings";
 import { LOOPKINS_BASE } from "@/lib/loopkins";
+import { PARTY_PANDAS_BASE } from "@/lib/party-pandas";
 
 export const gallery = {
   name: "NFT Gallery",
   tagline: "Collections on the wall. One drop at a time.",
   description:
-    "NFT Gallery is a house of on-chain collections — each drop keeps its own studio, traits, and launch path. Loopkins is the layered PFP. Afterimages is the 1:1 APNG drop. Inklings is the cartoon-squid PFP GIF drop on Ink.",
+    "NFT Gallery is a house of on-chain collections — each drop keeps its own studio, traits, and launch path. Loopkins is the layered PFP. Afterimages is the 1:1 APNG drop. Inklings is the cartoon-squid PFP GIF drop on Ink. Party Pandas is the looping party-panda GIF drop on Base.",
 } as const;
 
 export const projects = [
@@ -63,11 +66,29 @@ export const projects = [
     supply: inklings.supply,
     cover: "/brand/banner-inklings.png",
     thumb: inklingSamples[0].image,
-    status: "new on the wall" as const,
+    status: "on the wall" as const,
     kind: "layered-pfp" as const,
     previews: inklingSamples.map((mint) => mint.image),
     studioHref: "/inklings/studio" as const,
     opensea: inklings.opensea.collection,
+  },
+  {
+    slug: "party-pandas",
+    href: PARTY_PANDAS_BASE,
+    name: partyPandas.name,
+    symbol: partyPandas.symbol,
+    tagline: partyPandas.tagline,
+    description: partyPandas.description,
+    chain: partyPandas.chain.name,
+    chainId: partyPandas.chain.chainId,
+    supply: partyPandas.supply,
+    cover: "/brand/banner-party-pandas.png",
+    thumb: partyPandaSamples[0].image,
+    status: "new on the wall" as const,
+    kind: "layered-pfp" as const,
+    previews: partyPandaSamples.map((mint) => mint.image),
+    studioHref: "/party-pandas/studio" as const,
+    opensea: partyPandas.opensea.collection,
   },
 ] as const;
 
