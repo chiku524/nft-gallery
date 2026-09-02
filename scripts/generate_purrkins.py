@@ -153,7 +153,7 @@ def token_meta(token_id: int, selection: dict[str, str]) -> dict:
     ]
     return {
         "name": f"Purrkin #{token_id}",
-        "description": "A looping chibi-cat PFP. Ears twitch. The tail sways. Minted on HyperEVM.",
+        "description": "A looping chibi-cat PFP. Ears twitch. Eyes blink. Minted on HyperEVM.",
         "image": f"{token_id}.gif",
         "attributes": attributes,
         "animation_loop": True,

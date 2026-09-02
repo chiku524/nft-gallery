@@ -14,7 +14,7 @@ export type PurrkinTraitCategory = {
 };
 
 /** Bump when APNG layers change so the studio does not keep a stale loop. */
-export const PURRKIN_ART_VERSION = "purrkins-v1";
+export const PURRKIN_ART_VERSION = "purrkins-v2";
 
 export const PURRKIN_FRAMES = 12;
 export const PURRKIN_DURATION_MS = 80;
@@ -55,7 +55,7 @@ export const purrkinTraitCategories: PurrkinTraitCategory[] = [
   {
     id: "pelt",
     label: "Pelt",
-    blurb: "Six coats. Cream, ginger, soot, mist, calico, and matcha — ears twitch, tail sways.",
+    blurb: "Six coats. Cream, ginger, soot, mist, calico, and matcha — ears twitch, eyes blink.",
     traits: [
       { id: "cream", name: "Cream", image: "/purrkins-traits/pelt/cream.png", rarity: 22 },
       { id: "ginger", name: "Ginger", image: "/purrkins-traits/pelt/ginger.png", rarity: 18 },
@@ -68,7 +68,7 @@ export const purrkinTraitCategories: PurrkinTraitCategory[] = [
   {
     id: "fit",
     label: "Fit",
-    blurb: "Streetwear locked to the same bob as the body.",
+    blurb: "Streetwear as one cropped bust — no sleeves, no paws.",
     noneLabel: "No fit",
     traits: [
       { id: "hoodie", name: "Forest Hoodie", image: "/purrkins-traits/fit/hoodie.png", rarity: 18 },

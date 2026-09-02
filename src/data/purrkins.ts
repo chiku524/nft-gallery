@@ -3,9 +3,9 @@ export const purrkins = {
   symbol: "PURR",
   tagline: "Chibi cats in streetwear. They never sit still.",
   description:
-    "Purrkins is a 4,000-piece collection of looping chibi-cat PFP GIFs on HyperEVM. Each cat is stacked from six layers — pad, glow, pelt, fit, mug, and gear — then flattened onto one 12-frame GIF. Thick outlines. Flat fills. Streetwear. Ears twitch. Tails sway. Eyes blink.",
+    "Purrkins is a 4,000-piece collection of looping chibi-cat PFP GIFs on HyperEVM. Each cat is stacked from six layers — pad, glow, pelt, fit, mug, and gear — then flattened onto one 12-frame GIF. Thick outlines. Flat fills. Streetwear. Ears twitch. Eyes blink. Soft bob.",
   story:
-    "Purrkins never sit still.\n\nA 4,000-piece collection of looping chibi-cat PFP GIFs on HyperEVM. Each Purrkin is stacked from six layers — pad, glow, pelt, fit, mug, and gear — then flattened onto one 12-frame GIF. Pastel desks behind them. Hoodies and beanies on top. Ears twitch. Tails sway. Eyes blink.\n\nKawaii cats with thick outlines, flat cel fills, and streetwear. Soft bob. One shared clock.\n\nMinting on HyperEVM (chain ID 999). Gas is HYPE.",
+    "Purrkins never sit still.\n\nA 4,000-piece collection of looping chibi-cat PFP GIFs on HyperEVM. Each Purrkin is stacked from six layers — pad, glow, pelt, fit, mug, and gear — then flattened onto one 12-frame GIF. Pastel desks behind them. Hoodies and beanies on top. Ears twitch. Eyes blink. Soft bob.\n\nKawaii bust-crop cats with thick outlines, flat cel fills, and streetwear. One shared clock.\n\nMinting on HyperEVM (chain ID 999). Gas is HYPE.",
   supply: 4000,
   mintPriceEth: "1",
   frames: 12,
