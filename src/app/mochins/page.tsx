@@ -50,7 +50,7 @@ export default function MochinsHomePage() {
         <div className="grid gap-8 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground">The drop</p>
-            <h2 className="mt-2 font-heading text-3xl sm:text-4xl">Sculpted mochi, looping in studio light.</h2>
+            <h2 className="mt-2 font-heading text-3xl sm:text-4xl">Vinyl toys, looping on the shelf.</h2>
             <div className="mt-4 space-y-4 text-muted-foreground">
               {mochins.story.split("\n\n").map((paragraph) => (
                 <p key={paragraph.slice(0, 40)}>{paragraph}</p>
@@ -114,14 +114,14 @@ export default function MochinsHomePage() {
               <p className="text-xs uppercase tracking-[0.22em] text-[#e8a87c]">How the stack works</p>
               <h2 className="mt-2 font-heading text-4xl">Studio plays layers. The drop flattens them.</h2>
               <p className="mt-4 text-[#f6efe4]/75">
-                Each trait is its own looping APNG. The studio stacks those files so stages, dough, and
+                Each trait is its own looping APNG. The studio stacks those files so stages, vinyl, and
                 steam keep moving. Minted tokens composite the same 16 frames into one GIF OpenSea can
                 list on Shape.
               </p>
             </div>
             <div className="flex flex-col justify-end gap-3">
               <Button asChild size="lg" variant="secondary">
-                <Link href={mochinsPath("/traits")}>Browse every mochi layer</Link>
+                <Link href={mochinsPath("/traits")}>Browse every vinyl layer</Link>
               </Button>
               <Button asChild size="lg" variant="outline" className="border-[#f6efe4]/25 bg-transparent text-[#f6efe4]">
                 <Link href={mochinsPath("/launch")}>Launch checklist</Link>

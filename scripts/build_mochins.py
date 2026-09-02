@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Paint Mochins — looping soft-3D mochi PFP layers for an OpenSea Drop on Shape.
+"""Paint Mochins — looping vinyl-toy mochi PFP layers for an OpenSea Drop on Shape.
 
 Every trait is a 16-frame APNG on a shared 512 canvas and 100ms clock.
-Dough, face, and topping share one squash so a stacked preview stays locked.
+Vinyl, face, and topping share one idle bob so a stacked preview stays locked.
 Stage, haze, and steam move on their own loops.
 
-Look: studio-lit 3D daifuku. No outlines. Volume, spec, rim, contact shadow.
+Look: gloss vinyl designer toys. Hard plastic. Tight spec. Clear coat. No outlines.
 """
 
 from __future__ import annotations
@@ -47,6 +47,10 @@ VIEW = np.array([0.04, 0.06, 0.997], dtype=np.float32)
 VIEW /= float(np.linalg.norm(VIEW))
 HALF = KEY + VIEW
 HALF /= float(np.linalg.norm(HALF))
+WINDOW = np.array([0.62, -0.38, 0.69], dtype=np.float32)
+WINDOW /= float(np.linalg.norm(WINDOW))
+WINDOW_H = WINDOW + VIEW
+WINDOW_H /= float(np.linalg.norm(WINDOW_H))
 
 
 def clamp01(x: np.ndarray | float) -> np.ndarray | float:
@@ -163,19 +167,25 @@ def shade_rgb(
     ndotr = clamp01(nx * RIM[0] + ny * RIM[1] + nz * RIM[2])
     ndotv = clamp01(nx * VIEW[0] + ny * VIEW[1] + nz * VIEW[2])
     ndoth = clamp01(nx * HALF[0] + ny * HALF[1] + nz * HALF[2])
-    spec_term = np.power(ndoth, shininess)
-    fresnel = np.power(np.clip(1.0 - ndotv, 0.0, 1.0), 2.55)
-    ao = clamp01(0.50 + 0.50 * nz - 0.18 * ny)
+    ndotw = clamp01(nx * WINDOW_H[0] + ny * WINDOW_H[1] + nz * WINDOW_H[2])
+    spec_tight = np.power(ndoth, shininess * 1.45)
+    spec_broad = np.power(ndoth, max(shininess * 0.20, 14.0))
+    window = np.power(ndotw, max(shininess * 0.62, 22.0))
+    fresnel = np.power(np.clip(1.0 - ndotv, 0.0, 1.0), 3.1)
+    ao = clamp01(0.42 + 0.58 * nz - 0.22 * ny)
     sss_term = clamp01(-ndotk) * fresnel * sss
+    coat = spec_tight * spec * 1.35 + spec_broad * spec * 0.18 + window * spec * 0.72 + fresnel * spec * 0.16
+    # Gloss plastic: less diffuse so the clear coat can punch through light vinyl.
+    kd = 1.0 - min(float(spec), 1.0) * 0.22
 
-    lit = albedo * (ambient * ao)[..., None]
-    lit = lit + albedo * wrap_l[..., None] * key_col
-    lit = lit + albedo * ndotf[..., None] * fill_col
-    lit = lit + spec_term[..., None] * spec * rgb("fff7ee")
+    lit = albedo * (ambient * ao)[..., None] * kd
+    lit = lit + albedo * wrap_l[..., None] * key_col * kd
+    lit = lit + albedo * ndotf[..., None] * fill_col * kd
+    lit = lit + coat[..., None] * rgb("fffdf8")
     lit = lit + (fresnel * ndotr)[..., None] * rim_col
-    lit = lit + sss_term[..., None] * mix(albedo, rgb("ffb087"), 0.42)
+    lit = lit + sss_term[..., None] * mix(albedo, rgb("ffe0d0"), 0.18)
     if bounce is not None:
-        lit = lit + albedo * clamp01(-ny)[..., None] * bounce
+        lit = lit + albedo * clamp01(-ny)[..., None] * bounce * kd
     return np.clip(lit, 0.0, 1.0)
 
 
@@ -195,10 +205,9 @@ def blit_soft(dst: np.ndarray, color: np.ndarray, alpha: np.ndarray) -> None:
 
 def body_geo(frame: int) -> tuple[float, float, float, float]:
     t = 2.0 * math.pi * frame / FRAMES
-    squash_y = 1.0 + 0.034 * math.sin(t)
-    squash_x = 1.0 / math.sqrt(squash_y)
-    lift = 5.2 * math.sin(t)
-    return 256.0, 268.0 - lift, 176.0 * squash_x, 150.0 * squash_y
+    # Rigid vinyl — a shelf bob, no squash.
+    lift = 3.2 * math.sin(t)
+    return 256.0, 268.0 - lift, 176.0, 150.0
 
 
 def write_bytes_retry(path: Path, data: bytes, attempts: int = 10) -> None:
@@ -263,8 +272,8 @@ STAGES = {
         "floor": rgb("d8c4a4"),
         "splash": rgb("fff6e6") * 0.22,
         "plate": rgb("f4eee4"),
-        "plate_spec": 0.58,
-        "plate_shiny": 48.0,
+        "plate_spec": 0.78,
+        "plate_shiny": 72.0,
         "seed": 101,
     },
     "dusk": {
@@ -273,8 +282,8 @@ STAGES = {
         "floor": rgb("1e1b2c"),
         "splash": rgb("c8b4ff") * 0.16,
         "plate": rgb("8a8498"),
-        "plate_spec": 0.42,
-        "plate_shiny": 36.0,
+        "plate_spec": 0.68,
+        "plate_shiny": 56.0,
         "seed": 202,
     },
     "matcha": {
@@ -283,8 +292,8 @@ STAGES = {
         "floor": rgb("aeb888"),
         "splash": rgb("f0ffd4") * 0.16,
         "plate": rgb("c4a06a"),
-        "plate_spec": 0.28,
-        "plate_shiny": 22.0,
+        "plate_spec": 0.42,
+        "plate_shiny": 28.0,
         "seed": 303,
     },
     "night": {
@@ -293,8 +302,8 @@ STAGES = {
         "floor": rgb("0c0d12"),
         "splash": rgb("8ab4ff") * 0.12,
         "plate": rgb("2c3038"),
-        "plate_spec": 0.50,
-        "plate_shiny": 40.0,
+        "plate_spec": 0.74,
+        "plate_shiny": 80.0,
         "seed": 404,
     },
     "blush": {
@@ -303,8 +312,8 @@ STAGES = {
         "floor": rgb("d4a098"),
         "splash": rgb("ffe4e0") * 0.20,
         "plate": rgb("f6d8d2"),
-        "plate_spec": 0.52,
-        "plate_shiny": 44.0,
+        "plate_spec": 0.80,
+        "plate_shiny": 76.0,
         "seed": 505,
     },
     "marble": {
@@ -313,8 +322,8 @@ STAGES = {
         "floor": rgb("c8c2ba"),
         "splash": rgb("ffffff") * 0.14,
         "plate": rgb("f2f0ec"),
-        "plate_spec": 0.62,
-        "plate_shiny": 56.0,
+        "plate_spec": 0.86,
+        "plate_shiny": 90.0,
         "seed": 606,
     },
     "amber": {
@@ -323,8 +332,8 @@ STAGES = {
         "floor": rgb("c09458"),
         "splash": rgb("ffe8b0") * 0.20,
         "plate": rgb("c9a24a"),
-        "plate_spec": 0.78,
-        "plate_shiny": 64.0,
+        "plate_spec": 0.92,
+        "plate_shiny": 110.0,
         "seed": 707,
     },
     "fog": {
@@ -333,20 +342,20 @@ STAGES = {
         "floor": rgb("aeb6c2"),
         "splash": rgb("f0f6ff") * 0.16,
         "plate": rgb("e8eef4"),
-        "plate_spec": 0.36,
-        "plate_shiny": 28.0,
+        "plate_spec": 0.70,
+        "plate_shiny": 64.0,
         "seed": 808,
     },
 }
 
 DOUGHS = {
-    "snow": {"albedo": rgb("f3eee4"), "sss": 0.24, "spec": 0.40, "shininess": 34.0, "seed": 11},
-    "matcha": {"albedo": rgb("7fa35a"), "sss": 0.16, "spec": 0.46, "shininess": 38.0, "seed": 22},
-    "berry": {"albedo": rgb("de7a8c"), "sss": 0.22, "spec": 0.50, "shininess": 36.0, "seed": 33},
-    "sesame": {"albedo": rgb("3a322c"), "sss": 0.08, "spec": 0.64, "shininess": 54.0, "seed": 44},
-    "yuzu": {"albedo": rgb("e6c254"), "sss": 0.18, "spec": 0.44, "shininess": 34.0, "seed": 55},
-    "cocoa": {"albedo": rgb("6b3f2a"), "sss": 0.12, "spec": 0.54, "shininess": 42.0, "seed": 66},
-    "taro": {"albedo": rgb("b48ab8"), "sss": 0.18, "spec": 0.48, "shininess": 38.0, "seed": 77},
+    "snow": {"albedo": rgb("f3ece3"), "sss": 0.0, "spec": 1.06, "shininess": 200.0, "seed": 11},
+    "matcha": {"albedo": rgb("4f9a32"), "sss": 0.0, "spec": 1.16, "shininess": 220.0, "seed": 22},
+    "berry": {"albedo": rgb("e03a62"), "sss": 0.0, "spec": 1.18, "shininess": 216.0, "seed": 33},
+    "sesame": {"albedo": rgb("1c1816"), "sss": 0.0, "spec": 1.28, "shininess": 240.0, "seed": 44},
+    "yuzu": {"albedo": rgb("e8b428"), "sss": 0.0, "spec": 1.14, "shininess": 200.0, "seed": 55},
+    "cocoa": {"albedo": rgb("6e3224"), "sss": 0.0, "spec": 1.18, "shininess": 224.0, "seed": 66},
+    "taro": {"albedo": rgb("b46ac8"), "sss": 0.0, "spec": 1.20, "shininess": 212.0, "seed": 77},
 }
 
 HAZES = ("warm", "cool", "gold", "sakura")
@@ -368,19 +377,19 @@ def paint_stage(kind: str, frame: int) -> np.ndarray:
     color = color * vig[..., None]
     splash = np.exp(-((XX - 132.0) ** 2 + (YY - 88.0) ** 2) / (2.0 * 150.0**2))
     color = color + splash[..., None] * spec["splash"]
-    color = color * (1.0 + grain(spec["seed"], 0.018)[..., None])
+    color = color * (1.0 + grain(spec["seed"], 0.008)[..., None])
     dst[..., :3] = np.clip(color, 0.0, 1.0)
     dst[..., 3] = 1.0
 
-    pulse = 0.92 + 0.08 * math.sin(2.0 * math.pi * frame / FRAMES)
-    plate_n = grain(spec["seed"] + 3, 0.045)
+    pulse = 0.94 + 0.06 * math.sin(2.0 * math.pi * frame / FRAMES)
+    plate_n = grain(spec["seed"] + 3, 0.016)
     plate_alb = spec["plate"] * (1.0 + plate_n[..., None])
     if kind == "marble":
         veins = np.abs(grain(909, 0.9))
         plate_alb = mix(plate_alb, rgb("c8c4bc"), smoothstep(0.62, 0.86, veins))
     elif kind == "matcha":
         plate_alb = mix(plate_alb, rgb("8a6840"), clamp01(grain(310, 0.8) * 2.2 + 0.45))
-    nx, ny, nz, a = ellipsoid(256.0, 406.0, 210.0, 46.0, soft=3.4)
+    nx, ny, nz, a = ellipsoid(256.0, 406.0, 198.0, 40.0, soft=1.8)
     blit_volume(
         dst,
         plate_alb,
@@ -389,22 +398,24 @@ def paint_stage(kind: str, frame: int) -> np.ndarray:
         nz,
         a,
         spec=spec["plate_spec"] * pulse,
-        shininess=spec["plate_shiny"],
-        sss=0.04,
-        ambient=0.18,
+        shininess=spec["plate_shiny"] * 1.25,
+        sss=0.0,
+        ambient=0.14,
+        wrap=0.06,
     )
-    nx2, ny2, nz2, a2 = ellipsoid(256.0, 402.0, 156.0, 28.0, soft=3.0)
+    nx2, ny2, nz2, a2 = ellipsoid(256.0, 400.0, 148.0, 22.0, soft=1.6)
     blit_volume(
         dst,
-        shade(spec["plate"], 0.10),
+        shade(spec["plate"], 0.16),
         nx2,
         ny2,
         nz2,
-        a2 * 0.88,
-        spec=0.22,
-        shininess=26.0,
-        sss=0.03,
-        ambient=0.16,
+        a2 * 0.90,
+        spec=0.55,
+        shininess=48.0,
+        sss=0.0,
+        ambient=0.12,
+        wrap=0.04,
     )
     return dst
 
@@ -446,16 +457,14 @@ def paint_dough(kind: str, frame: int) -> np.ndarray:
     mat = DOUGHS[kind]
     dst = blank()
     cx, cy, rx, ry = body_geo(frame)
-    # Contact shadow rides with the squash so the mochi stays planted.
-    shadow_y = cy + ry * 0.78
-    sx, sy, _sz, sa = ellipsoid(cx + 4.0, shadow_y, rx * 0.92, ry * 0.22, soft=14.0)
-    blit_soft(dst, rgb("1a1210"), sa * (0.42 + 0.10 * (1.0 - sy)))
+    # Hard contact shadow — the figure sits on the stand, it does not sink.
+    shadow_y = cy + ry * 0.82
+    _sx, sy, _sz, sa = ellipsoid(cx + 2.0, shadow_y, rx * 0.78, ry * 0.13, soft=5.0)
+    blit_soft(dst, rgb("0c0a0a"), sa * (0.62 + 0.10 * (1.0 - sy)))
 
-    nx, ny, nz, a = ellipsoid(cx, cy, rx, ry, soft=2.8)
-    nx, ny, nz = bump_normals(nx, ny, nz, mat["seed"], 0.055)
-    n = grain(mat["seed"], 0.05)
-    albedo = mat["albedo"] * (1.0 + n[..., None])
-    albedo = mix(albedo, lite(mat["albedo"], 0.10), clamp01(n * 5.5 + 0.4))
+    nx, ny, nz, a = ellipsoid(cx, cy, rx, ry, soft=1.05)
+    nx, ny, nz = bump_normals(nx, ny, nz, mat["seed"], 0.004)
+    albedo = mat["albedo"] * (1.0 + grain(mat["seed"], 0.004)[..., None])
     blit_volume(
         dst,
         albedo,
@@ -466,10 +475,22 @@ def paint_dough(kind: str, frame: int) -> np.ndarray:
         spec=mat["spec"],
         shininess=mat["shininess"],
         sss=mat["sss"],
-        bounce=rgb("e8d2b0") * 0.18,
+        bounce=rgb("d4cfc8") * 0.08,
         ambient=0.18,
-        wrap=0.22,
+        wrap=0.04,
     )
+    # Molded equator seam — the two-part vinyl toy join.
+    seam = smoothstep(0.055, 0.0, np.abs((YY - cy) / ry)) * a * 0.22
+    blit_soft(dst, shade(mat["albedo"], 0.28), seam)
+    # Key catchlight + elongated window reflection.
+    hx = cx - rx * 0.28
+    hy = cy - ry * 0.36
+    _nx, _ny, _nz, ha = ellipsoid(hx, hy, rx * 0.13, ry * 0.08, soft=1.2)
+    blit_soft(dst, rgb("ffffff"), ha * 0.78)
+    wx = cx + rx * 0.22
+    wy = cy - ry * 0.18
+    _nx, _ny, _nz, wa = ellipsoid(wx, wy, rx * 0.20, ry * 0.055, soft=1.6)
+    blit_soft(dst, rgb("eef4ff"), wa * 0.38)
     return dst
 
 
@@ -490,7 +511,7 @@ def add_eye(
     erx, ery = (18.5, 19.5) if wide else (15.2, 16.4)
     nx, ny, nz, a = ellipsoid(ex, ey, erx, ery, soft=1.3)
     iris = rgb("3a1020") if heart else rgb("1a1410")
-    blit_volume(dst, iris, nx, ny, nz, a, spec=0.88, shininess=72.0, sss=0.03, ambient=0.10, wrap=0.12)
+    blit_volume(dst, iris, nx, ny, nz, a, spec=0.98, shininess=160.0, sss=0.01, ambient=0.08, wrap=0.06)
     if heart:
         hx, hy, hz, ha = ellipsoid(ex, ey + 1.0, 7.4, 6.6, soft=1.0)
         blit_volume(dst, rgb("e24b6a"), hx, hy, hz, ha * 0.92, spec=0.6, shininess=40.0, sss=0.2)
@@ -515,7 +536,7 @@ def paint_face(kind: str, frame: int) -> np.ndarray:
     # Cheeks sit on the front of the volume.
     for ox in (-58.0, 58.0):
         nx, ny, nz, a = ellipsoid(cx + ox, cy + 24.0, 24.0, 14.0, soft=9.0)
-        blit_volume(dst, rgb("f2a29a"), nx, ny, nz, a * 0.32, spec=0.12, shininess=12.0, sss=0.45, ambient=0.22)
+        blit_volume(dst, rgb("e87880"), nx, ny, nz, a * 0.34, spec=0.82, shininess=110.0, sss=0.0, ambient=0.12, wrap=0.04)
 
     ly = cy - 10.0 + (2.0 if sleepy else 0.0)
     add_eye(
@@ -571,10 +592,10 @@ def paint_topping(kind: str, frame: int) -> np.ndarray:
 
     if kind == "leaf":
         nx, ny, nz, a = ellipsoid(crown_x + 18.0, crown_y + 4.0, 38.0, 16.0, soft=1.8)
-        nx, ny, nz = bump_normals(nx, ny, nz, 81, 0.04)
-        blit_volume(dst, rgb("5a8a3a"), nx, ny, nz, a, spec=0.55, shininess=46.0, sss=0.10)
+        nx, ny, nz = bump_normals(nx, ny, nz, 81, 0.012)
+        blit_volume(dst, rgb("4f9a32"), nx, ny, nz, a, spec=0.88, shininess=110.0, sss=0.03)
         nx2, ny2, nz2, a2 = ellipsoid(crown_x - 8.0, crown_y + 10.0, 28.0, 12.0, soft=1.6)
-        blit_volume(dst, rgb("6e9c44"), nx2, ny2, nz2, a2, spec=0.5, shininess=40.0, sss=0.10)
+        blit_volume(dst, rgb("62b044"), nx2, ny2, nz2, a2, spec=0.86, shininess=100.0, sss=0.03)
         vein, _, _, va = ellipsoid(crown_x + 10.0, crown_y + 6.0, 24.0, 2.2, soft=0.8)
         blit_soft(dst, rgb("3e6428"), va * 0.45)
     elif kind == "sesame":
@@ -587,17 +608,17 @@ def paint_topping(kind: str, frame: int) -> np.ndarray:
             pr = float(rng.uniform(3.2, 5.4))
             tone = rgb("2a221c") if rng.random() > 0.22 else rgb("ebe2d2")
             nx, ny, nz, a = ellipsoid(px, py, pr, pr * 0.86, soft=0.8)
-            blit_volume(dst, tone, nx, ny, nz, a, spec=0.7, shininess=60.0, sss=0.04, ambient=0.14)
+            blit_volume(dst, tone, nx, ny, nz, a, spec=0.92, shininess=140.0, sss=0.02, ambient=0.12)
     elif kind == "drizzle":
         for i, ox in enumerate((-36.0, -8.0, 22.0, 46.0)):
             nx, ny, nz, a = ellipsoid(cx + ox, cy - ry * 0.42 + i * 10.0, 16.0 - i, 46.0, soft=2.2)
-            blit_volume(dst, rgb("5a2e1c"), nx, ny, nz, a * 0.88, spec=0.82, shininess=70.0, sss=0.08, ambient=0.12)
+            blit_volume(dst, rgb("5a2e1c"), nx, ny, nz, a * 0.88, spec=0.94, shininess=150.0, sss=0.02, ambient=0.10)
     elif kind == "berry":
         nx, ny, nz, a = ellipsoid(crown_x, crown_y + 2.0, 28.0, 26.0, soft=1.6)
-        nx, ny, nz = bump_normals(nx, ny, nz, 44, 0.09)
-        blit_volume(dst, rgb("c43a48"), nx, ny, nz, a, spec=0.62, shininess=50.0, sss=0.18)
+        nx, ny, nz = bump_normals(nx, ny, nz, 44, 0.02)
+        blit_volume(dst, rgb("e23a4a"), nx, ny, nz, a, spec=0.94, shininess=140.0, sss=0.03)
         nx2, ny2, nz2, a2 = ellipsoid(crown_x + 2.0, crown_y - 20.0, 6.0, 10.0, soft=1.0)
-        blit_volume(dst, rgb("3e7a32"), nx2, ny2, nz2, a2, spec=0.4, shininess=30.0, sss=0.08)
+        blit_volume(dst, rgb("3e7a32"), nx2, ny2, nz2, a2, spec=0.82, shininess=90.0, sss=0.02)
     elif kind == "kinako":
         rng = np.random.default_rng(27)
         dust = blank()
@@ -610,11 +631,11 @@ def paint_topping(kind: str, frame: int) -> np.ndarray:
         over(dst, dust)
     else:  # bow
         nx, ny, nz, a = ellipsoid(crown_x - 22.0, crown_y + 6.0, 24.0, 16.0, soft=1.5)
-        blit_volume(dst, rgb("e85a6e"), nx, ny, nz, a, spec=0.58, shininess=42.0, sss=0.12)
+        blit_volume(dst, rgb("e85a6e"), nx, ny, nz, a, spec=0.90, shininess=120.0, sss=0.03)
         nx2, ny2, nz2, a2 = ellipsoid(crown_x + 22.0, crown_y + 6.0, 24.0, 16.0, soft=1.5)
-        blit_volume(dst, rgb("e85a6e"), nx2, ny2, nz2, a2, spec=0.58, shininess=42.0, sss=0.12)
+        blit_volume(dst, rgb("e85a6e"), nx2, ny2, nz2, a2, spec=0.90, shininess=120.0, sss=0.03)
         nx3, ny3, nz3, a3 = ellipsoid(crown_x, crown_y + 8.0, 10.0, 10.0, soft=1.2)
-        blit_volume(dst, rgb("c43a52"), nx3, ny3, nz3, a3, spec=0.64, shininess=48.0, sss=0.10)
+        blit_volume(dst, rgb("c43a52"), nx3, ny3, nz3, a3, spec=0.92, shininess=130.0, sss=0.02)
     return dst
 
 
@@ -733,7 +754,7 @@ SIGNATURES = [
 TRAIT_LABELS = (
     ("stage", "Stage"),
     ("haze", "Haze"),
-    ("dough", "Dough"),
+    ("dough", "Vinyl"),
     ("face", "Face"),
     ("topping", "Topping"),
     ("steam", "Steam"),
@@ -826,19 +847,19 @@ def build_samples() -> None:
 
 
 COLLECTION_DESCRIPTION = (
-    "Mochins is a 4,000-piece collection of looping soft-3D mochi PFP GIFs on Shape. "
-    "Each mochi is stacked from six layers — stage, haze, dough, face, topping, and steam — "
-    "then flattened onto one 16-frame GIF. Studio light. Volume. Specular. Contact shadow. "
-    "No outlines. The dough squashes. Steam rises."
+    "Mochins is a 4,000-piece collection of looping vinyl-toy mochi PFP GIFs on Shape. "
+    "Each figure is stacked from six layers — stage, haze, vinyl, face, topping, and steam — "
+    "then flattened onto one 16-frame GIF. Gloss plastic. Tight spec. Clear coat. "
+    "No outlines. Collector-shelf light. The vinyl idles."
 )
 
 COLLECTION_STORY = (
     "Mochins never sit still.\n\n"
-    "A 4,000-piece collection of looping soft-3D mochi PFP GIFs on Shape. "
-    "Each Mochin is stacked from six layers — stage, haze, dough, face, topping, and steam — "
-    "then flattened onto one 16-frame GIF. Ceramic plates. Matcha and sesame dough. "
-    "Studio key light. Soft squash. Steam lifts off the crown.\n\n"
-    "Sculpted daifuku with volume, rim light, and contact shadow. No outlines. One shared clock.\n\n"
+    "A 4,000-piece collection of looping vinyl-toy mochi PFP GIFs on Shape. "
+    "Each Mochin is stacked from six layers — stage, haze, vinyl, face, topping, and steam — "
+    "then flattened onto one 16-frame GIF. Lacquered stands. Ivory, matcha, and black vinyl. "
+    "Studio key light. A hard highlight. Shelf glitter in the air.\n\n"
+    "Designer-toy daifuku with volume, rim light, and a planted contact shadow. No outlines. One shared clock.\n\n"
     "Minting on Shape (chain ID 360). Gas is ETH."
 )
 

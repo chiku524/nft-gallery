@@ -16,7 +16,7 @@ A house of NFT collections. Each drop is its own sub-project — studio, traits,
 
 **Hoodkins** is the seventh: 10,000 looping chibi-raccoon PFP GIFs, for OpenSea on Robinhood Chain (chain ID `4663`). Bandit masks, streetwear, ledger desks. Same 12-frame GIF clock as Loopkins.
 
-**Mochins** is the eighth: 4,000 looping soft-3D mochi PFP GIFs, for OpenSea on Shape (chain ID `360`). Studio light, volume, specular, no outlines. A 16-frame, 100ms clock.
+**Mochins** is the eighth: 4,000 looping vinyl-toy mochi PFP GIFs, for OpenSea on Shape (chain ID `360`). Gloss plastic, tight spec, no outlines. A 16-frame, 100ms clock.
 
 ## What’s in this repo
 
@@ -37,7 +37,7 @@ A house of NFT collections. Each drop is its own sub-project — studio, traits,
 | `/wicklings/studio` | Live paper-lantern mixer (Wicklings) |
 | `/purrkins/studio` | Live chibi-cat mixer (Purrkins) |
 | `/hoodkins/studio` | Live chibi-raccoon mixer (Hoodkins) |
-| `/mochins/studio` | Live soft-3D mochi mixer (Mochins) |
+| `/mochins/studio` | Live vinyl-toy mixer (Mochins) |
 | `public/traits/` | Loopkins APNG layers (sky, aura, body, face, wear, charm) |
 | `public/afterimages/` | Afterimages 1:1 APNG paintings |
 | `public/inklings-traits/` | Inklings APNG layers (paper, bloom, visage, gaze, mark, adorn) |

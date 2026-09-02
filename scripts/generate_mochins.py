@@ -142,7 +142,7 @@ def token_meta(token_id: int, selection: dict[str, str]) -> dict:
     ]
     return {
         "name": f"Mochin #{token_id}",
-        "description": "A looping soft-3D mochi PFP. Studio light. Volume. Specular. Minted on Shape.",
+        "description": "A looping vinyl-toy mochi PFP. Gloss plastic. Tight spec. Minted on Shape.",
         "image": f"{token_id}.gif",
         "attributes": attributes,
         "animation_loop": True,
@@ -221,7 +221,7 @@ def write_sidecar(count: int, rows: list[dict], stats: Counter[str], total_bytes
     (OUT / "stats.json").write_text(json.dumps(dict(stats), indent=2) + "\n", encoding="utf-8")
     (OUT / "README.md").write_text(
         "# Mochins OpenSea pack\n\n"
-        f"{count:,} flattened soft-3D mochi loops at {DROP_SIZE}×{DROP_SIZE}, {FRAMES} frames, {DURATION_MS}ms.\n\n"
+        f"{count:,} flattened vinyl-toy mochi loops at {DROP_SIZE}×{DROP_SIZE}, {FRAMES} frames, {DURATION_MS}ms.\n\n"
         f"Upload every file in `gifs/` (1.gif–{count}.gif) plus `MOCHINS-opensea-drop.csv` "
         "or `opensea-metadata.csv` to an OpenSea Drop on Shape (chain ID 360).\n"
         "OpenSea Drops play GIF, not APNG, and cap a Drop upload at 10 GB / 10,000 files.\n"

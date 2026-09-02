@@ -1,11 +1,11 @@
 export const mochins = {
   name: "Mochins",
   symbol: "MOCHI",
-  tagline: "Soft 3D mochi under studio light. They never sit still.",
+  tagline: "Gloss vinyl toys on a collector shelf. They never sit still.",
   description:
-    "Mochins is a 4,000-piece collection of looping soft-3D mochi PFP GIFs on Shape. Each mochi is stacked from six layers — stage, haze, dough, face, topping, and steam — then flattened onto one 16-frame GIF. Studio light. Volume. Specular. Contact shadow. No outlines. The dough squashes. Steam rises.",
+    "Mochins is a 4,000-piece collection of looping vinyl-toy mochi PFP GIFs on Shape. Each figure is stacked from six layers — stage, haze, vinyl, face, topping, and steam — then flattened onto one 16-frame GIF. Gloss plastic. Tight spec. Clear coat. No outlines. Collector-shelf light. The vinyl idles.",
   story:
-    "Mochins never sit still.\n\nA 4,000-piece collection of looping soft-3D mochi PFP GIFs on Shape. Each Mochin is stacked from six layers — stage, haze, dough, face, topping, and steam — then flattened onto one 16-frame GIF. Ceramic plates. Matcha and sesame dough. Studio key light. Soft squash. Steam lifts off the crown.\n\nSculpted daifuku with volume, rim light, and contact shadow. No outlines. One shared clock.\n\nMinting on Shape (chain ID 360). Gas is ETH.",
+    "Mochins never sit still.\n\nA 4,000-piece collection of looping vinyl-toy mochi PFP GIFs on Shape. Each Mochin is stacked from six layers — stage, haze, vinyl, face, topping, and steam — then flattened onto one 16-frame GIF. Lacquered stands. Ivory, matcha, and black vinyl. Studio key light. A hard highlight. Shelf glitter in the air.\n\nDesigner-toy daifuku with volume, rim light, and a planted contact shadow. No outlines. One shared clock.\n\nMinting on Shape (chain ID 360). Gas is ETH.",
   supply: 4000,
   mintPriceEth: "0.004",
   frames: 16,

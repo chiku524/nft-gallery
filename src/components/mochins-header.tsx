@@ -35,7 +35,7 @@ export function MochinsHeader() {
           <div className="leading-tight">
             <p className="font-heading text-lg tracking-tight">{mochins.name}</p>
             <p className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
-              Soft 3D mochi PFPs
+              Vinyl toy PFPs
             </p>
           </div>
         </Link>

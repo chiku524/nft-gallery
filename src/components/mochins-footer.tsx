@@ -10,7 +10,7 @@ export function MochinsFooter() {
         <div>
           <p className="font-heading text-lg">{mochins.name}</p>
           <p className="text-sm text-muted-foreground">
-            {mochins.supply.toLocaleString()} soft 3D mochi PFPs · {mochins.chain.name} ·{" "}
+            {mochins.supply.toLocaleString()} vinyl toy PFPs · {mochins.chain.name} ·{" "}
             <OpenSeaLink href={mochins.opensea.collection} className="hover:underline">
               OpenSea
             </OpenSeaLink>

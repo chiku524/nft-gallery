@@ -320,7 +320,7 @@ def main() -> None:
         rewrite_csv_filenames(ROOT / "generated" / "mochins" / "MOCHINS-opensea-drop.csv")
         (ROOT / "generated" / "mochins" / "README.md").write_text(
             "# Mochins OpenSea pack\n\n"
-            f"{count:,} flattened soft-3D mochi loops at 512×512, 16 frames, 100ms.\n\n"
+            f"{count:,} flattened vinyl-toy mochi loops at 512×512, 16 frames, 100ms.\n\n"
             f"Upload every file in `gifs/` (1.gif–{count}.gif) plus `MOCHINS-opensea-drop.csv` "
             "or `opensea-metadata.csv` to an OpenSea Drop on Shape.\n"
             "OpenSea Drops play GIF, not APNG. APNGs stay in `images/` for the site and restacks.\n"

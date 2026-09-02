@@ -6,7 +6,7 @@ import { mochins } from "@/data/mochins";
 
 export const metadata: Metadata = {
   title: "Trait loops",
-  description: "Every soft-3D mochi trait layer in the Mochins stack.",
+  description: "Every vinyl-toy mochi trait layer in the Mochins stack.",
 };
 
 export default function MochinsTraitsPage() {
@@ -16,8 +16,8 @@ export default function MochinsTraitsPage() {
       <h1 className="mt-2 font-heading text-4xl">Trait loops</h1>
       <p className="mt-3 max-w-2xl text-muted-foreground">
         Each file is an APNG on a {mochins.canvas}×{mochins.canvas} canvas: {MOCHIN_FRAMES} frames,{" "}
-        {MOCHIN_DURATION_MS}ms, looping. Studio stacks stage → haze → dough → face → topping → steam.
-        Dough, face, and topping share one squash so the mochi stays locked.
+        {MOCHIN_DURATION_MS}ms, looping. Studio stacks stage → haze → vinyl → face → topping → steam.
+        Vinyl, face, and topping share one idle bob so the figure stays locked.
       </p>
 
       <div className="mt-10 space-y-14">

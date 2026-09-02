@@ -14,7 +14,7 @@ export type MochinTraitCategory = {
 };
 
 /** Bump when APNG layers change so the studio does not keep a stale loop. */
-export const MOCHIN_ART_VERSION = "mochins-v2";
+export const MOCHIN_ART_VERSION = "mochins-v5";
 
 export const MOCHIN_FRAMES = 16;
 export const MOCHIN_DURATION_MS = 100;
@@ -28,7 +28,7 @@ export const mochinTraitCategories: MochinTraitCategory[] = [
   {
     id: "stage",
     label: "Stage",
-    blurb: "A studio cyclorama and a 3D plate — cream, dusk, matcha, marble, night.",
+    blurb: "A collector cove and a lacquered stand — cream, dusk, matcha, marble, night.",
     traits: [
       { id: "cream", name: "Cream Cove", image: "/mochins-traits/stage/cream.png", rarity: 14 },
       { id: "dusk", name: "Dusk Cove", image: "/mochins-traits/stage/dusk.png", rarity: 12 },
@@ -43,7 +43,7 @@ export const mochinTraitCategories: MochinTraitCategory[] = [
   {
     id: "haze",
     label: "Haze",
-    blurb: "Volumetric key and rim — motes sit in the air, not under the dough.",
+    blurb: "Volumetric key and rim — motes sit in the air, not under the vinyl.",
     noneLabel: "No haze",
     traits: [
       { id: "warm", name: "Warm Key", image: "/mochins-traits/haze/warm.png", rarity: 20 },
@@ -54,8 +54,8 @@ export const mochinTraitCategories: MochinTraitCategory[] = [
   },
   {
     id: "dough",
-    label: "Dough",
-    blurb: "The sculpted body — snow, matcha, berry, sesame, yuzu, cocoa, taro.",
+    label: "Vinyl",
+    blurb: "The molded body — ivory, matcha, berry, black, yuzu, cocoa, taro plastic.",
     traits: [
       { id: "snow", name: "Snow", image: "/mochins-traits/dough/snow.png", rarity: 20 },
       { id: "matcha", name: "Matcha", image: "/mochins-traits/dough/matcha.png", rarity: 16 },
@@ -69,7 +69,7 @@ export const mochinTraitCategories: MochinTraitCategory[] = [
   {
     id: "face",
     label: "Face",
-    blurb: "Painted on the front of the volume — blink, wink, grin — locked to the squash.",
+    blurb: "Molded on the front of the volume — blink, wink, grin — locked to the idle bob.",
     traits: [
       { id: "blink", name: "Blink", image: "/mochins-traits/face/blink.png", rarity: 20 },
       { id: "wink", name: "Wink", image: "/mochins-traits/face/wink.png", rarity: 14 },
@@ -84,7 +84,7 @@ export const mochinTraitCategories: MochinTraitCategory[] = [
   {
     id: "topping",
     label: "Topping",
-    blurb: "3D bits sitting on the crown — leaf, drizzle, berry, bow.",
+    blurb: "Molded vinyl bits on the crown — leaf, drizzle, berry, bow.",
     noneLabel: "Plain",
     traits: [
       { id: "leaf", name: "Leaf", image: "/mochins-traits/topping/leaf.png", rarity: 16 },
@@ -98,7 +98,7 @@ export const mochinTraitCategories: MochinTraitCategory[] = [
   {
     id: "steam",
     label: "Steam",
-    blurb: "Heat lifting off the plate — wisps, puff, sparkle.",
+    blurb: "Shelf glitter in the air — wisps, puff, sparkle.",
     noneLabel: "Still",
     traits: [
       { id: "wisps", name: "Wisps", image: "/mochins-traits/steam/wisps.png", rarity: 26 },
