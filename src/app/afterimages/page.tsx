@@ -18,7 +18,7 @@ export default function AfterimagesHomePage() {
         <div className="absolute inset-0 bg-gradient-to-t from-[#140e0a] via-[#140e0a]/55 to-transparent" />
         <div className="absolute inset-x-0 bottom-0 mx-auto w-full max-w-6xl px-4 pb-10 sm:px-6">
           <Badge className="mb-3 bg-background/90 text-foreground">
-            {afterimages.supply} one-of-ones · {afterimages.chain.name}
+            {afterimages.supply.toLocaleString()} one-of-ones · {afterimages.chain.name}
           </Badge>
           <h1 className="max-w-3xl font-heading text-4xl leading-[1.05] text-white sm:text-6xl">
             {afterimages.name}
@@ -48,12 +48,12 @@ export default function AfterimagesHomePage() {
           <div className="lg:col-span-5">
             <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground">The drop</p>
             <h2 className="mt-2 font-heading text-3xl sm:text-4xl">
-              {afterimages.supply} finished APNGs. No trait stack.
+              {afterimages.supply.toLocaleString()} finished paintings. No trait stack.
             </h2>
             <p className="mt-4 text-muted-foreground">{afterimages.description}</p>
             <dl className="mt-8 grid grid-cols-2 gap-4">
               {[
-                ["Supply", String(afterimages.supply)],
+                ["Supply", afterimages.supply.toLocaleString()],
                 ["Edition", afterimages.edition],
                 ["Loop", `${afterimages.frames} × ${afterimages.frameDurationMs}ms`],
               ].map(([label, value]) => (
@@ -88,8 +88,8 @@ export default function AfterimagesHomePage() {
         <div className="mx-auto grid w-full max-w-6xl gap-6 px-4 py-14 sm:px-6 md:grid-cols-3">
           {[
             ["Finished paintings", "Each token is one complete APNG. OpenSea lists the file you see — nothing is assembled at mint."],
-            ["One of one", `${afterimages.supply} titles, ${afterimages.supply} clocks. No shuffle, no leftover combinations, no studio mixer.`],
-            ["Drop-ready", `The pack is 1.gif–${afterimages.supply}.gif plus a Studio CSV. Upload it as an OpenSea Drop on Robinhood Chain.`],
+            ["One of one", `${afterimages.supply.toLocaleString()} titles, ${afterimages.supply.toLocaleString()} clocks. Each token is a finished loop, not a PFP trait stack.`],
+            ["Drop-ready", `The pack is 1.gif–${afterimages.supply}.gif plus a Studio CSV. Upload it as an OpenSea Drop on ${afterimages.chain.name}.`],
           ].map(([title, body]) => (
             <div key={title}>
               <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">1:1</p>

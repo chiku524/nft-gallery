@@ -4,7 +4,7 @@ A house of NFT collections. Each drop is its own sub-project — studio, traits,
 
 **Loopkins** is the first collection on the wall: 10,000 looping PFP creatures built from layered APNG traits, for OpenSea on Robinhood Chain (chain ID `4663`).
 
-**Afterimages** is the second: a 50-piece OpenSea drop of unique 1:1 APNG paintings. No trait stack — each token is a finished loop.
+**Afterimages** is the second: a 3,333-piece OpenSea drop of unique 1:1 looping paintings on Ink (chain ID `57073`). No trait stack — each token is a finished loop.
 
 **Inklings** is the third: 5,555 cartoon-squid PFP GIFs, for OpenSea on Ink (chain ID `57073`).
 
@@ -37,7 +37,7 @@ A house of NFT collections. Each drop is its own sub-project — studio, traits,
 | `generated/party-pandas/` | Party Pandas OpenSea GIF pack |
 | `generated/wicklings/` | Wicklings OpenSea GIF pack |
 | `contracts/Loopkins.sol` | ERC-721 with a 10,000 supply cap |
-| `contracts/Afterimages.sol` | ERC-721 that mints a chosen 1:1 (IDs 1–12) |
+| `contracts/Afterimages.sol` | ERC-721 that mints a chosen 1:1 (IDs 1–3333) on Ink |
 | `contracts/Inklings.sol` | ERC-721 with a 5,555 supply cap |
 | `contracts/PartyPandas.sol` | ERC-721 with a 4,444 supply cap |
 | `contracts/Wicklings.sol` | ERC-721 with an 8,888 supply cap |

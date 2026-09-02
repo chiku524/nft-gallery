@@ -53,7 +53,7 @@ export const projects = [
     thumb: afterimageWorks[0].image,
     status: "on the wall" as const,
     kind: "1of1" as const,
-    previews: afterimageWorks.map((work) => work.image),
+    previews: afterimageWorks.slice(0, 6).map((work) => work.image),
     studioHref: null,
     opensea: afterimages.opensea.collection,
   },

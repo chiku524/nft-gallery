@@ -10,7 +10,7 @@ export function AfterimagesFooter() {
         <div>
           <p className="font-heading text-lg">{afterimages.name}</p>
           <p className="text-sm text-muted-foreground">
-            {afterimages.supply} one-of-ones · {afterimages.chain.name} ·{" "}
+            {afterimages.supply.toLocaleString()} one-of-ones · {afterimages.chain.name} ·{" "}
             <OpenSeaLink href={afterimages.opensea.collection} className="hover:underline">
               OpenSea
             </OpenSeaLink>

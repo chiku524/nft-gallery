@@ -7,9 +7,12 @@ Each token is a finished looping painting, not a trait stack.
 
 from __future__ import annotations
 
+import argparse
 import csv
+import hashlib
 import json
 import math
+from multiprocessing import Pool, cpu_count
 from pathlib import Path
 
 import numpy as np
@@ -1638,6 +1641,8 @@ CSV_FIELDS = [
     "attributes[Motion]",
     "attributes[Season]",
     "attributes[Medium]",
+    "attributes[Family]",
+    "attributes[Weather]",
 ]
 
 
@@ -1650,6 +1655,8 @@ def drop_csv_row(work: dict, meta: dict) -> dict:
     }
     for attr in meta["attributes"]:
         row[f"attributes[{attr['trait_type']}]"] = attr["value"]
+    row.setdefault("attributes[Family]", work.get("family", "Signature"))
+    row.setdefault("attributes[Weather]", work.get("attributes", {}).get("Weather", "Clear"))
     return row
 
 
@@ -1694,18 +1701,19 @@ def build_brand(frames_by_id: dict[int, list[Image.Image]]) -> None:
     )
 
 
-def write_sidecars(rows: list[dict]) -> None:
+def write_sidecars(rows: list[dict], supply: int) -> None:
     OUT.mkdir(parents=True, exist_ok=True)
     with (OUT / "opensea-metadata.csv").open("w", newline="", encoding="utf-8") as handle:
-        writer = csv.DictWriter(handle, fieldnames=CSV_FIELDS)
+        writer = csv.DictWriter(handle, fieldnames=CSV_FIELDS, extrasaction="ignore")
         writer.writeheader()
         writer.writerows(rows)
     (OUT / "README.md").write_text(
         "# Afterimages OpenSea pack\n\n"
-        f"{len(WORKS)} unique 1:1 loops at 640×640, 16 frames, 100ms.\n\n"
-        f"Upload every file in `gifs/` (1.gif–{len(WORKS)}.gif) plus `opensea-metadata.csv` to an OpenSea Drop.\n"
-        "OpenSea Drops play GIF, not APNG. Site previews stay APNG in public/afterimages/.\n"
-        "The CSV uses OpenSea Studio headers: `tokenID`, `name`, `description`, `file_name`, and `attributes[Trait]`.\n",
+        f"{supply:,} unique 1:1 loops at 640×640, 16 frames, 100ms, for an OpenSea Drop on Ink.\n\n"
+        f"Upload every file in `gifs/` (1.gif–{supply}.gif) plus `opensea-metadata.csv` to an OpenSea Drop.\n"
+        "OpenSea Drops play GIF, not APNG. Tokens 1–50 are the signature APNGs in public/afterimages/.\n"
+        "The rest of the drop is baked as GIFs here. The CSV uses OpenSea Studio headers: "
+        "`tokenID`, `name`, `description`, `file_name`, and `attributes[Trait]`.\n",
         encoding="utf-8",
     )
     (META_DIR).mkdir(parents=True, exist_ok=True)
@@ -1714,7 +1722,11 @@ def write_sidecars(rows: list[dict]) -> None:
             {
                 "name": "Afterimages",
                 "symbol": "AFTER",
-                "description": f"Afterimages is a {len(WORKS)}-piece OpenSea drop of unique looping paintings. Each token is a finished APNG — not stacked traits, not a generative shuffle. One canvas, one clock, one artwork. Minting on Robinhood Chain.",
+                "description": (
+                    f"Afterimages is a {supply:,}-piece OpenSea drop of unique looping paintings on Ink. "
+                    "Each token is a finished painting — not stacked traits. One canvas, one clock, one artwork. "
+                    "Minting on Ink (chain ID 57073)."
+                ),
                 "image": "/brand/collection-afterimages.gif",
                 "banner_image": "/brand/banner-afterimages.png",
                 "external_link": "/afterimages",
@@ -1728,14 +1740,67 @@ def write_sidecars(rows: list[dict]) -> None:
     )
 
 
+def write_provenance(supply: int) -> None:
+    hashes: list[str] = []
+    for token_id in range(1, supply + 1):
+        path = GIF_DIR / f"{token_id}.gif"
+        if not path.exists():
+            continue
+        hashes.append(hashlib.sha256(path.read_bytes()).hexdigest())
+    if not hashes:
+        return
+    joined = "".join(hashes)
+    (OUT / "provenance.json").write_text(
+        json.dumps(
+            {
+                "algorithm": "SHA-256",
+                "concatenatedHash": hashlib.sha256(joined.encode("ascii")).hexdigest(),
+                "count": len(hashes),
+                "hashes": hashes,
+            },
+            indent=2,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+
 def main() -> None:
+    from afterimages_series import SIGNATURE_COUNT, TOTAL, build_generated_roster, paint_generated_job
+
+    parser = argparse.ArgumentParser(description="Paint Afterimages 1:1 loops for an OpenSea Drop on Ink.")
+    parser.add_argument("--count", type=int, default=TOTAL, help="How many tokens to include (max 3333)")
+    parser.add_argument("--workers", type=int, default=max(1, min(8, cpu_count() or 1)))
+    args = parser.parse_args()
+    supply = min(max(args.count, 1), TOTAL)
+
     PUBLIC_DIR.mkdir(parents=True, exist_ok=True)
     IMAGE_DIR.mkdir(parents=True, exist_ok=True)
     GIF_DIR.mkdir(parents=True, exist_ok=True)
     JSON_DIR.mkdir(parents=True, exist_ok=True)
+
+    signature = [work for work in WORKS if work["id"] <= supply]
+    generated = []
+    if supply > SIGNATURE_COUNT:
+        reserved = {work["title"] for work in WORKS}
+        generated = build_generated_roster(supply - SIGNATURE_COUNT, reserved)
+
+    catalog = signature + generated
     rows: list[dict] = []
-    print("Painting Afterimages 1:1 APNGs…")
-    for work in WORKS:
+    print("Writing OpenSea sidecars…")
+    for work in catalog:
+        meta = token_meta(work)
+        (JSON_DIR / f"{work['id']}.json").write_text(json.dumps(meta, indent=2) + "\n", encoding="utf-8")
+        rows.append(drop_csv_row(work, meta))
+    write_sidecars(rows, supply)
+    families: dict[str, int] = {}
+    for work in catalog:
+        family = work.get("family") or work.get("attributes", {}).get("Family", "Signature")
+        families[family] = families.get(family, 0) + 1
+    (OUT / "stats.json").write_text(json.dumps({"supply": supply, "families": families}, indent=2) + "\n", encoding="utf-8")
+
+    print("Painting signature Afterimages 1–50…")
+    for work in signature:
         site_path = PUBLIC_DIR / f"{work['id']}.png"
         drop_path = IMAGE_DIR / f"{work['id']}.png"
         gif_path = GIF_DIR / f"{work['id']}.gif"
@@ -1751,11 +1816,21 @@ def main() -> None:
             save_apng(frames, site_path)
             drop_path.write_bytes(site_path.read_bytes())
             save_loop_gif(frames, gif_path, DURATION_MS)
-        meta = token_meta(work)
-        (JSON_DIR / f"{work['id']}.json").write_text(json.dumps(meta, indent=2) + "\n", encoding="utf-8")
-        rows.append(drop_csv_row(work, meta))
-    print("Writing OpenSea sidecars…")
-    write_sidecars(rows)
+
+    if generated:
+        print(f"Painting series Afterimages {SIGNATURE_COUNT + 1}–{supply} with {args.workers} workers…")
+        done = 0
+        with Pool(processes=args.workers) as pool:
+            for token_id, label in pool.imap_unordered(paint_generated_job, generated, chunksize=4):
+                done += 1
+                if done % 25 == 0 or done == len(generated):
+                    print(f"  {done}/{len(generated)}  #{token_id} {label}")
+
+    missing = [token_id for token_id in range(1, supply + 1) if not (GIF_DIR / f"{token_id}.gif").exists()]
+    if missing:
+        raise SystemExit(f"Missing {len(missing)} GIFs, first: {missing[:8]}")
+    print("Hashing provenance…")
+    write_provenance(supply)
     print("Done.")
 
 

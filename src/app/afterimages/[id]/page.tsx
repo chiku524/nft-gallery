@@ -31,8 +31,9 @@ export default async function AfterimageWorkPage({ params }: { params: Promise<{
     notFound();
   }
 
-  const prev = getAfterimageWork(work.id === 1 ? afterimages.supply : work.id - 1);
-  const next = getAfterimageWork(work.id === afterimages.supply ? 1 : work.id + 1);
+  const featuredCount = afterimageWorks.length;
+  const prev = getAfterimageWork(work.id === 1 ? featuredCount : work.id - 1);
+  const next = getAfterimageWork(work.id === featuredCount ? 1 : work.id + 1);
 
   return (
     <div className="mx-auto w-full max-w-6xl px-4 py-10 sm:px-6">

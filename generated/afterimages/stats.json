@@ -1,0 +1,18 @@
+{
+  "supply": 3333,
+  "families": {
+    "Signature": 50,
+    "Harbor": 230,
+    "Waterline": 288,
+    "Emberland": 268,
+    "Mineral": 304,
+    "Grove": 259,
+    "Paperweather": 271,
+    "Stormfield": 289,
+    "Botanica": 286,
+    "Sanctum": 268,
+    "Nightwork": 269,
+    "Orbitwell": 271,
+    "Voidlight": 280
+  }
+}
