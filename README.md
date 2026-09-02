@@ -14,6 +14,8 @@ A house of NFT collections. Each drop is its own sub-project — studio, traits,
 
 **Purrkins** is the sixth: 10,000 looping chibi-cat PFP GIFs, for OpenSea on HyperEVM (chain ID `999`). Thick outlines, streetwear, pastel desks. Same 12-frame GIF clock as Loopkins.
 
+**Hoodkins** is the seventh: 10,000 looping chibi-raccoon PFP GIFs, for OpenSea on Robinhood Chain (chain ID `4663`). Bandit masks, streetwear, ledger desks. Same 12-frame GIF clock as Loopkins.
+
 ## What’s in this repo
 
 | Path | What it is |
@@ -25,29 +27,34 @@ A house of NFT collections. Each drop is its own sub-project — studio, traits,
 | `/party-pandas` | Party Pandas drop, trait loops, gallery, OpenSea notes |
 | `/wicklings` | Wicklings drop, trait loops, gallery, OpenSea notes |
 | `/purrkins` | Purrkins drop, trait loops, gallery, OpenSea notes |
+| `/hoodkins` | Hoodkins drop, trait loops, gallery, OpenSea notes |
 | `/studio` | Live APNG layer mixer (Loopkins) |
 | `/inklings/studio` | Live ink-wash mixer (Inklings) |
 | `/party-pandas/studio` | Live party-panda mixer (Party Pandas) |
 | `/wicklings/studio` | Live paper-lantern mixer (Wicklings) |
 | `/purrkins/studio` | Live chibi-cat mixer (Purrkins) |
+| `/hoodkins/studio` | Live chibi-raccoon mixer (Hoodkins) |
 | `public/traits/` | Loopkins APNG layers (sky, aura, body, face, wear, charm) |
 | `public/afterimages/` | Afterimages 1:1 APNG paintings |
 | `public/inklings-traits/` | Inklings APNG layers (paper, bloom, visage, gaze, mark, adorn) |
 | `public/party-pandas-traits/` | Party Pandas APNG layers (venue, glow, panda, mood, fit, extra) |
 | `public/wicklings-traits/` | Wicklings APNG layers (night, halo, vessel, wick, wrap, drift) |
 | `public/purrkins-traits/` | Purrkins APNG layers (pad, glow, pelt, fit, mug, gear) |
+| `public/hoodkins-traits/` | Hoodkins APNG layers (pad, glow, pelt, fit, mug, gear) |
 | `generated/` | Flattened Loopkins APNGs, OpenSea GIFs + CSV |
 | `generated/afterimages/` | Afterimages OpenSea GIF pack |
 | `generated/inklings/` | Inklings OpenSea GIF pack |
 | `generated/party-pandas/` | Party Pandas OpenSea GIF pack |
 | `generated/wicklings/` | Wicklings OpenSea GIF pack |
 | `generated/purrkins/` | Purrkins OpenSea GIF pack |
+| `generated/hoodkins/` | Hoodkins OpenSea GIF pack |
 | `contracts/Loopkins.sol` | ERC-721 with a 10,000 supply cap |
 | `contracts/Afterimages.sol` | ERC-721 that mints a chosen 1:1 (IDs 1–3333) on Ink |
 | `contracts/Inklings.sol` | ERC-721 with a 5,555 supply cap |
 | `contracts/PartyPandas.sol` | ERC-721 with a 4,444 supply cap |
 | `contracts/Wicklings.sol` | ERC-721 with an 8,888 supply cap |
 | `contracts/Purrkins.sol` | ERC-721 with a 10,000 supply cap |
+| `contracts/Hoodkins.sol` | ERC-721 with a 10,000 supply cap |
 
 ## Run the site
 
@@ -65,7 +72,8 @@ The app listens on [http://127.0.0.1:43147](http://127.0.0.1:43147).
 - Party Pandas: `/party-pandas`
 - Wicklings: `/wicklings`
 - Purrkins: `/purrkins`
-- Trait studio: `/studio` (Loopkins), `/inklings/studio`, `/party-pandas/studio`, `/wicklings/studio`, or `/purrkins/studio`
+- Hoodkins: `/hoodkins`
+- Trait studio: `/studio` (Loopkins), `/inklings/studio`, `/party-pandas/studio`, `/wicklings/studio`, `/purrkins/studio`, or `/hoodkins/studio`
 
 ## Generate collections
 
@@ -81,15 +89,18 @@ python3 scripts/build_wicklings.py
 python3 scripts/generate_wicklings.py
 python3 scripts/build_purrkins.py
 python3 scripts/generate_purrkins.py
+python3 scripts/build_hoodkins.py
+python3 scripts/generate_hoodkins.py
 python3 scripts/gif_bake.py --afterimages
 python3 scripts/gif_bake.py --loopkins --all
 python3 scripts/gif_bake.py --inklings --all
 python3 scripts/gif_bake.py --party-pandas --all
 python3 scripts/gif_bake.py --wicklings --all
 python3 scripts/gif_bake.py --purrkins --all
+python3 scripts/gif_bake.py --hoodkins --all
 ```
 
-Requires Python 3 with Pillow and NumPy. See `docs/loopkins.md`, `docs/afterimages.md`, `docs/inklings.md`, `docs/party-pandas.md`, `docs/wicklings.md`, and `docs/purrkins.md` for OpenSea Drop upload steps.
+Requires Python 3 with Pillow and NumPy. See `docs/loopkins.md`, `docs/afterimages.md`, `docs/inklings.md`, `docs/party-pandas.md`, `docs/wicklings.md`, `docs/purrkins.md`, and `docs/hoodkins.md` for OpenSea Drop upload steps.
 
 ## Deploy
 
@@ -97,4 +108,4 @@ This is a single Next.js app (one Vercel project). Point Vercel at the GitHub re
 
 ## License
 
-Art and site code in this repository are for the collections on the wall. Swap the zero-address fee recipient in `public/metadata/collection.json`, `public/metadata/afterimages.json`, `public/metadata/inklings.json`, `public/metadata/party-pandas.json`, `public/metadata/wicklings.json`, and `public/metadata/purrkins.json` before you list.
+Art and site code in this repository are for the collections on the wall. Swap the zero-address fee recipient in `public/metadata/collection.json`, `public/metadata/afterimages.json`, `public/metadata/inklings.json`, `public/metadata/party-pandas.json`, `public/metadata/wicklings.json`, `public/metadata/purrkins.json`, and `public/metadata/hoodkins.json` before you list.

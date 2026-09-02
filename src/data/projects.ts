@@ -4,12 +4,15 @@ import { inklingSamples } from "@/data/inkling-gallery";
 import { inklings } from "@/data/inklings";
 import { partyPandaSamples } from "@/data/party-panda-gallery";
 import { partyPandas } from "@/data/party-pandas";
+import { hoodkinSamples } from "@/data/hoodkin-gallery";
+import { hoodkins } from "@/data/hoodkins";
 import { purrkinSamples } from "@/data/purrkin-gallery";
 import { purrkins } from "@/data/purrkins";
 import { sampleMints } from "@/data/gallery";
 import { wicklingSamples } from "@/data/wickling-gallery";
 import { wicklings } from "@/data/wicklings";
 import { AFTERIMAGES_BASE } from "@/lib/afterimages";
+import { HOODKINS_BASE } from "@/lib/hoodkins";
 import { INKLINGS_BASE } from "@/lib/inklings";
 import { LOOPKINS_BASE } from "@/lib/loopkins";
 import { PARTY_PANDAS_BASE } from "@/lib/party-pandas";
@@ -20,7 +23,7 @@ export const gallery = {
   name: "NFT Gallery",
   tagline: "Collections on the wall. One drop at a time.",
   description:
-    "NFT Gallery is a house of on-chain collections — each drop keeps its own studio, traits, and launch path. Loopkins is the layered PFP. Afterimages is the 1:1 APNG drop. Inklings is the cartoon-squid PFP GIF drop on Ink. Party Pandas is the cartoon party-panda GIF drop on Base. Wicklings is the paper-lantern PFP GIF drop on Arbitrum. Purrkins is the chibi-cat PFP GIF drop on HyperEVM.",
+    "NFT Gallery is a house of on-chain collections — each drop keeps its own studio, traits, and launch path. Loopkins is the layered PFP. Afterimages is the 1:1 APNG drop. Inklings is the cartoon-squid PFP GIF drop on Ink. Party Pandas is the cartoon party-panda GIF drop on Base. Wicklings is the paper-lantern PFP GIF drop on Arbitrum. Purrkins is the chibi-cat PFP GIF drop on HyperEVM. Hoodkins is the chibi-raccoon PFP GIF drop on Robinhood Chain.",
 } as const;
 
 export const projects = [
@@ -126,11 +129,29 @@ export const projects = [
     supply: purrkins.supply,
     cover: "/brand/banner-purrkins.png",
     thumb: purrkinSamples[0].image,
-    status: "new on the wall" as const,
+    status: "on the wall" as const,
     kind: "layered-pfp" as const,
     previews: purrkinSamples.map((mint) => mint.image),
     studioHref: "/purrkins/studio" as const,
     opensea: purrkins.opensea.collection,
+  },
+  {
+    slug: "hoodkins",
+    href: HOODKINS_BASE,
+    name: hoodkins.name,
+    symbol: hoodkins.symbol,
+    tagline: hoodkins.tagline,
+    description: hoodkins.description,
+    chain: hoodkins.chain.name,
+    chainId: hoodkins.chain.chainId,
+    supply: hoodkins.supply,
+    cover: "/brand/banner-hoodkins.png",
+    thumb: hoodkinSamples[0].image,
+    status: "new on the wall" as const,
+    kind: "layered-pfp" as const,
+    previews: hoodkinSamples.map((mint) => mint.image),
+    studioHref: "/hoodkins/studio" as const,
+    opensea: hoodkins.opensea.collection,
   },
 ] as const;
 

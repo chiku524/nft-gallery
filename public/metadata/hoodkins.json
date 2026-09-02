@@ -1,0 +1,12 @@
+{
+  "name": "Hoodkins",
+  "symbol": "HOOD",
+  "description": "Hoodkins is a 10,000-piece collection of looping chibi-raccoon PFP GIFs on Robinhood Chain. Each raccoon is stacked from six layers \u2014 pad, glow, pelt, fit, mug, and gear \u2014 then flattened onto one 12-frame GIF. Thick outlines. Flat fills. Bandit masks. Streetwear. Ears twitch. Eyes blink. Soft bob.",
+  "image": "/brand/collection-hoodkins.gif",
+  "featured_image": "/brand/featured-hoodkins.jpg",
+  "banner_image": "/brand/banner-hoodkins.png",
+  "opensea_banner_image": "/brand/banner-hoodkins-opensea.jpg",
+  "external_link": "/hoodkins",
+  "seller_fee_basis_points": 500,
+  "fee_recipient": "0x0000000000000000000000000000000000000000"
+}
