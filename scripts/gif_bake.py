@@ -44,7 +44,7 @@ AFTER_TOTAL = 3333
 INKLINGS_TOTAL = 5555
 PANDAS_TOTAL = 4444
 WICKLINGS_TOTAL = 8888
-PURRKINS_TOTAL = 4000
+PURRKINS_TOTAL = 10_000
 
 
 def load_apng_frames(path: Path) -> tuple[list[Image.Image], int]:

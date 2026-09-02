@@ -1031,7 +1031,7 @@ def build_samples() -> None:
 
 
 COLLECTION_DESCRIPTION = (
-    "Purrkins is a 4,000-piece collection of looping chibi-cat PFP GIFs on HyperEVM. "
+    "Purrkins is a 10,000-piece collection of looping chibi-cat PFP GIFs on HyperEVM. "
     "Each cat is stacked from six layers — pad, glow, pelt, fit, mug, and gear — "
     "then flattened onto one 12-frame GIF. Thick outlines. Flat fills. Streetwear. "
     "Ears twitch. Eyes blink. Soft bob."
@@ -1039,7 +1039,7 @@ COLLECTION_DESCRIPTION = (
 
 COLLECTION_STORY = (
     "Purrkins never sit still.\n\n"
-    "A 4,000-piece collection of looping chibi-cat PFP GIFs on HyperEVM. "
+    "A 10,000-piece collection of looping chibi-cat PFP GIFs on HyperEVM. "
     "Each Purrkin is stacked from six layers — pad, glow, pelt, fit, mug, and gear — "
     "then flattened onto one 12-frame GIF. Pastel desks behind them. Hoodies and beanies "
     "on top. Ears twitch. Eyes blink. Soft bob.\n\n"

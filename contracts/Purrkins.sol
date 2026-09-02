@@ -7,11 +7,11 @@ import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 import {Strings} from "@openzeppelin/contracts/utils/Strings.sol";
 
 /// @title Purrkins
-/// @notice 4,000 looping chibi-cat PFP GIFs for HyperEVM (chain ID 999).
+/// @notice 10,000 looping chibi-cat PFP GIFs for HyperEVM (chain ID 999).
 contract Purrkins is ERC721, ERC721Enumerable, Ownable {
     using Strings for uint256;
 
-    uint256 public constant MAX_SUPPLY = 4000;
+    uint256 public constant MAX_SUPPLY = 10000;
     uint256 public mintPrice = 1 ether;
     string private _baseTokenURI;
     bool public mintOpen;

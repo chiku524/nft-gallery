@@ -1,6 +1,6 @@
 # Purrkins
 
-Looping **chibi-cat PFP GIFs** — thick outlines, flat cel fills, streetwear on pastel desks. A **4,000-piece** collection built to mint on **HyperEVM** (chain ID `999`) and list on **OpenSea**.
+Looping **chibi-cat PFP GIFs** — thick outlines, flat cel fills, streetwear on pastel desks. A **10,000-piece** collection built to mint on **HyperEVM** (chain ID `999`) and list on **OpenSea**.
 
 This collection lives inside **NFT Gallery** at `/purrkins`.
 
@@ -13,14 +13,14 @@ The look is in the same kawaii-vector neighborhood as Hypurr (bust crop, streetw
 - Collection logo, featured image, OpenSea banner, site banner, and 1000×1000 collection GIF in `public/brand/`
 - Paste-ready project description at `public/metadata/purrkins-description.txt`
 - Trait studio at `/purrkins/studio` — a live CSS stack of APNG `<img>` layers
-- `contracts/Purrkins.sol` — ERC-721 with a 4,000 supply cap
+- `contracts/Purrkins.sol` — ERC-721 with a 10,000 supply cap
 
 ## Generate traits and tokens
 
 ```bash
 python3 scripts/build_purrkins.py
 python3 scripts/generate_purrkins.py        # 16 samples
-python3 scripts/generate_purrkins.py --all  # full 4,000
+python3 scripts/generate_purrkins.py --all  # full 10,000 GIFs (stays under OpenSea's 10 GB cap)
 python3 scripts/gif_bake.py --purrkins --all
 ```
 

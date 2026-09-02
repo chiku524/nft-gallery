@@ -12,7 +12,7 @@ A house of NFT collections. Each drop is its own sub-project — studio, traits,
 
 **Wicklings** is the fifth: 8,888 looping paper-lantern PFP GIFs, for OpenSea on Arbitrum (chain ID `42161`). Same 12-frame GIF clock as Loopkins.
 
-**Purrkins** is the sixth: 4,000 looping chibi-cat PFP GIFs, for OpenSea on HyperEVM (chain ID `999`). Thick outlines, streetwear, pastel desks. Same 12-frame GIF clock as Loopkins.
+**Purrkins** is the sixth: 10,000 looping chibi-cat PFP GIFs, for OpenSea on HyperEVM (chain ID `999`). Thick outlines, streetwear, pastel desks. Same 12-frame GIF clock as Loopkins.
 
 ## What’s in this repo
 
@@ -47,7 +47,7 @@ A house of NFT collections. Each drop is its own sub-project — studio, traits,
 | `contracts/Inklings.sol` | ERC-721 with a 5,555 supply cap |
 | `contracts/PartyPandas.sol` | ERC-721 with a 4,444 supply cap |
 | `contracts/Wicklings.sol` | ERC-721 with an 8,888 supply cap |
-| `contracts/Purrkins.sol` | ERC-721 with a 4,000 supply cap |
+| `contracts/Purrkins.sol` | ERC-721 with a 10,000 supply cap |
 
 ## Run the site
 

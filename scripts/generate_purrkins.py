@@ -2,9 +2,9 @@
 """Compose Purrkins tokens from layered APNG traits.
 
 Default: 16 signature samples.
-Pass --all to shuffle the full 4,000 on the shared 12-frame clock.
+Pass --all to shuffle the full 10,000 on the shared 12-frame clock.
 
-Drop files are 512×512 APNGs. Studio traits stay 512×512 in public/purrkins-traits/.
+OpenSea gets GIFs only (max 10 GB). Studio traits stay 512×512 APNGs in public/purrkins-traits/.
 """
 
 from __future__ import annotations
@@ -36,15 +36,18 @@ from build_purrkins import (  # noqa: E402
     name_of,
     trait_path,
 )
-from gif_bake import load_apng_frames, save_loop_gif  # noqa: E402
+from gif_bake import save_loop_gif  # noqa: E402
 
 OUT = ROOT / "generated" / "purrkins"
 IMAGE_DIR = OUT / "images"
 GIF_DIR = OUT / "gifs"
 JSON_DIR = OUT / "json"
-TOTAL = 4000
-SEED = 999_4000
+TOTAL = 10_000
+SEED = 999_10000
 DROP_SIZE = 512
+# 160-color GIFs keep a 10,000 pack under OpenSea's 10 GB upload cap.
+GIF_COLORS = 160
+OPENSEA_LIMIT_BYTES = 10 * 1024 * 1024 * 1024
 
 _CACHE: dict[tuple[str, str], list[Image.Image]] | None = None
 
@@ -175,19 +178,13 @@ def drop_csv_row(token_id: int, meta: dict) -> dict:
 
 def bake_one(job: tuple[int, dict[str, str]]) -> tuple[int, dict, int]:
     token_id, selection = job
-    dest = IMAGE_DIR / f"{token_id}.png"
     gif_dest = GIF_DIR / f"{token_id}.gif"
     meta = token_meta(token_id, selection)
-    frames = None
-    if not dest.exists() or dest.stat().st_size == 0:
-        frames = compose_cached(selection)
-        save_drop_apng(frames, dest)
     if not gif_dest.exists() or gif_dest.stat().st_size == 0:
-        if frames is None:
-            frames, _duration = load_apng_frames(dest)
-        save_loop_gif(frames, gif_dest, DURATION_MS)
+        frames = compose_cached(selection)
+        save_loop_gif(frames, gif_dest, DURATION_MS, colors=GIF_COLORS)
     (JSON_DIR / f"{token_id}.json").write_text(json.dumps(meta) + "\n", encoding="utf-8")
-    return token_id, meta, dest.stat().st_size
+    return token_id, meta, gif_dest.stat().st_size
 
 
 def write_sidecar(count: int, rows: list[dict], stats: Counter[str], total_bytes: int) -> None:
@@ -199,7 +196,8 @@ def write_sidecar(count: int, rows: list[dict], stats: Counter[str], total_bytes
 
     digest = hashlib.sha256()
     for i in range(1, count + 1):
-        digest.update((IMAGE_DIR / f"{i}.png").read_bytes())
+        digest.update((GIF_DIR / f"{i}.gif").read_bytes())
+    gif_bytes = sum((GIF_DIR / f"{i}.gif").stat().st_size for i in range(1, count + 1))
     (OUT / "provenance.json").write_text(
         json.dumps(
             {
@@ -208,7 +206,10 @@ def write_sidecar(count: int, rows: list[dict], stats: Counter[str], total_bytes
                 "frames": FRAMES,
                 "durationMs": DURATION_MS,
                 "size": DROP_SIZE,
-                "bytes": total_bytes,
+                "gifColors": GIF_COLORS,
+                "bytes": gif_bytes,
+                "openseaLimitBytes": OPENSEA_LIMIT_BYTES,
+                "underOpenseaLimit": gif_bytes < OPENSEA_LIMIT_BYTES,
                 "chain": "hyperevm",
                 "chainId": 999,
             },
@@ -223,7 +224,7 @@ def write_sidecar(count: int, rows: list[dict], stats: Counter[str], total_bytes
         f"{count:,} flattened chibi-cat loops at {DROP_SIZE}×{DROP_SIZE}, {FRAMES} frames, {DURATION_MS}ms.\n\n"
         f"Upload every file in `gifs/` (1.gif–{count}.gif) plus `PURRKINS-opensea-drop.csv` "
         "or `opensea-metadata.csv` to an OpenSea Drop on HyperEVM (chain ID 999).\n"
-        "OpenSea Drops play GIF, not APNG. APNGs stay in `images/` for the site and restacks.\n"
+        "OpenSea Drops play GIF, not APNG, and cap a Drop upload at 10 GB / 10,000 files.\n"
         "The CSV uses OpenSea Studio headers: tokenID, name, description, file_name, and attributes[Trait].\n"
         "Studio trait layers stay in `public/purrkins-traits/` and are not the upload pack.\n",
         encoding="utf-8",
@@ -258,8 +259,8 @@ def main() -> None:
             rows_by_id[token_id] = drop_csv_row(token_id, meta)
             for attr in meta["attributes"]:
                 stats[f"{attr['trait_type']}:{attr['value']}"] += 1
-            if done % 50 == 0 or done == count:
-                print(f"  {done}/{count}  {total_bytes / 1_000_000:.1f} MB")
+            if done % 100 == 0 or done == count:
+                print(f"  {done}/{count}  {total_bytes / (1024 ** 3):.2f} GiB")
 
     rows = [rows_by_id[i] for i in range(1, count + 1)]
     for token_id in range(1, min(16, count) + 1):
@@ -271,7 +272,12 @@ def main() -> None:
                 pass
 
     write_sidecar(count, rows, stats, total_bytes)
-    print(f"Wrote {count} Purrkins to generated/purrkins ({total_bytes / 1_000_000:.1f} MB)")
+    gib = total_bytes / (1024 ** 3)
+    print(f"Wrote {count} Purrkins GIFs to generated/purrkins/gifs ({gib:.2f} GiB)")
+    if total_bytes >= OPENSEA_LIMIT_BYTES:
+        print(f"WARNING: pack is {gib:.2f} GiB — over OpenSea's 10 GiB upload cap.")
+        raise SystemExit(1)
+    print(f"Under OpenSea's 10 GiB cap ({(OPENSEA_LIMIT_BYTES - total_bytes) / (1024 ** 3):.2f} GiB headroom).")
 
 
 if __name__ == "__main__":
