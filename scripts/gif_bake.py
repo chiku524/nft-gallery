@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Bake looping GIFs from Afterimages, Loopkins, Inklings, Party Pandas, and Wicklings APNGs for OpenSea Drops.
+"""Bake looping GIFs from Afterimages, Loopkins, Inklings, Party Pandas, Wicklings, and Purrkins APNGs for OpenSea Drops.
 
 OpenSea Drops play GIF, not APNG. The site keeps the APNGs. This writes
 quantized looping GIFs and points the Studio CSVs at those files.
@@ -30,17 +30,21 @@ PANDAS_APNG = ROOT / "generated" / "party-pandas" / "images"
 PANDAS_GIF = ROOT / "generated" / "party-pandas" / "gifs"
 WICKLINGS_APNG = ROOT / "generated" / "wicklings" / "images"
 WICKLINGS_GIF = ROOT / "generated" / "wicklings" / "gifs"
+PURRKINS_APNG = ROOT / "generated" / "purrkins" / "images"
+PURRKINS_GIF = ROOT / "generated" / "purrkins" / "gifs"
 
 LOOPKINS_DURATION_MS = 80
 AFTER_DURATION_MS = 100
 INKLINGS_DURATION_MS = 90
 PANDAS_DURATION_MS = 80
 WICKLINGS_DURATION_MS = 80
+PURRKINS_DURATION_MS = 80
 LOOPKINS_TOTAL = 10_000
 AFTER_TOTAL = 3333
 INKLINGS_TOTAL = 5555
 PANDAS_TOTAL = 4444
 WICKLINGS_TOTAL = 8888
+PURRKINS_TOTAL = 4000
 
 
 def load_apng_frames(path: Path) -> tuple[list[Image.Image], int]:
@@ -174,16 +178,18 @@ def main() -> None:
     parser.add_argument("--inklings", action="store_true", help="Bake Inklings GIFs only")
     parser.add_argument("--party-pandas", action="store_true", help="Bake Party Pandas GIFs only")
     parser.add_argument("--wicklings", action="store_true", help="Bake Wicklings GIFs only")
+    parser.add_argument("--purrkins", action="store_true", help="Bake Purrkins GIFs only")
     parser.add_argument("--all", action="store_true", help="Bake the full collection supply")
     parser.add_argument("--count", type=int, default=16, help="Count when not using --all")
     parser.add_argument("--workers", type=int, default=max(1, min(6, cpu_count() or 1)))
     args = parser.parse_args()
-    selected = args.afterimages or args.loopkins or args.inklings or args.party_pandas or args.wicklings
+    selected = args.afterimages or args.loopkins or args.inklings or args.party_pandas or args.wicklings or args.purrkins
     do_after = args.afterimages or not selected
     do_loopkins = args.loopkins or not selected
     do_inklings = args.inklings or not selected
     do_pandas = args.party_pandas or not selected
     do_wicklings = args.wicklings or not selected
+    do_purrkins = args.purrkins or not selected
 
     if do_after:
         after_jobs = jobs_for(AFTER_APNG, AFTER_GIF, AFTER_TOTAL, AFTER_DURATION_MS)
@@ -257,6 +263,22 @@ def main() -> None:
             f"{count:,} flattened lantern loops at 512×512, 12 frames, 80ms.\n\n"
             f"Upload every file in `gifs/` (1.gif–{count}.gif) plus `WICKLINGS-opensea-drop.csv` "
             "or `opensea-metadata.csv` to an OpenSea Drop on Arbitrum.\n"
+            "OpenSea Drops play GIF, not APNG. APNGs stay in `images/` for the site and restacks.\n"
+            "The CSV uses OpenSea Studio headers: tokenID, name, description, file_name, and attributes[Trait].\n",
+            encoding="utf-8",
+        )
+
+    if do_purrkins:
+        count = PURRKINS_TOTAL if args.all else min(args.count, PURRKINS_TOTAL)
+        purr_jobs = jobs_for(PURRKINS_APNG, PURRKINS_GIF, count, PURRKINS_DURATION_MS)
+        bake("Purrkins", purr_jobs, args.workers)
+        rewrite_csv_filenames(ROOT / "generated" / "purrkins" / "opensea-metadata.csv")
+        rewrite_csv_filenames(ROOT / "generated" / "purrkins" / "PURRKINS-opensea-drop.csv")
+        (ROOT / "generated" / "purrkins" / "README.md").write_text(
+            "# Purrkins OpenSea pack\n\n"
+            f"{count:,} flattened chibi-cat loops at 512×512, 12 frames, 80ms.\n\n"
+            f"Upload every file in `gifs/` (1.gif–{count}.gif) plus `PURRKINS-opensea-drop.csv` "
+            "or `opensea-metadata.csv` to an OpenSea Drop on HyperEVM.\n"
             "OpenSea Drops play GIF, not APNG. APNGs stay in `images/` for the site and restacks.\n"
             "The CSV uses OpenSea Studio headers: tokenID, name, description, file_name, and attributes[Trait].\n",
             encoding="utf-8",

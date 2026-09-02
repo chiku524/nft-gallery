@@ -1,0 +1,12 @@
+{
+  "name": "Purrkins",
+  "symbol": "PURR",
+  "description": "Purrkins is a 4,000-piece collection of looping chibi-cat PFP GIFs on HyperEVM. Each cat is stacked from six layers \u2014 pad, glow, pelt, fit, mug, and gear \u2014 then flattened onto one 12-frame GIF. Thick outlines. Flat fills. Streetwear. Ears twitch. Tails sway. Eyes blink.",
+  "image": "/brand/collection-purrkins.gif",
+  "featured_image": "/brand/featured-purrkins.jpg",
+  "banner_image": "/brand/banner-purrkins.png",
+  "opensea_banner_image": "/brand/banner-purrkins-opensea.jpg",
+  "external_link": "/purrkins",
+  "seller_fee_basis_points": 500,
+  "fee_recipient": "0x0000000000000000000000000000000000000000"
+}

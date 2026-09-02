@@ -38,7 +38,7 @@ export function AddChainButton({ chain }: { chain: WalletChain }) {
             chainId: chain.chainIdHex,
             chainName: chain.name,
             nativeCurrency: {
-              name: "Ether",
+              name: chain.currency === "ETH" ? "Ether" : chain.currency,
               symbol: chain.currency,
               decimals: 18,
             },

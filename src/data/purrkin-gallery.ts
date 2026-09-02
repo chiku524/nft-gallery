@@ -1,0 +1,113 @@
+export type PurrkinSample = {
+  id: number;
+  name: string;
+  image: string;
+  attributes: { trait_type: string; value: string }[];
+};
+
+export const purrkinSamples: PurrkinSample[] = [
+  {
+    id: 1,
+    name: "Purrkin #1",
+    image: "/purrkins-preview/1.gif",
+    attributes: [
+      { trait_type: "Pad", value: "Teal Desk" },
+      { trait_type: "Glow", value: "Mint Halo" },
+      { trait_type: "Pelt", value: "Cream" },
+      { trait_type: "Fit", value: "Forest Hoodie" },
+      { trait_type: "Mug", value: "Blink" },
+      { trait_type: "Gear", value: "Headphones" },
+    ],
+  },
+  {
+    id: 2,
+    name: "Purrkin #2",
+    image: "/purrkins-preview/2.gif",
+    attributes: [
+      { trait_type: "Pad", value: "Blush" },
+      { trait_type: "Glow", value: "Sparkle" },
+      { trait_type: "Pelt", value: "Ginger" },
+      { trait_type: "Fit", value: "Blue Tee" },
+      { trait_type: "Mug", value: "Wink" },
+      { trait_type: "Gear", value: "Back Cap" },
+    ],
+  },
+  {
+    id: 3,
+    name: "Purrkin #3",
+    image: "/purrkins-preview/3.gif",
+    attributes: [
+      { trait_type: "Pad", value: "Lilac" },
+      { trait_type: "Glow", value: "Blush Bloom" },
+      { trait_type: "Pelt", value: "Calico" },
+      { trait_type: "Fit", value: "Clay Cardigan" },
+      { trait_type: "Mug", value: "Heart" },
+      { trait_type: "Gear", value: "Bucket Hat" },
+    ],
+  },
+  {
+    id: 4,
+    name: "Purrkin #4",
+    image: "/purrkins-preview/4.gif",
+    attributes: [
+      { trait_type: "Pad", value: "Mint" },
+      { trait_type: "Glow", value: "Gold Dust" },
+      { trait_type: "Pelt", value: "Matcha" },
+      { trait_type: "Fit", value: "Cream Polo" },
+      { trait_type: "Mug", value: "Spark" },
+      { trait_type: "Gear", value: "Coffee" },
+    ],
+  },
+  {
+    id: 5,
+    name: "Purrkin #5",
+    image: "/purrkins-preview/5.gif",
+    attributes: [
+      { trait_type: "Pad", value: "Night Desk" },
+      { trait_type: "Glow", value: "Mint Halo" },
+      { trait_type: "Pelt", value: "Soot" },
+      { trait_type: "Fit", value: "Ink Jacket" },
+      { trait_type: "Mug", value: "Grin" },
+      { trait_type: "Gear", value: "Shades" },
+    ],
+  },
+  {
+    id: 6,
+    name: "Purrkin #6",
+    image: "/purrkins-preview/6.gif",
+    attributes: [
+      { trait_type: "Pad", value: "Cream" },
+      { trait_type: "Glow", value: "No glow" },
+      { trait_type: "Pelt", value: "Mist" },
+      { trait_type: "Fit", value: "No fit" },
+      { trait_type: "Mug", value: "Sleepy" },
+      { trait_type: "Gear", value: "Beanie" },
+    ],
+  },
+  {
+    id: 7,
+    name: "Purrkin #7",
+    image: "/purrkins-preview/7.gif",
+    attributes: [
+      { trait_type: "Pad", value: "Peach" },
+      { trait_type: "Glow", value: "Sparkle" },
+      { trait_type: "Pelt", value: "Cream" },
+      { trait_type: "Fit", value: "Forest Hoodie" },
+      { trait_type: "Mug", value: "Wide" },
+      { trait_type: "Gear", value: "Phone" },
+    ],
+  },
+  {
+    id: 8,
+    name: "Purrkin #8",
+    image: "/purrkins-preview/8.gif",
+    attributes: [
+      { trait_type: "Pad", value: "Slate" },
+      { trait_type: "Glow", value: "Gold Dust" },
+      { trait_type: "Pelt", value: "Ginger" },
+      { trait_type: "Fit", value: "Ink Jacket" },
+      { trait_type: "Mug", value: "Blink" },
+      { trait_type: "Gear", value: "None" },
+    ],
+  },
+];

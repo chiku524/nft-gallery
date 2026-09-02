@@ -4,6 +4,8 @@ import { inklingSamples } from "@/data/inkling-gallery";
 import { inklings } from "@/data/inklings";
 import { partyPandaSamples } from "@/data/party-panda-gallery";
 import { partyPandas } from "@/data/party-pandas";
+import { purrkinSamples } from "@/data/purrkin-gallery";
+import { purrkins } from "@/data/purrkins";
 import { sampleMints } from "@/data/gallery";
 import { wicklingSamples } from "@/data/wickling-gallery";
 import { wicklings } from "@/data/wicklings";
@@ -11,13 +13,14 @@ import { AFTERIMAGES_BASE } from "@/lib/afterimages";
 import { INKLINGS_BASE } from "@/lib/inklings";
 import { LOOPKINS_BASE } from "@/lib/loopkins";
 import { PARTY_PANDAS_BASE } from "@/lib/party-pandas";
+import { PURRKINS_BASE } from "@/lib/purrkins";
 import { WICKLINGS_BASE } from "@/lib/wicklings";
 
 export const gallery = {
   name: "NFT Gallery",
   tagline: "Collections on the wall. One drop at a time.",
   description:
-    "NFT Gallery is a house of on-chain collections — each drop keeps its own studio, traits, and launch path. Loopkins is the layered PFP. Afterimages is the 1:1 APNG drop. Inklings is the cartoon-squid PFP GIF drop on Ink. Party Pandas is the cartoon party-panda GIF drop on Base. Wicklings is the paper-lantern PFP GIF drop on Arbitrum.",
+    "NFT Gallery is a house of on-chain collections — each drop keeps its own studio, traits, and launch path. Loopkins is the layered PFP. Afterimages is the 1:1 APNG drop. Inklings is the cartoon-squid PFP GIF drop on Ink. Party Pandas is the cartoon party-panda GIF drop on Base. Wicklings is the paper-lantern PFP GIF drop on Arbitrum. Purrkins is the chibi-cat PFP GIF drop on HyperEVM.",
 } as const;
 
 export const projects = [
@@ -105,11 +108,29 @@ export const projects = [
     supply: wicklings.supply,
     cover: "/brand/banner-wicklings.png",
     thumb: wicklingSamples[0].image,
-    status: "new on the wall" as const,
+    status: "on the wall" as const,
     kind: "layered-pfp" as const,
     previews: wicklingSamples.map((mint) => mint.image),
     studioHref: "/wicklings/studio" as const,
     opensea: wicklings.opensea.collection,
+  },
+  {
+    slug: "purrkins",
+    href: PURRKINS_BASE,
+    name: purrkins.name,
+    symbol: purrkins.symbol,
+    tagline: purrkins.tagline,
+    description: purrkins.description,
+    chain: purrkins.chain.name,
+    chainId: purrkins.chain.chainId,
+    supply: purrkins.supply,
+    cover: "/brand/banner-purrkins.png",
+    thumb: purrkinSamples[0].image,
+    status: "new on the wall" as const,
+    kind: "layered-pfp" as const,
+    previews: purrkinSamples.map((mint) => mint.image),
+    studioHref: "/purrkins/studio" as const,
+    opensea: purrkins.opensea.collection,
   },
 ] as const;
 
