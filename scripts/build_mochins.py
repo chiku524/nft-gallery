@@ -35,7 +35,7 @@ FRAMES = 16
 DURATION_MS = 100
 H, W = SIZE, SIZE
 
-XX, YY = np.mgrid[0:H, 0:W].astype(np.float32)
+YY, XX = np.mgrid[0:H, 0:W].astype(np.float32)
 
 KEY = np.array([-0.46, -0.64, 0.62], dtype=np.float32)
 KEY /= float(np.linalg.norm(KEY))

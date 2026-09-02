@@ -49,6 +49,7 @@ GIF_COLORS = 148
 OPENSEA_LIMIT_BYTES = 10 * 1024 * 1024 * 1024
 
 _CACHE: dict[tuple[str, str], list[Image.Image]] | None = None
+_FORCE = False
 
 
 def pick(category: str, rng: random.Random) -> str:
@@ -100,8 +101,9 @@ def load_cache() -> dict[tuple[str, str], list[Image.Image]]:
     return cache
 
 
-def init_worker() -> None:
-    global _CACHE
+def init_worker(force: bool = False) -> None:
+    global _CACHE, _FORCE
+    _FORCE = force
     _CACHE = load_cache()
 
 
@@ -160,11 +162,25 @@ def drop_csv_row(token_id: int, meta: dict) -> dict:
     return row
 
 
+def traits_newer_than(gif_path: Path) -> bool:
+    if not gif_path.exists() or gif_path.stat().st_size == 0:
+        return True
+    gif_mtime = gif_path.stat().st_mtime
+    for category, traits in TRAIT_SPEC.items():
+        for trait_id, _name, _rarity in traits:
+            if trait_id == "none":
+                continue
+            path = trait_path(category, trait_id)
+            if path.exists() and path.stat().st_mtime > gif_mtime:
+                return True
+    return False
+
+
 def bake_one(job: tuple[int, dict[str, str]]) -> tuple[int, dict, int]:
     token_id, selection = job
     gif_dest = GIF_DIR / f"{token_id}.gif"
     meta = token_meta(token_id, selection)
-    if not gif_dest.exists() or gif_dest.stat().st_size == 0:
+    if _FORCE or traits_newer_than(gif_dest):
         frames = compose_cached(selection)
         save_loop_gif(frames, gif_dest, DURATION_MS, colors=GIF_COLORS)
     (JSON_DIR / f"{token_id}.json").write_text(json.dumps(meta) + "\n", encoding="utf-8")
@@ -219,8 +235,11 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--all", action="store_true", help=f"Bake all {TOTAL} tokens")
     parser.add_argument("--count", type=int, default=16)
+    parser.add_argument("--force", action="store_true", help="Rebuild GIFs even if they already exist")
     parser.add_argument("--workers", type=int, default=max(1, min(6, cpu_count() or 1)))
     args = parser.parse_args()
+    global _FORCE
+    _FORCE = args.force
     count = TOTAL if args.all else min(args.count, TOTAL)
 
     IMAGE_DIR.mkdir(parents=True, exist_ok=True)
@@ -236,7 +255,7 @@ def main() -> None:
     done = 0
 
     print(f"Baking {count} Mochins at {DROP_SIZE}px with {args.workers} workers…")
-    with Pool(processes=args.workers, initializer=init_worker) as pool:
+    with Pool(processes=args.workers, initializer=init_worker, initargs=(args.force,)) as pool:
         for token_id, meta, nbytes in pool.imap_unordered(bake_one, jobs, chunksize=4):
             done += 1
             total_bytes += nbytes

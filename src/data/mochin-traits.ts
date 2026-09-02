@@ -14,7 +14,7 @@ export type MochinTraitCategory = {
 };
 
 /** Bump when APNG layers change so the studio does not keep a stale loop. */
-export const MOCHIN_ART_VERSION = "mochins-v1";
+export const MOCHIN_ART_VERSION = "mochins-v2";
 
 export const MOCHIN_FRAMES = 16;
 export const MOCHIN_DURATION_MS = 100;

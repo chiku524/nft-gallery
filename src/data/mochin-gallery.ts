@@ -9,7 +9,7 @@ export const mochinSamples: MochinSample[] = [
   {
     id: 1,
     name: "Mochin #1",
-    image: "/mochins-preview/1.gif",
+    image: "/mochins-preview/1.gif?v=2",
     attributes: [
       { trait_type: "Stage", value: "Cream Cove" },
       { trait_type: "Haze", value: "Warm Key" },
@@ -22,7 +22,7 @@ export const mochinSamples: MochinSample[] = [
   {
     id: 2,
     name: "Mochin #2",
-    image: "/mochins-preview/2.gif",
+    image: "/mochins-preview/2.gif?v=2",
     attributes: [
       { trait_type: "Stage", value: "Blush Cove" },
       { trait_type: "Haze", value: "Sakura Dust" },
@@ -35,7 +35,7 @@ export const mochinSamples: MochinSample[] = [
   {
     id: 3,
     name: "Mochin #3",
-    image: "/mochins-preview/3.gif",
+    image: "/mochins-preview/3.gif?v=2",
     attributes: [
       { trait_type: "Stage", value: "Matcha Cove" },
       { trait_type: "Haze", value: "Gold Motes" },
@@ -48,7 +48,7 @@ export const mochinSamples: MochinSample[] = [
   {
     id: 4,
     name: "Mochin #4",
-    image: "/mochins-preview/4.gif",
+    image: "/mochins-preview/4.gif?v=2",
     attributes: [
       { trait_type: "Stage", value: "Dusk Cove" },
       { trait_type: "Haze", value: "Cool Rim" },
@@ -61,7 +61,7 @@ export const mochinSamples: MochinSample[] = [
   {
     id: 5,
     name: "Mochin #5",
-    image: "/mochins-preview/5.gif",
+    image: "/mochins-preview/5.gif?v=2",
     attributes: [
       { trait_type: "Stage", value: "Night Cove" },
       { trait_type: "Haze", value: "Warm Key" },
@@ -74,7 +74,7 @@ export const mochinSamples: MochinSample[] = [
   {
     id: 6,
     name: "Mochin #6",
-    image: "/mochins-preview/6.gif",
+    image: "/mochins-preview/6.gif?v=2",
     attributes: [
       { trait_type: "Stage", value: "Marble Cove" },
       { trait_type: "Haze", value: "No haze" },
@@ -87,7 +87,7 @@ export const mochinSamples: MochinSample[] = [
   {
     id: 7,
     name: "Mochin #7",
-    image: "/mochins-preview/7.gif",
+    image: "/mochins-preview/7.gif?v=2",
     attributes: [
       { trait_type: "Stage", value: "Amber Cove" },
       { trait_type: "Haze", value: "Gold Motes" },
@@ -100,7 +100,7 @@ export const mochinSamples: MochinSample[] = [
   {
     id: 8,
     name: "Mochin #8",
-    image: "/mochins-preview/8.gif",
+    image: "/mochins-preview/8.gif?v=2",
     attributes: [
       { trait_type: "Stage", value: "Fog Cove" },
       { trait_type: "Haze", value: "Cool Rim" },

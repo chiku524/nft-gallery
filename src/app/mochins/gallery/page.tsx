@@ -55,7 +55,7 @@ export default function MochinsGalleryPage() {
         {extraPreviews.map((id) => (
           <article key={id} className="overflow-hidden rounded-2xl border bg-card">
             <ApngImage
-              src={`/mochins-preview/${id}.gif`}
+              src={`/mochins-preview/${id}.gif?v=2`}
               alt={`Mochin #${id}`}
               width={512}
               height={512}
