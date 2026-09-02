@@ -1,0 +1,17 @@
+{
+  "name": "Mochins",
+  "size": 512,
+  "frames": 16,
+  "durationMs": 100,
+  "format": "apng",
+  "loop": 0,
+  "order": [
+    "stage",
+    "haze",
+    "dough",
+    "face",
+    "topping",
+    "steam"
+  ],
+  "note": "Each trait is a looping APNG. Studio stacks them live. Minted tokens flatten to GIF."
+}

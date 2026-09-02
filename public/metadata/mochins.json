@@ -1,0 +1,12 @@
+{
+  "name": "Mochins",
+  "symbol": "MOCHI",
+  "description": "Mochins is a 4,000-piece collection of looping soft-3D mochi PFP GIFs on Shape. Each mochi is stacked from six layers \u2014 stage, haze, dough, face, topping, and steam \u2014 then flattened onto one 16-frame GIF. Studio light. Volume. Specular. Contact shadow. No outlines. The dough squashes. Steam rises.",
+  "image": "/brand/collection-mochins.gif",
+  "featured_image": "/brand/featured-mochins.jpg",
+  "banner_image": "/brand/banner-mochins.png",
+  "opensea_banner_image": "/brand/banner-mochins-opensea.jpg",
+  "external_link": "/mochins",
+  "seller_fee_basis_points": 500,
+  "fee_recipient": "0x0000000000000000000000000000000000000000"
+}
