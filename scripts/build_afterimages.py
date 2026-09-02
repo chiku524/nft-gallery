@@ -34,6 +34,15 @@ FRAMES = 16
 DURATION_MS = 100
 H, W = SIZE, SIZE
 
+COLLECTION_STORY = (
+    "Afterimages never freeze.\n\n"
+    "A 3,333-piece collection of unique looping paintings on Ink. Each token is a finished canvas — "
+    "not stacked traits, not a leftover shuffle. One clock. One artwork. Moons climb a beat late. "
+    "Petals fall and never land. A last firefly refuses the grass.\n\n"
+    "Sixteen frames, one hundred milliseconds, 640×640. The loop is the painting.\n\n"
+    "Minting on Ink (chain ID 57073). Gas is ETH."
+)
+
 
 def clamp01(x: np.ndarray | float) -> np.ndarray | float:
     return np.clip(x, 0.0, 1.0)
@@ -1699,6 +1708,7 @@ def build_brand(frames_by_id: dict[int, list[Image.Image]]) -> None:
         optimize=True,
         disposal=2,
     )
+    write_opensea_kit(frames_by_id)
 
 
 def write_sidecars(rows: list[dict], supply: int) -> None:
@@ -1716,19 +1726,22 @@ def write_sidecars(rows: list[dict], supply: int) -> None:
         "`tokenID`, `name`, `description`, `file_name`, and `attributes[Trait]`.\n",
         encoding="utf-8",
     )
-    (META_DIR).mkdir(parents=True, exist_ok=True)
+    write_collection_meta()
+
+
+def write_collection_meta() -> None:
+    META_DIR.mkdir(parents=True, exist_ok=True)
+    (META_DIR / "afterimages-description.txt").write_text(COLLECTION_STORY + "\n", encoding="utf-8")
     (META_DIR / "afterimages.json").write_text(
         json.dumps(
             {
                 "name": "Afterimages",
                 "symbol": "AFTER",
-                "description": (
-                    f"Afterimages is a {supply:,}-piece OpenSea drop of unique looping paintings on Ink. "
-                    "Each token is a finished painting — not stacked traits. One canvas, one clock, one artwork. "
-                    "Minting on Ink (chain ID 57073)."
-                ),
+                "description": COLLECTION_STORY.replace("\n", " "),
                 "image": "/brand/collection-afterimages.gif",
+                "featured_image": "/brand/featured-afterimages.jpg",
                 "banner_image": "/brand/banner-afterimages.png",
+                "opensea_banner_image": "/brand/banner-afterimages-opensea.jpg",
                 "external_link": "/afterimages",
                 "seller_fee_basis_points": 750,
                 "fee_recipient": "0x0000000000000000000000000000000000000000",
@@ -1738,6 +1751,57 @@ def write_sidecars(rows: list[dict], supply: int) -> None:
         + "\n",
         encoding="utf-8",
     )
+
+
+def _rounded(portrait: Image.Image, size: int, radius: int) -> Image.Image:
+    face = portrait.resize((size, size), Image.Resampling.LANCZOS).convert("RGBA")
+    mask = Image.new("L", (size, size), 0)
+    ImageDraw.Draw(mask).rounded_rectangle((0, 0, size - 1, size - 1), radius=radius, fill=255)
+    face.putalpha(Image.composite(face.split()[-1], Image.new("L", (size, size), 0), mask))
+    return face
+
+
+def _place(canvas: Image.Image, portrait: Image.Image, x: int, y: int, size: int, radius: int) -> None:
+    face = _rounded(portrait, size, radius)
+    shadow = Image.new("RGBA", (size + 28, size + 28), (0, 0, 0, 0))
+    ImageDraw.Draw(shadow).rounded_rectangle((10, 16, size + 10, size + 20), radius=radius, fill=(8, 4, 2, 110))
+    canvas.alpha_composite(shadow, (x - 10, y - 8))
+    canvas.alpha_composite(face, (x, y))
+
+
+def write_opensea_kit(frames_by_id: dict[int, list[Image.Image]]) -> None:
+    BRAND_DIR.mkdir(parents=True, exist_ok=True)
+    picks = [1, 8, 6, 3, 25, 50, 14]
+    portraits = [frames_by_id[work_id][0] for work_id in picks if work_id in frames_by_id]
+    wash = Image.new("RGBA", (2800, 700), (18, 12, 10, 255))
+    size = 560
+    overlap = 90
+    total = size * len(portraits) - overlap * (len(portraits) - 1)
+    start_x = (2800 - total) // 2
+    y = (700 - size) // 2 + 18
+    for index, portrait in enumerate(portraits):
+        _place(wash, portrait, start_x + index * (size - overlap), y, size, 48)
+    wash.convert("RGB").save(BRAND_DIR / "banner-afterimages-opensea.jpg", quality=90)
+
+    featured = Image.new("RGBA", (1200, 800), (18, 12, 10, 255))
+    if portraits:
+        _place(featured, portraits[0], 70, 120, 540, 56)
+    if len(portraits) > 1:
+        _place(featured, portraits[1], 560, 140, 540, 56)
+    featured.convert("RGB").save(BRAND_DIR / "featured-afterimages.jpg", quality=90)
+    write_collection_meta()
+
+
+def rebuild_brand_from_disk() -> None:
+    frames_by_id: dict[int, list[Image.Image]] = {}
+    for work_id in (1, 3, 6, 8, 14, 25, 50):
+        path = PUBLIC_DIR / f"{work_id}.png"
+        if path.exists():
+            frames, _duration = load_apng_frames(path)
+            frames_by_id[work_id] = frames
+    if 1 not in frames_by_id:
+        raise SystemExit("Need public/afterimages/1.png to rebuild the listing kit.")
+    build_brand(frames_by_id)
 
 
 def write_provenance(supply: int) -> None:
@@ -1771,7 +1835,12 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Paint Afterimages 1:1 loops for an OpenSea Drop on Ink.")
     parser.add_argument("--count", type=int, default=TOTAL, help="How many tokens to include (max 3333)")
     parser.add_argument("--workers", type=int, default=max(1, min(8, cpu_count() or 1)))
+    parser.add_argument("--brand", action="store_true", help="Rebuild logo, banner, and OpenSea listing kit only")
     args = parser.parse_args()
+    if args.brand:
+        rebuild_brand_from_disk()
+        print("Afterimages listing kit written.")
+        return
     supply = min(max(args.count, 1), TOTAL)
 
     PUBLIC_DIR.mkdir(parents=True, exist_ok=True)

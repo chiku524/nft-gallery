@@ -10,7 +10,8 @@ Unlike Loopkins, Afterimages is not assembled from trait layers. Each token is a
 
 - Signature site previews at `public/afterimages/1.png`–`50.png`
 - Series previews at `public/afterimages-preview/51.gif`–`66.gif`
-- Collection logo, banner, and 1000×1000 collection GIF in `public/brand/`
+- Collection logo, featured image, site banner, OpenSea banner, and 1000×1000 collection GIF in `public/brand/`
+- Collection description at `public/metadata/afterimages-description.txt`
 - Viewing room at `/afterimages/gallery` and a page per signature painting at `/afterimages/[id]`
 - OpenSea pack at `generated/afterimages/` (GIFs in `gifs/`)
 - `contracts/Afterimages.sol` — ERC-721 that mints a chosen token ID 1–3333 on Ink

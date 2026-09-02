@@ -4,6 +4,8 @@ export const afterimages = {
   tagline: "One-of-one APNG paintings that never freeze.",
   description:
     "Afterimages is a 3,333-piece OpenSea drop of unique looping paintings on Ink. Each token is a finished painting — not stacked traits. One canvas, one clock, one artwork.",
+  story:
+    "Afterimages never freeze.\n\nA 3,333-piece collection of unique looping paintings on Ink. Each token is a finished canvas — not stacked traits, not a leftover shuffle. One clock. One artwork. Moons climb a beat late. Petals fall and never land. A last firefly refuses the grass.\n\nSixteen frames, one hundred milliseconds, 640×640. The loop is the painting.\n\nMinting on Ink (chain ID 57073). Gas is ETH.",
   supply: 3333,
   mintPriceEth: "0.08",
   frames: 16,

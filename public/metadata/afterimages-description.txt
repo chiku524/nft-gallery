@@ -1,0 +1,7 @@
+Afterimages never freeze.
+
+A 3,333-piece collection of unique looping paintings on Ink. Each token is a finished canvas — not stacked traits, not a leftover shuffle. One clock. One artwork. Moons climb a beat late. Petals fall and never land. A last firefly refuses the grass.
+
+Sixteen frames, one hundred milliseconds, 640×640. The loop is the painting.
+
+Minting on Ink (chain ID 57073). Gas is ETH.

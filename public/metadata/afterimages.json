@@ -1,9 +1,11 @@
 {
   "name": "Afterimages",
   "symbol": "AFTER",
-  "description": "Afterimages is a 3,333-piece OpenSea drop of unique looping paintings on Ink. Each token is a finished painting \u2014 not stacked traits. One canvas, one clock, one artwork. Minting on Ink (chain ID 57073).",
+  "description": "Afterimages never freeze.  A 3,333-piece collection of unique looping paintings on Ink. Each token is a finished canvas \u2014 not stacked traits, not a leftover shuffle. One clock. One artwork. Moons climb a beat late. Petals fall and never land. A last firefly refuses the grass.  Sixteen frames, one hundred milliseconds, 640\u00d7640. The loop is the painting.  Minting on Ink (chain ID 57073). Gas is ETH.",
   "image": "/brand/collection-afterimages.gif",
+  "featured_image": "/brand/featured-afterimages.jpg",
   "banner_image": "/brand/banner-afterimages.png",
+  "opensea_banner_image": "/brand/banner-afterimages-opensea.jpg",
   "external_link": "/afterimages",
   "seller_fee_basis_points": 750,
   "fee_recipient": "0x0000000000000000000000000000000000000000"

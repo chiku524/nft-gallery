@@ -15,7 +15,7 @@ const steps = [
   },
   {
     title: `Create a Drop on ${afterimages.chain.name}`,
-    body: `In OpenSea Studio, create a Drop on ${afterimages.chain.name} (chain ID ${afterimages.chain.chainId}). Set supply to ${afterimages.supply.toLocaleString()}, edition style to unique 1:1s, and add the logo and banner from public/brand.`,
+    body: `In OpenSea Studio, create a Drop on ${afterimages.chain.name} (chain ID ${afterimages.chain.chainId}). Set supply to ${afterimages.supply.toLocaleString()}, edition style to unique 1:1s. Paste the collection description from public/metadata/afterimages-description.txt. Upload logo-afterimages.png, featured-afterimages.jpg, banner-afterimages-opensea.jpg, and collection-afterimages.gif from public/brand.`,
   },
   {
     title: "Bulk-upload GIFs + CSV",
