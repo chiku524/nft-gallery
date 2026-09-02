@@ -14,7 +14,7 @@ export type PurrkinTraitCategory = {
 };
 
 /** Bump when APNG layers change so the studio does not keep a stale loop. */
-export const PURRKIN_ART_VERSION = "purrkins-v2";
+export const PURRKIN_ART_VERSION = "purrkins-v3";
 
 export const PURRKIN_FRAMES = 12;
 export const PURRKIN_DURATION_MS = 80;
@@ -55,7 +55,7 @@ export const purrkinTraitCategories: PurrkinTraitCategory[] = [
   {
     id: "pelt",
     label: "Pelt",
-    blurb: "Six coats. Cream, ginger, soot, mist, calico, and matcha — ears twitch, eyes blink.",
+    blurb: "Six coats, each with its own marks — cream points, tabby M, soot blaze, mist bars, calico patches, matcha tips.",
     traits: [
       { id: "cream", name: "Cream", image: "/purrkins-traits/pelt/cream.png", rarity: 22 },
       { id: "ginger", name: "Ginger", image: "/purrkins-traits/pelt/ginger.png", rarity: 18 },

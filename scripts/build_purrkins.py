@@ -230,7 +230,7 @@ def outlined_ear(
     fur: np.ndarray,
     inner: np.ndarray,
 ) -> None:
-    ox, oy = 5.5, 4.0
+    ox, oy = 6.5, 4.5
     fill_poly(
         dst,
         [(tip_x, tip_y - oy), (base_l[0] - ox, base_l[1] + oy), (base_r[0] + ox, base_r[1] + oy)],
@@ -238,16 +238,16 @@ def outlined_ear(
     )
     fill_poly(dst, [(tip_x, tip_y), base_l, base_r], fur)
     mx = (base_l[0] + base_r[0] + tip_x) / 3
-    my = (base_l[1] + base_r[1] + tip_y) / 3 + 8
+    my = (base_l[1] + base_r[1] + tip_y) / 3 + 10
     fill_poly(
         dst,
         [
-            (mix_scalar(tip_x, mx, 0.42), mix_scalar(tip_y, my, 0.38)),
-            (mix_scalar(base_l[0], mx, 0.48), mix_scalar(base_l[1], my, 0.42)),
-            (mix_scalar(base_r[0], mx, 0.48), mix_scalar(base_r[1], my, 0.42)),
+            (mix_scalar(tip_x, mx, 0.22), mix_scalar(tip_y, my, 0.26)),
+            (mix_scalar(base_l[0], mx, 0.18), mix_scalar(base_l[1], my, 0.16)),
+            (mix_scalar(base_r[0], mx, 0.18), mix_scalar(base_r[1], my, 0.16)),
         ],
         inner,
-        0.92,
+        0.96,
     )
 
 
@@ -497,82 +497,100 @@ def paint_pelt(kind: str, frame: int) -> np.ndarray:
     dy = bob(frame)
     cx, cy = HEAD[0], HEAD[1] + dy
     t = phase(frame)
-    twitch = math.sin(t * 2) * 2.0
+    twitch = math.sin(t * 2) * 2.4
     rx, ry = HEAD_RX, HEAD_RY
+    soot = rgb("2c2c34")
+    ginger = rgb("e09040")
 
     # Wide chest cropped by the canvas. Clothing covers this; bare cats keep the bust.
     outlined_ellipse(arr, cx, BUST_Y, BUST_RX - 12, BUST_RY - 4, fur, width=4.0)
-    ellipse(arr, cx, 470, 48, 40, belly, 0.88, soft=2.4)
+    ellipse(arr, cx, 468, 58, 44, belly, 0.9, soft=2.6)
 
-    outlined_ear(
-        arr,
-        cx - 86,
-        cy - ry - 46 + twitch,
-        (cx - 118, cy - ry + 28),
-        (cx - 44, cy - ry + 10),
-        fur,
-        inner,
-    )
-    outlined_ear(
-        arr,
-        cx + 86,
-        cy - ry - 46 - twitch * 0.6,
-        (cx + 44, cy - ry + 10),
-        (cx + 118, cy - ry + 28),
-        fur,
-        inner,
-    )
-    if kind == "cream":
+    left_tip = (cx - 112, cy - ry - 34 + twitch)
+    left_out = (cx - 150, cy - ry + 48)
+    left_in = (cx - 46, cy - ry + 16)
+    right_tip = (cx + 112, cy - ry - 34 - twitch * 0.55)
+    right_in = (cx + 46, cy - ry + 16)
+    right_out = (cx + 150, cy - ry + 48)
+
+    outlined_ear(arr, left_tip[0], left_tip[1], left_out, left_in, fur, inner)
+    outlined_ear(arr, right_tip[0], right_tip[1], right_in, right_out, fur, inner)
+
+    def ear_point(tip: tuple[float, float], outer: tuple[float, float], inner_pt: tuple[float, float], color: np.ndarray, opacity: float) -> None:
         fill_poly(
             arr,
-            [(cx - 86, cy - ry - 42 + twitch), (cx - 108, cy - ry - 4), (cx - 70, cy - ry + 8)],
-            mark,
-            0.55,
+            [
+                tip,
+                (mix_scalar(tip[0], outer[0], 0.55), mix_scalar(tip[1], outer[1], 0.55)),
+                (mix_scalar(tip[0], inner_pt[0], 0.55), mix_scalar(tip[1], inner_pt[1], 0.55)),
+            ],
+            color,
+            opacity,
         )
-        fill_poly(
-            arr,
-            [(cx + 86, cy - ry - 42), (cx + 70, cy - ry + 8), (cx + 108, cy - ry - 4)],
-            mark,
-            0.55,
-        )
-    if kind == "matcha":
-        fill_poly(
-            arr,
-            [(cx - 86, cy - ry - 42 + twitch), (cx - 106, cy - ry - 6), (cx - 72, cy - ry + 6)],
-            mark,
-            0.7,
-        )
-        fill_poly(
-            arr,
-            [(cx + 86, cy - ry - 42), (cx + 72, cy - ry + 6), (cx + 106, cy - ry - 6)],
-            mark,
-            0.7,
-        )
+
+    if kind in ("cream", "matcha"):
+        ear_point(left_tip, left_out, left_in, mark, 0.82 if kind == "matcha" else 0.7)
+        ear_point(right_tip, right_out, right_in, mark, 0.82 if kind == "matcha" else 0.7)
+    elif kind == "calico":
+        ear_point(left_tip, left_out, left_in, soot, 0.94)
 
     outlined_ellipse(arr, cx, cy, rx, ry, fur, width=4.6)
 
-    if kind == "calico":
-        ellipse(arr, cx + 56, cy - 16, 42, 48, rgb("e09040"), 0.92, soft=2.4)
-        ellipse(arr, cx - 70, cy + 32, 32, 26, rgb("2c2c34"), 0.88, soft=2.2)
+    if kind == "soot":
+        ellipse(arr, cx, cy + 10, 58, 62, belly, 0.88, soft=2.8)
+        ellipse(arr, cx, cy - 36, 36, 22, lite(fur, 0.18), 0.45, soft=2.6)
+    elif kind == "calico":
+        ellipse(arr, cx + 62, cy - 48, 48, 40, ginger, 0.94, soft=2.2)
+        ellipse(arr, cx + 78, cy - 8, 28, 24, ginger, 0.88, soft=2.0)
+        ellipse(arr, cx - 70, cy + 46, 30, 22, soot, 0.9, soft=2.0)
+        ellipse(arr, cx + 36, 476, 34, 26, ginger, 0.85, soft=2.2)
+    elif kind == "cream":
+        ellipse(arr, cx - 78, cy - 8, 22, 16, mark, 0.22, soft=2.4)
+        ellipse(arr, cx + 78, cy - 8, 22, 16, mark, 0.22, soft=2.4)
+    elif kind == "matcha":
+        ellipse(arr, cx, cy - 58, 26, 16, mark, 0.55, soft=2.0)
         fill_poly(
             arr,
-            [(cx - 86, cy - ry - 42 + twitch), (cx - 110, cy - ry - 4), (cx - 68, cy - ry + 10)],
-            rgb("2c2c34"),
-            0.9,
+            [(cx - 10, cy - 72), (cx, cy - 44), (cx + 10, cy - 72), (cx, cy - 80)],
+            mark,
+            0.45,
         )
 
-    if palette.get("stripes"):
-        rounded_rect(arr, cx, cy - 52, 8, 26, mark, 0.78, radius=4, soft=1.4)
-        rounded_rect(arr, cx - 22, cy - 42, 7, 18, mark, 0.7, radius=3, soft=1.4)
-        rounded_rect(arr, cx + 22, cy - 42, 7, 18, mark, 0.7, radius=3, soft=1.4)
-        ellipse(arr, cx - 96, cy - 6, 18, 11, mark, 0.4, soft=2.0)
-        ellipse(arr, cx + 96, cy - 6, 18, 11, mark, 0.4, soft=2.0)
+    if palette.get("stripes") or kind == "ginger":
+        # Tabby M + cheek bars — readable at PFP size, not three floating ticks.
+        fill_poly(
+            arr,
+            [
+                (cx - 28, cy - 72),
+                (cx - 18, cy - 40),
+                (cx - 8, cy - 58),
+                (cx, cy - 38),
+                (cx + 8, cy - 58),
+                (cx + 18, cy - 40),
+                (cx + 28, cy - 72),
+                (cx + 16, cy - 72),
+                (cx + 10, cy - 58),
+                (cx, cy - 50),
+                (cx - 10, cy - 58),
+                (cx - 16, cy - 72),
+            ],
+            mark,
+            0.82,
+        )
+        for side in (-1.0, 1.0):
+            rounded_rect(arr, cx + side * 90, cy + 38, 16, 5.2, mark, 0.68, radius=3, soft=1.3)
+            rounded_rect(arr, cx + side * 86, cy + 52, 13, 4.6, mark, 0.5, radius=3, soft=1.3)
 
-    disc(arr, cx - 70, cy + 34, 18, inner, 0.36, soft=3.2)
-    disc(arr, cx + 70, cy + 34, 18, inner, 0.36, soft=3.2)
+    if kind == "mist":
+        ellipse(arr, cx - 70, cy + 8, 16, 12, mark, 0.28, soft=2.2)
+        ellipse(arr, cx + 70, cy + 8, 16, 12, mark, 0.28, soft=2.2)
 
-    outlined_ellipse(arr, cx, cy + 28, 9.0, 6.4, nose, width=1.6, cel=False)
-    disc(arr, cx - 2.6, cy + 25, 2.2, rgb("ffffff"), 0.55, soft=1.0)
+    ellipse(arr, cx, cy + 22, 36, 28, belly, 0.55, soft=2.8)
+    disc(arr, cx - 74, cy + 32, 16, inner, 0.4, soft=3.0)
+    disc(arr, cx + 74, cy + 32, 16, inner, 0.4, soft=3.0)
+
+    outlined_ellipse(arr, cx, cy + 28, 8.4, 6.0, nose, width=1.6, cel=False)
+    disc(arr, cx - 2.4, cy + 25, 2.0, rgb("ffffff"), 0.55, soft=1.0)
     return arr
 
 
