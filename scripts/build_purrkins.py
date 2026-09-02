@@ -36,13 +36,13 @@ FRAMES = 12
 DURATION_MS = 80
 H, W = SIZE, SIZE
 
-HEAD = (256.0, 230.0)
-HEAD_RX = 148.0
-HEAD_RY = 136.0
-# Ellipse center sits on/below the canvas edge so only a shoulder curve is visible.
-BUST_Y = 520.0
-BUST_RX = 190.0
-BUST_RY = 165.0
+HEAD = (256.0, 246.0)
+HEAD_RX = 174.0
+HEAD_RY = 162.0
+# Tiny cropped bust — narrower than the head, so the cat reads chibi, not shoulders-first.
+BUST_Y = 542.0
+BUST_RX = 128.0
+BUST_RY = 112.0
 
 SOFT = 1.35
 
@@ -265,6 +265,13 @@ def glow(dst: np.ndarray, cx: float, cy: float, r: float, color: np.ndarray, opa
     over(dst, layer)
 
 
+def halo_ring(dst: np.ndarray, cx: float, cy: float, rx: float, ry: float, color: np.ndarray, opacity: float, stamp: float = 36.0, count: int = 18, spin: float = 0.0) -> None:
+    """Soft aura stamped around an ellipse so it sits outside the cat, not under it."""
+    for i in range(count):
+        ang = spin + i * (2.0 * math.pi / count)
+        glow(dst, cx + math.cos(ang) * rx, cy + math.sin(ang) * ry, stamp, color, opacity)
+
+
 def grain(seed: int, amp: float = 0.03) -> np.ndarray:
     rng = np.random.default_rng(seed)
     small = (rng.random((SIZE // 16, SIZE // 16)) * 2 - 1).astype(np.float32)
@@ -412,20 +419,45 @@ def paint_glow(kind: str, frame: int) -> np.ndarray:
     t = phase(frame)
     color = rgb(GLOWS[kind])
     cx, cy = HEAD
-    pulse = 0.14 + 0.04 * math.sin(t)
-    glow(arr, cx, cy + 8, 168 + 8 * math.sin(t), color, pulse)
+    # Sit outside the skull, ears, and headphone cups so the loop stays readable.
+    ring_rx = HEAD_RX + 62
+    ring_ry = HEAD_RY + 52
+    pulse = 0.38 + 0.08 * math.sin(t)
+    halo_ring(arr, cx, cy, ring_rx, ring_ry, color, pulse * 0.8, stamp=46.0, count=22, spin=t * 0.12)
+    glow(arr, cx, cy - HEAD_RY - 48, 92, color, pulse * 0.62)
+    glow(arr, cx, cy + HEAD_RY + 28, 70, color, pulse * 0.4)
+
     if kind == "sparkle":
-        for i in range(9):
-            ang = t + i * 0.7
-            disc(arr, cx + math.cos(ang) * 124, cy + math.sin(ang) * 88, 3.2, color, 0.72, soft=1.2)
+        for i in range(11):
+            ang = t + i * 0.57
+            orbit = 1.02 + 0.1 * math.sin(t * 1.4 + i)
+            disc(
+                arr,
+                cx + math.cos(ang) * ring_rx * orbit,
+                cy + math.sin(ang) * ring_ry * orbit,
+                3.8,
+                color,
+                0.78,
+                soft=1.3,
+            )
     elif kind == "mint":
-        ellipse(arr, cx, cy + 6, 138, 150, color, 0.16)
+        halo_ring(arr, cx, cy, ring_rx + 18, ring_ry + 14, color, pulse * 0.4, stamp=28.0, count=14, spin=-t * 0.08)
     elif kind == "gold":
-        for i in range(4):
-            ang = t + i * 1.57
-            disc(arr, cx + math.cos(ang) * 110, cy + math.sin(ang) * 72, 6, color, 0.5)
+        for i in range(7):
+            ang = t * 0.7 + i * 0.9
+            drift = 16 * math.sin(t + i * 0.8)
+            disc(
+                arr,
+                cx + math.cos(ang) * (ring_rx + 10) + drift * 0.3,
+                cy + math.sin(ang) * (ring_ry + 6) - abs(drift) * 0.2,
+                5.5,
+                color,
+                0.62,
+                soft=1.6,
+            )
     else:
-        glow(arr, cx, cy, 100, color, 0.18 + 0.05 * math.sin(t))
+        glow(arr, cx - ring_rx, cy + 18, 56, color, pulse * 0.7)
+        glow(arr, cx + ring_rx, cy + 18, 56, color, pulse * 0.7)
     return arr
 
 
@@ -502,16 +534,16 @@ def paint_pelt(kind: str, frame: int) -> np.ndarray:
     soot = rgb("2c2c34")
     ginger = rgb("e09040")
 
-    # Wide chest cropped by the canvas. Clothing covers this; bare cats keep the bust.
-    outlined_ellipse(arr, cx, BUST_Y, BUST_RX - 12, BUST_RY - 4, fur, width=4.0)
-    ellipse(arr, cx, 468, 58, 44, belly, 0.9, soft=2.6)
+    # Tiny cropped chest. Clothing covers this; bare cats keep a hint of fur.
+    outlined_ellipse(arr, cx, BUST_Y, BUST_RX - 8, BUST_RY - 4, fur, width=3.8)
+    ellipse(arr, cx, 486, 42, 32, belly, 0.9, soft=2.4)
 
-    left_tip = (cx - 112, cy - ry - 34 + twitch)
-    left_out = (cx - 150, cy - ry + 48)
-    left_in = (cx - 46, cy - ry + 16)
-    right_tip = (cx + 112, cy - ry - 34 - twitch * 0.55)
-    right_in = (cx + 46, cy - ry + 16)
-    right_out = (cx + 150, cy - ry + 48)
+    left_tip = (cx - rx * 0.70, cy - ry - 44 + twitch)
+    left_out = (cx - rx * 0.98, cy - ry + 56)
+    left_in = (cx - rx * 0.24, cy - ry + 18)
+    right_tip = (cx + rx * 0.70, cy - ry - 44 - twitch * 0.55)
+    right_in = (cx + rx * 0.24, cy - ry + 18)
+    right_out = (cx + rx * 0.98, cy - ry + 56)
 
     outlined_ear(arr, left_tip[0], left_tip[1], left_out, left_in, fur, inner)
     outlined_ear(arr, right_tip[0], right_tip[1], right_in, right_out, fur, inner)
@@ -537,60 +569,60 @@ def paint_pelt(kind: str, frame: int) -> np.ndarray:
     outlined_ellipse(arr, cx, cy, rx, ry, fur, width=4.6)
 
     if kind == "soot":
-        ellipse(arr, cx, cy + 10, 58, 62, belly, 0.88, soft=2.8)
-        ellipse(arr, cx, cy - 36, 36, 22, lite(fur, 0.18), 0.45, soft=2.6)
+        ellipse(arr, cx, cy + ry * 0.08, rx * 0.36, ry * 0.40, belly, 0.88, soft=2.8)
+        ellipse(arr, cx, cy - ry * 0.22, rx * 0.22, ry * 0.14, lite(fur, 0.18), 0.45, soft=2.6)
     elif kind == "calico":
-        ellipse(arr, cx + 62, cy - 48, 48, 40, ginger, 0.94, soft=2.2)
-        ellipse(arr, cx + 78, cy - 8, 28, 24, ginger, 0.88, soft=2.0)
-        ellipse(arr, cx - 70, cy + 46, 30, 22, soot, 0.9, soft=2.0)
-        ellipse(arr, cx + 36, 476, 34, 26, ginger, 0.85, soft=2.2)
+        ellipse(arr, cx + rx * 0.38, cy - ry * 0.32, rx * 0.30, ry * 0.26, ginger, 0.94, soft=2.2)
+        ellipse(arr, cx + rx * 0.46, cy - ry * 0.04, rx * 0.18, ry * 0.16, ginger, 0.88, soft=2.0)
+        ellipse(arr, cx - rx * 0.42, cy + ry * 0.30, rx * 0.18, ry * 0.14, soot, 0.9, soft=2.0)
+        ellipse(arr, cx + 28, 488, 26, 20, ginger, 0.85, soft=2.0)
     elif kind == "cream":
-        ellipse(arr, cx - 78, cy - 8, 22, 16, mark, 0.22, soft=2.4)
-        ellipse(arr, cx + 78, cy - 8, 22, 16, mark, 0.22, soft=2.4)
+        ellipse(arr, cx - rx * 0.48, cy - ry * 0.04, 24, 18, mark, 0.22, soft=2.4)
+        ellipse(arr, cx + rx * 0.48, cy - ry * 0.04, 24, 18, mark, 0.22, soft=2.4)
     elif kind == "matcha":
-        ellipse(arr, cx, cy - 58, 26, 16, mark, 0.55, soft=2.0)
+        ellipse(arr, cx, cy - ry * 0.38, 28, 18, mark, 0.55, soft=2.0)
         fill_poly(
             arr,
-            [(cx - 10, cy - 72), (cx, cy - 44), (cx + 10, cy - 72), (cx, cy - 80)],
+            [(cx - 12, cy - ry * 0.46), (cx, cy - ry * 0.28), (cx + 12, cy - ry * 0.46), (cx, cy - ry * 0.52)],
             mark,
             0.45,
         )
 
     if palette.get("stripes") or kind == "ginger":
-        # Tabby M + cheek bars — readable at PFP size, not three floating ticks.
+        top = cy - ry * 0.46
         fill_poly(
             arr,
             [
-                (cx - 28, cy - 72),
-                (cx - 18, cy - 40),
-                (cx - 8, cy - 58),
-                (cx, cy - 38),
-                (cx + 8, cy - 58),
-                (cx + 18, cy - 40),
-                (cx + 28, cy - 72),
-                (cx + 16, cy - 72),
-                (cx + 10, cy - 58),
-                (cx, cy - 50),
-                (cx - 10, cy - 58),
-                (cx - 16, cy - 72),
+                (cx - 32, top),
+                (cx - 20, top + 36),
+                (cx - 9, top + 16),
+                (cx, top + 38),
+                (cx + 9, top + 16),
+                (cx + 20, top + 36),
+                (cx + 32, top),
+                (cx + 18, top),
+                (cx + 11, top + 16),
+                (cx, top + 24),
+                (cx - 11, top + 16),
+                (cx - 18, top),
             ],
             mark,
             0.82,
         )
         for side in (-1.0, 1.0):
-            rounded_rect(arr, cx + side * 90, cy + 38, 16, 5.2, mark, 0.68, radius=3, soft=1.3)
-            rounded_rect(arr, cx + side * 86, cy + 52, 13, 4.6, mark, 0.5, radius=3, soft=1.3)
+            rounded_rect(arr, cx + side * rx * 0.54, cy + ry * 0.22, 17, 5.4, mark, 0.68, radius=3, soft=1.3)
+            rounded_rect(arr, cx + side * rx * 0.50, cy + ry * 0.32, 14, 4.6, mark, 0.5, radius=3, soft=1.3)
 
     if kind == "mist":
-        ellipse(arr, cx - 70, cy + 8, 16, 12, mark, 0.28, soft=2.2)
-        ellipse(arr, cx + 70, cy + 8, 16, 12, mark, 0.28, soft=2.2)
+        ellipse(arr, cx - rx * 0.42, cy + ry * 0.04, 18, 13, mark, 0.28, soft=2.2)
+        ellipse(arr, cx + rx * 0.42, cy + ry * 0.04, 18, 13, mark, 0.28, soft=2.2)
 
-    ellipse(arr, cx, cy + 22, 36, 28, belly, 0.55, soft=2.8)
-    disc(arr, cx - 74, cy + 32, 16, inner, 0.4, soft=3.0)
-    disc(arr, cx + 74, cy + 32, 16, inner, 0.4, soft=3.0)
+    ellipse(arr, cx, cy + ry * 0.14, 40, 30, belly, 0.55, soft=2.8)
+    disc(arr, cx - rx * 0.44, cy + ry * 0.20, 17, inner, 0.4, soft=3.0)
+    disc(arr, cx + rx * 0.44, cy + ry * 0.20, 17, inner, 0.4, soft=3.0)
 
-    outlined_ellipse(arr, cx, cy + 28, 8.4, 6.0, nose, width=1.6, cel=False)
-    disc(arr, cx - 2.4, cy + 25, 2.0, rgb("ffffff"), 0.55, soft=1.0)
+    outlined_ellipse(arr, cx, cy + ry * 0.18, 8.4, 6.0, nose, width=1.6, cel=False)
+    disc(arr, cx - 2.4, cy + ry * 0.16, 2.0, rgb("ffffff"), 0.55, soft=1.0)
     return arr
 
 
@@ -610,52 +642,52 @@ def paint_fit(kind: str, frame: int) -> np.ndarray:
     cx, cy = HEAD[0], HEAD[1] + bob(frame)
     main, trim = (rgb(c) for c in FITS[kind])
     body_y = BUST_Y + bob(frame)
-    neck = cy + HEAD_RY + 8
+    neck = cy + HEAD_RY + 4
     if kind == "hoodie":
-        outlined_ellipse(arr, cx, body_y, BUST_RX, BUST_RY, main, width=4.0, cel=False)
-        ellipse(arr, cx, neck - 6, 78, 18, shade(main, 0.12), 0.95, soft=2.0)
-        rounded_rect(arr, cx, neck + 10, 58, 12, shade(main, 0.16), 0.95, radius=6)
-        rounded_rect(arr, cx, 448, 42, 20, shade(main, 0.12), 0.95, radius=10)
+        outlined_ellipse(arr, cx, body_y, BUST_RX, BUST_RY, main, width=3.8, cel=False)
+        ellipse(arr, cx, neck - 4, 62, 14, shade(main, 0.12), 0.95, soft=2.0)
+        rounded_rect(arr, cx, neck + 8, 48, 10, shade(main, 0.16), 0.95, radius=6)
+        rounded_rect(arr, cx, 470, 32, 16, shade(main, 0.12), 0.95, radius=8)
     elif kind == "tee":
-        outlined_ellipse(arr, cx, body_y, BUST_RX - 6, BUST_RY - 4, main, width=3.8, cel=False)
+        outlined_ellipse(arr, cx, body_y, BUST_RX - 4, BUST_RY - 2, main, width=3.6, cel=False)
         fill_poly(
             arr,
             [
-                (cx - 36, neck - 8),
-                (cx + 36, neck - 8),
-                (cx + 22, neck + 22),
-                (cx - 22, neck + 22),
+                (cx - 28, neck - 6),
+                (cx + 28, neck - 6),
+                (cx + 16, neck + 16),
+                (cx - 16, neck + 16),
             ],
             shade(main, 0.18),
         )
-        rounded_rect(arr, cx, 448, 8, 26, trim, 0.9, radius=3)
+        rounded_rect(arr, cx, 468, 7, 18, trim, 0.9, radius=3)
     elif kind == "jacket":
-        outlined_ellipse(arr, cx, body_y, BUST_RX + 4, BUST_RY, main, width=4.0, cel=False)
-        ellipse(arr, cx, 448, 36, 48, rgb("f4eee4"), 0.55)
-        rounded_rect(arr, cx - 58, 430, 14, 28, trim, 0.95, radius=4)
-        rounded_rect(arr, cx + 58, 430, 14, 28, trim, 0.95, radius=4)
-        fill_poly(arr, [(cx - 26, neck - 4), (cx - 4, neck - 4), (cx - 14, neck + 40)], main)
-        fill_poly(arr, [(cx + 4, neck - 4), (cx + 26, neck - 4), (cx + 14, neck + 40)], main)
+        outlined_ellipse(arr, cx, body_y, BUST_RX + 2, BUST_RY, main, width=3.8, cel=False)
+        ellipse(arr, cx, 468, 26, 32, rgb("f4eee4"), 0.55)
+        rounded_rect(arr, cx - 42, 458, 11, 20, trim, 0.95, radius=4)
+        rounded_rect(arr, cx + 42, 458, 11, 20, trim, 0.95, radius=4)
+        fill_poly(arr, [(cx - 20, neck - 2), (cx - 4, neck - 2), (cx - 10, neck + 28)], main)
+        fill_poly(arr, [(cx + 4, neck - 2), (cx + 20, neck - 2), (cx + 10, neck + 28)], main)
     elif kind == "polo":
-        outlined_ellipse(arr, cx, body_y, BUST_RX - 6, BUST_RY - 4, main, width=3.8, cel=False)
+        outlined_ellipse(arr, cx, body_y, BUST_RX - 4, BUST_RY - 2, main, width=3.6, cel=False)
         fill_poly(
             arr,
             [
-                (cx - 28, neck - 4),
-                (cx, neck + 24),
-                (cx + 28, neck - 4),
-                (cx + 14, neck - 4),
-                (cx, neck + 14),
-                (cx - 14, neck - 4),
+                (cx - 22, neck - 2),
+                (cx, neck + 18),
+                (cx + 22, neck - 2),
+                (cx + 10, neck - 2),
+                (cx, neck + 10),
+                (cx - 10, neck - 2),
             ],
             trim,
         )
-        disc(arr, cx, neck + 28, 4, trim, 0.95)
+        disc(arr, cx, neck + 20, 3.6, trim, 0.95)
     else:
-        outlined_ellipse(arr, cx, body_y, BUST_RX - 2, BUST_RY - 2, main, width=3.8, cel=False)
-        for y in (428.0, 452.0, 476.0):
-            disc(arr, cx, y, 4.2, rgb("f0d8c0"), 0.95)
-        ellipse(arr, cx, 448, 34, 42, trim, 0.5)
+        outlined_ellipse(arr, cx, body_y, BUST_RX - 2, BUST_RY - 2, main, width=3.6, cel=False)
+        for y in (456.0, 472.0, 488.0):
+            disc(arr, cx, y, 3.6, rgb("f0d8c0"), 0.95)
+        ellipse(arr, cx, 468, 26, 30, trim, 0.5)
     return arr
 
 
@@ -672,7 +704,7 @@ def paint_mug(kind: str, frame: int) -> np.ndarray:
     gold = rgb("ffe060")
 
     def eye(ex: float, ey: float, shut: float, heart: bool = False, spark: bool = False, wide: bool = False) -> None:
-        r = 8.5 if wide else 7.2
+        r = 10.0 if wide else 8.6
         if shut >= 0.9:
             ellipse(arr, ex, ey + 2, r + 3, 2.6, ink, 0.96, soft=1.2)
             return
@@ -691,7 +723,7 @@ def paint_mug(kind: str, frame: int) -> np.ndarray:
         if shut > 0.35:
             ellipse(arr, ex, ey - 5, r + 2, 5.5 * shut, ink, 0.88, soft=1.3)
 
-    lx, rx, ey = cx - 44, cx + 44, cy - 4
+    lx, rx, ey = cx - HEAD_RX * 0.30, cx + HEAD_RX * 0.30, cy + HEAD_RY * 0.04
 
     if kind == "wink":
         eye(lx, ey, 0.0)
@@ -712,7 +744,7 @@ def paint_mug(kind: str, frame: int) -> np.ndarray:
         eye(lx, ey, closed)
         eye(rx, ey, closed)
 
-    my = cy + 48
+    my = cy + HEAD_RY * 0.34
     if kind == "sleepy":
         ellipse(arr, cx, my, 9, 1.8, ink, 0.8, soft=1.2)
     elif kind == "grin":
@@ -724,11 +756,11 @@ def paint_mug(kind: str, frame: int) -> np.ndarray:
         ellipse(arr, cx + 5.2, my, 5.0, 2.0, ink, 0.9, soft=1.1)
 
     for side in (-1, 1):
-        ellipse(arr, cx + side * 86, cy + 30, 14, 1.3, ink, 0.42, soft=1.1)
-        ellipse(arr, cx + side * 84, cy + 38, 12, 1.15, ink, 0.32, soft=1.1)
+        ellipse(arr, cx + side * HEAD_RX * 0.50, cy + HEAD_RY * 0.20, 15, 1.3, ink, 0.42, soft=1.1)
+        ellipse(arr, cx + side * HEAD_RX * 0.48, cy + HEAD_RY * 0.26, 13, 1.15, ink, 0.32, soft=1.1)
 
     if kind == "spark":
-        disc(arr, cx + 78, cy - 48, 3, gold, 0.7 + 0.2 * math.sin(t), soft=1.2)
+        disc(arr, cx + HEAD_RX * 0.46, cy - HEAD_RY * 0.30, 3, gold, 0.7 + 0.2 * math.sin(t), soft=1.2)
     return arr
 
 
@@ -744,67 +776,69 @@ def paint_gear(kind: str, frame: int) -> np.ndarray:
     if kind == "beanie":
         hat = rgb("2a6a9a")
         trim = rgb("f0e8d8")
-        outlined_ellipse(arr, cx, cy - ry + 18, 108, 42, hat, width=3.4, cel=False)
-        rounded_rect(arr, cx, cy - ry + 42, 112, 16, trim, 0.98, radius=8)
-        outlined_disc(arr, cx + 4, cy - ry - 18, 15, rgb("f0e8d8"), width=2.6, cel=False)
+        outlined_ellipse(arr, cx, cy - ry + 22, rx * 0.70, 44, hat, width=3.4, cel=False)
+        rounded_rect(arr, cx, cy - ry + 48, rx * 0.74, 16, trim, 0.98, radius=8)
+        outlined_disc(arr, cx + 4, cy - ry - 16, 16, rgb("f0e8d8"), width=2.6, cel=False)
     elif kind == "cap":
         hat = rgb("1e3a28")
-        outlined_ellipse(arr, cx + 8, cy - ry + 24, 102, 34, hat, width=3.2, cel=False)
+        outlined_ellipse(arr, cx + 8, cy - ry + 28, rx * 0.66, 36, hat, width=3.2, cel=False)
         fill_poly(
             arr,
             [
-                (cx - 16, cy - ry + 40),
-                (cx + 132, cy - ry + 54),
-                (cx + 124, cy - ry + 72),
-                (cx - 4, cy - ry + 54),
+                (cx - 20, cy - ry + 46),
+                (cx + rx * 0.82, cy - ry + 60),
+                (cx + rx * 0.76, cy - ry + 80),
+                (cx - 6, cy - ry + 62),
             ],
             hat,
         )
         fill_poly(
             arr,
             [
-                (cx - 18, cy - ry + 38),
-                (cx + 134, cy - ry + 52),
-                (cx + 132, cy - ry + 56),
-                (cx - 14, cy - ry + 42),
+                (cx - 22, cy - ry + 44),
+                (cx + rx * 0.84, cy - ry + 58),
+                (cx + rx * 0.82, cy - ry + 62),
+                (cx - 16, cy - ry + 48),
             ],
             LINE,
             0.7,
         )
-        disc(arr, cx + 10, cy - ry + 24, 6, rgb("e8e0d0"), 0.9)
+        disc(arr, cx + 10, cy - ry + 28, 6, rgb("e8e0d0"), 0.9)
     elif kind == "bucket":
         hat = rgb("f2a0b8")
-        outlined_ellipse(arr, cx, cy - ry + 34, 124, 18, hat, width=3.2, cel=False)
-        outlined_ellipse(arr, cx, cy - ry + 14, 90, 30, hat, width=3.2, cel=False)
+        outlined_ellipse(arr, cx, cy - ry + 38, rx * 0.78, 18, hat, width=3.2, cel=False)
+        outlined_ellipse(arr, cx, cy - ry + 16, rx * 0.58, 32, hat, width=3.2, cel=False)
         for i in range(5):
-            rounded_rect(arr, cx - 52 + i * 26, cy - ry + 14, 5, 10, rgb("2a8a48"), 0.85, radius=2)
+            rounded_rect(arr, cx - rx * 0.36 + i * (rx * 0.18), cy - ry + 16, 5, 10, rgb("2a8a48"), 0.85, radius=2)
     elif kind == "shades":
         glass = rgb("141820")
-        outlined_roundrect(arr, cx - 44, cy - 2, 28, 14, glass, radius=8, width=3.0)
-        outlined_roundrect(arr, cx + 44, cy - 2, 28, 14, glass, radius=8, width=3.0)
-        rounded_rect(arr, cx, cy - 4, 16, 3.2, rgb("2a2e38"), 0.95, radius=2)
-        ellipse(arr, cx - 52, cy - 6, 9, 3, rgb("7dffb8"), 0.55 + 0.15 * math.sin(t), soft=1.4)
+        ex = HEAD_RX * 0.30
+        ey = cy + HEAD_RY * 0.04
+        outlined_roundrect(arr, cx - ex, ey, 30, 15, glass, radius=8, width=3.0)
+        outlined_roundrect(arr, cx + ex, ey, 30, 15, glass, radius=8, width=3.0)
+        rounded_rect(arr, cx, ey - 2, 18, 3.2, rgb("2a2e38"), 0.95, radius=2)
+        ellipse(arr, cx - ex - 8, ey - 4, 9, 3, rgb("7dffb8"), 0.55 + 0.15 * math.sin(t), soft=1.4)
     elif kind == "phones":
         cup = rgb("2a2e38")
-        outlined_ellipse(arr, cx, cy - ry + 8, 98, 16, cup, width=3.0, cel=False)
-        outlined_disc(arr, cx - rx + 8, cy + 4, 24, cup, width=3.2, cel=False)
-        outlined_disc(arr, cx + rx - 8, cy + 4, 24, cup, width=3.2, cel=False)
-        disc(arr, cx - rx + 8, cy + 4, 13, rgb("1a1e24"), 0.95)
-        disc(arr, cx + rx - 8, cy + 4, 13, rgb("1a1e24"), 0.95)
-        ellipse(arr, cx - rx + 8, cy - 4, 8, 3, rgb("7dffb8"), 0.4, soft=1.3)
+        outlined_ellipse(arr, cx, cy - ry + 10, rx * 0.62, 16, cup, width=3.0, cel=False)
+        outlined_disc(arr, cx - rx + 6, cy + 8, 26, cup, width=3.2, cel=False)
+        outlined_disc(arr, cx + rx - 6, cy + 8, 26, cup, width=3.2, cel=False)
+        disc(arr, cx - rx + 6, cy + 8, 14, rgb("1a1e24"), 0.95)
+        disc(arr, cx + rx - 6, cy + 8, 14, rgb("1a1e24"), 0.95)
+        ellipse(arr, cx - rx + 6, cy, 8, 3, rgb("7dffb8"), 0.4, soft=1.3)
     elif kind == "phone":
-        outlined_roundrect(arr, cx + 108 + sway, 478, 18, 30, rgb("1a1e24"), radius=6, width=3.0)
-        rounded_rect(arr, cx + 108 + sway, 476, 14, 24, rgb("7dffd0"), 0.9, radius=4)
-        disc(arr, cx + 108 + sway, 456, 2.4, rgb("e8e0d0"), 0.9)
+        outlined_roundrect(arr, cx + 88 + sway, 482, 16, 26, rgb("1a1e24"), radius=6, width=3.0)
+        rounded_rect(arr, cx + 88 + sway, 480, 12, 20, rgb("7dffd0"), 0.9, radius=4)
+        disc(arr, cx + 88 + sway, 462, 2.2, rgb("e8e0d0"), 0.9)
     else:
         cup = rgb("f4eee4")
-        outlined_roundrect(arr, cx - 108 + sway, 476, 18, 24, cup, radius=6, width=3.0)
-        rounded_rect(arr, cx - 108 + sway, 456, 20, 6, rgb("2a6a4a"), 0.95, radius=3)
-        ellipse(arr, cx - 108 + sway, 468, 12, 5, rgb("5a3a24"), 0.9, soft=1.4)
-        rounded_rect(arr, cx - 86 + sway, 476, 3, 10, LINE, 0.85, radius=2)
+        outlined_roundrect(arr, cx - 88 + sway, 480, 16, 22, cup, radius=6, width=3.0)
+        rounded_rect(arr, cx - 88 + sway, 462, 18, 6, rgb("2a6a4a"), 0.95, radius=3)
+        ellipse(arr, cx - 88 + sway, 474, 11, 4.5, rgb("5a3a24"), 0.9, soft=1.4)
+        rounded_rect(arr, cx - 70 + sway, 480, 3, 9, LINE, 0.85, radius=2)
         steam = 0.45 + 0.2 * math.sin(t)
-        ellipse(arr, cx - 114 + sway, 438, 4, 10, rgb("e8f0ff"), steam, soft=2.2)
-        ellipse(arr, cx - 102 + sway, 432, 3.5, 9, rgb("e8f0ff"), steam * 0.8, soft=2.0)
+        ellipse(arr, cx - 94 + sway, 444, 4, 10, rgb("e8f0ff"), steam, soft=2.2)
+        ellipse(arr, cx - 82 + sway, 438, 3.5, 9, rgb("e8f0ff"), steam * 0.8, soft=2.0)
     return arr
 
 

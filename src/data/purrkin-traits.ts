@@ -14,7 +14,7 @@ export type PurrkinTraitCategory = {
 };
 
 /** Bump when APNG layers change so the studio does not keep a stale loop. */
-export const PURRKIN_ART_VERSION = "purrkins-v3";
+export const PURRKIN_ART_VERSION = "purrkins-v4";
 
 export const PURRKIN_FRAMES = 12;
 export const PURRKIN_DURATION_MS = 80;
@@ -43,7 +43,7 @@ export const purrkinTraitCategories: PurrkinTraitCategory[] = [
   {
     id: "glow",
     label: "Glow",
-    blurb: "Light that sits behind the cat and pulses on the shared clock.",
+    blurb: "A halo around the cat — sparkles and dust sit outside the pelt, not under it.",
     noneLabel: "No glow",
     traits: [
       { id: "sparkle", name: "Sparkle", image: "/purrkins-traits/glow/sparkle.png", rarity: 18 },
@@ -68,7 +68,7 @@ export const purrkinTraitCategories: PurrkinTraitCategory[] = [
   {
     id: "fit",
     label: "Fit",
-    blurb: "Streetwear as one cropped bust — no sleeves, no paws.",
+    blurb: "A tiny cropped bust under a huge head — no sleeves, no paws.",
     noneLabel: "No fit",
     traits: [
       { id: "hoodie", name: "Forest Hoodie", image: "/purrkins-traits/fit/hoodie.png", rarity: 18 },
