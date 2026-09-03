@@ -142,7 +142,7 @@ def token_meta(token_id: int, selection: dict[str, str]) -> dict:
     ]
     return {
         "name": f"Birb #{token_id}",
-        "description": "A looping BirbNation robin PFP. Painted 3D volume. Glossy eyes. Minted on Robinhood Chain.",
+        "description": "A looping painted robin from BirbNation. One sphere. One clock. Minted on Robinhood Chain.",
         "image": f"{token_id}.gif",
         "attributes": attributes,
         "animation_loop": True,
@@ -222,8 +222,15 @@ def write_sidecar(count: int, rows: list[dict], stats: Counter[str], total_bytes
     (OUT / "README.md").write_text(
         "# BirbNation OpenSea pack\n\n"
         f"{count:,} flattened BirbNation loops at {DROP_SIZE}×{DROP_SIZE}, {FRAMES} frames, {DURATION_MS}ms.\n\n"
-        f"Upload every file in `gifs/` (1.gif–{count}.gif) plus `BIRBS-opensea-drop.csv` "
-        "or `opensea-metadata.csv` to an OpenSea Drop on Robinhood Chain (chain ID 4663).\n"
+        "Listing kit (OpenSea collection page):\n"
+        "- Name: BirbNation · Symbol: BIRB · Category: PFPs · Chain: Robinhood (4663)\n"
+        "- Description: `public/metadata/birbs-description.txt`\n"
+        "- Logo: `public/brand/logo-birbs.png` (512×512)\n"
+        "- Featured: `public/brand/featured-birbs.jpg` (1200×800)\n"
+        "- Banner: `public/brand/banner-birbs-opensea.jpg` (2800×700)\n"
+        "- Collection GIF: `public/brand/collection-birbs.gif` (1000×1000)\n\n"
+        f"Drop upload: every file in `gifs/` (1.gif–{count}.gif) plus `BIRBS-opensea-drop.csv` "
+        "or `opensea-metadata.csv`.\n"
         "OpenSea Drops play GIF, not APNG, and cap a Drop upload at 10 GB / 10,000 files.\n"
         "The CSV uses OpenSea Studio headers: tokenID, name, description, file_name, and attributes[Trait].\n"
         "Studio trait layers stay in `public/birbs-traits/` and are not the upload pack.\n",

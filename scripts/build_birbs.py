@@ -910,19 +910,19 @@ def build_samples() -> None:
 
 
 COLLECTION_DESCRIPTION = (
-    "BirbNation is a 2,222-piece collection of looping round-borb robin PFP GIFs on Robinhood Chain. "
+    "BirbNation is a 2,222-piece collection of looping painted-robin PFP GIFs on Robinhood Chain. "
     "Each birb is stacked from four layers — field, plumage, mug, and accent — then flattened onto one 12-frame GIF. "
-    "Painted 3D illustration. Warm key. Soft clay volume. Chocolate cap. Burnt-orange chest. Cream belly. A pink blep."
+    "One fat sphere. Chocolate cap. Burnt-orange chest. Cream belly. Warm key. A pink blep."
 )
 
 COLLECTION_STORY = (
     "Welcome to BirbNation.\n\n"
-    "A 2,222-piece collection of looping round-borb robin PFP GIFs on Robinhood Chain. "
+    "A 2,222-piece collection of looping painted-robin PFP GIFs on Robinhood Chain. "
     "Each birb is stacked from four layers — field, plumage, mug, and accent — then flattened onto one 12-frame GIF. "
-    "Sticker fields behind them. Chocolate caps. Burnt-orange chests. Cream bellies. Hats, crowns, and the occasional worm. "
+    "Soft fields behind them. Chocolate caps. Burnt-orange chests. Cream bellies. Hats, crowns, and the occasional worm. "
     "Eyes blink. Wings twitch. The body stays a sphere.\n\n"
-    "Painted like a Doodle with BAYC form-light — canvas grain, wrap shade, a warm key from the left.\n\n"
-    "Each birb is a vibe — explorers, dreamers, jokers, guardians — on one shared clock.\n\n"
+    "Painted 3D illustration — canvas grain, wrap shade, a warm key from the left. "
+    "Explorers, dreamers, jokers, guardians. One nation. One shared clock.\n\n"
     "Minting on Robinhood Chain (chain ID 4663). Gas is ETH."
 )
 
