@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { AddChainButton } from "@/components/add-chain-button";
+import { ApngImage } from "@/components/apng-image";
 import { Button } from "@/components/ui/button";
 import { collection } from "@/data/collection";
 
@@ -15,15 +16,15 @@ const steps = [
   },
   {
     title: "Create a Drop on Robinhood Chain",
-    body: `In OpenSea Studio, create a Drop on ${collection.chain.name} (chain ID ${collection.chain.chainId}). Set supply to ${collection.supply.toLocaleString()} and add the logo and banner from public/brand.`,
+    body: `In OpenSea Studio, create a Drop on ${collection.chain.name} (chain ID ${collection.chain.chainId}). Set supply to ${collection.supply.toLocaleString()}, paste the project description, and upload the listing kit from public/brand.`,
   },
   {
     title: "Bulk-upload GIFs + CSV",
-    body: "Upload every file in generated/gifs (1.gif–10000.gif) and generated/LOOPKINS-opensea-drop.csv. The CSV already uses OpenSea’s required headers (tokenID, name, description, file_name, attributes[Trait]). OpenSea plays GIF, not APNG. Preview the loops, then publish.",
+    body: `Upload every file in generated/gifs (1.gif–${collection.supply}.gif) and generated/LOOPKINS-opensea-drop.csv. The CSV already uses OpenSea’s required headers (tokenID, name, description, file_name, attributes[Trait]). OpenSea plays GIF, not APNG. Preview the loops, then publish.`,
   },
   {
     title: "Or deploy the ERC-721 yourself",
-    body: `contracts/Loopkins.sol mints token IDs 1–${collection.supply.toLocaleString()}. Pin generated/json and set the base URI. Import that contract on OpenSea instead of using a Drop if you want a custom mint.`,
+    body: `contracts/Loopkins.sol mints token IDs 1–${collection.supply.toLocaleString()}. Pin generated/json and set the base URI. Import that contract on OpenSea instead of using a Drop if you want a custom mint. Gas is ETH.`,
   },
 ];
 
@@ -33,8 +34,9 @@ export default function LaunchPage() {
       <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground">Marketplace</p>
       <h1 className="mt-2 font-heading text-4xl">Launch on OpenSea, Robinhood Chain.</h1>
       <p className="mt-4 text-muted-foreground">
-        Loopkins ships as layered APNG traits and as flattened token files. OpenSea wants the GIF
-        bake of those loops. The APNG stack stays in this repo for the studio and any later restack.
+        Loopkins ships as layered APNG traits and as flattened GIF tokens. OpenSea wants
+        the GIF bake of those loops. The APNG stack stays in this repo for the studio and any later
+        restack.
       </p>
       <div className="mt-6">
         <Button asChild>
@@ -57,6 +59,44 @@ export default function LaunchPage() {
           </div>
         ))}
       </dl>
+
+      <div className="mt-10 rounded-[1.75rem] border bg-card p-6 sm:p-8">
+        <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground">Project description</p>
+        <h2 className="mt-2 font-heading text-2xl">Paste this into OpenSea.</h2>
+        <p className="mt-2 text-sm text-muted-foreground">
+          Collection name {collection.name}. Symbol {collection.symbol}. Category PFPs. The same copy lives in{" "}
+          <code className="rounded bg-secondary px-1.5 py-0.5 text-xs">public/metadata/loopkins-description.txt</code>.
+        </p>
+        <pre className="mt-5 overflow-x-auto whitespace-pre-wrap rounded-2xl bg-background p-4 text-sm leading-relaxed text-foreground">
+          {collection.story}
+        </pre>
+      </div>
+
+      <div className="mt-8 rounded-[1.75rem] border bg-card p-6 sm:p-8">
+        <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground">Listing kit</p>
+        <h2 className="mt-2 font-heading text-2xl">Logo, featured, banner, collection GIF.</h2>
+        <p className="mt-2 text-sm text-muted-foreground">
+          OpenSea wants a square logo, a 3:2 featured image, and a wide 4:1 banner — three different pictures,
+          no type on the marketplace images. The site hero can reuse the taller banner.
+        </p>
+        <ul className="mt-6 grid gap-4 sm:grid-cols-2">
+          {[
+            ["Logo", "public/brand/logo-loopkins.png", "512×512, 1:1", "/brand/logo-loopkins.png"],
+            ["Featured", "public/brand/featured-loopkins.jpg", "1200×800, 3:2", "/brand/featured-loopkins.jpg"],
+            ["OpenSea banner", "public/brand/banner-loopkins-opensea.jpg", "2800×700, 4:1", "/brand/banner-loopkins-opensea.jpg"],
+            ["Collection GIF", "public/brand/collection-loopkins.gif", "1000×1000 loop", "/brand/collection-loopkins.gif"],
+          ].map(([label, path, size, src]) => (
+            <li key={label} className="overflow-hidden rounded-2xl border bg-background">
+              <ApngImage src={src} alt={`${label} preview`} className="aspect-[3/2] w-full object-cover" />
+              <div className="space-y-1 p-3">
+                <p className="font-medium">{label}</p>
+                <p className="text-xs text-muted-foreground">{size}</p>
+                <p className="break-all text-xs text-muted-foreground">{path}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
 
       <div className="mt-8 rounded-2xl border bg-card p-5">
         <p className="font-heading text-xl">Wallet setup</p>
@@ -86,12 +126,7 @@ export default function LaunchPage() {
 
       <p className="mt-10 text-sm text-muted-foreground">
         Drop upload notes:{" "}
-        <a
-          className="underline"
-          href="https://support.opensea.io/en/articles/8867060-preparing-metadata-for-your-drop"
-          target="_blank"
-          rel="noreferrer"
-        >
+        <a className="underline" href={collection.opensea.metadataGuide} target="_blank" rel="noreferrer">
           Preparing metadata for your drop
         </a>
         . Live collection:{" "}

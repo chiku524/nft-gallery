@@ -228,15 +228,9 @@ def main() -> None:
         bake("Loopkins", loop_jobs, args.workers)
         rewrite_csv_filenames(ROOT / "generated" / "opensea-metadata.csv")
         rewrite_csv_filenames(ROOT / "generated" / "LOOPKINS-opensea-drop.csv")
-        (ROOT / "generated" / "README.md").write_text(
-            "# Loopkins OpenSea pack\n\n"
-            f"{count:,} flattened loops at 256×256, 12 frames, 80ms.\n\n"
-            "Upload every file in `gifs/` (1.gif–10000.gif) plus `LOOPKINS-opensea-drop.csv` "
-            "or `opensea-metadata.csv` to an OpenSea Drop.\n"
-            "OpenSea Drops play GIF, not APNG. APNGs stay in `images/` for the site and restacks.\n"
-            "The CSV uses OpenSea Studio headers: tokenID, name, description, file_name, and attributes[Trait].\n",
-            encoding="utf-8",
-        )
+        from build_loopkins import write_opensea_kit_readme  # noqa: E402
+
+        write_opensea_kit_readme(ROOT / "generated" / "README.md", count)
 
     if do_inklings:
         count = INKLINGS_TOTAL if args.all else min(args.count, INKLINGS_TOTAL)

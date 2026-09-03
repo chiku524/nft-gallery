@@ -128,4 +128,4 @@ This is a single Next.js app (one Vercel project). Point Vercel at the GitHub re
 
 ## License
 
-Art and site code in this repository are for the collections on the wall. Swap the zero-address fee recipient in `public/metadata/collection.json`, `public/metadata/afterimages.json`, `public/metadata/inklings.json`, `public/metadata/wicklings.json`, `public/metadata/purrkins.json`, `public/metadata/hoodkins.json`, `public/metadata/birbs.json`, `public/metadata/shookums.json`, and `public/metadata/foxins.json` before you list.
+Art and site code in this repository are for the collections on the wall. Swap the zero-address fee recipient in `public/metadata/collection.json`, `public/metadata/loopkins.json`, `public/metadata/afterimages.json`, `public/metadata/inklings.json`, `public/metadata/wicklings.json`, `public/metadata/purrkins.json`, `public/metadata/hoodkins.json`, `public/metadata/birbs.json`, `public/metadata/shookums.json`, and `public/metadata/foxins.json` before you list.

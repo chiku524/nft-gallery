@@ -35,6 +35,7 @@ from build_loopkins import (  # noqa: E402
     TRAIT_SPEC,
     name_of,
     trait_path,
+    write_opensea_kit_readme,
 )
 from gif_bake import load_apng_frames, save_loop_gif  # noqa: E402
 
@@ -225,15 +226,7 @@ def write_sidecar(count: int, rows: list[dict], stats: Counter[str], total_bytes
         encoding="utf-8",
     )
     (OUT / "stats.json").write_text(json.dumps(dict(stats), indent=2) + "\n", encoding="utf-8")
-    (OUT / "README.md").write_text(
-        "# Loopkins OpenSea pack\n\n"
-        f"{count:,} flattened loops at {DROP_SIZE}×{DROP_SIZE}, {FRAMES} frames, {DURATION_MS}ms.\n\n"
-        "Upload every file in `gifs/` (1.gif–10000.gif) plus `opensea-metadata.csv` to an OpenSea Drop.\n"
-        "OpenSea Drops play GIF, not APNG. APNGs stay in `images/` for the site and restacks.\n"
-        "The CSV uses OpenSea Studio headers: tokenID, name, description, file_name, and attributes[Trait].\n"
-        "Studio trait layers stay in `public/traits/` and are not the upload pack.\n",
-        encoding="utf-8",
-    )
+    write_opensea_kit_readme(OUT / "README.md", count)
 
 
 def main() -> None:

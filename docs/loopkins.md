@@ -10,7 +10,8 @@ OpenSea does **not** assemble collections from trait layers. For a Drop you uplo
 
 - Trait art at `public/traits/` — each file is an APNG on a shared 512×512, 12-frame, 80ms loop
 - Sample tokens at `public/generated-preview/`
-- Collection logo, banner, and 1000×1000 collection GIF in `public/brand/`
+- Collection logo, featured image, OpenSea banner, site banner, and 1000×1000 collection GIF in `public/brand/`
+- Paste-ready project description at `public/metadata/loopkins-description.txt`
 - Trait studio at `/studio` — a live CSS stack of APNG `<img>` layers (not a flattened canvas)
 - `contracts/Loopkins.sol` — ERC-721 with a 10,000 supply cap
 

@@ -8,6 +8,7 @@ Sky, aura, and charm move on their own loops.
 
 from __future__ import annotations
 
+import argparse
 import json
 import math
 from pathlib import Path
@@ -649,6 +650,22 @@ PAINTERS = {
 
 STACK = ("sky", "aura", "body", "face", "wear", "charm")
 
+COLLECTION_DESCRIPTION = (
+    "Loopkins is a 10,000-piece collection of looping PFP creatures. "
+    "Each Loopkin is stacked from six APNG layers — sky, aura, body, face, wear, and charm — "
+    "then flattened onto one 12-frame GIF. Skies pulse. Auras breathe. Faces blink. Charms orbit. "
+    "One shared clock. Minting on Robinhood Chain."
+)
+
+COLLECTION_STORY = (
+    "Loopkins never sit still.\n\n"
+    "A 10,000-piece collection of looping PFP creatures on Robinhood Chain. "
+    "Each Loopkin is stacked from six layers — sky, aura, body, face, wear, and charm — "
+    "then flattened onto one 12-frame GIF. Skies pulse. Auras breathe. Faces blink. Charms orbit.\n\n"
+    "One shared clock. The studio stacks the layers live. OpenSea gets the flattened loop.\n\n"
+    "Minting on Robinhood Chain (chain ID 4663). Gas is ETH."
+)
+
 SIGNATURES = [
     {"sky": "midnight", "aura": "mint", "body": "pudding", "face": "blink", "wear": "cap", "charm": "star"},
     {"sky": "neon", "aura": "gold", "body": "fox", "face": "spark", "wear": "crown", "charm": "none"},
@@ -762,10 +779,101 @@ def build_samples() -> None:
     (META_DIR / "samples.json").write_text(json.dumps(samples, indent=2) + "\n", encoding="utf-8")
 
 
+def sky_wash(width: int, height: int) -> Image.Image:
+    canvas = Image.new("RGBA", (width, height), (11, 16, 36, 255))
+    skies = ("midnight", "neon", "coral", "void")
+    tile_w = width // len(skies) + 120
+    for index, sky_id in enumerate(skies):
+        sky = to_image(SKIES[sky_id](0)).resize((tile_w, height + 80), Image.Resampling.LANCZOS)
+        canvas.alpha_composite(sky, (index * (width // len(skies)) - 40, -40))
+    return canvas
+
+
+def place_portrait(canvas: Image.Image, portrait: Image.Image, x: int, y: int, size: int, radius: int) -> None:
+    face = portrait.resize((size, size), Image.Resampling.LANCZOS).convert("RGBA")
+    mask = Image.new("L", (size, size), 0)
+    ImageDraw.Draw(mask).rounded_rectangle((0, 0, size - 1, size - 1), radius=radius, fill=255)
+    face.putalpha(Image.composite(face.split()[-1], Image.new("L", (size, size), 0), mask))
+    shadow = Image.new("RGBA", (size + 28, size + 28), (0, 0, 0, 0))
+    ImageDraw.Draw(shadow).rounded_rectangle((10, 16, size + 10, size + 20), radius=radius, fill=(8, 10, 24, 120))
+    canvas.alpha_composite(shadow, (x - 10, y - 8))
+    canvas.alpha_composite(face, (x, y))
+
+
+def lineup(width: int, height: int, portraits: list[Image.Image]) -> Image.Image:
+    canvas = sky_wash(width, height)
+    count = len(portraits)
+    size = int(height * 0.82)
+    overlap = size // 5
+    total = size * count - overlap * (count - 1)
+    start_x = (width - total) // 2
+    y = (height - size) // 2 + int(height * 0.04)
+    for index, portrait in enumerate(portraits):
+        place_portrait(canvas, portrait, start_x + index * (size - overlap), y, size, radius=max(36, size // 10))
+    return canvas
+
+
+def write_collection_meta() -> None:
+    META_DIR.mkdir(parents=True, exist_ok=True)
+    (META_DIR / "loopkins-description.txt").write_text(COLLECTION_STORY + "\n", encoding="utf-8")
+    payload = {
+        "name": "Loopkins",
+        "symbol": "LOOP",
+        "description": COLLECTION_DESCRIPTION,
+        "image": "/brand/collection-loopkins.gif",
+        "featured_image": "/brand/featured-loopkins.jpg",
+        "banner_image": "/brand/banner-loopkins.png",
+        "opensea_banner_image": "/brand/banner-loopkins-opensea.jpg",
+        "external_link": "/loopkins",
+        "seller_fee_basis_points": 500,
+        "fee_recipient": "0x0000000000000000000000000000000000000000",
+    }
+    (META_DIR / "collection.json").write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    (META_DIR / "loopkins.json").write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+
+
+def write_opensea_kit_readme(path: Path, count: int = 10_000) -> None:
+    path.write_text(
+        "# Loopkins OpenSea kit\n\n"
+        f"{count:,} flattened looping PFP creatures at 256×256, 12 frames, 80ms.\n\n"
+        "## Collection fields\n\n"
+        "- Name: `Loopkins`\n"
+        "- Symbol: `LOOP`\n"
+        "- Category: PFPs\n"
+        "- Chain: Robinhood Chain (`4663`)\n"
+        "- Supply: `10000`\n"
+        "- Creator fee: `5%` (set your wallet — `public/metadata/collection.json` still has a zero address)\n\n"
+        "## Paste this as the collection description\n\n"
+        "Same file: `public/metadata/loopkins-description.txt`\n\n"
+        "```\n"
+        + COLLECTION_STORY
+        + "\n```\n\n"
+        "## Listing images\n\n"
+        "No type on the marketplace images.\n\n"
+        "| Use | File | Size |\n"
+        "|---|---|---|\n"
+        "| Logo | `public/brand/logo-loopkins.png` | 512×512, 1:1 |\n"
+        "| Featured | `public/brand/featured-loopkins.jpg` | 1200×800, 3:2 |\n"
+        "| OpenSea banner | `public/brand/banner-loopkins-opensea.jpg` | 2800×700, 4:1 |\n"
+        "| Collection GIF | `public/brand/collection-loopkins.gif` | 1000×1000, 12-frame loop |\n"
+        "| Site hero (not the OpenSea banner) | `public/brand/banner-loopkins.png` | 1500×560 |\n\n"
+        "## Drop upload\n\n"
+        "1. In OpenSea Studio, create a Drop on Robinhood Chain (chain ID 4663).\n"
+        f"2. Upload every file in `gifs/` (`1.gif`–`{count}.gif`).\n"
+        "3. Upload `LOOPKINS-opensea-drop.csv` (or `opensea-metadata.csv`). "
+        "The CSV uses OpenSea Studio headers: `tokenID`, `name`, `description`, "
+        "`file_name`, and `attributes[Trait]`.\n"
+        "4. Preview the loops, then publish.\n\n"
+        "OpenSea Drops play GIF, not APNG. Studio trait layers stay in `public/traits/` "
+        "and are not the upload pack. Drop files are 256×256 so the 10,000 pack stays under the cap.\n",
+        encoding="utf-8",
+    )
+
+
 def build_brand() -> None:
     BRAND_DIR.mkdir(parents=True, exist_ok=True)
+    portraits = [compose_selection(selection)[0] for selection in SIGNATURES[:7]]
     logo_frames = compose_selection(SIGNATURES[0])
-    # circular crop for logo
     logo = logo_frames[0].copy()
     mask = Image.new("L", (SIZE, SIZE), 0)
     ImageDraw.Draw(mask).ellipse((24, 24, SIZE - 24, SIZE - 24), fill=255)
@@ -774,7 +882,6 @@ def build_brand() -> None:
     save_apng(logo_frames, BRAND_DIR / "logo-loopkins-loop.png")
 
     banner = Image.new("RGBA", (1500, 560), (11, 16, 36, 255))
-    # stitch three skies
     for i, sky_id in enumerate(("midnight", "neon", "coral")):
         sky = to_image(SKIES[sky_id](0)).resize((520, 520), Image.Resampling.LANCZOS)
         banner.alpha_composite(sky, (i * 490 - 20, 20))
@@ -794,6 +901,13 @@ def build_brand() -> None:
     ICON_PATH.parent.mkdir(parents=True, exist_ok=True)
     logo.resize((256, 256), Image.Resampling.LANCZOS).save(ICON_PATH)
 
+    lineup(2800, 700, portraits).convert("RGB").save(BRAND_DIR / "banner-loopkins-opensea.jpg", quality=90)
+    featured = sky_wash(1200, 800)
+    place_portrait(featured, portraits[0], 70, 120, 540, 56)
+    if len(portraits) > 1:
+        place_portrait(featured, portraits[1], 560, 140, 540, 56)
+    featured.convert("RGB").save(BRAND_DIR / "featured-loopkins.jpg", quality=90)
+
     gif_frames = [
         frame.resize((1000, 1000), Image.Resampling.LANCZOS).convert("RGB") for frame in logo_frames
     ]
@@ -808,27 +922,19 @@ def build_brand() -> None:
         optimize=True,
         disposal=2,
     )
-
-    (META_DIR / "collection.json").write_text(
-        json.dumps(
-            {
-                "name": "Loopkins",
-                "symbol": "LOOP",
-                "description": "Loopkins is a 10,000-piece collection of looping PFP creatures. Each Loopkin is stacked from animated APNG trait layers — skies pulse, auras breathe, faces blink, and charms orbit — then flattened onto one shared 12-frame clock. Minting on Robinhood Chain.",
-                "image": "/brand/collection-loopkins.gif",
-                "banner_image": "/brand/banner-loopkins.png",
-                "external_link": "/loopkins",
-                "seller_fee_basis_points": 500,
-                "fee_recipient": "0x0000000000000000000000000000000000000000",
-            },
-            indent=2,
-        )
-        + "\n",
-        encoding="utf-8",
-    )
+    write_collection_meta()
+    write_opensea_kit_readme(ROOT / "generated" / "README.md")
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--brand-only", action="store_true", help="Rebuild logo, banner, and OpenSea listing kit only")
+    args = parser.parse_args()
+    if args.brand_only:
+        print("Writing Loopkins brand kit…")
+        build_brand()
+        print("Done.")
+        return
     print("Building Loopkins APNG traits…")
     build_traits()
     print("Compositing sample tokens…")
