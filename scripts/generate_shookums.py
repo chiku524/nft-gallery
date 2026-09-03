@@ -50,6 +50,7 @@ OPENSEA_LIMIT_BYTES = 10 * 1024 * 1024 * 1024
 
 _CACHE: dict[tuple[str, str], list[Image.Image]] | None = None
 _FORCE = False
+_HATS_ONLY = False
 
 
 def pick(category: str, rng: random.Random) -> str:
@@ -101,9 +102,10 @@ def load_cache() -> dict[tuple[str, str], list[Image.Image]]:
     return cache
 
 
-def init_worker(force: bool = False) -> None:
-    global _CACHE, _FORCE
+def init_worker(force: bool = False, hats_only: bool = False) -> None:
+    global _CACHE, _FORCE, _HATS_ONLY
     _FORCE = force
+    _HATS_ONLY = hats_only
     _CACHE = load_cache()
 
 
@@ -180,7 +182,13 @@ def bake_one(job: tuple[int, dict[str, str]]) -> tuple[int, dict, int]:
     token_id, selection = job
     gif_dest = GIF_DIR / f"{token_id}.gif"
     meta = token_meta(token_id, selection)
-    if _FORCE or traits_newer_than(gif_dest):
+    missing = not gif_dest.exists() or gif_dest.stat().st_size == 0
+    has_hat = selection.get("hat", "none") != "none"
+    if _HATS_ONLY:
+        rebuild = missing or has_hat
+    else:
+        rebuild = _FORCE or traits_newer_than(gif_dest)
+    if rebuild:
         frames = compose_cached(selection)
         save_loop_gif(frames, gif_dest, DURATION_MS, colors=GIF_COLORS)
     (JSON_DIR / f"{token_id}.json").write_text(json.dumps(meta) + "\n", encoding="utf-8")
@@ -243,6 +251,7 @@ def main() -> None:
     parser.add_argument("--all", action="store_true", help=f"Bake all {TOTAL} tokens")
     parser.add_argument("--count", type=int, default=16)
     parser.add_argument("--force", action="store_true", help="Rebuild GIFs even if they already exist")
+    parser.add_argument("--hats-only", action="store_true", help="Rebuild only tokens that wear a hat")
     parser.add_argument("--workers", type=int, default=max(1, min(6, cpu_count() or 1)))
     args = parser.parse_args()
     global _FORCE
@@ -261,8 +270,15 @@ def main() -> None:
     total_bytes = 0
     done = 0
 
-    print(f"Baking {count} Halloween Shook'ums tokens at {DROP_SIZE}px with {args.workers} workers…")
-    with Pool(processes=args.workers, initializer=init_worker, initargs=(args.force,)) as pool:
+    hatted = sum(1 for _id, sel in jobs if sel.get("hat", "none") != "none")
+    if args.hats_only:
+        print(
+            f"Rebaking {hatted} hatted tokens of {count} at {DROP_SIZE}px "
+            f"with {args.workers} workers (hatless GIFs stay put)…"
+        )
+    else:
+        print(f"Baking {count} Halloween Shook'ums tokens at {DROP_SIZE}px with {args.workers} workers…")
+    with Pool(processes=args.workers, initializer=init_worker, initargs=(args.force, args.hats_only)) as pool:
         for token_id, meta, nbytes in pool.imap_unordered(bake_one, jobs, chunksize=4):
             done += 1
             total_bytes += nbytes

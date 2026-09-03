@@ -595,21 +595,37 @@ def paint_mug(kind: str, frame: int) -> np.ndarray:
     return dst
 
 
+# Hat-layer only. `y` is the hat origin; each kind draws its brim/base below that.
+# Brimmed hats need more lift so the brim perches on the crown instead of the
+# forehead. Tall cones are drawn shorter so the tip stays on the 512 canvas.
+HAT_LIFT = {
+    "witch": 84.0,
+    "wizard": 74.0,
+    "pumpkin": 74.0,
+    "halo": 32.0,
+    "party": 38.0,
+    "crown": 52.0,
+    "bow": 46.0,
+    "flower": 52.0,
+    "cat": 42.0,
+}
+
+
 def paint_hat(kind: str, frame: int) -> np.ndarray:
     dst = blank()
     if kind == "none":
         return dst
     dy = hover_y(frame)
-    y = CY - RY + 8 + dy
+    y = CY - RY + 8 - HAT_LIFT.get(kind, 24.0) + dy
     if kind == "witch":
         volume_ball(dst, CX, y + 34, 108, 20, rgb("1e1a24"), width=5.2, spec=0.08, shininess=8.0, sss=0.04)
         outlined_poly(
             dst,
-            [(CX - 38, y + 28), (CX + 38, y + 28), (CX + 10, y - 96), (CX - 10, y - 96)],
+            [(CX - 38, y + 28), (CX + 38, y + 28), (CX + 14, y - 6), (CX - 14, y - 6)],
             rgb("2a2430"),
             width=5.0,
         )
-        volume_ball(dst, CX, y - 98, 13, 11, rgb("1e1a24"), width=3.2, spec=0.08, shininess=8.0, sss=0.04)
+        volume_ball(dst, CX, y - 8, 13, 11, rgb("1e1a24"), width=3.2, spec=0.08, shininess=8.0, sss=0.04)
         ellipse(dst, CX, y + 24, 36, 8, rgb("f0c14a"), 0.96, soft=1.4)
     elif kind == "pumpkin":
         volume_ball(dst, CX, y + 22, 86, 28, rgb("e07028"), width=4.8, spec=0.18, shininess=14.0)
@@ -626,11 +642,11 @@ def paint_hat(kind: str, frame: int) -> np.ndarray:
     elif kind == "party":
         outlined_poly(
             dst,
-            [(CX - 36, y + 20), (CX + 36, y + 20), (CX, y - 70)],
+            [(CX - 36, y + 20), (CX + 36, y + 20), (CX, y - 52)],
             rgb("e05a6c"),
             width=4.2,
         )
-        volume_ball(dst, CX, y - 72, 8, 8, rgb("f0c14a"), width=2.8, spec=0.34, shininess=22.0)
+        volume_ball(dst, CX, y - 54, 8, 8, rgb("f0c14a"), width=2.8, spec=0.34, shininess=22.0)
         for i, col in enumerate((rgb("f0c14a"), rgb("4a8ad4"), rgb("f0c14a"))):
             disc(dst, CX - 14 + i * 14, y + 8, 5.5, col, 0.95, soft=1.0)
     elif kind == "crown":
@@ -675,11 +691,11 @@ def paint_hat(kind: str, frame: int) -> np.ndarray:
         volume_ball(dst, CX, y + 26, 88, 16, rgb("4a2e68"), width=4.4, spec=0.14, shininess=12.0)
         outlined_poly(
             dst,
-            [(CX - 16, y + 20), (CX + 16, y + 20), (CX + 4, y - 86), (CX - 4, y - 86)],
+            [(CX - 16, y + 20), (CX + 16, y + 20), (CX + 5, y - 30), (CX - 5, y - 30)],
             rgb("5a3a7a"),
             width=4.2,
         )
-        paint_star(dst, CX + 8, y - 24, 7.0, rgb("f0c14a"))
+        paint_star(dst, CX + 8, y - 12, 7.0, rgb("f0c14a"))
     elif kind == "flower":
         for i in range(5):
             ang = i * (2.0 * math.pi / 5.0) - 0.3
@@ -937,9 +953,11 @@ def name_of(category: str, trait_id: str) -> str:
     return trait_id
 
 
-def build_traits() -> None:
+def build_traits(only: str | None = None) -> None:
     TRAIT_DIR.mkdir(parents=True, exist_ok=True)
     for category, traits in TRAIT_SPEC.items():
+        if only and category != only:
+            continue
         for trait_id, _name, _rarity in traits:
             if trait_id == "none":
                 continue
@@ -1100,9 +1118,19 @@ def build_brand() -> None:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--brand-only", action="store_true", help="Rebuild logo, banners, and listing copy")
+    parser.add_argument("--hats-only", action="store_true", help="Rebuild hat layers, then samples and brand")
     args = parser.parse_args()
     if args.brand_only:
         print("Writing Halloween Shook'ums brand kit…")
+        build_brand()
+        print("Done.")
+        return
+    if args.hats_only:
+        print("Rebuilding Halloween Shook'ums hat layers…")
+        build_traits(only="hat")
+        print("Compositing sample GIF tokens…")
+        build_samples()
+        print("Writing brand…")
         build_brand()
         print("Done.")
         return

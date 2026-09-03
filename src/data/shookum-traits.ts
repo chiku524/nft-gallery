@@ -14,7 +14,7 @@ export type ShookumTraitCategory = {
 };
 
 /** Bump when APNG layers change so the studio does not keep a stale loop. */
-export const SHOOKUM_ART_VERSION = "shookums-v1";
+export const SHOOKUM_ART_VERSION = "shookums-v3";
 
 export const SHOOKUM_FRAMES = 12;
 export const SHOOKUM_DURATION_MS = 90;
