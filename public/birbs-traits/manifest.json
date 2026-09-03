@@ -1,0 +1,15 @@
+{
+  "name": "BirbNation",
+  "size": 512,
+  "frames": 12,
+  "durationMs": 90,
+  "format": "apng",
+  "loop": 0,
+  "order": [
+    "field",
+    "plumage",
+    "mug",
+    "accent"
+  ],
+  "note": "Each trait is a looping APNG. Studio stacks them live. Minted tokens flatten to GIF."
+}

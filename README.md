@@ -16,7 +16,9 @@ A house of NFT collections. Each drop is its own sub-project — studio, traits,
 
 **Hoodkins** is the seventh: 10,000 looping chibi-raccoon PFP GIFs, for OpenSea on Robinhood Chain (chain ID `4663`). Bandit masks, streetwear, ledger desks. Same 12-frame GIF clock as Loopkins.
 
-**Mochins** is the eighth: 4,000 looping vinyl-toy mochi PFP GIFs, for OpenSea on Shape (chain ID `360`). Gloss plastic, tight spec, no outlines. A 16-frame, 100ms clock.
+**Mochins** is the eighth: 4,000 looping cartoon vinyl-toy mochi PFP GIFs, for OpenSea on Shape (chain ID `360`). Candy plastic, soft outline, big painted eyes. A 16-frame, 100ms clock.
+
+**BirbNation** is the ninth: 2,222 looping round-borb robin PFP GIFs, for OpenSea on Robinhood Chain (chain ID `4663`). One fat sphere, chocolate cap, burnt-orange chest, cream belly. A 12-frame, 90ms clock.
 
 ## What’s in this repo
 
@@ -31,13 +33,15 @@ A house of NFT collections. Each drop is its own sub-project — studio, traits,
 | `/purrkins` | Purrkins drop, trait loops, gallery, OpenSea notes |
 | `/hoodkins` | Hoodkins drop, trait loops, gallery, OpenSea notes |
 | `/mochins` | Mochins drop, trait loops, gallery, OpenSea notes |
+| `/birbs` | BirbNation drop, trait loops, gallery, OpenSea notes |
 | `/studio` | Live APNG layer mixer (Loopkins) |
 | `/inklings/studio` | Live ink-wash mixer (Inklings) |
 | `/party-pandas/studio` | Live party-panda mixer (Party Pandas) |
 | `/wicklings/studio` | Live paper-lantern mixer (Wicklings) |
 | `/purrkins/studio` | Live chibi-cat mixer (Purrkins) |
 | `/hoodkins/studio` | Live chibi-raccoon mixer (Hoodkins) |
-| `/mochins/studio` | Live vinyl-toy mixer (Mochins) |
+| `/mochins/studio` | Live cartoon vinyl mixer (Mochins) |
+| `/birbs/studio` | Live round-borb robin mixer (BirbNation) |
 | `public/traits/` | Loopkins APNG layers (sky, aura, body, face, wear, charm) |
 | `public/afterimages/` | Afterimages 1:1 APNG paintings |
 | `public/inklings-traits/` | Inklings APNG layers (paper, bloom, visage, gaze, mark, adorn) |
@@ -45,7 +49,8 @@ A house of NFT collections. Each drop is its own sub-project — studio, traits,
 | `public/wicklings-traits/` | Wicklings APNG layers (night, halo, vessel, wick, wrap, drift) |
 | `public/purrkins-traits/` | Purrkins APNG layers (pad, glow, pelt, fit, mug, gear) |
 | `public/hoodkins-traits/` | Hoodkins APNG layers (pad, glow, pelt, fit, mug, gear) |
-| `public/mochins-traits/` | Mochins APNG layers (stage, haze, dough, face, topping, steam) |
+| `public/mochins-traits/` | Mochins APNG layers (stage, haze, dough, ears, face, topping, steam) |
+| `public/birbs-traits/` | BirbNation APNG layers (field, plumage, mug, accent) |
 | `generated/` | Flattened Loopkins APNGs, OpenSea GIFs + CSV |
 | `generated/afterimages/` | Afterimages OpenSea GIF pack |
 | `generated/inklings/` | Inklings OpenSea GIF pack |
@@ -54,6 +59,7 @@ A house of NFT collections. Each drop is its own sub-project — studio, traits,
 | `generated/purrkins/` | Purrkins OpenSea GIF pack |
 | `generated/hoodkins/` | Hoodkins OpenSea GIF pack |
 | `generated/mochins/` | Mochins OpenSea GIF pack |
+| `generated/birbs/` | BirbNation OpenSea GIF pack |
 | `contracts/Loopkins.sol` | ERC-721 with a 10,000 supply cap |
 | `contracts/Afterimages.sol` | ERC-721 that mints a chosen 1:1 (IDs 1–3333) on Ink |
 | `contracts/Inklings.sol` | ERC-721 with a 5,555 supply cap |
@@ -62,6 +68,7 @@ A house of NFT collections. Each drop is its own sub-project — studio, traits,
 | `contracts/Purrkins.sol` | ERC-721 with a 10,000 supply cap |
 | `contracts/Hoodkins.sol` | ERC-721 with a 10,000 supply cap |
 | `contracts/Mochins.sol` | ERC-721 with a 4,000 supply cap |
+| `contracts/Birbs.sol` | ERC-721 with a 2,222 supply cap |
 
 ## Run the site
 
@@ -81,7 +88,8 @@ The app listens on [http://127.0.0.1:43147](http://127.0.0.1:43147).
 - Purrkins: `/purrkins`
 - Hoodkins: `/hoodkins`
 - Mochins: `/mochins`
-- Trait studio: `/studio` (Loopkins), `/inklings/studio`, `/party-pandas/studio`, `/wicklings/studio`, `/purrkins/studio`, `/hoodkins/studio`, or `/mochins/studio`
+- BirbNation: `/birbs`
+- Trait studio: `/studio` (Loopkins), `/inklings/studio`, `/party-pandas/studio`, `/wicklings/studio`, `/purrkins/studio`, `/hoodkins/studio`, `/mochins/studio`, or `/birbs/studio`
 
 ## Generate collections
 
@@ -101,6 +109,8 @@ python3 scripts/build_hoodkins.py
 python3 scripts/generate_hoodkins.py
 python3 scripts/build_mochins.py
 python3 scripts/generate_mochins.py
+python3 scripts/build_birbs.py
+python3 scripts/generate_birbs.py
 python3 scripts/gif_bake.py --afterimages
 python3 scripts/gif_bake.py --loopkins --all
 python3 scripts/gif_bake.py --inklings --all
@@ -109,9 +119,10 @@ python3 scripts/gif_bake.py --wicklings --all
 python3 scripts/gif_bake.py --purrkins --all
 python3 scripts/gif_bake.py --hoodkins --all
 python3 scripts/gif_bake.py --mochins --all
+python3 scripts/gif_bake.py --birbs --all
 ```
 
-Requires Python 3 with Pillow and NumPy. See `docs/loopkins.md`, `docs/afterimages.md`, `docs/inklings.md`, `docs/party-pandas.md`, `docs/wicklings.md`, `docs/purrkins.md`, `docs/hoodkins.md`, and `docs/mochins.md` for OpenSea Drop upload steps.
+Requires Python 3 with Pillow and NumPy. See `docs/loopkins.md`, `docs/afterimages.md`, `docs/inklings.md`, `docs/party-pandas.md`, `docs/wicklings.md`, `docs/purrkins.md`, `docs/hoodkins.md`, `docs/mochins.md`, and `docs/birbs.md` for OpenSea Drop upload steps.
 
 ## Deploy
 
@@ -119,4 +130,4 @@ This is a single Next.js app (one Vercel project). Point Vercel at the GitHub re
 
 ## License
 
-Art and site code in this repository are for the collections on the wall. Swap the zero-address fee recipient in `public/metadata/collection.json`, `public/metadata/afterimages.json`, `public/metadata/inklings.json`, `public/metadata/party-pandas.json`, `public/metadata/wicklings.json`, `public/metadata/purrkins.json`, `public/metadata/hoodkins.json`, and `public/metadata/mochins.json` before you list.
+Art and site code in this repository are for the collections on the wall. Swap the zero-address fee recipient in `public/metadata/collection.json`, `public/metadata/afterimages.json`, `public/metadata/inklings.json`, `public/metadata/party-pandas.json`, `public/metadata/wicklings.json`, `public/metadata/purrkins.json`, `public/metadata/hoodkins.json`, `public/metadata/mochins.json`, and `public/metadata/birbs.json` before you list.

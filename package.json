@@ -13,7 +13,8 @@
     "generate:party-pandas": "python3 scripts/build_party_pandas.py && python3 scripts/generate_party_pandas.py",
     "generate:wicklings": "python3 scripts/build_wicklings.py && python3 scripts/generate_wicklings.py",
     "generate:purrkins": "python3 scripts/build_purrkins.py && python3 scripts/generate_purrkins.py",
-    "generate:gifs": "python3 scripts/gif_bake.py --afterimages && python3 scripts/gif_bake.py --loopkins --all && python3 scripts/gif_bake.py --inklings --all && python3 scripts/gif_bake.py --party-pandas --all && python3 scripts/gif_bake.py --wicklings --all && python3 scripts/gif_bake.py --purrkins --all"
+    "generate:birbs": "python3 scripts/build_birbs.py && python3 scripts/generate_birbs.py",
+    "generate:gifs": "python3 scripts/gif_bake.py --afterimages && python3 scripts/gif_bake.py --loopkins --all && python3 scripts/gif_bake.py --inklings --all && python3 scripts/gif_bake.py --party-pandas --all && python3 scripts/gif_bake.py --wicklings --all && python3 scripts/gif_bake.py --purrkins --all && python3 scripts/gif_bake.py --birbs --all"
   },
   "dependencies": {
     "class-variance-authority": "^0.7.1",
