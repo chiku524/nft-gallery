@@ -55,7 +55,7 @@ export default function ShookumsGalleryPage() {
         {extraPreviews.map((id) => (
           <article key={id} className="overflow-hidden rounded-2xl border bg-card">
             <ApngImage
-              src={`/shookums-preview/${id}.gif?v=4`}
+              src={`/shookums-preview/${id}.gif?v=5`}
               alt={`Shook'um #${id}`}
               width={512}
               height={512}

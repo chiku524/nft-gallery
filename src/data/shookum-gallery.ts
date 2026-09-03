@@ -9,7 +9,7 @@ export const shookumSamples: ShookumSample[] = [
   {
     id: 1,
     name: "Shook'um #1",
-    image: "/shookums-preview/1.gif?v=4",
+    image: "/shookums-preview/1.gif?v=5",
     attributes: [
       { trait_type: "Night", value: "Parchment" },
       { trait_type: "Sheet", value: "Classic" },
@@ -22,7 +22,7 @@ export const shookumSamples: ShookumSample[] = [
   {
     id: 2,
     name: "Shook'um #2",
-    image: "/shookums-preview/2.gif?v=4",
+    image: "/shookums-preview/2.gif?v=5",
     attributes: [
       { trait_type: "Night", value: "Pumpkin" },
       { trait_type: "Sheet", value: "Blush" },
@@ -35,7 +35,7 @@ export const shookumSamples: ShookumSample[] = [
   {
     id: 3,
     name: "Shook'um #3",
-    image: "/shookums-preview/3.gif?v=4",
+    image: "/shookums-preview/3.gif?v=5",
     attributes: [
       { trait_type: "Night", value: "Midnight" },
       { trait_type: "Sheet", value: "Classic" },
@@ -48,7 +48,7 @@ export const shookumSamples: ShookumSample[] = [
   {
     id: 4,
     name: "Shook'um #4",
-    image: "/shookums-preview/4.gif?v=4",
+    image: "/shookums-preview/4.gif?v=5",
     attributes: [
       { trait_type: "Night", value: "Candy" },
       { trait_type: "Sheet", value: "Blush" },
@@ -61,7 +61,7 @@ export const shookumSamples: ShookumSample[] = [
   {
     id: 5,
     name: "Shook'um #5",
-    image: "/shookums-preview/5.gif?v=4",
+    image: "/shookums-preview/5.gif?v=5",
     attributes: [
       { trait_type: "Night", value: "Dusk" },
       { trait_type: "Sheet", value: "Void" },
@@ -74,7 +74,7 @@ export const shookumSamples: ShookumSample[] = [
   {
     id: 6,
     name: "Shook'um #6",
-    image: "/shookums-preview/6.gif?v=4",
+    image: "/shookums-preview/6.gif?v=5",
     attributes: [
       { trait_type: "Night", value: "Fog" },
       { trait_type: "Sheet", value: "Classic" },
@@ -87,7 +87,7 @@ export const shookumSamples: ShookumSample[] = [
   {
     id: 7,
     name: "Shook'um #7",
-    image: "/shookums-preview/7.gif?v=4",
+    image: "/shookums-preview/7.gif?v=5",
     attributes: [
       { trait_type: "Night", value: "Blood Moon" },
       { trait_type: "Sheet", value: "Void" },
@@ -100,7 +100,7 @@ export const shookumSamples: ShookumSample[] = [
   {
     id: 8,
     name: "Shook'um #8",
-    image: "/shookums-preview/8.gif?v=4",
+    image: "/shookums-preview/8.gif?v=5",
     attributes: [
       { trait_type: "Night", value: "Graveyard" },
       { trait_type: "Sheet", value: "Classic" },

@@ -600,12 +600,12 @@ def paint_mug(kind: str, frame: int) -> np.ndarray:
 # forehead. Pumpkin, bow, and flower stay on the original seat.
 # Tall cones are drawn shorter so the tip stays on the 512 canvas.
 HAT_LIFT = {
-    "witch": 84.0,
-    "wizard": 74.0,
+    "witch": 40.0,
+    "wizard": 30.0,
     "pumpkin": 0.0,
     "halo": 32.0,
     "party": 38.0,
-    "crown": 52.0,
+    "crown": 14.0,
     "bow": 0.0,
     "flower": 0.0,
     "cat": 42.0,

@@ -1,11 +1,11 @@
 {
-  "hash": "835670da714a2d0676cdbbc3d0c19c189eb20f823344109184b0c2fd69020e33",
+  "hash": "29618b59b919f781664d11d4ade93e5ce97c43002bdd597e96775424fafe3403",
   "count": 5555,
   "frames": 12,
   "durationMs": 90,
   "size": 512,
   "gifColors": 160,
-  "bytes": 6247619972,
+  "bytes": 6233255190,
   "openseaLimitBytes": 10737418240,
   "underOpenseaLimit": true,
   "chain": "abstract",
