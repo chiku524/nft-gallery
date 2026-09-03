@@ -4,10 +4,10 @@
 Every trait is a 12-frame APNG on a shared 512 canvas and 90ms clock.
 Plumage, mug, and accent share one blink clock. Field stays still except a faint ground wash.
 
-Look: the common base is a kawaii sticker robin — one fat sphere, thick warm-brown outline,
-soft-cel volume, chocolate cap, burnt-orange chest, cream belly, jagged feather seams.
-Solid glossy black eyes (no white sclera). Cream brow tufts. Tiny yellow beak. A pink blep.
-Folded wing nubs, three-toed feet. No streetwear. No vinyl. No desk.
+Look: painted 3D illustration — BAYC form-light with Doodles clay volume.
+One fat sphere. Warm key, cool fill, soft rim. Canvas grain. Thick drawn outline.
+Chocolate cap, burnt-orange chest, cream belly, jagged feather seams.
+Solid glossy black eyes. Cream brow tufts. Tiny yellow beak. A pink blep.
 """
 
 from __future__ import annotations
@@ -36,12 +36,24 @@ SIZE = 512
 FRAMES = 12
 DURATION_MS = 90
 H, W = SIZE, SIZE
+YY, XX = np.mgrid[0:H, 0:W].astype(np.float32)
 
 # Sitting borb — one sphere, planted, lots of margin for accents.
 CX, CY = 256.0, 286.0
 R = 166.0
-LINE_W = 10.4
-SOFT = 1.15
+LINE_W = 9.2
+SOFT = 1.35
+
+KEY = np.array([-0.44, -0.56, 0.70], dtype=np.float32)
+KEY /= float(np.linalg.norm(KEY))
+FILL = np.array([0.60, 0.16, 0.42], dtype=np.float32)
+FILL /= float(np.linalg.norm(FILL))
+RIM = np.array([0.86, 0.14, 0.20], dtype=np.float32)
+RIM /= float(np.linalg.norm(RIM))
+VIEW = np.array([0.02, 0.06, 0.998], dtype=np.float32)
+VIEW /= float(np.linalg.norm(VIEW))
+HALF = KEY + VIEW
+HALF /= float(np.linalg.norm(HALF))
 
 
 def clamp01(x: np.ndarray | float) -> np.ndarray | float:
@@ -65,7 +77,7 @@ def mix(a: np.ndarray | float, b: np.ndarray | float, t: float | np.ndarray) -> 
     a = np.asarray(a, dtype=np.float32)
     b = np.asarray(b, dtype=np.float32)
     t = np.asarray(t, dtype=np.float32)
-    if t.ndim == 2 and a.ndim == 1:
+    if t.ndim == 2 and a.ndim in (1, 3):
         t = t[..., None]
     return a * (1.0 - t) + b * t
 
@@ -75,8 +87,124 @@ def blank() -> np.ndarray:
 
 
 def grid() -> tuple[np.ndarray, np.ndarray]:
-    yy, xx = np.mgrid[0:H, 0:W].astype(np.float32)
-    return xx, yy
+    return XX, YY
+
+
+_GRAIN: dict[tuple[int, int], np.ndarray] = {}
+
+
+def grain(seed: int, amp: float = 0.04) -> np.ndarray:
+    key = (seed, int(amp * 1000))
+    cached = _GRAIN.get(key)
+    if cached is not None:
+        return cached
+    rng = np.random.default_rng(seed)
+    small = (rng.random((SIZE // 11, SIZE // 16)) * 2 - 1).astype(np.float32)
+    im = Image.fromarray(((small + 1) * 127.5).astype(np.uint8), "L")
+    big = np.asarray(im.resize((W, H), Image.Resampling.BICUBIC), dtype=np.float32) / 127.5 - 1.0
+    out = big * amp
+    _GRAIN[key] = out
+    return out
+
+
+def ellipsoid(cx: float, cy: float, rx: float, ry: float, soft: float = 2.2) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+    nx = (XX - cx) / max(rx, 1.0)
+    ny = (YY - cy) / max(ry, 1.0)
+    r2 = nx * nx + ny * ny
+    nz = np.sqrt(np.maximum(0.0, 1.0 - r2))
+    length = np.maximum(np.sqrt(nx * nx + ny * ny + nz * nz), 1e-6)
+    rad = np.sqrt(r2)
+    edge = soft / max(min(rx, ry), 1.0)
+    alpha = smoothstep(1.0 + edge, 1.0 - edge * 0.32, rad)
+    return nx / length, ny / length, nz / length, alpha
+
+
+def bump_normals(
+    nx: np.ndarray, ny: np.ndarray, nz: np.ndarray, seed: int, amount: float = 0.08
+) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+    nx = nx + grain(seed, amount)
+    ny = ny + grain(seed + 19, amount)
+    length = np.maximum(np.sqrt(nx * nx + ny * ny + nz * nz), 1e-6)
+    return nx / length, ny / length, nz / length
+
+
+def shade_paint(
+    albedo: np.ndarray,
+    nx: np.ndarray,
+    ny: np.ndarray,
+    nz: np.ndarray,
+    *,
+    ambient: float = 0.20,
+    wrap: float = 0.16,
+    spec: float = 0.22,
+    shininess: float = 18.0,
+    sss: float = 0.26,
+) -> np.ndarray:
+    albedo = np.asarray(albedo, dtype=np.float32)
+    if albedo.ndim == 1:
+        albedo = np.broadcast_to(albedo, (H, W, 3)).copy()
+    ndotk = nx * KEY[0] + ny * KEY[1] + nz * KEY[2]
+    wrap_l = clamp01((ndotk + wrap) / (1.0 + wrap))
+    ndotf = clamp01(nx * FILL[0] + ny * FILL[1] + nz * FILL[2])
+    ndotr = clamp01(nx * RIM[0] + ny * RIM[1] + nz * RIM[2])
+    ndotv = clamp01(nx * VIEW[0] + ny * VIEW[1] + nz * VIEW[2])
+    ndoth = clamp01(nx * HALF[0] + ny * HALF[1] + nz * HALF[2])
+    highlight = np.power(ndoth, shininess)
+    soft_hl = np.power(ndoth, max(shininess * 0.35, 6.0))
+    fresnel = np.power(np.clip(1.0 - ndotv, 0.0, 1.0), 2.0)
+    ao = clamp01(0.40 + 0.60 * nz - 0.16 * ny)
+    sss_term = clamp01(-ndotk) * fresnel * sss
+    lit = albedo * (ambient * ao)[..., None]
+    lit = lit + albedo * wrap_l[..., None] * rgb("fff4dc") * 1.18
+    lit = lit + albedo * ndotf[..., None] * (rgb("6a78a8") * 0.48)
+    lit = lit + highlight[..., None] * rgb("fffaf2") * spec
+    lit = lit + soft_hl[..., None] * mix(albedo, rgb("ffffff"), 0.55) * 0.18
+    lit = lit + (fresnel * ndotr)[..., None] * (rgb("ffe6c4") * 0.55)
+    lit = lit + sss_term[..., None] * mix(albedo, rgb("ffb090"), 0.35)
+    canvas = 1.0 + grain(41, 0.055) + grain(73, 0.022)
+    return np.clip(lit * canvas[..., None], 0.0, 1.0)
+
+
+def blit_volume(dst: np.ndarray, albedo: np.ndarray, nx: np.ndarray, ny: np.ndarray, nz: np.ndarray, alpha: np.ndarray, **kwargs) -> None:
+    layer = blank()
+    layer[..., :3] = shade_paint(albedo, nx, ny, nz, **kwargs)
+    layer[..., 3] = np.clip(alpha, 0.0, 1.0)
+    over(dst, layer)
+
+
+def blit_soft(dst: np.ndarray, color: np.ndarray, alpha: np.ndarray) -> None:
+    layer = blank()
+    layer[..., :3] = color
+    layer[..., 3] = np.clip(alpha, 0.0, 1.0)
+    over(dst, layer)
+
+
+def outline_disk(dst: np.ndarray, cx: float, cy: float, rx: float, ry: float, width: float = 7.4, alpha: float = 0.94) -> None:
+    _nx, _ny, _nz, outer = ellipsoid(cx, cy, rx + width, ry + width, soft=1.8)
+    blit_soft(dst, LINE, outer * alpha)
+
+
+def volume_ball(
+    dst: np.ndarray,
+    cx: float,
+    cy: float,
+    rx: float,
+    ry: float,
+    albedo: np.ndarray,
+    *,
+    outline: bool = True,
+    width: float = 5.4,
+    spec: float = 0.16,
+    shininess: float = 16.0,
+    sss: float = 0.18,
+    bump: int | None = 11,
+) -> None:
+    if outline:
+        outline_disk(dst, cx, cy, rx, ry, width=width)
+    nx, ny, nz, a = ellipsoid(cx, cy, rx, ry, soft=1.4)
+    if bump is not None:
+        nx, ny, nz = bump_normals(nx, ny, nz, bump, 0.07)
+    blit_volume(dst, albedo, nx, ny, nz, a, spec=spec, shininess=shininess, sss=sss)
 
 
 def over(dst: np.ndarray, src: np.ndarray) -> None:
@@ -311,9 +439,9 @@ def feather_scallops(dst: np.ndarray, cx: float, cy: float, rx: float, ry: float
 
 
 def paint_foot(dst: np.ndarray, fx: float, fy: float, feet: np.ndarray) -> None:
-    outlined_ellipse(dst, fx, fy, 13, 7, feet, width=4.0, cel=False)
+    volume_ball(dst, fx, fy, 13, 7.4, feet, width=3.6, spec=0.10, shininess=12.0, sss=0.10, bump=21)
     for dx, dy in ((-10.0, 7.2), (0.0, 10.0), (10.0, 7.2)):
-        outlined_ellipse(dst, fx + dx, fy + dy, 4.8, 6.8, shade(feet, 0.04), width=2.8, cel=False)
+        volume_ball(dst, fx + dx, fy + dy, 4.8, 6.8, shade(feet, 0.04), width=2.6, spec=0.08, shininess=10.0, sss=0.08, bump=None)
 
 
 def sphere_mask(soft: float = 1.8) -> np.ndarray:
@@ -349,11 +477,11 @@ def paint_field(kind: str, _frame: int) -> np.ndarray:
     dst[..., :3] = color
     dst[..., 3] = 1.0
     xx, yy = grid()
-    vig = ((xx - CX) / 360.0) ** 2 + ((yy - CY) / 360.0) ** 2
-    shade_amt = 0.12 if kind == "space" else 0.04
-    dst[..., :3] = mix(color, shade(color, shade_amt), clamp01(vig * (0.55 if kind == "space" else 0.28))[..., None])
-    if kind != "white":
-        ellipse(dst, CX, CY + R + 16, 102, 18, shade(color, 0.18), 0.18 if kind != "space" else 0.28, soft=11.0)
+    vig = ((xx - CX) / 380.0) ** 2 + ((yy - CY) / 380.0) ** 2
+    wash = mix(color, shade(color, 0.16 if kind == "space" else 0.08), clamp01(vig * 0.55)[..., None])
+    wash = mix(wash, lite(color, 0.10), clamp01(1.0 - vig * 1.4)[..., None] * 0.35)
+    dst[..., :3] = np.clip(wash * (1.0 + grain(17 + sum(ord(c) for c in kind), 0.03)[..., None]), 0.0, 1.0)
+    ellipse(dst, CX, CY + R + 20, 118, 22, shade(color, 0.28), 0.28 if kind != "space" else 0.40, soft=16.0)
     if kind == "space":
         rng = np.random.RandomState(7)
         for _ in range(46):
@@ -375,51 +503,36 @@ def paint_plumage(kind: str, frame: int) -> np.ndarray:
     back, breast, belly, beak, feet = pal["back"], pal["breast"], pal["belly"], pal["beak"], pal["feet"]
     wing = 3.2 if frame in (3, 4) else 0.0
     xx, yy = grid()
-    sphere = sphere_mask()
 
-    outlined_ellipse(dst, CX - 150, CY + 92, 34, 20, shade(back, 0.04), width=6.2)
+    volume_ball(dst, CX - 150, CY + 92, 34, 20, shade(back, 0.04), width=5.4, spec=0.10, shininess=12.0, bump=31)
     paint_foot(dst, CX - 50, CY + R + 4, feet)
     paint_foot(dst, CX + 50, CY + R + 4, feet)
 
-    outlined_disc(dst, CX, CY, R, back, width=LINE_W, cel=False)
+    outline_disk(dst, CX, CY, R, R, width=LINE_W)
+    nx, ny, nz, sphere = ellipsoid(CX, CY, R, R, soft=1.6)
+    nx, ny, nz = bump_normals(nx, ny, nz, 101 + sum(ord(c) for c in kind), 0.075)
+
+    albedo = np.broadcast_to(back, (H, W, 3)).copy()
     if kind == "rainbow":
-        rain = blank()
-        rain[..., :3] = rainbow_fill(xx, yy)
-        rain[..., 3] = sphere
-        over(dst, rain)
-
-    volume = blank()
-    disc(volume, CX - R * 0.22, CY - R * 0.30, R * 0.50, lite(back, 0.22), 0.20, soft=R * 0.48)
-    disc(volume, CX + R * 0.12, CY + R * 0.34, R * 0.56, shade(back, 0.16), 0.16, soft=R * 0.52)
-    volume[..., 3] *= sphere
-    over(dst, volume)
-
-    chest_t = jagged_below(CY + 8.0, xx, yy, soft=5.5)
-    chest = blank()
-    chest[..., :3] = breast
-    chest[..., 3] = sphere * chest_t
-    over(dst, chest)
-
-    belly_t = jagged_below(CY + 88.0, xx, yy, soft=5.0)
-    cream = blank()
-    cream[..., :3] = belly
-    cream[..., 3] = sphere * chest_t * belly_t
-    over(dst, cream)
+        albedo = rainbow_fill(xx, yy)
+    chest_t = jagged_below(CY + 8.0, xx, yy, soft=7.0)
+    belly_t = jagged_below(CY + 88.0, xx, yy, soft=6.5)
+    albedo = mix(albedo, breast, chest_t)
+    albedo = mix(albedo, belly, chest_t * belly_t)
+    blit_volume(dst, albedo, nx, ny, nz, sphere, spec=0.20, shininess=18.0, sss=0.26)
+    catch = blank()
+    disc(catch, CX - R * 0.28, CY - R * 0.34, R * 0.22, rgb("ffffff"), 0.16, soft=R * 0.28)
+    catch[..., 3] *= sphere
+    over(dst, catch)
 
     for side in (-1.0, 1.0):
         wx, wy = CX + side * 130, CY + 42 - wing
-        outlined_ellipse(dst, wx, wy, 28, 58, shade(back, 0.02), width=6.6)
-        ellipse(dst, wx - side * 5, wy + 8, 15, 24, shade(back, 0.16), 0.24, soft=4.2)
-        stroke_ellipse(dst, (wx - 16, wy - 6, wx + 16, wy + 30), 2.4, shade(back, 0.22))
+        volume_ball(dst, wx, wy, 28, 58, shade(back, 0.02), width=5.8, spec=0.12, shininess=14.0, sss=0.14, bump=44)
+        nxw, nyw, nzw, aw = ellipsoid(wx - side * 5, wy + 8, 15, 24, soft=2.4)
+        blit_volume(dst, shade(back, 0.10), nxw, nyw, nzw, aw * 0.55, spec=0.08, shininess=10.0, sss=0.10)
 
     bx, by = CX, CY - 2
-    outlined_poly(
-        dst,
-        [(bx, by - 8), (bx + 16, by + 8), (bx, by + 15), (bx - 16, by + 8)],
-        beak,
-        width=5.2,
-    )
-    disc(dst, bx, by + 4, 2.2, shade(beak, 0.28), 0.75, soft=0.7)
+    volume_ball(dst, bx, by + 4, 15, 11, beak, width=4.2, spec=0.28, shininess=22.0, sss=0.12, bump=None)
     return dst
 
 
@@ -454,8 +567,9 @@ def draw_eye(dst: np.ndarray, ex: float, ey: float, radius: float, closed: float
     if kind == "heart":
         ink = rgb("3a1418")
 
-    outlined_disc(dst, ex, ey, radius, ink, width=6.8, cel=False)
-    disc(dst, ex + radius * 0.08, ey + radius * 0.18, radius * 0.55, shade(ink, 0.08), 0.32, soft=radius * 0.35)
+    outline_disk(dst, ex, ey, radius, radius, width=5.8)
+    nx, ny, nz, a = ellipsoid(ex, ey, radius, radius, soft=1.2)
+    blit_volume(dst, ink, nx, ny, nz, a, spec=0.62, shininess=36.0, sss=0.04, ambient=0.16, wrap=0.12)
 
     if kind == "heart":
         pr = radius * 0.42
@@ -577,34 +691,34 @@ def paint_accent(kind: str, frame: int) -> np.ndarray:
         )
     elif kind == "berry":
         bx, by = CX + 34, CY - 8 + bob
-        outlined_disc(dst, bx, by, 13, rgb("c43c4a"), width=4.2)
-        outlined_disc(dst, bx + 14, by + 6, 11, rgb("d44a56"), width=3.8)
-        outlined_ellipse(dst, bx + 4, by - 16, 10, 6, rgb("5a9a4a"), width=3.4, cel=False)
+        volume_ball(dst, bx, by, 13, 13, rgb("c43c4a"), width=3.8, spec=0.28, shininess=20.0)
+        volume_ball(dst, bx + 14, by + 6, 11, 11, rgb("d44a56"), width=3.4, spec=0.28, shininess=20.0)
+        volume_ball(dst, bx + 4, by - 16, 10, 6, rgb("5a9a4a"), width=3.0, spec=0.16, shininess=12.0)
     elif kind == "leaf":
         lx, ly = CX + 18, CY - R - 8 + bob
-        outlined_ellipse(dst, lx, ly, 28, 16, rgb("6aaa52"), width=4.6)
+        volume_ball(dst, lx, ly, 28, 16, rgb("6aaa52"), width=4.2, spec=0.18, shininess=14.0)
         fill_poly(dst, [(lx - 4, ly + 14), (lx, ly - 4), (lx + 4, ly + 14)], shade(rgb("4a3428"), 0.1))
     elif kind == "bow":
         y = CY - R + 8 + bob
-        outlined_ellipse(dst, CX - 22, y, 20, 14, rgb("e06a7a"), width=4.2, cel=False)
-        outlined_ellipse(dst, CX + 22, y, 20, 14, rgb("e06a7a"), width=4.2, cel=False)
-        outlined_disc(dst, CX, y, 9, rgb("c43c4a"), width=3.6, cel=False)
+        volume_ball(dst, CX - 22, y, 20, 14, rgb("e06a7a"), width=3.8, spec=0.22, shininess=16.0)
+        volume_ball(dst, CX + 22, y, 20, 14, rgb("e06a7a"), width=3.8, spec=0.22, shininess=16.0)
+        volume_ball(dst, CX, y, 9, 9, rgb("c43c4a"), width=3.2, spec=0.24, shininess=18.0)
     elif kind == "worm":
         wx, wy = CX + 26, CY + 4 + bob
-        outlined_ellipse(dst, wx, wy, 22, 8, rgb("f09aa8"), width=4.0, cel=False)
+        volume_ball(dst, wx, wy, 22, 8, rgb("f09aa8"), width=3.6, spec=0.20, shininess=14.0, sss=0.24)
         disc(dst, wx + 16, wy - 2, 3.2, LINE, 0.9, soft=0.8)
         disc(dst, wx + 10, wy - 2, 3.2, LINE, 0.9, soft=0.8)
     elif kind == "flower":
         fx, fy = CX - 118, CY - 36 + bob
         for ang in range(5):
             a = ang * (2.0 * math.pi / 5.0) - 0.4
-            outlined_disc(dst, fx + math.cos(a) * 14, fy + math.sin(a) * 14, 9, rgb("f0b0c0"), width=3.4, cel=False)
-        outlined_disc(dst, fx, fy, 8, rgb("f0c14a"), width=3.4, cel=False)
+            volume_ball(dst, fx + math.cos(a) * 14, fy + math.sin(a) * 14, 9, 9, rgb("f0b0c0"), width=3.0, spec=0.22, shininess=16.0, sss=0.20)
+        volume_ball(dst, fx, fy, 8, 8, rgb("f0c14a"), width=3.0, spec=0.30, shininess=20.0)
     elif kind == "hat":
         y = CY - R + 10 + bob
-        outlined_ellipse(dst, CX, y + 22, 86, 26, rgb("c44a32"), width=5.2, cel=False)
-        outlined_ellipse(dst, CX, y + 6, 72, 24, rgb("d45a3e"), width=5.0)
-        outlined_disc(dst, CX + 68, y + 2, 11, rgb("f0c14a"), width=3.6, cel=False)
+        volume_ball(dst, CX, y + 22, 86, 26, rgb("c44a32"), width=4.8, spec=0.18, shininess=14.0)
+        volume_ball(dst, CX, y + 6, 72, 24, rgb("d45a3e"), width=4.6, spec=0.20, shininess=16.0)
+        volume_ball(dst, CX + 68, y + 2, 11, 11, rgb("f0c14a"), width=3.2, spec=0.32, shininess=22.0)
     elif kind == "crown":
         y = CY - R - 2 + bob
         outlined_poly(
@@ -622,7 +736,7 @@ def paint_accent(kind: str, frame: int) -> np.ndarray:
             width=4.6,
         )
         for jx, jy, jc in ((CX, y + 2, rgb("e05a6c")), (CX - 30, y + 16, rgb("4a8ad4")), (CX + 30, y + 16, rgb("6aaa52"))):
-            outlined_disc(dst, jx, jy, 5.5, jc, width=2.6, cel=False)
+            volume_ball(dst, jx, jy, 5.5, 5.5, jc, width=2.4, spec=0.40, shininess=28.0, bump=None)
     return dst
 
 
@@ -798,7 +912,7 @@ def build_samples() -> None:
 COLLECTION_DESCRIPTION = (
     "BirbNation is a 2,222-piece collection of looping round-borb robin PFP GIFs on Robinhood Chain. "
     "Each birb is stacked from four layers — field, plumage, mug, and accent — then flattened onto one 12-frame GIF. "
-    "One fat sphere. Chocolate cap. Burnt-orange chest. Cream belly. Thick brown outline. Soft-cel shade. A pink blep."
+    "Painted 3D illustration. Warm key. Soft clay volume. Chocolate cap. Burnt-orange chest. Cream belly. A pink blep."
 )
 
 COLLECTION_STORY = (
@@ -807,6 +921,7 @@ COLLECTION_STORY = (
     "Each birb is stacked from four layers — field, plumage, mug, and accent — then flattened onto one 12-frame GIF. "
     "Sticker fields behind them. Chocolate caps. Burnt-orange chests. Cream bellies. Hats, crowns, and the occasional worm. "
     "Eyes blink. Wings twitch. The body stays a sphere.\n\n"
+    "Painted like a Doodle with BAYC form-light — canvas grain, wrap shade, a warm key from the left.\n\n"
     "Each birb is a vibe — explorers, dreamers, jokers, guardians — on one shared clock.\n\n"
     "Minting on Robinhood Chain (chain ID 4663). Gas is ETH."
 )

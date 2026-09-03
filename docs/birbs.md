@@ -1,6 +1,6 @@
 # BirbNation
 
-Looping **round-borb robin PFP GIFs** — one fat sphere, chocolate cap, burnt-orange chest, cream belly, thick warm-brown outline, soft-cel shade, huge glossy eyes. A **2,222-piece** collection built to mint on **Robinhood Chain** (chain ID `4663`) and list on **OpenSea**.
+Looping **round-borb robin PFP GIFs** — one fat sphere, chocolate cap, burnt-orange chest, cream belly, painted 3D volume, thick drawn outline, huge glossy eyes. A **2,222-piece** collection built to mint on **Robinhood Chain** (chain ID `4663`) and list on **OpenSea**.
 
 This collection lives inside **NFT Gallery** at `/birbs`.
 

@@ -3,9 +3,9 @@ export const birbs = {
   symbol: "BIRB",
   tagline: "One sphere. A whole nation of vibes.",
   description:
-    "BirbNation is a 2,222-piece collection of looping round-borb robin PFP GIFs on Robinhood Chain. Each birb is stacked from four layers — field, plumage, mug, and accent — then flattened onto one 12-frame GIF. One fat sphere. Chocolate cap. Burnt-orange chest. Cream belly. Thick brown outline. Soft-cel shade. A pink blep.",
+    "BirbNation is a 2,222-piece collection of looping round-borb robin PFP GIFs on Robinhood Chain. Each birb is stacked from four layers — field, plumage, mug, and accent — then flattened onto one 12-frame GIF. Painted 3D illustration. Warm key. Soft clay volume. Chocolate cap. Burnt-orange chest. Cream belly. A pink blep.",
   story:
-    "Welcome to BirbNation.\n\nA 2,222-piece collection of looping round-borb robin PFP GIFs on Robinhood Chain. Each birb is stacked from four layers — field, plumage, mug, and accent — then flattened onto one 12-frame GIF. Sticker fields behind them. Chocolate caps. Burnt-orange chests. Cream bellies. Hats, crowns, and the occasional worm. Eyes blink. Wings twitch. The body stays a sphere.\n\nEach birb is a vibe — explorers, dreamers, jokers, guardians — on one shared clock.\n\nMinting on Robinhood Chain (chain ID 4663). Gas is ETH.",
+    "Welcome to BirbNation.\n\nA 2,222-piece collection of looping round-borb robin PFP GIFs on Robinhood Chain. Each birb is stacked from four layers — field, plumage, mug, and accent — then flattened onto one 12-frame GIF. Painted fields behind them. Chocolate caps. Burnt-orange chests. Cream bellies. Hats, crowns, and the occasional worm. Eyes blink. Wings twitch. The body stays a sphere.\n\nPainted like a Doodle with BAYC form-light — canvas grain, wrap shade, a warm key from the left.\n\nEach birb is a vibe — explorers, dreamers, jokers, guardians — on one shared clock.\n\nMinting on Robinhood Chain (chain ID 4663). Gas is ETH.",
   supply: 2222,
   mintPriceEth: "0.002",
   frames: 12,

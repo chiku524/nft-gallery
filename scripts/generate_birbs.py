@@ -142,7 +142,7 @@ def token_meta(token_id: int, selection: dict[str, str]) -> dict:
     ]
     return {
         "name": f"Birb #{token_id}",
-        "description": "A looping BirbNation robin PFP. Thick outline. Glossy eyes. Minted on Robinhood Chain.",
+        "description": "A looping BirbNation robin PFP. Painted 3D volume. Glossy eyes. Minted on Robinhood Chain.",
         "image": f"{token_id}.gif",
         "attributes": attributes,
         "animation_loop": True,

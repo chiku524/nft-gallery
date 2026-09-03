@@ -55,7 +55,7 @@ export default function BirbsGalleryPage() {
         {extraPreviews.map((id) => (
           <article key={id} className="overflow-hidden rounded-2xl border bg-card">
             <ApngImage
-              src={`/birbs-preview/${id}.gif?v=3`}
+              src={`/birbs-preview/${id}.gif?v=4`}
               alt={`Birb #${id}`}
               width={512}
               height={512}

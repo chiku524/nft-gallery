@@ -14,7 +14,7 @@ export type BirbTraitCategory = {
 };
 
 /** Bump when APNG layers change so the studio does not keep a stale loop. */
-export const BIRB_ART_VERSION = "birbnation-v1";
+export const BIRB_ART_VERSION = "birbnation-v2";
 
 export const BIRB_FRAMES = 12;
 export const BIRB_DURATION_MS = 90;

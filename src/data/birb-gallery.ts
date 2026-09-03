@@ -9,7 +9,7 @@ export const birbSamples: BirbSample[] = [
   {
     id: 1,
     name: "Birb #1",
-    image: "/birbs-preview/1.gif?v=3",
+    image: "/birbs-preview/1.gif?v=4",
     attributes: [
       { trait_type: "Field", value: "White" },
       { trait_type: "Plumage", value: "Brown" },
@@ -20,7 +20,7 @@ export const birbSamples: BirbSample[] = [
   {
     id: 2,
     name: "Birb #2",
-    image: "/birbs-preview/2.gif?v=3",
+    image: "/birbs-preview/2.gif?v=4",
     attributes: [
       { trait_type: "Field", value: "Blush" },
       { trait_type: "Plumage", value: "Pink" },
@@ -31,7 +31,7 @@ export const birbSamples: BirbSample[] = [
   {
     id: 3,
     name: "Birb #3",
-    image: "/birbs-preview/3.gif?v=3",
+    image: "/birbs-preview/3.gif?v=4",
     attributes: [
       { trait_type: "Field", value: "Mint" },
       { trait_type: "Plumage", value: "Green" },
@@ -42,7 +42,7 @@ export const birbSamples: BirbSample[] = [
   {
     id: 4,
     name: "Birb #4",
-    image: "/birbs-preview/4.gif?v=3",
+    image: "/birbs-preview/4.gif?v=4",
     attributes: [
       { trait_type: "Field", value: "Sky" },
       { trait_type: "Plumage", value: "Blue" },
@@ -53,7 +53,7 @@ export const birbSamples: BirbSample[] = [
   {
     id: 5,
     name: "Birb #5",
-    image: "/birbs-preview/5.gif?v=3",
+    image: "/birbs-preview/5.gif?v=4",
     attributes: [
       { trait_type: "Field", value: "Cream" },
       { trait_type: "Plumage", value: "Snow" },
@@ -64,7 +64,7 @@ export const birbSamples: BirbSample[] = [
   {
     id: 6,
     name: "Birb #6",
-    image: "/birbs-preview/6.gif?v=3",
+    image: "/birbs-preview/6.gif?v=4",
     attributes: [
       { trait_type: "Field", value: "Peach" },
       { trait_type: "Plumage", value: "Gold" },
@@ -75,7 +75,7 @@ export const birbSamples: BirbSample[] = [
   {
     id: 7,
     name: "Birb #7",
-    image: "/birbs-preview/7.gif?v=3",
+    image: "/birbs-preview/7.gif?v=4",
     attributes: [
       { trait_type: "Field", value: "Dusk" },
       { trait_type: "Plumage", value: "Dusk" },
@@ -86,7 +86,7 @@ export const birbSamples: BirbSample[] = [
   {
     id: 8,
     name: "Birb #8",
-    image: "/birbs-preview/8.gif?v=3",
+    image: "/birbs-preview/8.gif?v=4",
     attributes: [
       { trait_type: "Field", value: "Forest" },
       { trait_type: "Plumage", value: "Brown" },
