@@ -50,7 +50,7 @@ OPENSEA_LIMIT_BYTES = 10 * 1024 * 1024 * 1024
 
 _CACHE: dict[tuple[str, str], list[Image.Image]] | None = None
 _FORCE = False
-_HATS_ONLY = False
+_HAT_FILTER: frozenset[str] | None = None
 
 
 def pick(category: str, rng: random.Random) -> str:
@@ -102,10 +102,10 @@ def load_cache() -> dict[tuple[str, str], list[Image.Image]]:
     return cache
 
 
-def init_worker(force: bool = False, hats_only: bool = False) -> None:
-    global _CACHE, _FORCE, _HATS_ONLY
+def init_worker(force: bool = False, hat_filter: tuple[str, ...] | None = None) -> None:
+    global _CACHE, _FORCE, _HAT_FILTER
     _FORCE = force
-    _HATS_ONLY = hats_only
+    _HAT_FILTER = None if hat_filter is None else frozenset(hat_filter)
     _CACHE = load_cache()
 
 
@@ -183,9 +183,9 @@ def bake_one(job: tuple[int, dict[str, str]]) -> tuple[int, dict, int]:
     gif_dest = GIF_DIR / f"{token_id}.gif"
     meta = token_meta(token_id, selection)
     missing = not gif_dest.exists() or gif_dest.stat().st_size == 0
-    has_hat = selection.get("hat", "none") != "none"
-    if _HATS_ONLY:
-        rebuild = missing or has_hat
+    hat = selection.get("hat", "none")
+    if _HAT_FILTER is not None:
+        rebuild = missing or (hat != "none" and (not _HAT_FILTER or hat in _HAT_FILTER))
     else:
         rebuild = _FORCE or traits_newer_than(gif_dest)
     if rebuild:
@@ -252,6 +252,7 @@ def main() -> None:
     parser.add_argument("--count", type=int, default=16)
     parser.add_argument("--force", action="store_true", help="Rebuild GIFs even if they already exist")
     parser.add_argument("--hats-only", action="store_true", help="Rebuild only tokens that wear a hat")
+    parser.add_argument("--hat", action="append", dest="hats", help="Limit --hats-only to these hat ids")
     parser.add_argument("--workers", type=int, default=max(1, min(6, cpu_count() or 1)))
     args = parser.parse_args()
     global _FORCE
@@ -270,15 +271,25 @@ def main() -> None:
     total_bytes = 0
     done = 0
 
-    hatted = sum(1 for _id, sel in jobs if sel.get("hat", "none") != "none")
+    hat_filter: tuple[str, ...] | None = None
     if args.hats_only:
-        print(
-            f"Rebaking {hatted} hatted tokens of {count} at {DROP_SIZE}px "
-            f"with {args.workers} workers (hatless GIFs stay put)…"
-        )
+        hat_filter = tuple(args.hats) if args.hats else ()
+        if hat_filter:
+            target = sum(1 for _id, sel in jobs if sel.get("hat") in hat_filter)
+            label = ", ".join(hat_filter)
+            print(
+                f"Rebaking {target} tokens with hat [{label}] of {count} at {DROP_SIZE}px "
+                f"with {args.workers} workers (other GIFs stay put)…"
+            )
+        else:
+            hatted = sum(1 for _id, sel in jobs if sel.get("hat", "none") != "none")
+            print(
+                f"Rebaking {hatted} hatted tokens of {count} at {DROP_SIZE}px "
+                f"with {args.workers} workers (hatless GIFs stay put)…"
+            )
     else:
         print(f"Baking {count} Halloween Shook'ums tokens at {DROP_SIZE}px with {args.workers} workers…")
-    with Pool(processes=args.workers, initializer=init_worker, initargs=(args.force, args.hats_only)) as pool:
+    with Pool(processes=args.workers, initializer=init_worker, initargs=(args.force, hat_filter)) as pool:
         for token_id, meta, nbytes in pool.imap_unordered(bake_one, jobs, chunksize=4):
             done += 1
             total_bytes += nbytes

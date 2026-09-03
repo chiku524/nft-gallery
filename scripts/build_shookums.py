@@ -597,16 +597,17 @@ def paint_mug(kind: str, frame: int) -> np.ndarray:
 
 # Hat-layer only. `y` is the hat origin; each kind draws its brim/base below that.
 # Brimmed hats need more lift so the brim perches on the crown instead of the
-# forehead. Tall cones are drawn shorter so the tip stays on the 512 canvas.
+# forehead. Pumpkin, bow, and flower stay on the original seat.
+# Tall cones are drawn shorter so the tip stays on the 512 canvas.
 HAT_LIFT = {
     "witch": 84.0,
     "wizard": 74.0,
-    "pumpkin": 74.0,
+    "pumpkin": 0.0,
     "halo": 32.0,
     "party": 38.0,
     "crown": 52.0,
-    "bow": 46.0,
-    "flower": 52.0,
+    "bow": 0.0,
+    "flower": 0.0,
     "cat": 42.0,
 }
 
@@ -953,13 +954,16 @@ def name_of(category: str, trait_id: str) -> str:
     return trait_id
 
 
-def build_traits(only: str | None = None) -> None:
+def build_traits(only: str | None = None, ids: list[str] | None = None) -> None:
     TRAIT_DIR.mkdir(parents=True, exist_ok=True)
+    wanted = set(ids) if ids else None
     for category, traits in TRAIT_SPEC.items():
         if only and category != only:
             continue
         for trait_id, _name, _rarity in traits:
             if trait_id == "none":
+                continue
+            if wanted and trait_id not in wanted:
                 continue
             print(f"  {category}/{trait_id}")
             save_apng(render_trait_frames(category, trait_id), trait_path(category, trait_id))
@@ -1119,6 +1123,7 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--brand-only", action="store_true", help="Rebuild logo, banners, and listing copy")
     parser.add_argument("--hats-only", action="store_true", help="Rebuild hat layers, then samples and brand")
+    parser.add_argument("--hat", action="append", dest="hats", help="Limit --hats-only to these hat ids")
     args = parser.parse_args()
     if args.brand_only:
         print("Writing Halloween Shook'ums brand kit…")
@@ -1127,7 +1132,7 @@ def main() -> None:
         return
     if args.hats_only:
         print("Rebuilding Halloween Shook'ums hat layers…")
-        build_traits(only="hat")
+        build_traits(only="hat", ids=args.hats)
         print("Compositing sample GIF tokens…")
         build_samples()
         print("Writing brand…")
