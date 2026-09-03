@@ -1,13 +1,12 @@
 #!/usr/bin/env python3
-"""Paint Foxkins — Mix 3 three-quarter loaf-orb fox, layered like Shook'ums.
+"""Paint Foxkins — Style 5 bold graphic fox, layered like Shook'ums.
 
 Every trait is a 12-frame APNG on a shared 512 canvas and 90ms clock.
 Pelt, mug, hat, and wrap share one hover so accessories never warp the skeleton.
 Field stays still. Charm floats on its own tiny bob.
 
-Look: painted 3D clay — BAYC form-light with Doodles volume.
-One plump loaf-orb. Croissant tail on the left. Face offset right.
-Three pelts only: maple, snow, dusk. Hats sit between the ears.
+Look: flat sticker graphic — thick charcoal outline, limited palette, risograph grain.
+Front-facing. Big circular head. Egg body. Tail on the right. Hats sit between the ears.
 """
 
 from __future__ import annotations
@@ -27,37 +26,10 @@ sys.path.insert(0, str(ROOT / "scripts"))
 from build_shookums import (  # noqa: E402
     DURATION_MS,
     FRAMES,
-    H,
-    LINE,
     SIZE,
-    W,
-    XX,
-    YY,
-    blank,
-    blit_soft,
-    blit_volume,
-    bump_normals,
-    clamp01,
-    clip_disc,
-    disc,
-    ellipsoid,
-    ellipse,
-    fill_poly,
-    grain,
-    hover_y,
-    lite,
-    mix,
-    outline_disk,
-    over,
-    outlined_ellipse,
-    outlined_poly,
     place_portrait,
-    rgb,
     save_apng,
     save_image,
-    shade,
-    to_image,
-    volume_ball,
 )
 from gif_bake import save_loop_gif  # noqa: E402
 
@@ -67,27 +39,31 @@ BRAND_DIR = ROOT / "public" / "brand"
 META_DIR = ROOT / "public" / "metadata"
 SRC_DATA = ROOT / "src" / "data"
 
-# Mix 3 locked skeleton — three-quarter loaf-orb, facing slightly right.
-# Accessories must sit on these points. Never edit per trait.
-CX, CY = 252.0, 304.0
-RX, RY = 166.0, 158.0
-HEAD_X, HEAD_Y = 280.0, 228.0
-HAT_X, HAT_Y = 278.0, 118.0
-WRAP_X, WRAP_Y = 272.0, 292.0
-CHARM_X, CHARM_Y = 398.0, 352.0
-LINE_W = 9.0
+# Style 5 locked skeleton — front-facing graphic fox. Never edit per trait.
+CX = 256.0
+HEAD_Y = 216.0
+HEAD_R = 118.0
+BODY_Y = 368.0
+BODY_RX, BODY_RY = 104.0, 90.0
+HAT_X, HAT_Y = 256.0, 86.0
+WRAP_X, WRAP_Y = 256.0, 312.0
+CHARM_X, CHARM_Y = 410.0, 392.0
+INK = (20, 16, 14, 255)
+CREAM = (248, 236, 214, 255)
+BLUSH = (244, 176, 176, 255)
+LINE = 11
 
 FIELDS = {
-    "grove": rgb("3a5a3a"),
-    "snow": rgb("d8e0e8"),
-    "dusk": rgb("3a2a48"),
-    "hearth": rgb("5a2e22"),
+    "peach": ((243, 214, 196), (244, 184, 196)),
+    "snow": ((226, 232, 236), (214, 222, 230)),
+    "dusk": ((58, 42, 72), (168, 96, 120)),
+    "hearth": ((92, 42, 32), (232, 132, 72)),
 }
 
 PELTS = {
-    "maple": {"fur": rgb("e87a3a"), "cream": rgb("f8e2c4"), "ear": rgb("c45a48"), "pad": rgb("d6766c")},
-    "snow": {"fur": rgb("ece4da"), "cream": rgb("fff8f0"), "ear": rgb("e8a898"), "pad": rgb("e28a82")},
-    "dusk": {"fur": rgb("5c4870"), "cream": rgb("d6b8b0"), "ear": rgb("a85868"), "pad": rgb("8a4858")},
+    "maple": {"fur": (232, 122, 48, 255), "cream": CREAM, "ear": (36, 28, 24, 255)},
+    "snow": {"fur": (236, 228, 218, 255), "cream": (255, 250, 244, 255), "ear": (232, 168, 160, 255)},
+    "dusk": {"fur": (92, 72, 112, 255), "cream": (232, 208, 198, 255), "ear": (36, 26, 34, 255)},
 }
 
 MUGS = ("blink", "grin", "sleepy", "spark", "wink", "pout", "heart", "blep")
@@ -96,316 +72,243 @@ WRAPS = ("none", "scarf", "bandana", "bell")
 CHARMS = ("none", "acorn", "leaf", "lantern")
 
 
-def merge_volumes(parts: list[tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]]) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
-    out_a = np.zeros((H, W), dtype=np.float32)
-    out_nx = np.zeros((H, W), dtype=np.float32)
-    out_ny = np.zeros((H, W), dtype=np.float32)
-    out_nz = np.zeros((H, W), dtype=np.float32)
-    for pnx, pny, pnz, pa in parts:
-        choose = pa >= out_a
-        out_nx = np.where(choose, pnx, out_nx)
-        out_ny = np.where(choose, pny, out_ny)
-        out_nz = np.where(choose, pnz, out_nz)
-        out_a = np.maximum(out_a, pa)
-    return out_nx, out_ny, out_nz, out_a
+def hover_y(frame: int) -> float:
+    return math.sin(frame / FRAMES * math.pi * 2.0) * 4.0
 
 
-def fox_volume(cx: float, cy: float, rx: float = RX, ry: float = RY) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
-    """One locked Mix 3 silhouette: croissant tail, loaf-orb, 3/4 head, ears, tucked paws."""
-    hx, hy = cx + 28.0, cy - 76.0
-    parts = [
-        ellipsoid(cx - rx * 0.92, cy + 18.0, 52.0, 44.0, soft=1.7),
-        ellipsoid(cx - rx * 1.04, cy - 18.0, 44.0, 40.0, soft=1.7),
-        ellipsoid(cx - rx * 0.86, cy - 58.0, 36.0, 34.0, soft=1.8),
-        ellipsoid(cx, cy, rx, ry, soft=1.55),
-        ellipsoid(hx, hy, 108.0, 100.0, soft=1.5),
-        ellipsoid(hx - 22.0, hy + 18.0, 38.0, 28.0, soft=1.8),
-        ellipsoid(hx + 36.0, hy + 14.0, 42.0, 30.0, soft=1.8),
-        ellipsoid(cx - 46.0, cy + ry * 0.70, 30.0, 22.0, soft=1.7),
-        ellipsoid(cx + 46.0, cy + ry * 0.74, 32.0, 22.0, soft=1.7),
-    ]
-    return merge_volumes(parts)
+def blank() -> Image.Image:
+    return Image.new("RGBA", (SIZE, SIZE), (0, 0, 0, 0))
 
 
-def blink_amount(frame: int) -> float:
-    if frame in (5, 6):
-        return 1.0
-    if frame == 4:
-        return 0.55
-    if frame == 7:
-        return 0.35
-    return 0.0
+def grain(img: Image.Image, amp: int = 10, seed: int = 41) -> Image.Image:
+    arr = np.asarray(img).astype(np.int16)
+    rng = np.random.default_rng(seed)
+    noise = rng.integers(-amp, amp + 1, arr.shape[:2], dtype=np.int16)
+    rgb = np.clip(arr[..., :3] + noise[..., None], 0, 255)
+    out = np.dstack([rgb, arr[..., 3]]).astype(np.uint8)
+    return Image.fromarray(out, "RGBA")
 
 
-def paint_field(kind: str, _frame: int) -> np.ndarray:
-    dst = blank()
-    color = FIELDS[kind]
-    dst[..., :3] = color
-    dst[..., 3] = 1.0
-    vig = ((XX - CX) / 380.0) ** 2 + ((YY - CY) / 380.0) ** 2
-    dark = kind in ("grove", "dusk", "hearth")
-    wash = mix(color, shade(color, 0.18 if dark else 0.08), clamp01(vig * 0.55)[..., None])
-    wash = mix(wash, lite(color, 0.12), clamp01(1.0 - vig * 1.4)[..., None] * 0.35)
-    dst[..., :3] = np.clip(wash * (1.0 + grain(17 + sum(ord(c) for c in kind), 0.03)[..., None]), 0.0, 1.0)
-    ellipse(dst, CX, CY + RY + 36, 128, 22, shade(color, 0.30), 0.34 if not dark else 0.48, soft=16.0)
-    if kind == "grove":
-        disc(dst, 86, 86, 28, rgb("6aaa52"), 0.18, soft=20.0)
-        disc(dst, 420, 400, 36, rgb("c4a04a"), 0.16, soft=22.0)
-    elif kind == "snow":
-        rng = np.random.RandomState(21)
-        for _ in range(28):
-            disc(
-                dst,
-                float(rng.uniform(18, 494)),
-                float(rng.uniform(18, 220)),
-                float(rng.uniform(1.2, 3.2)),
-                rgb("ffffff"),
-                float(rng.uniform(0.35, 0.88)),
-                soft=1.1,
-            )
-    elif kind == "dusk":
-        disc(dst, 410, 86, 34, rgb("f0c14a"), 0.20, soft=26.0)
-        disc(dst, 416, 90, 12, rgb("fff6c8"), 0.55, soft=8.0)
-    else:
-        disc(dst, 92, 92, 40, rgb("e07028"), 0.22, soft=28.0)
-        disc(dst, 98, 96, 14, rgb("fff0b0"), 0.40, soft=10.0)
-    return dst
+def oval(draw: ImageDraw.ImageDraw, cx: float, cy: float, rx: float, ry: float, fill: tuple, width: int = LINE) -> None:
+    draw.ellipse((cx - rx, cy - ry, cx + rx, cy + ry), fill=fill, outline=INK, width=width)
 
 
-def paint_pelt(kind: str, frame: int) -> np.ndarray:
-    dst = blank()
+def poly(draw: ImageDraw.ImageDraw, pts: list[tuple[float, float]], fill: tuple, width: int = LINE) -> None:
+    draw.polygon(pts, fill=fill, outline=INK)
+    closed = list(pts) + [pts[0]]
+    draw.line(closed, fill=INK, width=width, joint="curve")
+
+
+def paint_field(kind: str, _frame: int) -> Image.Image:
+    paper, halo = FIELDS[kind]
+    img = Image.new("RGBA", (SIZE, SIZE), (*paper, 255))
+    draw = ImageDraw.Draw(img)
+    draw.ellipse((CX - 188, HEAD_Y - 168, CX + 188, HEAD_Y + 208), fill=(*halo, 255))
+    return grain(img, amp=9, seed=11 + sum(ord(c) for c in kind))
+
+
+def paint_pelt(kind: str, frame: int) -> Image.Image:
     pal = PELTS[kind]
-    fur, cream, ear, pad = pal["fur"], pal["cream"], pal["ear"], pal["pad"]
+    fur, cream, ear = pal["fur"], pal["cream"], pal["ear"]
+    img = blank()
+    draw = ImageDraw.Draw(img)
     dy = hover_y(frame)
-    cx, cy = CX, CY + dy
-    hx, hy = HEAD_X, HEAD_Y + dy
+    hx, hy = CX, HEAD_Y + dy
+    bx, by = CX, BODY_Y + dy
 
-    nx, ny, nz, a = fox_volume(cx, cy)
-    nx, ny, nz = bump_normals(nx, ny, nz, 90 + sum(ord(c) for c in kind), 0.055)
-    outline = blank()
-    onx, ony, onz, oa = fox_volume(cx, cy, RX + LINE_W, RY + LINE_W)
-    blit_soft(outline, LINE, oa * 0.96)
-    over(dst, outline)
-
-    albedo = np.broadcast_to(fur, (H, W, 3)).copy()
-    fold_t = clamp01(((YY - cy) / RY) * 0.40 + 0.16)
-    albedo = mix(albedo, shade(fur, 0.18), fold_t)
-    blit_volume(dst, albedo, nx, ny, nz, a, spec=0.16, shininess=14.0, sss=0.28)
-
-    # Cream chest circle and 3/4 muzzle.
-    volume_ball(dst, cx + 10, cy + 18, 52, 46, cream, width=3.2, spec=0.18, shininess=16.0, sss=0.22, bump=17)
-    volume_ball(dst, hx + 22, hy + 12, 46, 38, cream, width=3.0, spec=0.20, shininess=16.0, sss=0.20, bump=23)
-
-    # Pointed ears — left recedes, right reads larger.
-    outlined_poly(
-        dst,
-        [(hx - 46, hy - 52), (hx - 78, hy - 118), (hx - 18, hy - 48)],
-        shade(fur, 0.10),
-        width=4.2,
-    )
-    fill_poly(dst, [(hx - 44, hy - 58), (hx - 68, hy - 104), (hx - 26, hy - 54)], ear)
-    outlined_poly(
-        dst,
-        [(hx + 22, hy - 62), (hx + 72, hy - 136), (hx + 50, hy - 54)],
+    # Tail — comma on the right, cream tip.
+    poly(
+        draw,
+        [
+            (bx + 70, by - 10),
+            (bx + 128, by - 70),
+            (bx + 148, by - 30),
+            (bx + 132, by + 36),
+            (bx + 78, by + 28),
+        ],
         fur,
-        width=4.4,
     )
-    fill_poly(dst, [(hx + 28, hy - 68), (hx + 62, hy - 118), (hx + 46, hy - 58)], ear)
-
-    # Cheek tufts
-    volume_ball(dst, hx - 48, hy + 22, 22, 18, fur, width=3.2, spec=0.14, shininess=12.0)
-    volume_ball(dst, hx + 58, hy + 16, 24, 18, fur, width=3.2, spec=0.16, shininess=12.0)
-
-    # Nose
-    fill_poly(
-        dst,
-        [(hx + 28, hy + 8), (hx + 42, hy + 8), (hx + 35, hy + 18)],
-        rgb("2a1c14"),
+    poly(
+        draw,
+        [
+            (bx + 126, by - 78),
+            (bx + 158, by - 58),
+            (bx + 146, by - 18),
+            (bx + 118, by - 36),
+        ],
+        cream,
+        width=8,
     )
 
-    # Paw pads
-    disc(dst, cx - 46, cy + RY * 0.72, 6.0, pad, 0.88, soft=1.4)
-    disc(dst, cx + 46, cy + RY * 0.76, 6.2, pad, 0.88, soft=1.4)
+    # Ears first so the head sits on top.
+    poly(draw, [(hx - 86, hy - 18), (hx - 92, hy - 132), (hx - 28, hy - 58)], fur)
+    poly(draw, [(hx + 86, hy - 18), (hx + 92, hy - 132), (hx + 28, hy - 58)], fur)
+    poly(draw, [(hx - 72, hy - 28), (hx - 78, hy - 102), (hx - 40, hy - 52)], ear, width=6)
+    poly(draw, [(hx + 72, hy - 28), (hx + 78, hy - 102), (hx + 40, hy - 52)], ear, width=6)
 
-    catch = blank()
-    disc(catch, hx - 18, hy - 28, 28, rgb("ffffff"), 0.16 if kind != "dusk" else 0.10, soft=22.0)
-    catch[..., 3] *= a
-    over(dst, catch)
-    return dst
+    # Egg body, then circular head.
+    oval(draw, bx, by, BODY_RX, BODY_RY, fur)
+    oval(draw, hx, hy, HEAD_R, HEAD_R * 0.96, fur)
 
+    # Cream belly and teardrop muzzle.
+    oval(draw, bx, by + 8, 44, 38, cream, width=8)
+    poly(
+        draw,
+        [
+            (hx, hy + 8),
+            (hx - 62, hy + 38),
+            (hx - 28, hy + 62),
+            (hx, hy + 54),
+            (hx + 28, hy + 62),
+            (hx + 62, hy + 38),
+        ],
+        cream,
+        width=8,
+    )
 
-def draw_eye(dst: np.ndarray, ex: float, ey: float, radius: float, closed: float, kind: str, lid: np.ndarray) -> None:
-    if closed >= 0.85:
-        outlined_ellipse(dst, ex, ey + 2, radius * 0.94, 6.2, LINE, width=3.2, cel=False)
-        return
-    if kind == "spark":
-        radius *= 1.08
-    ink = rgb("121010")
-    if kind == "heart":
-        ink = rgb("3a1418")
-    outline_disk(dst, ex, ey, radius, radius, width=5.0)
-    nx, ny, nz, a = ellipsoid(ex, ey, radius, radius, soft=1.2)
-    blit_volume(dst, ink, nx, ny, nz, a, spec=0.62, shininess=36.0, sss=0.04, ambient=0.16, wrap=0.12)
-    if kind == "heart":
-        pr = radius * 0.42
-        fill_poly(
-            dst,
-            [
-                (ex, ey + pr * 0.72),
-                (ex - pr * 0.72, ey - 2),
-                (ex - pr * 0.22, ey - pr * 0.55),
-                (ex, ey - pr * 0.18),
-                (ex + pr * 0.22, ey - pr * 0.55),
-                (ex + pr * 0.72, ey - 2),
-            ],
-            rgb("f08aa0"),
-        )
-    else:
-        disc(dst, ex - radius * 0.30, ey - radius * 0.32, radius * 0.28, rgb("ffffff"), 0.98, soft=1.0)
-        disc(dst, ex + radius * 0.22, ey + radius * 0.18, radius * 0.12, rgb("ffffff"), 0.84, soft=0.8)
-        if kind == "spark":
-            disc(dst, ex + radius * 0.02, ey - radius * 0.04, radius * 0.08, rgb("fff6c8"), 0.92, soft=0.7)
-    if closed > 0.2:
-        lid_layer = blank()
-        ellipse(lid_layer, ex, ey - radius * (1.2 - closed * 0.95), radius * 1.12, radius * 0.92, lid, 1.0)
-        clip_disc(lid_layer, ex, ey, radius + 1.2)
-        over(dst, lid_layer)
+    # Four paw nubs.
+    for px, py, rx, ry in (
+        (bx - 48, by + 62, 16, 12),
+        (bx - 18, by + 74, 16, 11),
+        (bx + 18, by + 74, 16, 11),
+        (bx + 48, by + 62, 16, 12),
+    ):
+        oval(draw, px, py, rx, ry, fur, width=8)
+
+    return grain(img, amp=6, seed=90 + sum(ord(c) for c in kind))
 
 
-def paint_mug(kind: str, frame: int) -> np.ndarray:
-    dst = blank()
+def paint_mug(kind: str, frame: int) -> Image.Image:
+    img = blank()
+    draw = ImageDraw.Draw(img)
     dy = hover_y(frame)
-    closed = blink_amount(frame)
-    if kind == "sleepy":
-        closed = 1.0
-    if kind == "wink":
-        left_closed, right_closed = 1.0, closed
-    else:
-        left_closed = right_closed = closed
-    # 3/4 face: left eye recedes, right eye is larger.
-    lx, ly = HEAD_X - 18.0, HEAD_Y - 18.0 + dy
-    rx, ry = HEAD_X + 38.0, HEAD_Y - 24.0 + dy
-    lid = rgb("f8e2c4")
-    draw_eye(dst, lx, ly, 22.0, left_closed, kind, lid)
-    draw_eye(dst, rx, ry, 28.0, right_closed, kind, lid)
+    blink = frame in (5, 6)
+    lx, rx = CX - 40.0, CX + 40.0
+    ey = HEAD_Y - 6.0 + dy
+    mx, my = CX, HEAD_Y + 44.0 + dy
 
-    mx, my = HEAD_X + 24.0, HEAD_Y + 28.0 + dy
+    def open_eye(x: float, y: float, r: float = 21.0) -> None:
+        oval(draw, x, y, r, r, (16, 14, 12, 255), width=8)
+        draw.ellipse((x - 8, y - 10, x - 1, y - 3), fill=(255, 255, 255, 255))
+        draw.ellipse((x + 3, y + 2, x + 8, y + 7), fill=(255, 255, 255, 230))
+
+    def shut_eye(x: float, y: float) -> None:
+        draw.arc((x - 22, y - 10, x + 22, y + 14), 200, 340, fill=INK, width=7)
+
+    left_shut = kind == "sleepy" or (kind == "wink") or (kind == "blink" and blink)
+    right_shut = kind == "sleepy" or (kind == "blink" and blink)
+    if left_shut:
+        shut_eye(lx, ey)
+    else:
+        open_eye(lx, ey, 22.0 if kind == "spark" else 20.0)
+    if right_shut:
+        shut_eye(rx, ey)
+    else:
+        open_eye(rx, ey, 22.0 if kind == "spark" else 20.0)
+
     if kind == "grin":
-        ellipse(dst, mx, my + 4, 14, 5.0, LINE, 0.88, soft=1.2)
+        draw.arc((mx - 22, my - 6, mx + 22, my + 18), 10, 170, fill=INK, width=6)
     elif kind == "pout":
-        ellipse(dst, mx, my + 6, 8, 3.2, LINE, 0.86, soft=1.0)
+        draw.arc((mx - 12, my + 2, mx + 12, my + 16), 200, 340, fill=INK, width=5)
     elif kind == "blep":
-        outlined_ellipse(dst, mx + 4, my + 8, 7.2, 10, rgb("f09098"), width=2.8, cel=False)
+        draw.arc((mx - 10, my - 4, mx + 10, my + 10), 20, 160, fill=INK, width=5)
+        oval(draw, mx + 6, my + 12, 7, 9, (244, 130, 140, 255), width=5)
     elif kind == "heart":
-        outlined_ellipse(dst, mx, my + 4, 6.5, 4.2, rgb("e06a7a"), width=2.8, cel=False)
-    elif kind == "sleepy":
-        ellipse(dst, mx, my + 2, 6.5, 2.8, LINE, 0.8, soft=1.0)
-    elif kind in ("blink", "spark"):
-        outlined_ellipse(dst, mx + 2, my + 6, 6.4, 5.2, rgb("f09098"), width=2.6, cel=False)
-    return dst
+        poly(
+            draw,
+            [
+                (mx, my + 14),
+                (mx - 12, my + 2),
+                (mx - 4, my - 6),
+                (mx, my),
+                (mx + 4, my - 6),
+                (mx + 12, my + 2),
+            ],
+            (232, 96, 118, 255),
+            width=5,
+        )
+    elif kind == "spark":
+        draw.line((mx - 6, my + 4, mx + 6, my + 4), fill=INK, width=5)
+        for sx, sy in ((lx - 28, ey - 22), (rx + 26, ey - 18)):
+            draw.line((sx, sy - 7, sx, sy + 7), fill=INK, width=3)
+            draw.line((sx - 7, sy, sx + 7, sy), fill=INK, width=3)
+    else:
+        draw.arc((mx - 8, my - 2, mx + 8, my + 10), 20, 160, fill=INK, width=5)
+    return img
 
 
-def paint_hat(kind: str, frame: int) -> np.ndarray:
-    dst = blank()
+def paint_hat(kind: str, frame: int) -> Image.Image:
     if kind == "none":
-        return dst
-    dy = hover_y(frame)
-    x, y = HAT_X, HAT_Y + dy
+        return blank()
+    img = blank()
+    draw = ImageDraw.Draw(img)
+    x, y = HAT_X, HAT_Y + hover_y(frame)
     if kind == "beret":
-        volume_ball(dst, x + 10, y + 18, 52, 20, rgb("3a4468"), width=4.4, spec=0.14, shininess=12.0)
-        volume_ball(dst, x + 28, y + 4, 16, 12, rgb("2a3454"), width=3.2, spec=0.16, shininess=12.0)
+        oval(draw, x + 8, y + 18, 62, 22, (48, 56, 92, 255))
+        oval(draw, x + 36, y + 2, 12, 10, (36, 42, 72, 255), width=7)
     elif kind == "cap":
-        volume_ball(dst, x + 4, y + 20, 48, 18, rgb("4a5a42"), width=4.2, spec=0.14, shininess=12.0)
-        outlined_ellipse(dst, x + 36, y + 28, 30, 8, rgb("5a6a50"), width=3.2, cel=False)
+        oval(draw, x, y + 20, 56, 20, (72, 96, 68, 255))
+        poly(draw, [(x + 20, y + 22), (x + 78, y + 28), (x + 78, y + 40), (x + 16, y + 34)], (88, 112, 82, 255), width=7)
     elif kind == "flower":
         for i in range(5):
-            ang = i * (2.0 * math.pi / 5.0) - 0.3
-            volume_ball(
-                dst,
-                x + 10 + math.cos(ang) * 22,
-                y + 16 + math.sin(ang) * 14,
-                11,
-                11,
-                rgb("f0b0c0"),
-                width=3.0,
-                spec=0.22,
-                shininess=16.0,
-                sss=0.20,
-            )
-        volume_ball(dst, x + 10, y + 16, 9, 9, rgb("f0c14a"), width=2.8, spec=0.30, shininess=20.0)
+            ang = i * (2.0 * math.pi / 5.0) - 0.4
+            oval(draw, x + 8 + math.cos(ang) * 20, y + 18 + math.sin(ang) * 14, 12, 12, (244, 168, 180, 255), width=6)
+        oval(draw, x + 8, y + 18, 10, 10, (244, 196, 72, 255), width=6)
     elif kind == "leaf":
-        outlined_poly(
-            dst,
-            [(x - 4, y + 28), (x + 36, y - 10), (x + 10, y + 32)],
-            rgb("c45a28"),
-            width=3.6,
+        poly(
+            draw,
+            [(x - 8, y + 28), (x + 42, y - 8), (x + 10, y + 34)],
+            (220, 92, 42, 255),
         )
-        fill_poly(dst, [(x + 2, y + 22), (x + 32, y - 2), (x + 12, y + 26)], rgb("e07028"))
     elif kind == "beanie":
-        volume_ball(dst, x + 2, y + 22, 50, 22, rgb("a84850"), width=4.4, spec=0.16, shininess=12.0)
-        volume_ball(dst, x + 4, y + 2, 9, 9, rgb("f4efe6"), width=2.8, spec=0.22, shininess=16.0)
+        oval(draw, x, y + 22, 58, 24, (196, 72, 80, 255))
+        oval(draw, x + 4, y - 2, 10, 10, CREAM, width=6)
     elif kind == "bow":
-        volume_ball(dst, x - 16, y + 14, 20, 14, rgb("e06a8a"), width=3.6, spec=0.22, shininess=16.0)
-        volume_ball(dst, x + 28, y + 14, 20, 14, rgb("e06a8a"), width=3.6, spec=0.22, shininess=16.0)
-        volume_ball(dst, x + 6, y + 14, 9, 9, rgb("c43c5a"), width=3.0, spec=0.24, shininess=18.0)
-    return dst
+        poly(draw, [(x - 8, y + 16), (x - 44, y + 2), (x - 44, y + 30)], (232, 96, 128, 255), width=7)
+        poly(draw, [(x + 8, y + 16), (x + 44, y + 2), (x + 44, y + 30)], (232, 96, 128, 255), width=7)
+        oval(draw, x, y + 16, 10, 10, (196, 56, 88, 255), width=6)
+    return img
 
 
-def paint_wrap(kind: str, frame: int) -> np.ndarray:
-    dst = blank()
+def paint_wrap(kind: str, frame: int) -> Image.Image:
     if kind == "none":
-        return dst
-    dy = hover_y(frame)
-    x, y = WRAP_X, WRAP_Y + dy
+        return blank()
+    img = blank()
+    draw = ImageDraw.Draw(img)
+    x, y = WRAP_X, WRAP_Y + hover_y(frame)
     if kind == "scarf":
-        volume_ball(dst, x, y, 78, 16, rgb("e07028"), width=4.2, spec=0.16, shininess=12.0)
-        volume_ball(dst, x + 8, y + 6, 70, 10, rgb("2a2430"), width=3.4, spec=0.12, shininess=10.0)
-        outlined_poly(
-            dst,
-            [(x + 40, y + 4), (x + 78, y + 36), (x + 62, y + 44), (x + 28, y + 12)],
-            rgb("e07028"),
-            width=3.6,
-        )
+        oval(draw, x, y, 78, 18, (48, 140, 132, 255), width=8)
+        poly(draw, [(x + 36, y), (x + 78, y + 54), (x + 54, y + 62), (x + 22, y + 10)], (48, 140, 132, 255), width=8)
     elif kind == "bandana":
-        volume_ball(dst, x, y - 2, 70, 14, rgb("c43c3c"), width=4.0, spec=0.16, shininess=12.0)
-        outlined_poly(
-            dst,
-            [(x + 48, y - 2), (x + 78, y + 24), (x + 52, y + 10)],
-            rgb("e05a5a"),
-            width=3.2,
-        )
+        oval(draw, x, y, 70, 14, (212, 64, 64, 255), width=8)
+        poly(draw, [(x + 48, y), (x + 82, y + 28), (x + 52, y + 12)], (212, 64, 64, 255), width=7)
     elif kind == "bell":
-        volume_ball(dst, x, y, 62, 12, rgb("2a2430"), width=3.8, spec=0.12, shininess=10.0)
-        volume_ball(dst, x + 6, y + 16, 11, 12, rgb("f0c14a"), width=2.8, spec=0.36, shininess=22.0)
-    return dst
+        oval(draw, x, y, 64, 12, (36, 28, 24, 255), width=8)
+        oval(draw, x, y + 20, 14, 16, (244, 196, 72, 255), width=7)
+    return img
 
 
-def paint_charm(kind: str, frame: int) -> np.ndarray:
-    dst = blank()
+def paint_charm(kind: str, frame: int) -> Image.Image:
     if kind == "none":
-        return dst
-    bob = hover_y(frame) + math.sin((frame + 3) / FRAMES * math.pi * 2.0) * 2.4
+        return blank()
+    img = blank()
+    draw = ImageDraw.Draw(img)
+    bob = hover_y(frame) + math.sin((frame + 3) / FRAMES * math.pi * 2.0) * 2.2
     x, y = CHARM_X, CHARM_Y + bob
     if kind == "acorn":
-        volume_ball(dst, x, y + 6, 14, 16, rgb("8a5a28"), width=3.2, spec=0.18, shininess=14.0)
-        volume_ball(dst, x, y - 8, 16, 10, rgb("5a3a1c"), width=3.0, spec=0.16, shininess=12.0)
+        oval(draw, x, y + 8, 14, 16, (148, 92, 48, 255), width=7)
+        oval(draw, x, y - 6, 16, 10, (92, 62, 36, 255), width=7)
     elif kind == "leaf":
-        outlined_poly(
-            dst,
-            [(x - 8, y + 12), (x + 20, y - 18), (x + 4, y + 16)],
-            rgb("c45a28"),
-            width=3.2,
-        )
+        poly(draw, [(x - 8, y + 14), (x + 22, y - 18), (x + 4, y + 18)], (220, 92, 42, 255))
     elif kind == "lantern":
-        volume_ball(dst, x, y, 16, 18, rgb("f0c14a"), width=3.4, spec=0.28, shininess=20.0, sss=0.16)
-        volume_ball(dst, x, y - 16, 8, 6, rgb("8a6a40"), width=2.6, spec=0.14, shininess=10.0)
-        disc(dst, x - 3, y - 2, 4, rgb("fff6c8"), 0.45, soft=2.0)
-    return dst
+        oval(draw, x, y, 16, 18, (244, 188, 72, 255), width=7)
+        oval(draw, x, y - 18, 8, 6, (92, 62, 36, 255), width=6)
+    return img
 
 
 TRAIT_SPEC = {
     "field": [
-        ("grove", "Grove", 32),
+        ("peach", "Peach", 32),
         ("snow", "Snow", 26),
         ("dusk", "Dusk", 24),
         ("hearth", "Hearth", 18),
@@ -460,20 +363,20 @@ PAINTERS = {
 STACK = ("field", "pelt", "mug", "hat", "wrap", "charm")
 
 SIGNATURES = [
-    {"field": "grove", "pelt": "maple", "mug": "blink", "hat": "none", "wrap": "none", "charm": "none"},
-    {"field": "grove", "pelt": "maple", "mug": "grin", "hat": "leaf", "wrap": "scarf", "charm": "acorn"},
+    {"field": "peach", "pelt": "maple", "mug": "blink", "hat": "none", "wrap": "none", "charm": "none"},
+    {"field": "peach", "pelt": "maple", "mug": "grin", "hat": "leaf", "wrap": "scarf", "charm": "acorn"},
     {"field": "dusk", "pelt": "dusk", "mug": "spark", "hat": "beret", "wrap": "bandana", "charm": "lantern"},
     {"field": "snow", "pelt": "snow", "mug": "sleepy", "hat": "beanie", "wrap": "none", "charm": "none"},
     {"field": "hearth", "pelt": "maple", "mug": "wink", "hat": "cap", "wrap": "bell", "charm": "leaf"},
-    {"field": "grove", "pelt": "snow", "mug": "blep", "hat": "flower", "wrap": "scarf", "charm": "acorn"},
+    {"field": "peach", "pelt": "snow", "mug": "blep", "hat": "flower", "wrap": "scarf", "charm": "acorn"},
     {"field": "dusk", "pelt": "maple", "mug": "pout", "hat": "none", "wrap": "bandana", "charm": "lantern"},
     {"field": "snow", "pelt": "dusk", "mug": "grin", "hat": "leaf", "wrap": "none", "charm": "leaf"},
     {"field": "hearth", "pelt": "snow", "mug": "spark", "hat": "beret", "wrap": "scarf", "charm": "none"},
-    {"field": "grove", "pelt": "dusk", "mug": "sleepy", "hat": "cap", "wrap": "bell", "charm": "acorn"},
+    {"field": "peach", "pelt": "dusk", "mug": "sleepy", "hat": "cap", "wrap": "bell", "charm": "acorn"},
     {"field": "dusk", "pelt": "snow", "mug": "wink", "hat": "flower", "wrap": "none", "charm": "lantern"},
     {"field": "hearth", "pelt": "dusk", "mug": "heart", "hat": "beanie", "wrap": "bandana", "charm": "leaf"},
     {"field": "snow", "pelt": "maple", "mug": "grin", "hat": "bow", "wrap": "bell", "charm": "acorn"},
-    {"field": "grove", "pelt": "maple", "mug": "spark", "hat": "beret", "wrap": "none", "charm": "none"},
+    {"field": "peach", "pelt": "maple", "mug": "spark", "hat": "beret", "wrap": "none", "charm": "none"},
     {"field": "dusk", "pelt": "snow", "mug": "sleepy", "hat": "leaf", "wrap": "scarf", "charm": "lantern"},
     {"field": "hearth", "pelt": "maple", "mug": "blep", "hat": "flower", "wrap": "none", "charm": "leaf"},
 ]
@@ -488,19 +391,19 @@ TRAIT_LABELS = (
 )
 
 COLLECTION_DESCRIPTION = (
-    "Foxkins is a 5,555-piece collection of looping clay fox PFP GIFs. "
+    "Foxkins is a 5,555-piece collection of looping bold-graphic fox PFP GIFs. "
     "Each Foxkin is stacked from six layers — field, pelt, mug, hat, wrap, and charm — then flattened onto one 12-frame GIF. "
-    "Three pelts. One locked three-quarter loaf-orb. Hats sit between the ears. The silhouette never changes shape."
+    "Three pelts. One locked front-facing sticker. Hats sit between the ears. The silhouette never changes shape."
 )
 
 COLLECTION_STORY = (
     "Foxkins.\n\n"
-    "A 5,555-piece collection of looping clay fox PFP GIFs. "
+    "A 5,555-piece collection of looping bold-graphic fox PFP GIFs. "
     "Each Foxkin is stacked from six layers — field, pelt, mug, hat, wrap, and charm — then flattened onto one 12-frame GIF. "
-    "Three pelts only: maple, snow, and dusk. The loaf-orb never gets a special cutout. "
-    "Hats sit between the ears. Scarves sit on the neck. Charms float by the tucked paws.\n\n"
-    "Painted 3D clay — canvas grain, wrap shade, a warm key from the left. "
-    "Mix 3 three-quarter pose. Croissant tail on the left. Cream muzzle facing right. One shared clock.\n\n"
+    "Three pelts only: maple, snow, and dusk. The sticker never gets a special cutout. "
+    "Hats sit between the ears. Scarves sit on the neck. Charms float by the paws.\n\n"
+    "Flat graphic — thick charcoal outline, limited palette, a little paper grain. "
+    "Front-facing. Big circular head. Egg body. Tail on the right. One shared clock.\n\n"
     "Minting on Base (chain ID 8453). Gas is ETH."
 )
 
@@ -511,7 +414,7 @@ def trait_path(category: str, trait_id: str) -> Path:
 
 def render_trait_frames(category: str, trait_id: str) -> list[Image.Image]:
     paint = PAINTERS[category][trait_id]
-    return [to_image(paint(frame)) for frame in range(FRAMES)]
+    return [paint(frame) for frame in range(FRAMES)]
 
 
 def compose_selection(selection: dict[str, str]) -> list[Image.Image]:
@@ -561,6 +464,9 @@ def build_traits(only: str | None = None, ids: list[str] | None = None) -> None:
                 continue
             print(f"  {category}/{trait_id}")
             save_apng(render_trait_frames(category, trait_id), trait_path(category, trait_id))
+    leftover = TRAIT_DIR / "field" / "grove.png"
+    if leftover.exists():
+        leftover.unlink()
     manifest = {
         "name": "Foxkins",
         "size": SIZE,
@@ -569,7 +475,7 @@ def build_traits(only: str | None = None, ids: list[str] | None = None) -> None:
         "format": "apng",
         "loop": 0,
         "order": list(STACK),
-        "note": "Each trait is a looping APNG. Studio stacks them live. Minted tokens flatten to GIF. Three pelt bodies share one Mix 3 skeleton; hats, wraps, and charms never edit the pelt.",
+        "note": "Each trait is a looping APNG. Studio stacks them live. Minted tokens flatten to GIF. Three pelt bodies share one Style 5 graphic skeleton; hats, wraps, and charms never edit the pelt.",
     }
     (TRAIT_DIR / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
 
@@ -580,7 +486,7 @@ def build_samples() -> None:
     for index, selection in enumerate(SIGNATURES, start=1):
         print(f"  sample #{index}")
         frames = compose_selection(selection)
-        save_loop_gif(frames, PREVIEW_DIR / f"{index}.gif", DURATION_MS, colors=180)
+        save_loop_gif(frames, PREVIEW_DIR / f"{index}.gif", DURATION_MS, colors=64)
         samples.append(
             {
                 "id": index,
@@ -606,7 +512,7 @@ def write_ts_gallery(samples: list[dict]) -> None:
             "  {\n"
             f"    id: {sample['id']},\n"
             f'    name: "{sample["name"]}",\n'
-            f'    image: "{sample["image"]}?v=1",\n'
+            f'    image: "{sample["image"]}?v=2",\n'
             f"    attributes: [\n      {attrs},\n    ],\n"
             "  }"
         )
@@ -625,16 +531,23 @@ def write_ts_gallery(samples: list[dict]) -> None:
 
 
 def panoramic_wash(width: int, height: int) -> Image.Image:
-    colors = [FIELDS["dusk"], FIELDS["grove"], rgb("e87a3a"), FIELDS["hearth"]]
+    colors = np.array(
+        [
+            np.array(FIELDS["dusk"][0], dtype=np.float32) / 255.0,
+            np.array(FIELDS["peach"][0], dtype=np.float32) / 255.0,
+            np.array((232, 122, 48), dtype=np.float32) / 255.0,
+            np.array(FIELDS["hearth"][0], dtype=np.float32) / 255.0,
+        ],
+        dtype=np.float32,
+    )
     x = np.linspace(0.0, 1.0, width, dtype=np.float32)
     y = np.linspace(0.0, 1.0, height, dtype=np.float32)
     xx, yy = np.meshgrid(x, y)
-    stops = np.stack(colors, axis=0)
     t = np.clip(xx * 0.72 + yy * 0.28, 0.0, 0.999) * (len(colors) - 1)
     i0 = np.floor(t).astype(np.int32)
     f = (t - i0)[..., None]
-    c0 = stops[i0]
-    c1 = stops[np.clip(i0 + 1, 0, len(colors) - 1)]
+    c0 = colors[i0]
+    c1 = colors[np.clip(i0 + 1, 0, len(colors) - 1)]
     rgb_out = c0 * (1.0 - f) + c1 * f
     arr = np.dstack([np.clip(rgb_out * 255.0, 0, 255).astype(np.uint8), np.full((height, width), 255, dtype=np.uint8)])
     return Image.fromarray(arr, "RGBA")
@@ -667,14 +580,14 @@ def write_collection_meta() -> None:
 def build_brand() -> None:
     BRAND_DIR.mkdir(parents=True, exist_ok=True)
     portraits = [compose_selection(selection)[0] for selection in SIGNATURES[:7]]
-    logo_frames = compose_selection(SIGNATURES[1])
+    logo_frames = compose_selection(SIGNATURES[0])
 
     logo = logo_frames[0].copy()
     mask = Image.new("L", (SIZE, SIZE), 0)
     ImageDraw.Draw(mask).ellipse((18, 18, SIZE - 18, SIZE - 18), fill=255)
     logo.putalpha(Image.composite(logo.split()[-1], Image.new("L", (SIZE, SIZE), 0), mask))
     ring = Image.new("RGBA", (SIZE, SIZE), (0, 0, 0, 0))
-    ImageDraw.Draw(ring).ellipse((10, 10, SIZE - 10, SIZE - 10), outline=(232, 122, 58, 230), width=10)
+    ImageDraw.Draw(ring).ellipse((10, 10, SIZE - 10, SIZE - 10), outline=(20, 16, 14, 255), width=10)
     logo = Image.alpha_composite(logo, ring)
     save_image(logo.resize((512, 512), Image.Resampling.LANCZOS), BRAND_DIR / "logo-foxkins.png")
     save_apng(
@@ -691,20 +604,20 @@ def build_brand() -> None:
         start_x = (width - total) // 2
         y = (height - size) // 2 + int(height * 0.04)
         for index, portrait in enumerate(faces):
-            x = start_x + index * (size - overlap)
-            place_portrait(canvas, portrait, x, y, size, radius=max(36, size // 10))
+            px = start_x + index * (size - overlap)
+            place_portrait(canvas, portrait, px, y, size, radius=max(36, size // 10))
         return canvas
 
     save_image(fox_lineup(1500, 560, portraits[:5]).convert("RGB"), BRAND_DIR / "banner-foxkins.png", quality=94)
     save_image(fox_lineup(2800, 700, portraits).convert("RGB"), BRAND_DIR / "banner-foxkins-opensea.jpg", quality=90)
 
     featured = panoramic_wash(1200, 800)
-    place_portrait(featured, portraits[1], 90, 110, 560, radius=64)
+    place_portrait(featured, portraits[0], 90, 110, 560, radius=64)
     place_portrait(featured, portraits[3], 540, 130, 560, radius=64)
     save_image(featured.convert("RGB"), BRAND_DIR / "featured-foxkins.jpg", quality=90)
 
     gif_frames = [frame.resize((1000, 1000), Image.Resampling.LANCZOS) for frame in logo_frames]
-    save_loop_gif(gif_frames, BRAND_DIR / "collection-foxkins.gif", DURATION_MS, colors=180)
+    save_loop_gif(gif_frames, BRAND_DIR / "collection-foxkins.gif", DURATION_MS, colors=64)
     write_collection_meta()
 
 
@@ -728,7 +641,7 @@ def main() -> None:
         build_brand()
         print("Done.")
         return
-    print("Building Foxkins Mix 3 trait loops…")
+    print("Building Foxkins Style 5 graphic trait loops…")
     build_traits()
     print("Compositing sample GIF tokens…")
     build_samples()

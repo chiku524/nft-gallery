@@ -342,7 +342,7 @@ def main() -> None:
         rewrite_csv_filenames(ROOT / "generated" / "foxkins" / "FOXKINS-opensea-drop.csv")
         (ROOT / "generated" / "foxkins" / "README.md").write_text(
             "# Foxkins OpenSea pack\n\n"
-            f"{count:,} flattened loaf-orb fox loops at 512×512, 12 frames, 90ms.\n\n"
+            f"{count:,} flattened bold-graphic fox loops at 512×512, 12 frames, 90ms.\n\n"
             f"Upload every file in `gifs/` (1.gif–{count}.gif) plus `FOXKINS-opensea-drop.csv` "
             "or `opensea-metadata.csv` to an OpenSea Drop on Base.\n"
             "OpenSea Drops play GIF, not APNG. APNGs stay in `images/` for the site and restacks.\n"

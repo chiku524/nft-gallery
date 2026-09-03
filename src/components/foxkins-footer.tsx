@@ -10,7 +10,7 @@ export function FoxkinsFooter() {
         <div>
           <p className="font-heading text-lg">{foxkins.name}</p>
           <p className="text-sm text-muted-foreground">
-            {foxkins.supply.toLocaleString()} loaf-orb fox PFPs · {foxkins.chain.name} ·{" "}
+            {foxkins.supply.toLocaleString()} graphic fox PFPs · {foxkins.chain.name} ·{" "}
             <OpenSeaLink href={foxkins.opensea.collection} className="hover:underline">
               OpenSea
             </OpenSeaLink>

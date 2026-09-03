@@ -4,7 +4,7 @@ import { foxkins } from "@/data/foxkins";
 
 export const metadata: Metadata = {
   title: "Studio",
-  description: "Live loaf-orb fox trait stack for Foxkins.",
+  description: "Live bold-graphic fox trait stack for Foxkins.",
 };
 
 export default function FoxkinsStudioPage() {
@@ -14,7 +14,7 @@ export default function FoxkinsStudioPage() {
       <h1 className="mt-2 font-heading text-4xl">Layered Foxkins mixer</h1>
       <p className="mt-3 max-w-2xl text-muted-foreground">
         {foxkins.name} plays every trait as its own looping APNG. The preview is a live stack —
-        fields stay still, eyes blink, the loaf hovers, hats sit between the same ears.
+        fields stay still, eyes blink, the sticker hovers, hats sit between the same ears.
       </p>
       <div className="mt-10">
         <FoxkinsStudio />

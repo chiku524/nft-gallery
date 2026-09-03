@@ -1,11 +1,11 @@
 export const foxkins = {
   name: "Foxkins",
   symbol: "FOXK",
-  tagline: "Three pelts. One loaf-orb. A grove of vibes.",
+  tagline: "Three pelts. One sticker. A grove of vibes.",
   description:
-    "Foxkins is a 5,555-piece collection of looping clay fox PFP GIFs. Each Foxkin is stacked from six layers — field, pelt, mug, hat, wrap, and charm — then flattened onto one 12-frame GIF. Three bodies. One locked Mix 3 skeleton. Hats sit between the ears. The loaf never changes shape.",
+    "Foxkins is a 5,555-piece collection of looping bold-graphic fox PFP GIFs. Each Foxkin is stacked from six layers — field, pelt, mug, hat, wrap, and charm — then flattened onto one 12-frame GIF. Three bodies. One locked front-facing sticker. Hats sit between the ears. The silhouette never changes shape.",
   story:
-    "Foxkins.\n\nA 5,555-piece collection of looping clay fox PFP GIFs. Each Foxkin is stacked from six layers — field, pelt, mug, hat, wrap, and charm — then flattened onto one 12-frame GIF. Three pelts only: maple, snow, and dusk. The silhouette never gets a special cutout. Hats sit between the ears. Scarves sit on the neck. Charms float by the tucked paws.\n\nPainted 3D clay — canvas grain, wrap shade, a warm key from the left. Mix 3 three-quarter pose. Croissant tail on the left. Cream muzzle facing right. One shared clock.\n\nMinting on Base (chain ID 8453). Gas is ETH.",
+    "Foxkins.\n\nA 5,555-piece collection of looping bold-graphic fox PFP GIFs. Each Foxkin is stacked from six layers — field, pelt, mug, hat, wrap, and charm — then flattened onto one 12-frame GIF. Three pelts only: maple, snow, and dusk. The sticker never gets a special cutout. Hats sit between the ears. Scarves sit on the neck. Charms float by the paws.\n\nFlat graphic — thick charcoal outline, limited palette, a little paper grain. Front-facing. Big circular head. Egg body. Tail on the right. One shared clock.\n\nMinting on Base (chain ID 8453). Gas is ETH.",
   supply: 5555,
   mintPriceEth: "0.004",
   frames: 12,

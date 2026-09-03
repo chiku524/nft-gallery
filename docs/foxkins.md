@@ -1,6 +1,6 @@
 # Foxkins
 
-Looping **clay fox PFP GIFs** — one plump Mix 3 loaf-orb, croissant tail on the left, cream muzzle facing right, painted 3D volume, thick drawn outline, huge glossy 3/4 eyes. A **5,555-piece** collection built to mint on **Base** (chain ID `8453`) and list on **OpenSea**.
+Looping **bold-graphic fox PFP GIFs** — one front-facing sticker, circular head, egg body, tail on the right, thick charcoal outline, limited palette. A **5,555-piece** collection built to mint on **Base** (chain ID `8453`) and list on **OpenSea**.
 
 This collection lives inside **NFT Gallery** at `/foxkins`.
 
@@ -37,7 +37,7 @@ Every layer is already seated on the 512 canvas. Studio and the generator only s
 5. Wrap
 6. Charm
 
-Three pelt bodies share one Mix 3 skeleton. Hats, wraps, and charms never edit the pelt file — they composite on the same crown, collar, and paws. Eyes blink. The loaf hovers. Minted tokens composite frame *n* of every layer so the marketplace file stays in sync.
+Three pelt bodies share one Style 5 graphic skeleton. Hats, wraps, and charms never edit the pelt file — they composite on the same crown, collar, and paws. Eyes blink. The sticker hovers. Minted tokens composite frame *n* of every layer so the marketplace file stays in sync.
 
 Token 1 is the common base — grove field, maple pelt, normal mug, no extras. Tokens 1–8 of the generated drop are the eight signature looks.
 

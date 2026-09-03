@@ -14,7 +14,7 @@ export type FoxkinTraitCategory = {
 };
 
 /** Bump when APNG layers change so the studio does not keep a stale loop. */
-export const FOXKIN_ART_VERSION = "foxkins-v1";
+export const FOXKIN_ART_VERSION = "foxkins-v2";
 
 export const FOXKIN_FRAMES = 12;
 export const FOXKIN_DURATION_MS = 90;
@@ -28,9 +28,9 @@ export const foxkinTraitCategories: FoxkinTraitCategory[] = [
   {
     id: "field",
     label: "Field",
-    blurb: "A flat grove wash — grove, snow, dusk, hearth. No desks.",
+    blurb: "A flat paper wash — peach, snow, dusk, hearth. The halo stays put.",
     traits: [
-      { id: "grove", name: "Grove", image: "/foxkins-traits/field/grove.png", rarity: 32 },
+      { id: "peach", name: "Peach", image: "/foxkins-traits/field/peach.png", rarity: 32 },
       { id: "snow", name: "Snow", image: "/foxkins-traits/field/snow.png", rarity: 26 },
       { id: "dusk", name: "Dusk", image: "/foxkins-traits/field/dusk.png", rarity: 24 },
       { id: "hearth", name: "Hearth", image: "/foxkins-traits/field/hearth.png", rarity: 18 },
@@ -39,7 +39,7 @@ export const foxkinTraitCategories: FoxkinTraitCategory[] = [
   {
     id: "pelt",
     label: "Pelt",
-    blurb: "The skeleton — three bodies only. Maple, snow, dusk. The loaf-orb never changes.",
+    blurb: "The skeleton — three bodies only. Maple, snow, dusk. The sticker never changes.",
     traits: [
       { id: "maple", name: "Maple", image: "/foxkins-traits/pelt/maple.png", rarity: 55 },
       { id: "snow", name: "Snow", image: "/foxkins-traits/pelt/snow.png", rarity: 28 },
@@ -49,7 +49,7 @@ export const foxkinTraitCategories: FoxkinTraitCategory[] = [
   {
     id: "mug",
     label: "Mug",
-    blurb: "Glossy 3/4 eyes on the same face points. Grin, sleepy, a pink blep.",
+    blurb: "Big graphic eyes on the same face points. Grin, sleepy, a pink blep.",
     traits: [
       { id: "blink", name: "Normal", image: "/foxkins-traits/mug/blink.png", rarity: 20 },
       { id: "grin", name: "Grin", image: "/foxkins-traits/mug/grin.png", rarity: 16 },
@@ -113,7 +113,7 @@ export function findFoxkinTrait(categoryId: FoxkinTraitCategory["id"], traitId: 
 }
 
 export const defaultFoxkinSelection = {
-  field: "grove",
+  field: "peach",
   pelt: "maple",
   mug: "blink",
   hat: "none",

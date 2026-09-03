@@ -23,7 +23,7 @@ export function FoxkinStack({
   return (
     <div
       className={cn(
-        "relative aspect-square overflow-hidden rounded-[1.75rem] bg-[#f4ebe0] shadow-[0_24px_60px_rgba(58,42,34,0.28)]",
+        "relative aspect-square overflow-hidden rounded-[1.75rem] bg-[#f3d6c4] shadow-[0_24px_60px_rgba(20,16,14,0.22)]",
         className,
       )}
       role="img"

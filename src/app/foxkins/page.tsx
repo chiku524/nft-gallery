@@ -50,7 +50,7 @@ export default function FoxkinsHomePage() {
         <div className="grid gap-8 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground">The drop</p>
-            <h2 className="mt-2 font-heading text-3xl sm:text-4xl">Three pelts. One loaf-orb.</h2>
+            <h2 className="mt-2 font-heading text-3xl sm:text-4xl">Three pelts. One sticker.</h2>
             <div className="mt-4 space-y-4 text-muted-foreground">
               {foxkins.story.split("\n\n").map((paragraph) => (
                 <p key={paragraph.slice(0, 40)}>{paragraph}</p>
@@ -115,7 +115,7 @@ export default function FoxkinsHomePage() {
               <h2 className="mt-2 font-heading text-4xl">Studio plays layers. The drop flattens them.</h2>
               <p className="mt-4 text-[#fff8ef]/75">
                 Each trait is its own looping APNG. The studio stacks those files so fields, pelts,
-                mugs, hats, wraps, and charms keep blinking. The loaf stays locked. Minted tokens
+                mugs, hats, wraps, and charms keep blinking. The sticker stays locked. Minted tokens
                 composite the same 12 frames into one GIF OpenSea can list on Base.
               </p>
             </div>

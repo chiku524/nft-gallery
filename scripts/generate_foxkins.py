@@ -144,7 +144,7 @@ def token_meta(token_id: int, selection: dict[str, str]) -> dict:
     ]
     return {
         "name": f"Foxkin #{token_id}",
-        "description": "A looping clay fox from Foxkins. Three pelts. One Mix 3 loaf-orb. One clock. Minted on Base.",
+        "description": "A looping bold-graphic fox from Foxkins. Three pelts. One sticker. One clock. Minted on Base.",
         "image": f"{token_id}.gif",
         "attributes": attributes,
         "animation_loop": True,

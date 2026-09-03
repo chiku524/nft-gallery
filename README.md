@@ -39,7 +39,7 @@ A house of NFT collections. Each drop is its own sub-project — studio, traits,
 | `/hoodkins/studio` | Live chibi-raccoon mixer (Hoodkins) |
 | `/birbs/studio` | Live round-borb robin mixer (BirbNation) |
 | `/shookums/studio` | Live sheet-ghost mixer (Halloween Shook'ums) |
-| `/foxkins/studio` | Live loaf-orb fox mixer (Foxkins) |
+| `/foxkins/studio` | Live bold-graphic fox mixer (Foxkins) |
 | `public/traits/` | Loopkins APNG layers (sky, aura, body, face, wear, charm) |
 | `public/afterimages/` | Afterimages 1:1 APNG paintings |
 | `public/inklings-traits/` | Inklings APNG layers (paper, bloom, visage, gaze, mark, adorn) |

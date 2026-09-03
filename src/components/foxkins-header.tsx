@@ -35,7 +35,7 @@ export function FoxkinsHeader() {
           <div className="leading-tight">
             <p className="font-heading text-lg tracking-tight">{foxkins.name}</p>
             <p className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
-              Loaf-orb fox PFPs
+              Graphic fox PFPs
             </p>
           </div>
         </Link>

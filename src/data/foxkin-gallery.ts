@@ -9,9 +9,9 @@ export const foxkinSamples: FoxkinSample[] = [
   {
     id: 1,
     name: "Foxkin #1",
-    image: "/foxkins-preview/1.gif?v=1",
+    image: "/foxkins-preview/1.gif?v=2",
     attributes: [
-      { trait_type: "Field", value: "Grove" },
+      { trait_type: "Field", value: "Peach" },
       { trait_type: "Pelt", value: "Maple" },
       { trait_type: "Mug", value: "Normal" },
       { trait_type: "Hat", value: "None" },
@@ -22,9 +22,9 @@ export const foxkinSamples: FoxkinSample[] = [
   {
     id: 2,
     name: "Foxkin #2",
-    image: "/foxkins-preview/2.gif?v=1",
+    image: "/foxkins-preview/2.gif?v=2",
     attributes: [
-      { trait_type: "Field", value: "Grove" },
+      { trait_type: "Field", value: "Peach" },
       { trait_type: "Pelt", value: "Maple" },
       { trait_type: "Mug", value: "Grin" },
       { trait_type: "Hat", value: "Leaf" },
@@ -35,7 +35,7 @@ export const foxkinSamples: FoxkinSample[] = [
   {
     id: 3,
     name: "Foxkin #3",
-    image: "/foxkins-preview/3.gif?v=1",
+    image: "/foxkins-preview/3.gif?v=2",
     attributes: [
       { trait_type: "Field", value: "Dusk" },
       { trait_type: "Pelt", value: "Dusk" },
@@ -48,7 +48,7 @@ export const foxkinSamples: FoxkinSample[] = [
   {
     id: 4,
     name: "Foxkin #4",
-    image: "/foxkins-preview/4.gif?v=1",
+    image: "/foxkins-preview/4.gif?v=2",
     attributes: [
       { trait_type: "Field", value: "Snow" },
       { trait_type: "Pelt", value: "Snow" },
@@ -61,7 +61,7 @@ export const foxkinSamples: FoxkinSample[] = [
   {
     id: 5,
     name: "Foxkin #5",
-    image: "/foxkins-preview/5.gif?v=1",
+    image: "/foxkins-preview/5.gif?v=2",
     attributes: [
       { trait_type: "Field", value: "Hearth" },
       { trait_type: "Pelt", value: "Maple" },
@@ -74,9 +74,9 @@ export const foxkinSamples: FoxkinSample[] = [
   {
     id: 6,
     name: "Foxkin #6",
-    image: "/foxkins-preview/6.gif?v=1",
+    image: "/foxkins-preview/6.gif?v=2",
     attributes: [
-      { trait_type: "Field", value: "Grove" },
+      { trait_type: "Field", value: "Peach" },
       { trait_type: "Pelt", value: "Snow" },
       { trait_type: "Mug", value: "Blep" },
       { trait_type: "Hat", value: "Flower" },
@@ -87,7 +87,7 @@ export const foxkinSamples: FoxkinSample[] = [
   {
     id: 7,
     name: "Foxkin #7",
-    image: "/foxkins-preview/7.gif?v=1",
+    image: "/foxkins-preview/7.gif?v=2",
     attributes: [
       { trait_type: "Field", value: "Dusk" },
       { trait_type: "Pelt", value: "Maple" },
@@ -100,7 +100,7 @@ export const foxkinSamples: FoxkinSample[] = [
   {
     id: 8,
     name: "Foxkin #8",
-    image: "/foxkins-preview/8.gif?v=1",
+    image: "/foxkins-preview/8.gif?v=2",
     attributes: [
       { trait_type: "Field", value: "Snow" },
       { trait_type: "Pelt", value: "Dusk" },
@@ -113,7 +113,7 @@ export const foxkinSamples: FoxkinSample[] = [
   {
     id: 9,
     name: "Foxkin #9",
-    image: "/foxkins-preview/9.gif?v=1",
+    image: "/foxkins-preview/9.gif?v=2",
     attributes: [
       { trait_type: "Field", value: "Hearth" },
       { trait_type: "Pelt", value: "Snow" },
@@ -126,9 +126,9 @@ export const foxkinSamples: FoxkinSample[] = [
   {
     id: 10,
     name: "Foxkin #10",
-    image: "/foxkins-preview/10.gif?v=1",
+    image: "/foxkins-preview/10.gif?v=2",
     attributes: [
-      { trait_type: "Field", value: "Grove" },
+      { trait_type: "Field", value: "Peach" },
       { trait_type: "Pelt", value: "Dusk" },
       { trait_type: "Mug", value: "Sleepy" },
       { trait_type: "Hat", value: "Cap" },
@@ -139,7 +139,7 @@ export const foxkinSamples: FoxkinSample[] = [
   {
     id: 11,
     name: "Foxkin #11",
-    image: "/foxkins-preview/11.gif?v=1",
+    image: "/foxkins-preview/11.gif?v=2",
     attributes: [
       { trait_type: "Field", value: "Dusk" },
       { trait_type: "Pelt", value: "Snow" },
@@ -152,7 +152,7 @@ export const foxkinSamples: FoxkinSample[] = [
   {
     id: 12,
     name: "Foxkin #12",
-    image: "/foxkins-preview/12.gif?v=1",
+    image: "/foxkins-preview/12.gif?v=2",
     attributes: [
       { trait_type: "Field", value: "Hearth" },
       { trait_type: "Pelt", value: "Dusk" },
@@ -165,7 +165,7 @@ export const foxkinSamples: FoxkinSample[] = [
   {
     id: 13,
     name: "Foxkin #13",
-    image: "/foxkins-preview/13.gif?v=1",
+    image: "/foxkins-preview/13.gif?v=2",
     attributes: [
       { trait_type: "Field", value: "Snow" },
       { trait_type: "Pelt", value: "Maple" },
@@ -178,9 +178,9 @@ export const foxkinSamples: FoxkinSample[] = [
   {
     id: 14,
     name: "Foxkin #14",
-    image: "/foxkins-preview/14.gif?v=1",
+    image: "/foxkins-preview/14.gif?v=2",
     attributes: [
-      { trait_type: "Field", value: "Grove" },
+      { trait_type: "Field", value: "Peach" },
       { trait_type: "Pelt", value: "Maple" },
       { trait_type: "Mug", value: "Sparkly" },
       { trait_type: "Hat", value: "Beret" },
@@ -191,7 +191,7 @@ export const foxkinSamples: FoxkinSample[] = [
   {
     id: 15,
     name: "Foxkin #15",
-    image: "/foxkins-preview/15.gif?v=1",
+    image: "/foxkins-preview/15.gif?v=2",
     attributes: [
       { trait_type: "Field", value: "Dusk" },
       { trait_type: "Pelt", value: "Snow" },
@@ -204,7 +204,7 @@ export const foxkinSamples: FoxkinSample[] = [
   {
     id: 16,
     name: "Foxkin #16",
-    image: "/foxkins-preview/16.gif?v=1",
+    image: "/foxkins-preview/16.gif?v=2",
     attributes: [
       { trait_type: "Field", value: "Hearth" },
       { trait_type: "Pelt", value: "Maple" },

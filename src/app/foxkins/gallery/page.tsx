@@ -55,7 +55,7 @@ export default function FoxkinsGalleryPage() {
         {extraPreviews.map((id) => (
           <article key={id} className="overflow-hidden rounded-2xl border bg-card">
             <ApngImage
-              src={`/foxkins-preview/${id}.gif?v=1`}
+              src={`/foxkins-preview/${id}.gif?v=2`}
               alt={`Foxkin #${id}`}
               width={512}
               height={512}

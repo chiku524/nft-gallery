@@ -6,7 +6,7 @@ import { foxkins } from "@/data/foxkins";
 
 export const metadata: Metadata = {
   title: "Trait loops",
-  description: "Every loaf-orb fox trait layer in the Foxkins stack.",
+  description: "Every bold-graphic fox trait layer in the Foxkins stack.",
 };
 
 export default function FoxkinsTraitsPage() {
@@ -17,7 +17,7 @@ export default function FoxkinsTraitsPage() {
       <p className="mt-3 max-w-2xl text-muted-foreground">
         Each file is an APNG on a {foxkins.canvas}×{foxkins.canvas} canvas: {FOXKIN_FRAMES} frames,{" "}
         {FOXKIN_DURATION_MS}ms, looping. Studio stacks field → pelt → mug → hat → wrap → charm. Eyes
-        blink. The loaf hovers. Hats sit between the ears. The skeleton stays put.
+        blink. The sticker hovers. Hats sit between the ears. The skeleton stays put.
       </p>
 
       <div className="mt-10 space-y-14">
