@@ -14,7 +14,8 @@
     "generate:purrkins": "python3 scripts/build_purrkins.py && python3 scripts/generate_purrkins.py",
     "generate:birbs": "python3 scripts/build_birbs.py && python3 scripts/generate_birbs.py",
     "generate:shookums": "python3 scripts/build_shookums.py && python3 scripts/generate_shookums.py",
-    "generate:gifs": "python3 scripts/gif_bake.py --afterimages && python3 scripts/gif_bake.py --loopkins --all && python3 scripts/gif_bake.py --inklings --all && python3 scripts/gif_bake.py --wicklings --all && python3 scripts/gif_bake.py --purrkins --all && python3 scripts/gif_bake.py --birbs --all && python3 scripts/gif_bake.py --shookums --all"
+    "generate:foxkins": "python3 scripts/build_foxkins.py && python3 scripts/generate_foxkins.py",
+    "generate:gifs": "python3 scripts/gif_bake.py --afterimages && python3 scripts/gif_bake.py --loopkins --all && python3 scripts/gif_bake.py --inklings --all && python3 scripts/gif_bake.py --wicklings --all && python3 scripts/gif_bake.py --purrkins --all && python3 scripts/gif_bake.py --birbs --all && python3 scripts/gif_bake.py --shookums --all && python3 scripts/gif_bake.py --foxkins --all"
   },
   "dependencies": {
     "class-variance-authority": "^0.7.1",

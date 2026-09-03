@@ -1,0 +1,17 @@
+{
+  "name": "Foxkins",
+  "size": 512,
+  "frames": 12,
+  "durationMs": 90,
+  "format": "apng",
+  "loop": 0,
+  "order": [
+    "field",
+    "pelt",
+    "mug",
+    "hat",
+    "wrap",
+    "charm"
+  ],
+  "note": "Each trait is a looping APNG. Studio stacks them live. Minted tokens flatten to GIF. Three pelt bodies share one Mix 3 skeleton; hats, wraps, and charms never edit the pelt."
+}

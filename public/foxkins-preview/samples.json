@@ -1,0 +1,498 @@
+[
+  {
+    "id": 1,
+    "name": "Foxkin #1",
+    "image": "/foxkins-preview/1.gif",
+    "attributes": [
+      {
+        "trait_type": "Field",
+        "value": "Grove"
+      },
+      {
+        "trait_type": "Pelt",
+        "value": "Maple"
+      },
+      {
+        "trait_type": "Mug",
+        "value": "Normal"
+      },
+      {
+        "trait_type": "Hat",
+        "value": "None"
+      },
+      {
+        "trait_type": "Wrap",
+        "value": "None"
+      },
+      {
+        "trait_type": "Charm",
+        "value": "None"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Foxkin #2",
+    "image": "/foxkins-preview/2.gif",
+    "attributes": [
+      {
+        "trait_type": "Field",
+        "value": "Grove"
+      },
+      {
+        "trait_type": "Pelt",
+        "value": "Maple"
+      },
+      {
+        "trait_type": "Mug",
+        "value": "Grin"
+      },
+      {
+        "trait_type": "Hat",
+        "value": "Leaf"
+      },
+      {
+        "trait_type": "Wrap",
+        "value": "Scarf"
+      },
+      {
+        "trait_type": "Charm",
+        "value": "Acorn"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Foxkin #3",
+    "image": "/foxkins-preview/3.gif",
+    "attributes": [
+      {
+        "trait_type": "Field",
+        "value": "Dusk"
+      },
+      {
+        "trait_type": "Pelt",
+        "value": "Dusk"
+      },
+      {
+        "trait_type": "Mug",
+        "value": "Sparkly"
+      },
+      {
+        "trait_type": "Hat",
+        "value": "Beret"
+      },
+      {
+        "trait_type": "Wrap",
+        "value": "Bandana"
+      },
+      {
+        "trait_type": "Charm",
+        "value": "Lantern"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Foxkin #4",
+    "image": "/foxkins-preview/4.gif",
+    "attributes": [
+      {
+        "trait_type": "Field",
+        "value": "Snow"
+      },
+      {
+        "trait_type": "Pelt",
+        "value": "Snow"
+      },
+      {
+        "trait_type": "Mug",
+        "value": "Sleepy"
+      },
+      {
+        "trait_type": "Hat",
+        "value": "Beanie"
+      },
+      {
+        "trait_type": "Wrap",
+        "value": "None"
+      },
+      {
+        "trait_type": "Charm",
+        "value": "None"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Foxkin #5",
+    "image": "/foxkins-preview/5.gif",
+    "attributes": [
+      {
+        "trait_type": "Field",
+        "value": "Hearth"
+      },
+      {
+        "trait_type": "Pelt",
+        "value": "Maple"
+      },
+      {
+        "trait_type": "Mug",
+        "value": "Wink"
+      },
+      {
+        "trait_type": "Hat",
+        "value": "Cap"
+      },
+      {
+        "trait_type": "Wrap",
+        "value": "Bell"
+      },
+      {
+        "trait_type": "Charm",
+        "value": "Leaf"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Foxkin #6",
+    "image": "/foxkins-preview/6.gif",
+    "attributes": [
+      {
+        "trait_type": "Field",
+        "value": "Grove"
+      },
+      {
+        "trait_type": "Pelt",
+        "value": "Snow"
+      },
+      {
+        "trait_type": "Mug",
+        "value": "Blep"
+      },
+      {
+        "trait_type": "Hat",
+        "value": "Flower"
+      },
+      {
+        "trait_type": "Wrap",
+        "value": "Scarf"
+      },
+      {
+        "trait_type": "Charm",
+        "value": "Acorn"
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Foxkin #7",
+    "image": "/foxkins-preview/7.gif",
+    "attributes": [
+      {
+        "trait_type": "Field",
+        "value": "Dusk"
+      },
+      {
+        "trait_type": "Pelt",
+        "value": "Maple"
+      },
+      {
+        "trait_type": "Mug",
+        "value": "Pout"
+      },
+      {
+        "trait_type": "Hat",
+        "value": "None"
+      },
+      {
+        "trait_type": "Wrap",
+        "value": "Bandana"
+      },
+      {
+        "trait_type": "Charm",
+        "value": "Lantern"
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "name": "Foxkin #8",
+    "image": "/foxkins-preview/8.gif",
+    "attributes": [
+      {
+        "trait_type": "Field",
+        "value": "Snow"
+      },
+      {
+        "trait_type": "Pelt",
+        "value": "Dusk"
+      },
+      {
+        "trait_type": "Mug",
+        "value": "Grin"
+      },
+      {
+        "trait_type": "Hat",
+        "value": "Leaf"
+      },
+      {
+        "trait_type": "Wrap",
+        "value": "None"
+      },
+      {
+        "trait_type": "Charm",
+        "value": "Leaf"
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "name": "Foxkin #9",
+    "image": "/foxkins-preview/9.gif",
+    "attributes": [
+      {
+        "trait_type": "Field",
+        "value": "Hearth"
+      },
+      {
+        "trait_type": "Pelt",
+        "value": "Snow"
+      },
+      {
+        "trait_type": "Mug",
+        "value": "Sparkly"
+      },
+      {
+        "trait_type": "Hat",
+        "value": "Beret"
+      },
+      {
+        "trait_type": "Wrap",
+        "value": "Scarf"
+      },
+      {
+        "trait_type": "Charm",
+        "value": "None"
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "name": "Foxkin #10",
+    "image": "/foxkins-preview/10.gif",
+    "attributes": [
+      {
+        "trait_type": "Field",
+        "value": "Grove"
+      },
+      {
+        "trait_type": "Pelt",
+        "value": "Dusk"
+      },
+      {
+        "trait_type": "Mug",
+        "value": "Sleepy"
+      },
+      {
+        "trait_type": "Hat",
+        "value": "Cap"
+      },
+      {
+        "trait_type": "Wrap",
+        "value": "Bell"
+      },
+      {
+        "trait_type": "Charm",
+        "value": "Acorn"
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "name": "Foxkin #11",
+    "image": "/foxkins-preview/11.gif",
+    "attributes": [
+      {
+        "trait_type": "Field",
+        "value": "Dusk"
+      },
+      {
+        "trait_type": "Pelt",
+        "value": "Snow"
+      },
+      {
+        "trait_type": "Mug",
+        "value": "Wink"
+      },
+      {
+        "trait_type": "Hat",
+        "value": "Flower"
+      },
+      {
+        "trait_type": "Wrap",
+        "value": "None"
+      },
+      {
+        "trait_type": "Charm",
+        "value": "Lantern"
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "name": "Foxkin #12",
+    "image": "/foxkins-preview/12.gif",
+    "attributes": [
+      {
+        "trait_type": "Field",
+        "value": "Hearth"
+      },
+      {
+        "trait_type": "Pelt",
+        "value": "Dusk"
+      },
+      {
+        "trait_type": "Mug",
+        "value": "Heart"
+      },
+      {
+        "trait_type": "Hat",
+        "value": "Beanie"
+      },
+      {
+        "trait_type": "Wrap",
+        "value": "Bandana"
+      },
+      {
+        "trait_type": "Charm",
+        "value": "Leaf"
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "name": "Foxkin #13",
+    "image": "/foxkins-preview/13.gif",
+    "attributes": [
+      {
+        "trait_type": "Field",
+        "value": "Snow"
+      },
+      {
+        "trait_type": "Pelt",
+        "value": "Maple"
+      },
+      {
+        "trait_type": "Mug",
+        "value": "Grin"
+      },
+      {
+        "trait_type": "Hat",
+        "value": "Bow"
+      },
+      {
+        "trait_type": "Wrap",
+        "value": "Bell"
+      },
+      {
+        "trait_type": "Charm",
+        "value": "Acorn"
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "name": "Foxkin #14",
+    "image": "/foxkins-preview/14.gif",
+    "attributes": [
+      {
+        "trait_type": "Field",
+        "value": "Grove"
+      },
+      {
+        "trait_type": "Pelt",
+        "value": "Maple"
+      },
+      {
+        "trait_type": "Mug",
+        "value": "Sparkly"
+      },
+      {
+        "trait_type": "Hat",
+        "value": "Beret"
+      },
+      {
+        "trait_type": "Wrap",
+        "value": "None"
+      },
+      {
+        "trait_type": "Charm",
+        "value": "None"
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "name": "Foxkin #15",
+    "image": "/foxkins-preview/15.gif",
+    "attributes": [
+      {
+        "trait_type": "Field",
+        "value": "Dusk"
+      },
+      {
+        "trait_type": "Pelt",
+        "value": "Snow"
+      },
+      {
+        "trait_type": "Mug",
+        "value": "Sleepy"
+      },
+      {
+        "trait_type": "Hat",
+        "value": "Leaf"
+      },
+      {
+        "trait_type": "Wrap",
+        "value": "Scarf"
+      },
+      {
+        "trait_type": "Charm",
+        "value": "Lantern"
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "name": "Foxkin #16",
+    "image": "/foxkins-preview/16.gif",
+    "attributes": [
+      {
+        "trait_type": "Field",
+        "value": "Hearth"
+      },
+      {
+        "trait_type": "Pelt",
+        "value": "Maple"
+      },
+      {
+        "trait_type": "Mug",
+        "value": "Blep"
+      },
+      {
+        "trait_type": "Hat",
+        "value": "Flower"
+      },
+      {
+        "trait_type": "Wrap",
+        "value": "None"
+      },
+      {
+        "trait_type": "Charm",
+        "value": "Leaf"
+      }
+    ]
+  }
+]
