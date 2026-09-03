@@ -2,16 +2,12 @@ import { afterimages, afterimageWorks } from "@/data/afterimages";
 import { collection } from "@/data/collection";
 import { inklingSamples } from "@/data/inkling-gallery";
 import { inklings } from "@/data/inklings";
-import { partyPandaSamples } from "@/data/party-panda-gallery";
-import { partyPandas } from "@/data/party-pandas";
 import { hoodkinSamples } from "@/data/hoodkin-gallery";
 import { hoodkins } from "@/data/hoodkins";
 import { birbSamples } from "@/data/birb-gallery";
 import { birbs } from "@/data/birbs";
 import { shookumSamples } from "@/data/shookum-gallery";
 import { shookums } from "@/data/shookums";
-import { mochinSamples } from "@/data/mochin-gallery";
-import { mochins } from "@/data/mochins";
 import { purrkinSamples } from "@/data/purrkin-gallery";
 import { purrkins } from "@/data/purrkins";
 import { sampleMints } from "@/data/gallery";
@@ -23,8 +19,6 @@ import { SHOOKUMS_BASE } from "@/lib/shookums";
 import { HOODKINS_BASE } from "@/lib/hoodkins";
 import { INKLINGS_BASE } from "@/lib/inklings";
 import { LOOPKINS_BASE } from "@/lib/loopkins";
-import { MOCHINS_BASE } from "@/lib/mochins";
-import { PARTY_PANDAS_BASE } from "@/lib/party-pandas";
 import { PURRKINS_BASE } from "@/lib/purrkins";
 import { WICKLINGS_BASE } from "@/lib/wicklings";
 
@@ -32,7 +26,7 @@ export const gallery = {
   name: "NFT Gallery",
   tagline: "Collections on the wall. One drop at a time.",
   description:
-    "NFT Gallery is a house of on-chain collections — each drop keeps its own studio, traits, and launch path. Loopkins is the layered PFP. Afterimages is the 1:1 APNG drop. Inklings is the cartoon-squid PFP GIF drop on Ink. Party Pandas is the cartoon party-panda GIF drop on Base. Wicklings is the paper-lantern PFP GIF drop on Arbitrum. Purrkins is the chibi-cat PFP GIF drop on HyperEVM. Hoodkins is the chibi-raccoon PFP GIF drop on Robinhood Chain. Mochins is the cartoon vinyl-toy mochi PFP GIF drop on Shape. BirbNation is the round-borb robin PFP GIF drop on Robinhood Chain. Halloween Shook'ums is the sheet-ghost PFP GIF drop on Abstract.",
+    "NFT Gallery is a house of on-chain collections — each drop keeps its own studio, traits, and launch path. Loopkins is the layered PFP. Afterimages is the 1:1 APNG drop. Inklings is the cartoon-squid PFP GIF drop on Ink. Wicklings is the paper-lantern PFP GIF drop on Arbitrum. Purrkins is the chibi-cat PFP GIF drop on HyperEVM. Hoodkins is the chibi-raccoon PFP GIF drop on Robinhood Chain. BirbNation is the round-borb robin PFP GIF drop on Robinhood Chain. Halloween Shook'ums is the sheet-ghost PFP GIF drop on Abstract.",
 } as const;
 
 export const projects = [
@@ -91,24 +85,6 @@ export const projects = [
     opensea: inklings.opensea.collection,
   },
   {
-    slug: "party-pandas",
-    href: PARTY_PANDAS_BASE,
-    name: partyPandas.name,
-    symbol: partyPandas.symbol,
-    tagline: partyPandas.tagline,
-    description: partyPandas.description,
-    chain: partyPandas.chain.name,
-    chainId: partyPandas.chain.chainId,
-    supply: partyPandas.supply,
-    cover: "/brand/banner-party-pandas.png",
-    thumb: partyPandaSamples[0].image,
-    status: "on the wall" as const,
-    kind: "layered-pfp" as const,
-    previews: partyPandaSamples.map((mint) => mint.image),
-    studioHref: "/party-pandas/studio" as const,
-    opensea: partyPandas.opensea.collection,
-  },
-  {
     slug: "wicklings",
     href: WICKLINGS_BASE,
     name: wicklings.name,
@@ -161,24 +137,6 @@ export const projects = [
     previews: hoodkinSamples.map((mint) => mint.image),
     studioHref: "/hoodkins/studio" as const,
     opensea: hoodkins.opensea.collection,
-  },
-  {
-    slug: "mochins",
-    href: MOCHINS_BASE,
-    name: mochins.name,
-    symbol: mochins.symbol,
-    tagline: mochins.tagline,
-    description: mochins.description,
-    chain: mochins.chain.name,
-    chainId: mochins.chain.chainId,
-    supply: mochins.supply,
-    cover: "/brand/banner-mochins.png",
-    thumb: mochinSamples[0].image,
-    status: "on the wall" as const,
-    kind: "layered-pfp" as const,
-    previews: mochinSamples.map((mint) => mint.image),
-    studioHref: "/mochins/studio" as const,
-    opensea: mochins.opensea.collection,
   },
   {
     slug: "birbs",

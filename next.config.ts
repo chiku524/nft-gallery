@@ -8,7 +8,6 @@ const nextConfig: NextConfig = {
       { pathname: "/inklings-traits/**", search: "?v=*" },
       { pathname: "/purrkins-traits/**", search: "?v=*" },
       { pathname: "/hoodkins-traits/**", search: "?v=*" },
-      { pathname: "/mochins-traits/**", search: "?v=*" },
       { pathname: "/shookums-traits/**", search: "?v=*" },
     ],
   },

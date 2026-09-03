@@ -54,9 +54,6 @@ __pycache__/
 /generated/inklings/images/
 /generated/inklings/gifs/
 /generated/inklings/json/
-/generated/party-pandas/images/
-/generated/party-pandas/gifs/
-/generated/party-pandas/json/
 /generated/wicklings/images/
 /generated/wicklings/gifs/
 /generated/wicklings/json/
@@ -66,9 +63,6 @@ __pycache__/
 /generated/hoodkins/images/
 /generated/hoodkins/gifs/
 /generated/hoodkins/json/
-/generated/mochins/images/
-/generated/mochins/gifs/
-/generated/mochins/json/
 /generated/birbs/images/
 /generated/birbs/gifs/
 /generated/birbs/json/

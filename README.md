@@ -8,19 +8,15 @@ A house of NFT collections. Each drop is its own sub-project — studio, traits,
 
 **Inklings** is the third: 5,555 cartoon-squid PFP GIFs, for OpenSea on Ink (chain ID `57073`).
 
-**Party Pandas** is the fourth: 4,444 looping cartoon party-panda PFP GIFs with real panda markings, for OpenSea on Base (chain ID `8453`). Same 12-frame GIF clock as Loopkins.
+**Wicklings** is the fourth: 8,888 looping paper-lantern PFP GIFs, for OpenSea on Arbitrum (chain ID `42161`). Same 12-frame GIF clock as Loopkins.
 
-**Wicklings** is the fifth: 8,888 looping paper-lantern PFP GIFs, for OpenSea on Arbitrum (chain ID `42161`). Same 12-frame GIF clock as Loopkins.
+**Purrkins** is the fifth: 10,000 looping chibi-cat PFP GIFs, for OpenSea on HyperEVM (chain ID `999`). Thick outlines, streetwear, pastel desks. Same 12-frame GIF clock as Loopkins.
 
-**Purrkins** is the sixth: 10,000 looping chibi-cat PFP GIFs, for OpenSea on HyperEVM (chain ID `999`). Thick outlines, streetwear, pastel desks. Same 12-frame GIF clock as Loopkins.
+**Hoodkins** is the sixth: 10,000 looping chibi-raccoon PFP GIFs, for OpenSea on Robinhood Chain (chain ID `4663`). Bandit masks, streetwear, ledger desks. Same 12-frame GIF clock as Loopkins.
 
-**Hoodkins** is the seventh: 10,000 looping chibi-raccoon PFP GIFs, for OpenSea on Robinhood Chain (chain ID `4663`). Bandit masks, streetwear, ledger desks. Same 12-frame GIF clock as Loopkins.
+**BirbNation** is the seventh: 2,222 looping round-borb robin PFP GIFs, for OpenSea on Robinhood Chain (chain ID `4663`). One fat sphere, chocolate cap, burnt-orange chest, cream belly. A 12-frame, 90ms clock.
 
-**Mochins** is the eighth: 4,000 looping cartoon vinyl-toy mochi PFP GIFs, for OpenSea on Shape (chain ID `360`). Candy plastic, soft outline, big painted eyes. A 16-frame, 100ms clock.
-
-**BirbNation** is the ninth: 2,222 looping round-borb robin PFP GIFs, for OpenSea on Robinhood Chain (chain ID `4663`). One fat sphere, chocolate cap, burnt-orange chest, cream belly. A 12-frame, 90ms clock.
-
-**Halloween Shook'ums** is the tenth: 5,555 looping sheet-ghost PFP GIFs, for OpenSea on Abstract (chain ID `2741`). Three bodies, one locked skeleton, snap-on hats and charms. A 12-frame, 90ms clock.
+**Halloween Shook'ums** is the eighth: 5,555 looping sheet-ghost PFP GIFs, for OpenSea on Abstract (chain ID `2741`). Three bodies, one locked skeleton, snap-on hats and charms. A 12-frame, 90ms clock.
 
 ## What’s in this repo
 
@@ -30,50 +26,40 @@ A house of NFT collections. Each drop is its own sub-project — studio, traits,
 | `/loopkins` | Loopkins drop, trait loops, gallery, OpenSea notes |
 | `/afterimages` | Afterimages 1:1 drop, viewing room, OpenSea notes |
 | `/inklings` | Inklings drop, trait loops, gallery, OpenSea notes |
-| `/party-pandas` | Party Pandas drop, trait loops, gallery, OpenSea notes |
 | `/wicklings` | Wicklings drop, trait loops, gallery, OpenSea notes |
 | `/purrkins` | Purrkins drop, trait loops, gallery, OpenSea notes |
 | `/hoodkins` | Hoodkins drop, trait loops, gallery, OpenSea notes |
-| `/mochins` | Mochins drop, trait loops, gallery, OpenSea notes |
 | `/birbs` | BirbNation drop, trait loops, gallery, OpenSea notes |
 | `/shookums` | Halloween Shook'ums drop, trait loops, gallery, OpenSea notes |
 | `/studio` | Live APNG layer mixer (Loopkins) |
 | `/inklings/studio` | Live ink-wash mixer (Inklings) |
-| `/party-pandas/studio` | Live party-panda mixer (Party Pandas) |
 | `/wicklings/studio` | Live paper-lantern mixer (Wicklings) |
 | `/purrkins/studio` | Live chibi-cat mixer (Purrkins) |
 | `/hoodkins/studio` | Live chibi-raccoon mixer (Hoodkins) |
-| `/mochins/studio` | Live cartoon vinyl mixer (Mochins) |
 | `/birbs/studio` | Live round-borb robin mixer (BirbNation) |
 | `/shookums/studio` | Live sheet-ghost mixer (Halloween Shook'ums) |
 | `public/traits/` | Loopkins APNG layers (sky, aura, body, face, wear, charm) |
 | `public/afterimages/` | Afterimages 1:1 APNG paintings |
 | `public/inklings-traits/` | Inklings APNG layers (paper, bloom, visage, gaze, mark, adorn) |
-| `public/party-pandas-traits/` | Party Pandas APNG layers (venue, glow, panda, mood, fit, extra) |
 | `public/wicklings-traits/` | Wicklings APNG layers (night, halo, vessel, wick, wrap, drift) |
 | `public/purrkins-traits/` | Purrkins APNG layers (pad, glow, pelt, fit, mug, gear) |
 | `public/hoodkins-traits/` | Hoodkins APNG layers (pad, glow, pelt, fit, mug, gear) |
-| `public/mochins-traits/` | Mochins APNG layers (stage, haze, dough, ears, face, topping, steam) |
 | `public/birbs-traits/` | BirbNation APNG layers (field, plumage, mug, accent) |
 | `public/shookums-traits/` | Halloween Shook'ums APNG layers (night, sheet, mug, hat, wrap, charm) |
 | `generated/` | Flattened Loopkins APNGs, OpenSea GIFs + CSV |
 | `generated/afterimages/` | Afterimages OpenSea GIF pack |
 | `generated/inklings/` | Inklings OpenSea GIF pack |
-| `generated/party-pandas/` | Party Pandas OpenSea GIF pack |
 | `generated/wicklings/` | Wicklings OpenSea GIF pack |
 | `generated/purrkins/` | Purrkins OpenSea GIF pack |
 | `generated/hoodkins/` | Hoodkins OpenSea GIF pack |
-| `generated/mochins/` | Mochins OpenSea GIF pack |
 | `generated/birbs/` | BirbNation OpenSea GIF pack |
 | `generated/shookums/` | Halloween Shook'ums OpenSea GIF pack |
 | `contracts/Loopkins.sol` | ERC-721 with a 10,000 supply cap |
 | `contracts/Afterimages.sol` | ERC-721 that mints a chosen 1:1 (IDs 1–3333) on Ink |
 | `contracts/Inklings.sol` | ERC-721 with a 5,555 supply cap |
-| `contracts/PartyPandas.sol` | ERC-721 with a 4,444 supply cap |
 | `contracts/Wicklings.sol` | ERC-721 with an 8,888 supply cap |
 | `contracts/Purrkins.sol` | ERC-721 with a 10,000 supply cap |
 | `contracts/Hoodkins.sol` | ERC-721 with a 10,000 supply cap |
-| `contracts/Mochins.sol` | ERC-721 with a 4,000 supply cap |
 | `contracts/Birbs.sol` | ERC-721 with a 2,222 supply cap |
 | `contracts/Shookums.sol` | ERC-721 with a 5,555 supply cap |
 
@@ -90,14 +76,12 @@ The app listens on [http://127.0.0.1:43147](http://127.0.0.1:43147).
 - Loopkins: `/loopkins`
 - Afterimages: `/afterimages`
 - Inklings: `/inklings`
-- Party Pandas: `/party-pandas`
 - Wicklings: `/wicklings`
 - Purrkins: `/purrkins`
 - Hoodkins: `/hoodkins`
-- Mochins: `/mochins`
 - BirbNation: `/birbs`
 - Halloween Shook'ums: `/shookums`
-- Trait studio: `/studio` (Loopkins), `/inklings/studio`, `/party-pandas/studio`, `/wicklings/studio`, `/purrkins/studio`, `/hoodkins/studio`, `/mochins/studio`, `/birbs/studio`, or `/shookums/studio`
+- Trait studio: `/studio` (Loopkins), `/inklings/studio`, `/wicklings/studio`, `/purrkins/studio`, `/hoodkins/studio`, `/birbs/studio`, or `/shookums/studio`
 
 ## Generate collections
 
@@ -107,16 +91,12 @@ python3 scripts/generate_collection.py
 python3 scripts/build_afterimages.py
 python3 scripts/build_inklings.py
 python3 scripts/generate_inklings.py
-python3 scripts/build_party_pandas.py
-python3 scripts/generate_party_pandas.py
 python3 scripts/build_wicklings.py
 python3 scripts/generate_wicklings.py
 python3 scripts/build_purrkins.py
 python3 scripts/generate_purrkins.py
 python3 scripts/build_hoodkins.py
 python3 scripts/generate_hoodkins.py
-python3 scripts/build_mochins.py
-python3 scripts/generate_mochins.py
 python3 scripts/build_birbs.py
 python3 scripts/generate_birbs.py
 python3 scripts/build_shookums.py
@@ -124,16 +104,14 @@ python3 scripts/generate_shookums.py
 python3 scripts/gif_bake.py --afterimages
 python3 scripts/gif_bake.py --loopkins --all
 python3 scripts/gif_bake.py --inklings --all
-python3 scripts/gif_bake.py --party-pandas --all
 python3 scripts/gif_bake.py --wicklings --all
 python3 scripts/gif_bake.py --purrkins --all
 python3 scripts/gif_bake.py --hoodkins --all
-python3 scripts/gif_bake.py --mochins --all
 python3 scripts/gif_bake.py --birbs --all
 python3 scripts/gif_bake.py --shookums --all
 ```
 
-Requires Python 3 with Pillow and NumPy. See `docs/loopkins.md`, `docs/afterimages.md`, `docs/inklings.md`, `docs/party-pandas.md`, `docs/wicklings.md`, `docs/purrkins.md`, `docs/hoodkins.md`, `docs/mochins.md`, `docs/birbs.md`, and `docs/shookums.md` for OpenSea Drop upload steps.
+Requires Python 3 with Pillow and NumPy. See `docs/loopkins.md`, `docs/afterimages.md`, `docs/inklings.md`, `docs/wicklings.md`, `docs/purrkins.md`, `docs/hoodkins.md`, `docs/birbs.md`, and `docs/shookums.md` for OpenSea Drop upload steps.
 
 ## Deploy
 
@@ -141,4 +119,4 @@ This is a single Next.js app (one Vercel project). Point Vercel at the GitHub re
 
 ## License
 
-Art and site code in this repository are for the collections on the wall. Swap the zero-address fee recipient in `public/metadata/collection.json`, `public/metadata/afterimages.json`, `public/metadata/inklings.json`, `public/metadata/party-pandas.json`, `public/metadata/wicklings.json`, `public/metadata/purrkins.json`, `public/metadata/hoodkins.json`, `public/metadata/mochins.json`, `public/metadata/birbs.json`, and `public/metadata/shookums.json` before you list.
+Art and site code in this repository are for the collections on the wall. Swap the zero-address fee recipient in `public/metadata/collection.json`, `public/metadata/afterimages.json`, `public/metadata/inklings.json`, `public/metadata/wicklings.json`, `public/metadata/purrkins.json`, `public/metadata/hoodkins.json`, `public/metadata/birbs.json`, and `public/metadata/shookums.json` before you list.

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Bake looping GIFs from Afterimages, Loopkins, Inklings, Party Pandas, Wicklings, Purrkins, Hoodkins, Mochins, Birbs, and Shook'ums APNGs for OpenSea Drops.
+"""Bake looping GIFs from Afterimages, Loopkins, Inklings, Wicklings, Purrkins, Hoodkins, Birbs, and Shook'ums APNGs for OpenSea Drops.
 
 OpenSea Drops play GIF, not APNG. The site keeps the APNGs. This writes
 quantized looping GIFs and points the Studio CSVs at those files.
@@ -26,16 +26,12 @@ AFTER_GIF = ROOT / "generated" / "afterimages" / "gifs"
 AFTER_PUBLIC = ROOT / "public" / "afterimages"
 INKLINGS_APNG = ROOT / "generated" / "inklings" / "images"
 INKLINGS_GIF = ROOT / "generated" / "inklings" / "gifs"
-PANDAS_APNG = ROOT / "generated" / "party-pandas" / "images"
-PANDAS_GIF = ROOT / "generated" / "party-pandas" / "gifs"
 WICKLINGS_APNG = ROOT / "generated" / "wicklings" / "images"
 WICKLINGS_GIF = ROOT / "generated" / "wicklings" / "gifs"
 PURRKINS_APNG = ROOT / "generated" / "purrkins" / "images"
 PURRKINS_GIF = ROOT / "generated" / "purrkins" / "gifs"
 HOODKINS_APNG = ROOT / "generated" / "hoodkins" / "images"
 HOODKINS_GIF = ROOT / "generated" / "hoodkins" / "gifs"
-MOCHINS_APNG = ROOT / "generated" / "mochins" / "images"
-MOCHINS_GIF = ROOT / "generated" / "mochins" / "gifs"
 BIRBS_APNG = ROOT / "generated" / "birbs" / "images"
 BIRBS_GIF = ROOT / "generated" / "birbs" / "gifs"
 SHOOKUMS_APNG = ROOT / "generated" / "shookums" / "images"
@@ -44,21 +40,17 @@ SHOOKUMS_GIF = ROOT / "generated" / "shookums" / "gifs"
 LOOPKINS_DURATION_MS = 80
 AFTER_DURATION_MS = 100
 INKLINGS_DURATION_MS = 90
-PANDAS_DURATION_MS = 80
 WICKLINGS_DURATION_MS = 80
 PURRKINS_DURATION_MS = 80
 HOODKINS_DURATION_MS = 80
-MOCHINS_DURATION_MS = 100
 BIRBS_DURATION_MS = 90
 SHOOKUMS_DURATION_MS = 90
 LOOPKINS_TOTAL = 10_000
 AFTER_TOTAL = 3333
 INKLINGS_TOTAL = 5555
-PANDAS_TOTAL = 4444
 WICKLINGS_TOTAL = 8888
 PURRKINS_TOTAL = 10_000
 HOODKINS_TOTAL = 10_000
-MOCHINS_TOTAL = 4_000
 BIRBS_TOTAL = 2_222
 SHOOKUMS_TOTAL = 5_555
 
@@ -192,26 +184,22 @@ def main() -> None:
     parser.add_argument("--afterimages", action="store_true", help="Bake Afterimages GIFs only")
     parser.add_argument("--loopkins", action="store_true", help="Bake Loopkins GIFs only")
     parser.add_argument("--inklings", action="store_true", help="Bake Inklings GIFs only")
-    parser.add_argument("--party-pandas", action="store_true", help="Bake Party Pandas GIFs only")
     parser.add_argument("--wicklings", action="store_true", help="Bake Wicklings GIFs only")
     parser.add_argument("--purrkins", action="store_true", help="Bake Purrkins GIFs only")
     parser.add_argument("--hoodkins", action="store_true", help="Bake Hoodkins GIFs only")
-    parser.add_argument("--mochins", action="store_true", help="Bake Mochins GIFs only")
     parser.add_argument("--birbs", action="store_true", help="Bake Birbs GIFs only")
     parser.add_argument("--shookums", action="store_true", help="Bake Halloween Shook'ums GIFs only")
     parser.add_argument("--all", action="store_true", help="Bake the full collection supply")
     parser.add_argument("--count", type=int, default=16, help="Count when not using --all")
     parser.add_argument("--workers", type=int, default=max(1, min(6, cpu_count() or 1)))
     args = parser.parse_args()
-    selected = args.afterimages or args.loopkins or args.inklings or args.party_pandas or args.wicklings or args.purrkins or args.hoodkins or args.mochins or args.birbs or args.shookums
+    selected = args.afterimages or args.loopkins or args.inklings or args.wicklings or args.purrkins or args.hoodkins or args.birbs or args.shookums
     do_after = args.afterimages or not selected
     do_loopkins = args.loopkins or not selected
     do_inklings = args.inklings or not selected
-    do_pandas = args.party_pandas or not selected
     do_wicklings = args.wicklings or not selected
     do_purrkins = args.purrkins or not selected
     do_hoodkins = args.hoodkins or not selected
-    do_mochins = args.mochins or not selected
     do_birbs = args.birbs or not selected
     do_shookums = args.shookums or not selected
 
@@ -260,22 +248,6 @@ def main() -> None:
             encoding="utf-8",
         )
 
-    if do_pandas:
-        count = PANDAS_TOTAL if args.all else min(args.count, PANDAS_TOTAL)
-        panda_jobs = jobs_for(PANDAS_APNG, PANDAS_GIF, count, PANDAS_DURATION_MS)
-        bake("Party Pandas", panda_jobs, args.workers)
-        rewrite_csv_filenames(ROOT / "generated" / "party-pandas" / "opensea-metadata.csv")
-        rewrite_csv_filenames(ROOT / "generated" / "party-pandas" / "PARTY-PANDAS-opensea-drop.csv")
-        (ROOT / "generated" / "party-pandas" / "README.md").write_text(
-            "# Party Pandas OpenSea pack\n\n"
-            f"{count:,} flattened party-panda loops at 512×512, 12 frames, 80ms.\n\n"
-            "Upload every file in `gifs/` (1.gif–4444.gif) plus `PARTY-PANDAS-opensea-drop.csv` "
-            "or `opensea-metadata.csv` to an OpenSea Drop on Base.\n"
-            "OpenSea Drops play GIF, not APNG. APNGs stay in `images/` for the site and restacks.\n"
-            "The CSV uses OpenSea Studio headers: tokenID, name, description, file_name, and attributes[Trait].\n",
-            encoding="utf-8",
-        )
-
     if do_wicklings:
         count = WICKLINGS_TOTAL if args.all else min(args.count, WICKLINGS_TOTAL)
         wick_jobs = jobs_for(WICKLINGS_APNG, WICKLINGS_GIF, count, WICKLINGS_DURATION_MS)
@@ -319,22 +291,6 @@ def main() -> None:
             f"{count:,} flattened chibi-raccoon loops at 512×512, 12 frames, 80ms.\n\n"
             f"Upload every file in `gifs/` (1.gif–{count}.gif) plus `HOODKINS-opensea-drop.csv` "
             "or `opensea-metadata.csv` to an OpenSea Drop on Robinhood Chain.\n"
-            "OpenSea Drops play GIF, not APNG. APNGs stay in `images/` for the site and restacks.\n"
-            "The CSV uses OpenSea Studio headers: tokenID, name, description, file_name, and attributes[Trait].\n",
-            encoding="utf-8",
-        )
-
-    if do_mochins:
-        count = MOCHINS_TOTAL if args.all else min(args.count, MOCHINS_TOTAL)
-        mochi_jobs = jobs_for(MOCHINS_APNG, MOCHINS_GIF, count, MOCHINS_DURATION_MS)
-        bake("Mochins", mochi_jobs, args.workers)
-        rewrite_csv_filenames(ROOT / "generated" / "mochins" / "opensea-metadata.csv")
-        rewrite_csv_filenames(ROOT / "generated" / "mochins" / "MOCHINS-opensea-drop.csv")
-        (ROOT / "generated" / "mochins" / "README.md").write_text(
-            "# Mochins OpenSea pack\n\n"
-            f"{count:,} flattened cartoon vinyl-toy mochi loops at 512×512, 16 frames, 100ms.\n\n"
-            f"Upload every file in `gifs/` (1.gif–{count}.gif) plus `MOCHINS-opensea-drop.csv` "
-            "or `opensea-metadata.csv` to an OpenSea Drop on Shape.\n"
             "OpenSea Drops play GIF, not APNG. APNGs stay in `images/` for the site and restacks.\n"
             "The CSV uses OpenSea Studio headers: tokenID, name, description, file_name, and attributes[Trait].\n",
             encoding="utf-8",
