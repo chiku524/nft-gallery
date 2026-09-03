@@ -8,8 +8,8 @@ import { birbSamples } from "@/data/birb-gallery";
 import { birbs } from "@/data/birbs";
 import { shookumSamples } from "@/data/shookum-gallery";
 import { shookums } from "@/data/shookums";
-import { foxkinSamples } from "@/data/foxkin-gallery";
-import { foxkins } from "@/data/foxkins";
+import { foxinSamples } from "@/data/foxin-gallery";
+import { foxins } from "@/data/foxins";
 import { purrkinSamples } from "@/data/purrkin-gallery";
 import { purrkins } from "@/data/purrkins";
 import { sampleMints } from "@/data/gallery";
@@ -18,7 +18,7 @@ import { wicklings } from "@/data/wicklings";
 import { AFTERIMAGES_BASE } from "@/lib/afterimages";
 import { BIRBS_BASE } from "@/lib/birbs";
 import { SHOOKUMS_BASE } from "@/lib/shookums";
-import { FOXKINS_BASE } from "@/lib/foxkins";
+import { FOXINS_BASE } from "@/lib/foxins";
 import { HOODKINS_BASE } from "@/lib/hoodkins";
 import { INKLINGS_BASE } from "@/lib/inklings";
 import { LOOPKINS_BASE } from "@/lib/loopkins";
@@ -29,7 +29,7 @@ export const gallery = {
   name: "NFT Gallery",
   tagline: "Collections on the wall. One drop at a time.",
   description:
-    "NFT Gallery is a house of on-chain collections — each drop keeps its own studio, traits, and launch path. Loopkins is the layered PFP. Afterimages is the 1:1 APNG drop. Inklings is the cartoon-squid PFP GIF drop on Ink. Wicklings is the paper-lantern PFP GIF drop on Arbitrum. Purrkins is the chibi-cat PFP GIF drop on HyperEVM. Hoodkins is the chibi-raccoon PFP GIF drop on Robinhood Chain. BirbNation is the round-borb robin PFP GIF drop on Robinhood Chain. Halloween Shook'ums is the sheet-ghost PFP GIF drop on Abstract. Foxkins is the bold-graphic fox PFP GIF drop on Base.",
+    "NFT Gallery is a house of on-chain collections — each drop keeps its own studio, traits, and launch path. Loopkins is the layered PFP. Afterimages is the 1:1 APNG drop. Inklings is the cartoon-squid PFP GIF drop on Ink. Wicklings is the paper-lantern PFP GIF drop on Arbitrum. Purrkins is the chibi-cat PFP GIF drop on HyperEVM. Hoodkins is the chibi-raccoon PFP GIF drop on Robinhood Chain. BirbNation is the round-borb robin PFP GIF drop on Robinhood Chain. Halloween Shook'ums is the sheet-ghost PFP GIF drop on Abstract. Foxins is the bold-graphic fox PFP GIF drop on Base.",
 } as const;
 
 export const projects = [
@@ -178,22 +178,22 @@ export const projects = [
     opensea: shookums.opensea.collection,
   },
   {
-    slug: "foxkins",
-    href: FOXKINS_BASE,
-    name: foxkins.name,
-    symbol: foxkins.symbol,
-    tagline: foxkins.tagline,
-    description: foxkins.description,
-    chain: foxkins.chain.name,
-    chainId: foxkins.chain.chainId,
-    supply: foxkins.supply,
-    cover: "/brand/banner-foxkins.png",
-    thumb: foxkinSamples[0].image,
+    slug: "foxins",
+    href: FOXINS_BASE,
+    name: foxins.name,
+    symbol: foxins.symbol,
+    tagline: foxins.tagline,
+    description: foxins.description,
+    chain: foxins.chain.name,
+    chainId: foxins.chain.chainId,
+    supply: foxins.supply,
+    cover: "/brand/banner-foxins.png",
+    thumb: foxinSamples[0].image,
     status: "new on the wall" as const,
     kind: "layered-pfp" as const,
-    previews: foxkinSamples.map((mint) => mint.image),
-    studioHref: "/foxkins/studio" as const,
-    opensea: foxkins.opensea.collection,
+    previews: foxinSamples.map((mint) => mint.image),
+    studioHref: "/foxins/studio" as const,
+    opensea: foxins.opensea.collection,
   },
 ] as const;
 

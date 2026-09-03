@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Bake looping GIFs from Afterimages, Loopkins, Inklings, Wicklings, Purrkins, Hoodkins, Birbs, Shook'ums, and Foxkins APNGs for OpenSea Drops.
+"""Bake looping GIFs from Afterimages, Loopkins, Inklings, Wicklings, Purrkins, Hoodkins, Birbs, Shook'ums, and Foxins APNGs for OpenSea Drops.
 
 OpenSea Drops play GIF, not APNG. The site keeps the APNGs. This writes
 quantized looping GIFs and points the Studio CSVs at those files.
@@ -36,8 +36,8 @@ BIRBS_APNG = ROOT / "generated" / "birbs" / "images"
 BIRBS_GIF = ROOT / "generated" / "birbs" / "gifs"
 SHOOKUMS_APNG = ROOT / "generated" / "shookums" / "images"
 SHOOKUMS_GIF = ROOT / "generated" / "shookums" / "gifs"
-FOXKINS_APNG = ROOT / "generated" / "foxkins" / "images"
-FOXKINS_GIF = ROOT / "generated" / "foxkins" / "gifs"
+FOXINS_APNG = ROOT / "generated" / "foxins" / "images"
+FOXINS_GIF = ROOT / "generated" / "foxins" / "gifs"
 
 LOOPKINS_DURATION_MS = 80
 AFTER_DURATION_MS = 100
@@ -47,7 +47,7 @@ PURRKINS_DURATION_MS = 80
 HOODKINS_DURATION_MS = 80
 BIRBS_DURATION_MS = 90
 SHOOKUMS_DURATION_MS = 90
-FOXKINS_DURATION_MS = 90
+FOXINS_DURATION_MS = 90
 LOOPKINS_TOTAL = 10_000
 AFTER_TOTAL = 3333
 INKLINGS_TOTAL = 5555
@@ -56,7 +56,7 @@ PURRKINS_TOTAL = 10_000
 HOODKINS_TOTAL = 10_000
 BIRBS_TOTAL = 2_222
 SHOOKUMS_TOTAL = 5_555
-FOXKINS_TOTAL = 5_555
+FOXINS_TOTAL = 5_555
 
 
 def load_apng_frames(path: Path) -> tuple[list[Image.Image], int]:
@@ -193,12 +193,12 @@ def main() -> None:
     parser.add_argument("--hoodkins", action="store_true", help="Bake Hoodkins GIFs only")
     parser.add_argument("--birbs", action="store_true", help="Bake Birbs GIFs only")
     parser.add_argument("--shookums", action="store_true", help="Bake Halloween Shook'ums GIFs only")
-    parser.add_argument("--foxkins", action="store_true", help="Bake Foxkins GIFs only")
+    parser.add_argument("--foxins", action="store_true", help="Bake Foxins GIFs only")
     parser.add_argument("--all", action="store_true", help="Bake the full collection supply")
     parser.add_argument("--count", type=int, default=16, help="Count when not using --all")
     parser.add_argument("--workers", type=int, default=max(1, min(6, cpu_count() or 1)))
     args = parser.parse_args()
-    selected = args.afterimages or args.loopkins or args.inklings or args.wicklings or args.purrkins or args.hoodkins or args.birbs or args.shookums or args.foxkins
+    selected = args.afterimages or args.loopkins or args.inklings or args.wicklings or args.purrkins or args.hoodkins or args.birbs or args.shookums or args.foxins
     do_after = args.afterimages or not selected
     do_loopkins = args.loopkins or not selected
     do_inklings = args.inklings or not selected
@@ -207,7 +207,7 @@ def main() -> None:
     do_hoodkins = args.hoodkins or not selected
     do_birbs = args.birbs or not selected
     do_shookums = args.shookums or not selected
-    do_foxkins = args.foxkins or not selected
+    do_foxins = args.foxins or not selected
 
     if do_after:
         after_jobs = jobs_for(AFTER_APNG, AFTER_GIF, AFTER_TOTAL, AFTER_DURATION_MS)
@@ -334,16 +334,16 @@ def main() -> None:
             encoding="utf-8",
         )
 
-    if do_foxkins:
-        count = FOXKINS_TOTAL if args.all else min(args.count, FOXKINS_TOTAL)
-        fox_jobs = jobs_for(FOXKINS_APNG, FOXKINS_GIF, count, FOXKINS_DURATION_MS)
-        bake("Foxkins", fox_jobs, args.workers)
-        rewrite_csv_filenames(ROOT / "generated" / "foxkins" / "opensea-metadata.csv")
-        rewrite_csv_filenames(ROOT / "generated" / "foxkins" / "FOXKINS-opensea-drop.csv")
-        (ROOT / "generated" / "foxkins" / "README.md").write_text(
-            "# Foxkins OpenSea pack\n\n"
+    if do_foxins:
+        count = FOXINS_TOTAL if args.all else min(args.count, FOXINS_TOTAL)
+        fox_jobs = jobs_for(FOXINS_APNG, FOXINS_GIF, count, FOXINS_DURATION_MS)
+        bake("Foxins", fox_jobs, args.workers)
+        rewrite_csv_filenames(ROOT / "generated" / "foxins" / "opensea-metadata.csv")
+        rewrite_csv_filenames(ROOT / "generated" / "foxins" / "FOXINS-opensea-drop.csv")
+        (ROOT / "generated" / "foxins" / "README.md").write_text(
+            "# Foxins OpenSea pack\n\n"
             f"{count:,} flattened bold-graphic fox loops at 512×512, 12 frames, 90ms.\n\n"
-            f"Upload every file in `gifs/` (1.gif–{count}.gif) plus `FOXKINS-opensea-drop.csv` "
+            f"Upload every file in `gifs/` (1.gif–{count}.gif) plus `FOXINS-opensea-drop.csv` "
             "or `opensea-metadata.csv` to an OpenSea Drop on Base.\n"
             "OpenSea Drops play GIF, not APNG. APNGs stay in `images/` for the site and restacks.\n"
             "The CSV uses OpenSea Studio headers: tokenID, name, description, file_name, and attributes[Trait].\n",
