@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Bake looping GIFs from Afterimages, Loopkins, Inklings, Party Pandas, Wicklings, Purrkins, Hoodkins, Mochins, and Birbs APNGs for OpenSea Drops.
+"""Bake looping GIFs from Afterimages, Loopkins, Inklings, Party Pandas, Wicklings, Purrkins, Hoodkins, Mochins, Birbs, and Shook'ums APNGs for OpenSea Drops.
 
 OpenSea Drops play GIF, not APNG. The site keeps the APNGs. This writes
 quantized looping GIFs and points the Studio CSVs at those files.
@@ -38,6 +38,8 @@ MOCHINS_APNG = ROOT / "generated" / "mochins" / "images"
 MOCHINS_GIF = ROOT / "generated" / "mochins" / "gifs"
 BIRBS_APNG = ROOT / "generated" / "birbs" / "images"
 BIRBS_GIF = ROOT / "generated" / "birbs" / "gifs"
+SHOOKUMS_APNG = ROOT / "generated" / "shookums" / "images"
+SHOOKUMS_GIF = ROOT / "generated" / "shookums" / "gifs"
 
 LOOPKINS_DURATION_MS = 80
 AFTER_DURATION_MS = 100
@@ -48,6 +50,7 @@ PURRKINS_DURATION_MS = 80
 HOODKINS_DURATION_MS = 80
 MOCHINS_DURATION_MS = 100
 BIRBS_DURATION_MS = 90
+SHOOKUMS_DURATION_MS = 90
 LOOPKINS_TOTAL = 10_000
 AFTER_TOTAL = 3333
 INKLINGS_TOTAL = 5555
@@ -57,6 +60,7 @@ PURRKINS_TOTAL = 10_000
 HOODKINS_TOTAL = 10_000
 MOCHINS_TOTAL = 4_000
 BIRBS_TOTAL = 2_222
+SHOOKUMS_TOTAL = 5_555
 
 
 def load_apng_frames(path: Path) -> tuple[list[Image.Image], int]:
@@ -194,11 +198,12 @@ def main() -> None:
     parser.add_argument("--hoodkins", action="store_true", help="Bake Hoodkins GIFs only")
     parser.add_argument("--mochins", action="store_true", help="Bake Mochins GIFs only")
     parser.add_argument("--birbs", action="store_true", help="Bake Birbs GIFs only")
+    parser.add_argument("--shookums", action="store_true", help="Bake Halloween Shook'ums GIFs only")
     parser.add_argument("--all", action="store_true", help="Bake the full collection supply")
     parser.add_argument("--count", type=int, default=16, help="Count when not using --all")
     parser.add_argument("--workers", type=int, default=max(1, min(6, cpu_count() or 1)))
     args = parser.parse_args()
-    selected = args.afterimages or args.loopkins or args.inklings or args.party_pandas or args.wicklings or args.purrkins or args.hoodkins or args.mochins or args.birbs
+    selected = args.afterimages or args.loopkins or args.inklings or args.party_pandas or args.wicklings or args.purrkins or args.hoodkins or args.mochins or args.birbs or args.shookums
     do_after = args.afterimages or not selected
     do_loopkins = args.loopkins or not selected
     do_inklings = args.inklings or not selected
@@ -208,6 +213,7 @@ def main() -> None:
     do_hoodkins = args.hoodkins or not selected
     do_mochins = args.mochins or not selected
     do_birbs = args.birbs or not selected
+    do_shookums = args.shookums or not selected
 
     if do_after:
         after_jobs = jobs_for(AFTER_APNG, AFTER_GIF, AFTER_TOTAL, AFTER_DURATION_MS)
@@ -345,6 +351,22 @@ def main() -> None:
             f"{count:,} flattened round-borb robin loops at 512×512, 12 frames, 90ms.\n\n"
             f"Upload every file in `gifs/` (1.gif–{count}.gif) plus `BIRBS-opensea-drop.csv` "
             "or `opensea-metadata.csv` to an OpenSea Drop on Robinhood Chain.\n"
+            "OpenSea Drops play GIF, not APNG. APNGs stay in `images/` for the site and restacks.\n"
+            "The CSV uses OpenSea Studio headers: tokenID, name, description, file_name, and attributes[Trait].\n",
+            encoding="utf-8",
+        )
+
+    if do_shookums:
+        count = SHOOKUMS_TOTAL if args.all else min(args.count, SHOOKUMS_TOTAL)
+        shook_jobs = jobs_for(SHOOKUMS_APNG, SHOOKUMS_GIF, count, SHOOKUMS_DURATION_MS)
+        bake("Halloween Shook'ums", shook_jobs, args.workers)
+        rewrite_csv_filenames(ROOT / "generated" / "shookums" / "opensea-metadata.csv")
+        rewrite_csv_filenames(ROOT / "generated" / "shookums" / "SHOOKUMS-opensea-drop.csv")
+        (ROOT / "generated" / "shookums" / "README.md").write_text(
+            "# Halloween Shook'ums OpenSea pack\n\n"
+            f"{count:,} flattened sheet-ghost loops at 512×512, 12 frames, 90ms.\n\n"
+            f"Upload every file in `gifs/` (1.gif–{count}.gif) plus `SHOOKUMS-opensea-drop.csv` "
+            "or `opensea-metadata.csv` to an OpenSea Drop on Abstract.\n"
             "OpenSea Drops play GIF, not APNG. APNGs stay in `images/` for the site and restacks.\n"
             "The CSV uses OpenSea Studio headers: tokenID, name, description, file_name, and attributes[Trait].\n",
             encoding="utf-8",

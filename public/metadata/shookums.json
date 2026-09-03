@@ -1,0 +1,12 @@
+{
+  "name": "Halloween Shook'ums",
+  "symbol": "SHOOK",
+  "description": "Halloween Shook'ums is a 5,555-piece collection of looping sheet-ghost PFP GIFs. Each Shook'um is stacked from six layers \u2014 night, sheet, mug, hat, wrap, and charm \u2014 then flattened onto one 12-frame GIF. Three bodies. One locked skeleton. Hats sit on the crown. The sheet never changes shape.",
+  "image": "/brand/collection-shookums.gif",
+  "featured_image": "/brand/featured-shookums.jpg",
+  "banner_image": "/brand/banner-shookums.png",
+  "opensea_banner_image": "/brand/banner-shookums-opensea.jpg",
+  "external_link": "/shookums",
+  "seller_fee_basis_points": 500,
+  "fee_recipient": "0x0000000000000000000000000000000000000000"
+}

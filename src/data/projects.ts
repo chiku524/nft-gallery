@@ -8,6 +8,8 @@ import { hoodkinSamples } from "@/data/hoodkin-gallery";
 import { hoodkins } from "@/data/hoodkins";
 import { birbSamples } from "@/data/birb-gallery";
 import { birbs } from "@/data/birbs";
+import { shookumSamples } from "@/data/shookum-gallery";
+import { shookums } from "@/data/shookums";
 import { mochinSamples } from "@/data/mochin-gallery";
 import { mochins } from "@/data/mochins";
 import { purrkinSamples } from "@/data/purrkin-gallery";
@@ -17,6 +19,7 @@ import { wicklingSamples } from "@/data/wickling-gallery";
 import { wicklings } from "@/data/wicklings";
 import { AFTERIMAGES_BASE } from "@/lib/afterimages";
 import { BIRBS_BASE } from "@/lib/birbs";
+import { SHOOKUMS_BASE } from "@/lib/shookums";
 import { HOODKINS_BASE } from "@/lib/hoodkins";
 import { INKLINGS_BASE } from "@/lib/inklings";
 import { LOOPKINS_BASE } from "@/lib/loopkins";
@@ -29,7 +32,7 @@ export const gallery = {
   name: "NFT Gallery",
   tagline: "Collections on the wall. One drop at a time.",
   description:
-    "NFT Gallery is a house of on-chain collections — each drop keeps its own studio, traits, and launch path. Loopkins is the layered PFP. Afterimages is the 1:1 APNG drop. Inklings is the cartoon-squid PFP GIF drop on Ink. Party Pandas is the cartoon party-panda GIF drop on Base. Wicklings is the paper-lantern PFP GIF drop on Arbitrum. Purrkins is the chibi-cat PFP GIF drop on HyperEVM. Hoodkins is the chibi-raccoon PFP GIF drop on Robinhood Chain. Mochins is the cartoon vinyl-toy mochi PFP GIF drop on Shape. BirbNation is the round-borb robin PFP GIF drop on Robinhood Chain.",
+    "NFT Gallery is a house of on-chain collections — each drop keeps its own studio, traits, and launch path. Loopkins is the layered PFP. Afterimages is the 1:1 APNG drop. Inklings is the cartoon-squid PFP GIF drop on Ink. Party Pandas is the cartoon party-panda GIF drop on Base. Wicklings is the paper-lantern PFP GIF drop on Arbitrum. Purrkins is the chibi-cat PFP GIF drop on HyperEVM. Hoodkins is the chibi-raccoon PFP GIF drop on Robinhood Chain. Mochins is the cartoon vinyl-toy mochi PFP GIF drop on Shape. BirbNation is the round-borb robin PFP GIF drop on Robinhood Chain. Halloween Shook'ums is the sheet-ghost PFP GIF drop on Abstract.",
 } as const;
 
 export const projects = [
@@ -189,11 +192,29 @@ export const projects = [
     supply: birbs.supply,
     cover: "/brand/banner-birbs.png",
     thumb: birbSamples[0].image,
-    status: "new on the wall" as const,
+    status: "on the wall" as const,
     kind: "layered-pfp" as const,
     previews: birbSamples.map((mint) => mint.image),
     studioHref: "/birbs/studio" as const,
     opensea: birbs.opensea.collection,
+  },
+  {
+    slug: "shookums",
+    href: SHOOKUMS_BASE,
+    name: shookums.name,
+    symbol: shookums.symbol,
+    tagline: shookums.tagline,
+    description: shookums.description,
+    chain: shookums.chain.name,
+    chainId: shookums.chain.chainId,
+    supply: shookums.supply,
+    cover: "/brand/banner-shookums.png",
+    thumb: shookumSamples[0].image,
+    status: "new on the wall" as const,
+    kind: "layered-pfp" as const,
+    previews: shookumSamples.map((mint) => mint.image),
+    studioHref: "/shookums/studio" as const,
+    opensea: shookums.opensea.collection,
   },
 ] as const;
 

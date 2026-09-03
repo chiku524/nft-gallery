@@ -1,0 +1,17 @@
+{
+  "name": "Halloween Shook'ums",
+  "size": 512,
+  "frames": 12,
+  "durationMs": 90,
+  "format": "apng",
+  "loop": 0,
+  "order": [
+    "night",
+    "sheet",
+    "mug",
+    "hat",
+    "wrap",
+    "charm"
+  ],
+  "note": "Each trait is a looping APNG. Studio stacks them live. Minted tokens flatten to GIF. Three sheet bodies share one skeleton; hats, wraps, and charms never edit the sheet."
+}
