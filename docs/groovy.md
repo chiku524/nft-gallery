@@ -20,11 +20,10 @@ The look is cartoon notation on a shared 12-frame clock: the notehead is the fac
 ```bash
 python3 scripts/build_groovy.py
 python3 scripts/generate_groovy.py        # 16 samples
-python3 scripts/generate_groovy.py --all  # full 8,888 GIFs (stays under OpenSea's 10 GB cap)
-python3 scripts/gif_bake.py --groovy --all
+python3 scripts/generate_groovy.py --all  # full 8,888 GIFs + OpenSea kit
 ```
 
-Requires Python 3 with Pillow and NumPy. Output lands in `generated/groovy/`.
+Requires Python 3 with Pillow and NumPy. The marketplace pack lives in `generated/groovy/`: `gifs/` (`1.gif`–`8888.gif`), `GROOVY-opensea-drop.csv`, `opensea-metadata.csv`, and the kit README. GIFs stay off git; the CSV and sidecar files are committed.
 
 ## Trait stack
 

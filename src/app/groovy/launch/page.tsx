@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 const steps = [
   {
     title: "Traits stay layered. The drop is flattened.",
-    body: "OpenSea does not stack APNG layers for you. Studio is a live compositor. For a Drop you upload finished GIFs plus a CSV. Run the generator to bake each token onto the shared 12-frame clock, then gif_bake.py to make the marketplace loops.",
+    body: "OpenSea does not stack APNG layers for you. Studio is a live compositor. For a Drop you upload finished GIFs plus a CSV. The full 8,888-token pack is already baked in generated/groovy/ — gifs/, GROOVY-opensea-drop.csv, and the kit README.",
   },
   {
     title: "Create a Drop on Robinhood Chain",
