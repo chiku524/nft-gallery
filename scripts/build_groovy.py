@@ -79,6 +79,29 @@ def stem_xy(hx: float, hy: float) -> tuple[float, float, float, float]:
     return sx, sy, sx + 3.0, sy - STEM_LEN
 
 
+def layout(frame: int) -> dict[str, float | tuple[float, float]]:
+    """Shared seat for face, hats, and cables on the cartoon notehead."""
+    hx, hy = head_xy(frame)
+    _dy, swing = beat(frame)
+    ey = hy - HEAD_R * 0.40
+    sl = (hx - HEAD_R * 0.92, hy + 10)
+    la = (sl[0] - 38 - swing * 10, sl[1] - 52 + swing * 34)
+    return {
+        "hx": hx,
+        "hy": hy,
+        "swing": swing,
+        "lx": hx - 30,
+        "rx": hx + 30,
+        "ey": ey,
+        "mouth_y": hy + 20,
+        "crown": hy - HEAD_R,
+        "chin": hy + HEAD_R,
+        "ear_l": (hx - HEAD_R - 10, hy - 28),
+        "ear_r": (hx + HEAD_R + 10, hy - 28),
+        "hand_l": la,
+    }
+
+
 def draw_line(draw: ImageDraw.ImageDraw, a: tuple[float, float], b: tuple[float, float], fill=INK, width: int = LIMB) -> None:
     draw.line((a[0], a[1], b[0], b[1]), fill=fill, width=width, joint="curve")
     r = max(width // 2, 2)
@@ -140,7 +163,7 @@ def paint_venue(kind: str, frame: int) -> Image.Image:
         draw_staff(draw, (180, 255, 210, 80), 3)
     else:
         draw.rectangle((0, 0, SIZE, SIZE), fill=(186, 194, 210, 255))
-        draw.ellipse((40, 40, 240, 220), fill=(230, 236, 246, 255), outline=INK, width=6)
+        draw.ellipse((150, 428, 370, 488), fill=(230, 236, 246, 120))
         draw_staff(draw, (40, 40, 52, 160), 3)
     return img
 
@@ -191,7 +214,7 @@ def draw_notehead(draw: ImageDraw.ImageDraw, hx: float, hy: float, fill, hollow:
         draw_circle(draw, hx, hy, HEAD_R - 16, None, INK, 14)
     else:
         draw_circle(draw, hx, hy, HEAD_R, fill)
-        draw.ellipse((hx - 38, hy - 58, hx + 8, hy - 18), fill=(255, 255, 255, 70))
+        draw.ellipse((hx - 52, hy - 72, hx - 12, hy - 40), fill=(255, 255, 255, 55))
 
 
 def paint_note(kind: str, frame: int) -> Image.Image:
@@ -231,41 +254,48 @@ def paint_note(kind: str, frame: int) -> Image.Image:
 def paint_expression(kind: str, frame: int) -> Image.Image:
     img = blank()
     draw = ImageDraw.Draw(img)
-    hx, hy = head_xy(frame)
+    seat = layout(frame)
+    hx, hy = float(seat["hx"]), float(seat["hy"])
+    lx, rx, ey = float(seat["lx"]), float(seat["rx"]), float(seat["ey"])
+    mouth_y = float(seat["mouth_y"])
     blink = frame in (5, 6)
-    lx, rx = hx - 32, hx + 32
-    ey = hy - HEAD_R * 0.78
 
     def open_eye(x: float, y: float, pupil: tuple[int, int, int, int] = (28, 46, 140, 255)) -> None:
-        draw_circle(draw, x, y, 22, WHITE, INK, 5)
-        draw_circle(draw, x + 5, y + 2, 8, pupil, INK, 2)
-        draw.ellipse((x - 10, y - 12, x - 2, y - 4), fill=WHITE)
+        draw_circle(draw, x, y, 20, WHITE, INK, 5)
+        draw_circle(draw, x + 4, y + 2, 7, pupil, INK, 2)
+        draw.ellipse((x - 9, y - 11, x - 2, y - 4), fill=WHITE)
 
     def shut_eye(x: float, y: float) -> None:
-        draw.arc((x - 20, y - 10, x + 20, y + 14), 200, 340, fill=INK, width=6)
+        draw.arc((x - 18, y - 8, x + 18, y + 12), 200, 340, fill=INK, width=6)
+
+    def cool_eye(x: float, y: float) -> None:
+        draw_circle(draw, x, y, 20, WHITE, INK, 5)
+        draw.pieslice((x - 20, y - 20, x + 20, y + 8), 200, 340, fill=INK)
+        draw_circle(draw, x + 3, y + 6, 5, (28, 46, 140, 255), INK, 2)
 
     def brows(angle: float = -8) -> None:
-        draw.arc((lx - 22, ey - 36, lx + 18, ey - 6), 200 + angle, 340 + angle, fill=INK, width=6)
-        draw.arc((rx - 18, ey - 36, rx + 22, ey - 6), 200 - angle, 340 - angle, fill=INK, width=6)
+        draw.arc((lx - 20, ey - 32, lx + 16, ey - 4), 200 + angle, 340 + angle, fill=INK, width=6)
+        draw.arc((rx - 16, ey - 32, rx + 20, ey - 4), 200 - angle, 340 - angle, fill=INK, width=6)
 
     if kind == "cool":
+        brows(12)
         if blink:
             shut_eye(lx, ey)
             shut_eye(rx, ey)
         else:
-            draw.rounded_rectangle((lx - 28, ey - 10, rx + 28, ey + 16), radius=10, fill=INK)
-            draw.ellipse((lx - 8, ey - 2, lx + 8, ey + 10), fill=(255, 214, 80, 255))
-        draw.arc((hx - 30, hy + 6, hx + 30, hy + 44), 20, 160, fill=INK, width=6)
+            cool_eye(lx, ey)
+            cool_eye(rx, ey)
+        draw.arc((hx - 22, mouth_y - 6, hx + 28, mouth_y + 28), 10, 160, fill=INK, width=6)
     elif kind == "shout":
-        brows(-18)
+        brows(-16)
         if blink:
             shut_eye(lx, ey)
             shut_eye(rx, ey)
         else:
             open_eye(lx, ey)
             open_eye(rx, ey)
-        draw.ellipse((hx - 40, hy - 4, hx + 40, hy + 62), fill=INK, outline=INK, width=4)
-        draw.ellipse((hx - 16, hy + 28, hx + 16, hy + 56), fill=TONGUE)
+        draw.ellipse((hx - 34, mouth_y - 18, hx + 34, mouth_y + 38), fill=INK, outline=INK, width=4)
+        draw.ellipse((hx - 14, mouth_y + 8, hx + 14, mouth_y + 34), fill=TONGUE)
     elif kind == "wink":
         brows(6)
         shut_eye(lx, ey)
@@ -273,12 +303,12 @@ def paint_expression(kind: str, frame: int) -> Image.Image:
             shut_eye(rx, ey)
         else:
             open_eye(rx, ey)
-        draw.arc((hx - 24, hy + 8, hx + 32, hy + 46), 10, 170, fill=INK, width=6)
+        draw.arc((hx - 22, mouth_y - 4, hx + 28, mouth_y + 28), 10, 170, fill=INK, width=6)
     elif kind == "groove":
         brows(0)
-        shut_eye(lx, ey + 4)
-        shut_eye(rx, ey + 4)
-        draw.arc((hx - 34, hy + 2, hx + 34, hy + 50), 10, 170, fill=INK, width=7)
+        shut_eye(lx, ey + 2)
+        shut_eye(rx, ey + 2)
+        draw.arc((hx - 30, mouth_y - 8, hx + 30, mouth_y + 32), 10, 170, fill=INK, width=7)
     else:
         brows(4)
         if blink:
@@ -288,9 +318,9 @@ def paint_expression(kind: str, frame: int) -> Image.Image:
             open_eye(lx, ey, (236, 168, 40, 255))
             open_eye(rx, ey, (236, 168, 40, 255))
             for x in (lx, rx):
-                draw.line((x - 12, ey, x + 12, ey), fill=(255, 214, 80, 255), width=3)
-                draw.line((x, ey - 12, x, ey + 12), fill=(255, 214, 80, 255), width=3)
-        draw.ellipse((hx - 14, hy + 14, hx + 14, hy + 38), fill=TONGUE, outline=INK, width=4)
+                draw.line((x - 11, ey, x + 11, ey), fill=(255, 214, 80, 255), width=3)
+                draw.line((x, ey - 11, x, ey + 11), fill=(255, 214, 80, 255), width=3)
+        draw.ellipse((hx - 12, mouth_y, hx + 12, mouth_y + 22), fill=TONGUE, outline=INK, width=4)
     return img
 
 
@@ -299,26 +329,29 @@ def paint_topper(kind: str, frame: int) -> Image.Image:
         return blank()
     img = blank()
     draw = ImageDraw.Draw(img)
-    hx, hy = head_xy(frame)
-    top = hy - HEAD_R
+    seat = layout(frame)
+    hx, hy = float(seat["hx"]), float(seat["hy"])
+    ey = float(seat["ey"])
+    crown = float(seat["crown"])
     if kind == "afro":
-        for ox, oy, r in ((-30, -86, 42), (30, -88, 42), (0, -108, 46), (-52, -68, 34), (52, -70, 34)):
+        for ox, oy, r in ((-42, -86, 46), (42, -88, 46), (0, -108, 52), (-68, -52, 36), (68, -54, 36)):
             draw_circle(draw, hx + ox, hy + oy, r, (92, 48, 24, 255), INK, 6)
     elif kind == "shades":
-        draw.rounded_rectangle((hx - 64, top - 6, hx + 64, top + 34), radius=12, fill=INK)
-        draw.ellipse((hx - 48, top - 2, hx - 8, top + 28), fill=(40, 36, 48, 255))
-        draw.ellipse((hx + 8, top - 2, hx + 48, top + 28), fill=(40, 36, 48, 255))
-        draw.line((hx - 40, top + 6, hx - 22, top + 14), fill=(255, 220, 90, 255), width=3)
+        draw.rounded_rectangle((hx - 62, ey - 22, hx + 62, ey + 22), radius=14, fill=INK)
+        draw.ellipse((hx - 48, ey - 16, hx - 8, ey + 16), fill=(48, 42, 56, 255))
+        draw.ellipse((hx + 8, ey - 16, hx + 48, ey + 16), fill=(48, 42, 56, 255))
+        draw.line((hx - 40, ey - 8, hx - 18, ey + 2), fill=(255, 220, 90, 255), width=3)
     elif kind == "visor":
+        brim = ey - 16
+        draw.ellipse((hx - 40, crown - 38, hx + 28, brim + 10), fill=(36, 150, 120, 255), outline=INK, width=STROKE)
         draw.polygon(
-            [(hx - 74, top + 18), (hx + 24, top + 18), (hx + 62, top + 42), (hx - 44, top + 42)],
+            [(hx - 78, brim), (hx + 30, brim), (hx + 48, brim + 20), (hx - 60, brim + 20)],
             fill=(48, 196, 150, 255),
             outline=INK,
         )
-        draw.ellipse((hx - 44, top - 52, hx + 44, top + 12), fill=(36, 150, 120, 255), outline=INK, width=STROKE)
     else:
-        draw.ellipse((hx - 42, top - 72, hx + 42, top - 28), outline=(255, 206, 64, 255), width=10)
-        draw.ellipse((hx - 42, top - 72, hx + 42, top - 28), outline=INK, width=4)
+        draw.ellipse((hx - 46, crown - 64, hx + 34, crown - 20), outline=(255, 206, 64, 255), width=12)
+        draw.ellipse((hx - 46, crown - 64, hx + 34, crown - 20), outline=INK, width=4)
     return img
 
 
@@ -327,24 +360,36 @@ def paint_cable(kind: str, frame: int) -> Image.Image:
         return blank()
     img = blank()
     draw = ImageDraw.Draw(img)
-    hx, hy = head_xy(frame)
+    seat = layout(frame)
+    hx, hy = float(seat["hx"]), float(seat["hy"])
+    crown = float(seat["crown"])
+    chin = float(seat["chin"])
     if kind == "chain":
-        for i, t in enumerate((0.15, 0.35, 0.55, 0.75, 0.9)):
-            px = hx - 34 + 68 * t
-            py = hy + HEAD_R * 0.72 + math.sin(t * math.pi) * 8
-            draw.ellipse((px - 10, py - 10, px + 10, py + 10), outline=(240, 186, 48, 255), width=5)
-            draw.ellipse((px - 10, py - 10, px + 10, py + 10), outline=INK, width=2)
+        gold = (240, 186, 48, 255)
+        for t in (0.0, 0.2, 0.4, 0.6, 0.8, 1.0):
+            px = hx - 52 + 104 * t
+            py = chin - 18 + math.sin(t * math.pi) * 26
+            draw.ellipse((px - 13, py - 13, px + 13, py + 13), outline=gold, width=6)
+            draw.ellipse((px - 13, py - 13, px + 13, py + 13), outline=INK, width=2)
     elif kind == "cans":
-        draw.arc((hx - 78, hy - 70, hx + 78, hy + 20), 200, 340, fill=INK, width=10)
-        draw_circle(draw, hx - 78, hy + 4, 22, (210, 216, 230, 255))
-        draw_circle(draw, hx + 78, hy + 4, 22, (210, 216, 230, 255))
-        draw_circle(draw, hx - 78, hy + 4, 10, (48, 24, 36, 255), INK, 3)
-        draw_circle(draw, hx + 78, hy + 4, 10, (48, 24, 36, 255), INK, 3)
+        el = seat["ear_l"]
+        er = seat["ear_r"]
+        assert isinstance(el, tuple) and isinstance(er, tuple)
+        draw.arc((el[0] - 4, crown - 22, er[0] + 4, hy + 10), 200, 340, fill=INK, width=14)
+        for ex, ey in (el, er):
+            draw_circle(draw, ex, ey, 30, INK)
+            draw_circle(draw, ex, ey, 24, (220, 224, 234, 255), INK, 4)
+            draw_circle(draw, ex, ey, 10, (48, 24, 36, 255), INK, 3)
     else:
-        mx, my = hx - 118, hy + 8
-        draw_line(draw, (mx, my + 16), (mx - 8, my + 86), INK, 8)
-        draw_circle(draw, mx, my, 18, (210, 216, 230, 255))
-        draw_circle(draw, mx, my, 9, INK, INK, 2)
+        hand = seat["hand_l"]
+        assert isinstance(hand, tuple)
+        mx, my = hand[0] + 2, hand[1] - 22
+        draw.line((mx, my + 16, mx - 8, my + 78), fill=INK, width=16)
+        draw_circle(draw, mx + 4, my - 6, 26, INK)
+        draw_circle(draw, mx + 4, my - 6, 21, (168, 174, 186, 255), INK, 4)
+        for gy in (-10, -2, 6):
+            draw.line((mx - 8, my - 6 + gy, mx + 16, my - 6 + gy), fill=(52, 48, 58, 255), width=2)
+        draw_circle(draw, mx + 4, my - 6, 6, (32, 28, 36, 255), INK, 2)
     return img
 
 
@@ -356,17 +401,17 @@ def paint_riff(kind: str, frame: int) -> Image.Image:
     t = frame / FRAMES * math.tau
     ox, oy = math.sin(t) * 8, math.cos(t * 1.2) * 10
     if kind == "treble":
-        x, y = 86 + ox, 120 + oy
+        x, y = 454 + ox, 118 + oy
         draw.arc((x - 18, y - 40, x + 28, y + 8), 200, 40, fill=(240, 186, 48, 255), width=8)
         draw.arc((x - 22, y, x + 24, y + 48), 20, 200, fill=(240, 186, 48, 255), width=8)
         draw_circle(draw, x + 4, y + 58, 8, (240, 186, 48, 255), INK, 3)
     elif kind == "vinyl":
-        x, y = 88 + ox * 0.3, 88 + oy * 0.3
-        draw_circle(draw, x, y, 36, INK)
-        draw_circle(draw, x, y, 22, (60, 56, 64, 255), INK, 3)
-        draw_circle(draw, x, y, 8, (220, 64, 130, 255), INK, 3)
+        x, y = 56 + ox * 0.3, 52 + oy * 0.3
+        draw_circle(draw, x, y, 30, INK)
+        draw_circle(draw, x, y, 18, (60, 56, 64, 255), INK, 3)
+        draw_circle(draw, x, y, 7, (220, 64, 130, 255), INK, 3)
     elif kind == "stars":
-        for i, (x, y) in enumerate(((70, 80), (430, 70), (450, 210), (60, 240))):
+        for i, (x, y) in enumerate(((48, 42), (464, 48), (468, 248), (36, 268))):
             s = 8 + 4 * abs(math.sin(t + i))
             draw.polygon(
                 [(x, y - s * 1.6), (x + s * 0.4, y - s * 0.2), (x + s * 1.4, y), (x + s * 0.4, y + s * 0.2), (x, y + s * 1.6), (x - s * 0.4, y + s * 0.2), (x - s * 1.4, y), (x - s * 0.4, y - s * 0.2)],
@@ -374,7 +419,7 @@ def paint_riff(kind: str, frame: int) -> Image.Image:
                 outline=INK,
             )
     else:
-        x, y = 80 + ox, 200 + oy
+        x, y = 448 + ox, 292 + oy
         draw.polygon(
             [(x, y - 36), (x + 22, y - 8), (x + 4, y - 4), (x + 28, y + 40), (x + 2, y + 10), (x + 16, y + 6)],
             fill=(255, 214, 64, 255),
@@ -585,7 +630,7 @@ def write_ts_gallery(samples: list[dict]) -> None:
             "  {\n"
             f"    id: {sample['id']},\n"
             f'    name: "{sample["name"]}",\n'
-            f'    image: "{sample["image"]}?v=3",\n'
+            f'    image: "{sample["image"]}?v=4",\n'
             f"    attributes: [\n      {attrs},\n    ],\n"
             "  }"
         )
