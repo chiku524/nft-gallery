@@ -5,8 +5,8 @@ Every trait is a 12-frame APNG on a shared 512 canvas and 90ms clock.
 Note, expression, topper, and cable share one bounce so faces stay on the head.
 Venue stays a stage. Riff floats on its own pulse.
 
-Look: airbrush, chrome discs, sunset fill, no ink outline, no egg bodies.
-The character is a musical note: a circular head, a stem as a dance partner.
+Look: airbrush chrome on real notation silhouettes. Tilted oval noteheads.
+Thin stems. Flags and beams at the top. Faces live on the head, not a sphere.
 """
 
 from __future__ import annotations
@@ -35,10 +35,14 @@ SRC_DATA = ROOT / "src" / "data"
 H = W = SIZE
 YY, XX = np.indices((H, W), dtype=np.float32)
 
-CX = 256.0
-HEAD_Y = 198.0
-HEAD_R = 90.0
-STEM_LEN = 168.0
+CX = 216.0
+HEAD_Y = 338.0
+HEAD_RX = 92.0
+HEAD_RY = 54.0
+HEAD_ANGLE = -33.0
+NOTE_SHEAR = 0.42
+STEM_LEN = 238.0
+STEM_W = 8.8
 
 VENUES = ("sunset", "lava", "checker", "velvet", "blacklight", "chrome")
 NOTES = ("quarter", "eighth", "whole", "beamed")
@@ -88,6 +92,60 @@ def air_disc(cx: float, cy: float, radius: float, soft: float = 7.0) -> np.ndarr
     return smoothstep(radius + soft, radius - soft, dist)
 
 
+def rotate_xy(cx: float, cy: float, angle_deg: float) -> tuple[np.ndarray, np.ndarray]:
+    ang = math.radians(angle_deg)
+    cos_a, sin_a = math.cos(ang), math.sin(ang)
+    dx = XX - cx
+    dy = YY - cy
+    return dx * cos_a + dy * sin_a, -dx * sin_a + dy * cos_a
+
+
+def air_ellipse(cx: float, cy: float, rx: float, ry: float, angle_deg: float = 0.0, soft: float = 6.0) -> np.ndarray:
+    xr, yr = rotate_xy(cx, cy, angle_deg)
+    rad = np.sqrt((xr / max(rx, 1.0)) ** 2 + (yr / max(ry, 1.0)) ** 2)
+    edge = soft / max(min(rx, ry), 1.0)
+    return smoothstep(1.0 + edge, 1.0 - edge, rad)
+
+
+def air_notehead(
+    cx: float,
+    cy: float,
+    rx: float = HEAD_RX,
+    ry: float = HEAD_RY,
+    angle_deg: float = HEAD_ANGLE,
+    shear: float = NOTE_SHEAR,
+    soft: float = 4.5,
+) -> np.ndarray:
+    xr, yr = rotate_xy(cx, cy, angle_deg)
+    xr = xr + yr * shear
+    rad = np.sqrt((xr / max(rx, 1.0)) ** 2 + (yr / max(ry, 1.0)) ** 2)
+    edge = soft / max(min(rx, ry), 1.0)
+    return smoothstep(1.0 + edge, 1.0 - edge, rad)
+
+
+def air_notehead_ring(
+    cx: float,
+    cy: float,
+    rx: float,
+    ry: float,
+    width: float,
+    angle_deg: float = HEAD_ANGLE,
+    shear: float = NOTE_SHEAR,
+    soft: float = 4.0,
+) -> np.ndarray:
+    outer = air_notehead(cx, cy, rx, ry, angle_deg, shear, soft)
+    inner = air_notehead(cx, cy, max(rx - width, 10.0), max(ry - width * 0.72, 8.0), angle_deg, shear, soft)
+    return clamp01(outer - inner * 0.98)
+
+
+def air_ellipse_ring(
+    cx: float, cy: float, rx: float, ry: float, width: float, angle_deg: float = 0.0, soft: float = 5.0
+) -> np.ndarray:
+    outer = air_ellipse(cx, cy, rx, ry, angle_deg, soft)
+    inner = air_ellipse(cx, cy, max(rx - width, 8.0), max(ry - width, 6.0), angle_deg, soft)
+    return clamp01(outer - inner * 0.96)
+
+
 def air_ring(cx: float, cy: float, radius: float, width: float, soft: float = 6.0) -> np.ndarray:
     dist = np.sqrt((XX - cx) ** 2 + (YY - cy) ** 2)
     inner = radius - width * 0.5
@@ -127,6 +185,47 @@ def chrome_on(alpha: np.ndarray, cx: float, cy: float, rx: float, ry: float, alb
     lit[..., :3] = np.clip(color, 0.0, 1.0)
     lit[..., 3] = a
     return lit
+
+
+def chrome_ellipse(
+    alpha: np.ndarray, cx: float, cy: float, rx: float, ry: float, angle_deg: float, albedo: np.ndarray
+) -> np.ndarray:
+    xr, yr = rotate_xy(cx, cy, angle_deg)
+    nx = xr / max(rx, 1.0)
+    ny = yr / max(ry, 1.0)
+    r2 = nx * nx + ny * ny
+    nz = np.sqrt(np.maximum(0.0, 1.0 - r2))
+    ang = math.radians(angle_deg)
+    cos_a, sin_a = math.cos(ang), math.sin(ang)
+    sx = nx * cos_a - ny * sin_a
+    sy = nx * sin_a + ny * cos_a
+    key = clamp01(sx * 0.52 + sy * -0.38 + nz * 0.76)
+    spec = np.power(key, 16.0)
+    rim = np.power(np.clip(1.0 - nz, 0.0, 1.0), 1.6)
+    fill = clamp01(-sy) * 0.22
+    color = albedo * (0.22 + 0.82 * key)[..., None]
+    color = color + spec[..., None] * np.array([1.0, 0.96, 0.86], dtype=np.float32)
+    color = color + rim[..., None] * albedo * 0.18
+    color = color + fill[..., None] * np.array([0.88, 0.18, 0.58], dtype=np.float32)
+    lit = np.zeros((H, W, 4), dtype=np.float32)
+    a = clamp01(alpha)
+    lit[..., :3] = np.clip(color, 0.0, 1.0)
+    lit[..., 3] = a
+    return lit
+
+
+def air_polyline(pts: list[tuple[float, float]], radius: float, soft: float = 4.0) -> np.ndarray:
+    acc = np.zeros((H, W), dtype=np.float32)
+    for (x0, y0), (x1, y1) in zip(pts, pts[1:]):
+        acc = np.maximum(acc, air_capsule(x0, y0, x1, y1, radius, soft))
+    return acc
+
+
+def stamp_staff(canvas: np.ndarray, color: np.ndarray, alpha: float) -> None:
+    for i in range(5):
+        y = 248.0 + i * 28.0
+        line = smoothstep(2.4, 0.15, np.abs(YY - y)) * smoothstep(36.0, 64.0, XX) * smoothstep(476.0, 448.0, XX)
+        stamp(canvas, color, line * alpha)
 
 
 def beat(frame: int) -> tuple[float, float]:
@@ -209,16 +308,24 @@ def paint_venue(kind: str, frame: int) -> Image.Image:
         highlight = air_disc(180.0, 120.0, 90.0, 70.0)
         stamp(canvas, metal, np.ones((H, W), dtype=np.float32))
         stamp(canvas, np.array([0.92, 0.95, 1.0], dtype=np.float32), highlight * 0.35)
+    if kind == "sunset":
+        stamp_staff(canvas, np.array([0.22, 0.06, 0.12], dtype=np.float32), 0.32)
+    elif kind == "checker":
+        stamp_staff(canvas, np.array([1.0, 0.92, 0.72], dtype=np.float32), 0.18)
+    else:
+        stamp_staff(canvas, np.array([1.0, 0.94, 0.82], dtype=np.float32), 0.28)
     return to_image(canvas)
 
 
-def stem_points(dx: float, dy: float) -> tuple[float, float, float, float]:
-    hx, hy = CX + dx, HEAD_Y + dy
-    sx = hx + 58.0 + dx * 0.4
-    sy = hy + HEAD_R * 0.15
-    ex = sx + 8.0
-    ey = sy + STEM_LEN
-    return sx, sy, ex, ey
+def stem_points(dx: float, dy: float, hx: float | None = None, hy: float | None = None) -> tuple[float, float, float, float]:
+    hx = CX + dx if hx is None else hx
+    hy = HEAD_Y + dy if hy is None else hy
+    ang = math.radians(HEAD_ANGLE)
+    sx = hx + (HEAD_RX * 0.82) * math.cos(ang) + (HEAD_RY * NOTE_SHEAR * 0.35)
+    sy = hy + (HEAD_RX * 0.55) * math.sin(ang)
+    top_x = sx + 2.0
+    top_y = sy - STEM_LEN
+    return sx, sy, top_x, top_y
 
 
 def layer_on(canvas: np.ndarray, piece: np.ndarray) -> None:
@@ -231,41 +338,62 @@ def paint_note(kind: str, frame: int) -> Image.Image:
     albedo = METAL[kind]
     hx, hy = CX + dx, HEAD_Y + dy
 
+    def notehead(cx: float, cy: float, rx: float, ry: float, hollow: bool = False) -> None:
+        if hollow:
+            ring = air_notehead_ring(cx, cy, rx, ry, 16.0)
+            layer_on(canvas, chrome_ellipse(ring, cx, cy, rx, ry, HEAD_ANGLE, albedo))
+        else:
+            head = air_notehead(cx, cy, rx, ry)
+            layer_on(canvas, chrome_ellipse(head, cx, cy, rx, ry, HEAD_ANGLE, albedo))
+
+    def stem(attach_x: float, attach_y: float, top_x: float, top_y: float) -> None:
+        body = air_capsule(attach_x, attach_y, top_x, top_y, STEM_W, 2.4)
+        mx, my = (attach_x + top_x) * 0.5, (attach_y + top_y) * 0.5
+        layer_on(canvas, chrome_on(body, mx, my, 16.0, STEM_LEN * 0.5, albedo * 0.94))
+
+    def flag(top_x: float, top_y: float) -> None:
+        pts = [
+            (top_x + 1.0, top_y + 2.0),
+            (top_x + 22.0, top_y + 8.0),
+            (top_x + 74.0, top_y + 18.0),
+            (top_x + 86.0, top_y + 48.0),
+            (top_x + 62.0, top_y + 86.0),
+            (top_x + 28.0, top_y + 74.0),
+            (top_x + 8.0, top_y + 42.0),
+        ]
+        hook = air_polyline(pts, 8.0, 3.2)
+        fill = air_polyline(
+            [
+                (top_x + 4.0, top_y + 10.0),
+                (top_x + 68.0, top_y + 24.0),
+                (top_x + 70.0, top_y + 52.0),
+                (top_x + 22.0, top_y + 58.0),
+            ],
+            16.0,
+            5.0,
+        )
+        banner = clamp01(hook + fill * 0.9)
+        layer_on(canvas, chrome_on(banner, top_x + 42.0, top_y + 40.0, 48.0, 42.0, albedo))
+
     if kind == "whole":
-        ring = air_ring(hx, hy, HEAD_R * 1.08, 28.0, 8.0)
-        layer_on(canvas, chrome_on(ring, hx, hy, HEAD_R * 1.2, HEAD_R * 1.2, albedo))
-        for fx in (-36.0, 36.0):
-            foot = air_disc(hx + fx, hy + HEAD_R + 18.0, 16.0, 5.0)
-            layer_on(canvas, chrome_on(foot, hx + fx, hy + HEAD_R + 18.0, 16.0, 16.0, albedo * 0.85))
+        notehead(hx, hy, HEAD_RX * 1.12, HEAD_RY * 1.18, hollow=True)
         return to_image(canvas)
 
-    head = air_disc(hx, hy, HEAD_R, 7.0)
-    layer_on(canvas, chrome_on(head, hx, hy, HEAD_R, HEAD_R, albedo))
-    sx, sy, ex, ey = stem_points(dx, dy)
-    stem = air_capsule(sx, sy, ex, ey, 9.5, 4.0)
-    mx, my = (sx + ex) * 0.5, (sy + ey) * 0.5
-    layer_on(canvas, chrome_on(stem, mx, my, 18.0, STEM_LEN * 0.55, albedo * 0.92))
-    shoe = air_disc(ex + 10.0, ey + 6.0, 22.0, 6.0)
-    layer_on(canvas, chrome_on(shoe, ex + 10.0, ey + 6.0, 22.0, 16.0, albedo * 0.8))
+    notehead(hx, hy, HEAD_RX, HEAD_RY)
+    sx, sy, tx, ty = stem_points(dx, dy, hx, hy)
+    stem(sx, sy, tx, ty)
 
     if kind == "eighth":
-        flag = air_capsule(ex, ey - 18.0, ex + 78.0, ey - 70.0, 11.0, 5.0)
-        tip = air_disc(ex + 78.0, ey - 70.0, 18.0, 6.0)
-        layer_on(canvas, chrome_on(flag, ex + 40.0, ey - 44.0, 50.0, 30.0, albedo))
-        layer_on(canvas, chrome_on(tip, ex + 78.0, ey - 70.0, 18.0, 18.0, albedo))
+        flag(tx, ty)
 
     if kind == "beamed":
-        hx2, hy2 = hx + 118.0, hy + 10.0
-        head2 = air_disc(hx2, hy2, HEAD_R * 0.72, 6.0)
-        layer_on(canvas, chrome_on(head2, hx2, hy2, HEAD_R * 0.72, HEAD_R * 0.72, albedo * 0.92))
-        sx2, sy2 = hx2 + 42.0, hy2 + HEAD_R * 0.12
-        ex2, ey2 = sx2 + 6.0, sy2 + STEM_LEN * 0.86
-        stem2 = air_capsule(sx2, sy2, ex2, ey2, 8.0, 4.0)
-        layer_on(canvas, chrome_on(stem2, (sx2 + ex2) * 0.5, (sy2 + ey2) * 0.5, 16.0, STEM_LEN * 0.45, albedo))
-        beam = air_capsule(ex - 4.0, ey - 8.0, ex2 + 4.0, ey2 - 8.0, 10.0, 4.0)
-        layer_on(canvas, chrome_on(beam, (ex + ex2) * 0.5, ey - 8.0, 70.0, 14.0, albedo))
-        shoe2 = air_disc(ex2 + 8.0, ey2 + 4.0, 16.0, 5.0)
-        layer_on(canvas, chrome_on(shoe2, ex2 + 8.0, ey2 + 4.0, 16.0, 12.0, albedo * 0.8))
+        hx2, hy2 = hx + 128.0, hy + 18.0
+        notehead(hx2, hy2, HEAD_RX * 0.92, HEAD_RY * 0.92)
+        sx2, sy2, tx2, ty2 = stem_points(dx, dy, hx2, hy2)
+        stem(sx2, sy2, tx2, ty2)
+        beam = air_capsule(tx - 1.0, ty + 8.0, tx2 + 1.0, ty2 + 8.0, 12.0, 2.8)
+        beam2 = air_capsule(tx - 1.0, ty + 32.0, tx2 + 1.0, ty2 + 32.0, 9.0, 2.6)
+        layer_on(canvas, chrome_on(clamp01(beam + beam2), (tx + tx2) * 0.5, ty + 18.0, 78.0, 24.0, albedo))
 
     return to_image(canvas)
 
@@ -275,8 +403,8 @@ def paint_expression(kind: str, frame: int) -> Image.Image:
     dx, dy = beat(frame)
     hx, hy = CX + dx, HEAD_Y + dy
     blink = frame in (5, 6)
-    lx, rx = hx - 28.0, hx + 28.0
-    ey = hy - 8.0
+    lx, rx = hx - 26.0, hx + 26.0
+    ey = hy - 4.0
 
     def eye(x: float, y: float, shut: bool, starry: bool = False) -> None:
         if shut:
@@ -301,29 +429,29 @@ def paint_expression(kind: str, frame: int) -> Image.Image:
         brow = air_capsule(lx - 18.0, ey - 16.0, lx + 12.0, ey - 10.0, 3.2, 1.8)
         brow2 = air_capsule(rx - 12.0, ey - 10.0, rx + 18.0, ey - 16.0, 3.2, 1.8)
         stamp(canvas, np.array([0.12, 0.04, 0.10], dtype=np.float32), clamp01(brow + brow2))
-        mouth = air_capsule(hx - 22.0, hy + 32.0, hx + 22.0, hy + 30.0, 3.5, 2.0)
+        mouth = air_capsule(hx - 18.0, hy + 22.0, hx + 18.0, hy + 20.0, 3.2, 1.8)
         stamp(canvas, np.array([0.18, 0.04, 0.10], dtype=np.float32), mouth)
     elif kind == "shout":
         eye(lx, ey - 4.0, blink)
         eye(rx, ey - 4.0, blink)
-        mouth = air_disc(hx, hy + 34.0, 18.0, 4.0)
-        hole = air_disc(hx, hy + 34.0, 10.0, 3.0)
+        mouth = air_disc(hx, hy + 24.0, 16.0, 4.0)
+        hole = air_disc(hx, hy + 24.0, 9.0, 3.0)
         stamp(canvas, np.array([0.55, 0.08, 0.22], dtype=np.float32), mouth)
         stamp(canvas, np.array([0.12, 0.02, 0.08], dtype=np.float32), hole)
     elif kind == "wink":
         eye(lx, ey, True)
         eye(rx, ey, blink)
-        mouth = air_disc(hx + 8.0, hy + 30.0, 10.0, 3.0)
+        mouth = air_disc(hx + 6.0, hy + 20.0, 9.0, 3.0)
         stamp(canvas, np.array([0.85, 0.22, 0.45], dtype=np.float32), mouth)
     elif kind == "groove":
         eye(lx, ey + 2.0, True)
         eye(rx, ey + 2.0, True)
-        smile = air_ring(hx, hy + 18.0, 28.0, 8.0, 3.0) * (YY > hy + 16.0)
+        smile = air_ring(hx, hy + 10.0, 24.0, 7.0, 3.0) * (YY > hy + 8.0)
         stamp(canvas, np.array([0.18, 0.05, 0.12], dtype=np.float32), smile)
     else:
         eye(lx, ey, blink, starry=True)
         eye(rx, ey, blink, starry=True)
-        mouth = air_disc(hx, hy + 30.0, 8.0, 3.0)
+        mouth = air_disc(hx, hy + 20.0, 7.0, 3.0)
         stamp(canvas, np.array([0.95, 0.35, 0.55], dtype=np.float32), mouth)
     return to_image(canvas)
 
@@ -335,32 +463,32 @@ def paint_topper(kind: str, frame: int) -> Image.Image:
     dx, dy = beat(frame)
     hx, hy = CX + dx, HEAD_Y + dy
     if kind == "afro":
-        puff = air_disc(hx, hy - 38.0, 108.0, 18.0)
-        inner = air_disc(hx, hy - 8.0, 78.0, 14.0)
-        afro = clamp01(puff - inner * 0.35)
+        puff = air_notehead(hx, hy - 4.0, HEAD_RX + 22.0, HEAD_RY + 26.0, soft=8.0)
+        inner = air_notehead(hx, hy + 2.0, HEAD_RX * 0.98, HEAD_RY * 0.98, soft=3.5)
+        afro = clamp01(puff - inner)
         gold = np.array([0.42, 0.18, 0.08], dtype=np.float32)
         stamp(canvas, gold, afro)
-        sheen = air_disc(hx - 30.0, hy - 70.0, 28.0, 16.0)
+        sheen = air_disc(hx - 34.0, hy - 40.0, 22.0, 12.0)
         stamp(canvas, np.array([0.85, 0.48, 0.18], dtype=np.float32), sheen * afro)
     elif kind == "shades":
-        left = air_capsule(hx - 52.0, hy - 6.0, hx - 8.0, hy - 4.0, 14.0, 4.0)
-        right = air_capsule(hx + 8.0, hy - 4.0, hx + 52.0, hy - 6.0, 14.0, 4.0)
-        bridge = air_capsule(hx - 10.0, hy - 6.0, hx + 10.0, hy - 6.0, 3.5, 1.8)
+        left = air_capsule(hx - 48.0, hy - 4.0, hx - 6.0, hy - 2.0, 12.0, 3.5)
+        right = air_capsule(hx + 6.0, hy - 2.0, hx + 48.0, hy - 4.0, 12.0, 3.5)
+        bridge = air_capsule(hx - 8.0, hy - 4.0, hx + 8.0, hy - 4.0, 3.2, 1.6)
         dark = np.array([0.06, 0.04, 0.08], dtype=np.float32)
         stamp(canvas, dark, clamp01(left + right + bridge))
-        glint = air_capsule(hx - 40.0, hy - 12.0, hx - 22.0, hy - 8.0, 2.2, 1.2)
+        glint = air_capsule(hx - 36.0, hy - 10.0, hx - 20.0, hy - 6.0, 2.0, 1.2)
         stamp(canvas, np.array([1.0, 0.9, 0.55], dtype=np.float32), glint)
     elif kind == "visor":
-        brim = air_capsule(hx - 70.0, hy - 42.0, hx + 40.0, hy - 38.0, 12.0, 5.0)
-        cap = air_disc(hx, hy - 58.0, 52.0, 8.0) * (YY < hy - 28.0)
+        brim = air_capsule(hx - 64.0, hy - 36.0, hx + 36.0, hy - 32.0, 10.0, 4.5)
+        cap = air_ellipse(hx, hy - 38.0, 58.0, 28.0, -8.0, 7.0) * (YY < hy - 18.0)
         visor = np.array([0.18, 0.82, 0.62], dtype=np.float32)
         stamp(canvas, visor * 0.55, cap)
-        layer_on(canvas, chrome_on(brim, hx - 10.0, hy - 40.0, 60.0, 16.0, visor))
+        layer_on(canvas, chrome_on(brim, hx - 10.0, hy - 34.0, 56.0, 14.0, visor))
     else:
-        ring = air_ring(hx, hy - 78.0, 42.0, 10.0, 5.0)
-        glow = air_disc(hx, hy - 78.0, 52.0, 22.0)
-        stamp(canvas, np.array([1.0, 0.86, 0.35], dtype=np.float32), glow * 0.35)
-        layer_on(canvas, chrome_on(ring, hx, hy - 78.0, 48.0, 48.0, np.array([1.0, 0.84, 0.28], dtype=np.float32)))
+        ring = air_ellipse_ring(hx, hy - 58.0, 46.0, 18.0, 9.0, -8.0, 4.0)
+        glow = air_ellipse(hx, hy - 58.0, 54.0, 24.0, -8.0, 16.0)
+        stamp(canvas, np.array([1.0, 0.86, 0.35], dtype=np.float32), glow * 0.32)
+        layer_on(canvas, chrome_ellipse(ring, hx, hy - 58.0, 46.0, 18.0, -8.0, np.array([1.0, 0.84, 0.28], dtype=np.float32)))
     return to_image(canvas)
 
 
@@ -370,32 +498,32 @@ def paint_cable(kind: str, frame: int) -> Image.Image:
     canvas = blank()
     dx, dy = beat(frame)
     hx, hy = CX + dx, HEAD_Y + dy
-    sx, sy, ex, ey = stem_points(dx, dy)
+    sx, sy, tx, ty = stem_points(dx, dy)
     if kind == "chain":
         gold = np.array([0.98, 0.78, 0.22], dtype=np.float32)
-        for i, t in enumerate(np.linspace(0.08, 0.55, 7)):
-            px = sx + (ex - sx) * t + math.sin(i) * 6.0
-            py = sy + (ey - sy) * t
-            link = air_ring(px, py, 11.0, 5.0, 2.5)
-            layer_on(canvas, chrome_on(link, px, py, 12.0, 12.0, gold))
+        for i, t in enumerate(np.linspace(0.12, 0.88, 6)):
+            px = hx - 30.0 + 60.0 * t
+            py = hy + HEAD_RY * 0.62 + math.sin(t * math.pi) * 7.0
+            link = air_ring(px, py, 8.5, 3.8, 1.8)
+            layer_on(canvas, chrome_on(link, px, py, 9.0, 9.0, gold))
     elif kind == "cans":
-        band = air_capsule(hx - 78.0, hy - 20.0, hx + 78.0, hy - 20.0, 6.0, 3.0)
-        left = air_disc(hx - 82.0, hy + 4.0, 24.0, 5.0)
-        right = air_disc(hx + 82.0, hy + 4.0, 24.0, 5.0)
+        band = air_capsule(hx - 72.0, hy - 16.0, hx + 72.0, hy - 16.0, 5.5, 3.0)
+        left = air_disc(hx - 76.0, hy + 2.0, 22.0, 5.0)
+        right = air_disc(hx + 76.0, hy + 2.0, 22.0, 5.0)
         chrome = np.array([0.82, 0.86, 0.95], dtype=np.float32)
-        layer_on(canvas, chrome_on(band, hx, hy - 20.0, 80.0, 10.0, chrome))
-        layer_on(canvas, chrome_on(left, hx - 82.0, hy + 4.0, 24.0, 24.0, chrome))
-        layer_on(canvas, chrome_on(right, hx + 82.0, hy + 4.0, 24.0, 24.0, chrome))
+        layer_on(canvas, chrome_on(band, hx, hy - 16.0, 76.0, 10.0, chrome))
+        layer_on(canvas, chrome_on(left, hx - 76.0, hy + 2.0, 22.0, 22.0, chrome))
+        layer_on(canvas, chrome_on(right, hx + 76.0, hy + 2.0, 22.0, 22.0, chrome))
         pad = np.array([0.18, 0.06, 0.12], dtype=np.float32)
-        stamp(canvas, pad, air_disc(hx - 82.0, hy + 4.0, 12.0, 3.0))
-        stamp(canvas, pad, air_disc(hx + 82.0, hy + 4.0, 12.0, 3.0))
+        stamp(canvas, pad, air_disc(hx - 76.0, hy + 2.0, 11.0, 3.0))
+        stamp(canvas, pad, air_disc(hx + 76.0, hy + 2.0, 11.0, 3.0))
     else:
-        stick = air_capsule(hx + 88.0, hy + 10.0, hx + 130.0, hy + 92.0, 5.0, 3.0)
-        ball = air_disc(hx + 88.0, hy + 8.0, 20.0, 5.0)
-        mesh = air_disc(hx + 88.0, hy + 8.0, 12.0, 3.0)
+        stick = air_capsule(hx - 96.0, hy - 8.0, hx - 128.0, hy + 72.0, 5.0, 3.0)
+        ball = air_disc(hx - 96.0, hy - 10.0, 18.0, 5.0)
+        mesh = air_disc(hx - 96.0, hy - 10.0, 11.0, 3.0)
         silver = np.array([0.78, 0.82, 0.9], dtype=np.float32)
-        layer_on(canvas, chrome_on(stick, hx + 110.0, hy + 50.0, 12.0, 50.0, silver))
-        layer_on(canvas, chrome_on(ball, hx + 88.0, hy + 8.0, 20.0, 20.0, silver))
+        layer_on(canvas, chrome_on(stick, hx - 112.0, hy + 32.0, 12.0, 46.0, silver))
+        layer_on(canvas, chrome_on(ball, hx - 96.0, hy - 10.0, 18.0, 18.0, silver))
         stamp(canvas, np.array([0.12, 0.1, 0.14], dtype=np.float32), mesh)
     return to_image(canvas)
 
@@ -408,7 +536,7 @@ def paint_riff(kind: str, frame: int) -> Image.Image:
     oy = pulse(frame, 12.0, 1.8)
     if kind == "treble":
         gold = np.array([0.98, 0.82, 0.28], dtype=np.float32)
-        x, y = 400.0 + ox, 300.0 + oy
+        x, y = 86.0 + ox, 118.0 + oy
         s = air_capsule(x, y - 50.0, x + 18.0, y - 10.0, 7.0, 3.0)
         s2 = air_capsule(x + 18.0, y - 10.0, x - 8.0, y + 28.0, 7.0, 3.0)
         s3 = air_capsule(x - 8.0, y + 28.0, x + 22.0, y + 58.0, 7.0, 3.0)
@@ -421,7 +549,7 @@ def paint_riff(kind: str, frame: int) -> Image.Image:
         ):
             layer_on(canvas, chrome_on(piece, px, py, rx, ry, gold))
     elif kind == "vinyl":
-        x, y = 92.0 + ox * 0.4, 378.0 + oy * 0.3
+        x, y = 86.0 + ox * 0.4, 92.0 + oy * 0.3
         disc = air_disc(x, y, 48.0, 6.0)
         groove = air_ring(x, y, 32.0, 3.0, 2.0) + air_ring(x, y, 22.0, 3.0, 2.0)
         hole = air_disc(x, y, 8.0, 2.0)
@@ -438,7 +566,7 @@ def paint_riff(kind: str, frame: int) -> Image.Image:
             burst = burst + air_capsule(cx, cy - r * 1.8, cx, cy + r * 1.8, 2.2, 1.4)
             stamp(canvas, gold, clamp01(burst) * (0.7 + 0.3 * s))
     else:
-        x, y = 400.0 + ox, 120.0 + oy
+        x, y = 78.0 + ox, 200.0 + oy
         bolt = (
             air_capsule(x, y - 36.0, x + 18.0, y - 8.0, 6.0, 3.0)
             + air_capsule(x + 18.0, y - 8.0, x - 10.0, y + 8.0, 6.0, 3.0)
@@ -537,16 +665,16 @@ TRAIT_LABELS = (
 COLLECTION_DESCRIPTION = (
     "Groovy Nation is an 8,888-piece collection of looping musical-note PFP GIFs. "
     "Each citizen is stacked from six layers — venue, note, expression, topper, cable, and riff — "
-    "then flattened onto one 12-frame GIF. Airbrushed chrome. Sunset fill. Notes that dance."
+    "then flattened onto one 12-frame GIF. Real notation silhouettes: tilted oval heads, thin stems, flags and beams at the top."
 )
 
 COLLECTION_STORY = (
     "Welcome to Groovy Nation.\n\n"
     "An 8,888-piece collection of looping musical-note PFP GIFs on Robinhood Chain. "
     "Each citizen is stacked from six layers — venue, note, expression, topper, cable, and riff — "
-    "then flattened onto one 12-frame GIF. Chrome note-heads. Stems that dance. Lava-lamp stages.\n\n"
-    "Four notes only: quarter, eighth, whole, and beamed. The drawing stays airbrushed — "
-    "soft discs, sunset fill, no ink outline. Shades sit on the head. Chains hang on the stem. "
+    "then flattened onto one 12-frame GIF. Tilted oval noteheads. Thin stems going up. Flags and beams at the top. Lava-lamp stages.\n\n"
+    "Four notes only: quarter, eighth, whole, and beamed. The drawing stays airbrushed chrome on real notation — "
+    "not a sphere with a stick. Shades sit on the head. Chains hang on the stem. "
     "Riffs float beside the beat. One shared clock.\n\n"
     "Minting on Robinhood Chain (chain ID 4663). Gas is ETH."
 )
@@ -616,7 +744,7 @@ def build_traits(only: str | None = None, ids: list[str] | None = None) -> None:
         "format": "apng",
         "loop": 0,
         "order": list(STACK),
-        "note": "Each trait is a looping APNG. Studio stacks them live. Minted tokens flatten to GIF. Four note bodies share one bounce; toppers, cables, and riffs never edit the note.",
+        "note": "Each trait is a looping APNG. Studio stacks them live. Minted tokens flatten to GIF. Four notation bodies share one bounce; toppers, cables, and riffs never edit the note.",
     }
     (TRAIT_DIR / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
 
@@ -653,7 +781,7 @@ def write_ts_gallery(samples: list[dict]) -> None:
             "  {\n"
             f"    id: {sample['id']},\n"
             f'    name: "{sample["name"]}",\n'
-            f'    image: "{sample["image"]}?v=1",\n'
+                f'    image: "{sample["image"]}?v=2",\n'
             f"    attributes: [\n      {attrs},\n    ],\n"
             "  }"
         )

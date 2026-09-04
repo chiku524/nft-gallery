@@ -4,7 +4,7 @@ Looping **musical-note PFP GIFs** — airbrushed chrome discs, dancing stems, su
 
 This collection lives inside **NFT Gallery** at `/groovy`.
 
-The look is 70s album-cover airbrush (quarter, eighth, whole, beamed) on a shared 12-frame clock. Not doodle ink. Not sticker cutouts. OpenSea does **not** assemble collections from trait layers. For a Drop you upload finished GIFs (max 10,000) plus a CSV. The generator flattens the live stack onto one 12-frame clock, then bakes those APNGs to GIF.
+The look is 70s album-cover airbrush on **real musical notation** (tilted oval heads, thin stems, flags and beams) on a shared 12-frame clock. Not doodle ink. Not sticker cutouts. OpenSea does **not** assemble collections from trait layers. For a Drop you upload finished GIFs (max 10,000) plus a CSV. The generator flattens the live stack onto one 12-frame clock, then bakes those APNGs to GIF.
 
 ## What’s in the drop
 

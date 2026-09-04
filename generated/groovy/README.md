@@ -18,9 +18,9 @@ Same file: `public/metadata/groovy-description.txt`
 ```
 Welcome to Groovy Nation.
 
-An 8,888-piece collection of looping musical-note PFP GIFs on Robinhood Chain. Each citizen is stacked from six layers — venue, note, expression, topper, cable, and riff — then flattened onto one 12-frame GIF. Chrome note-heads. Stems that dance. Lava-lamp stages.
+An 8,888-piece collection of looping musical-note PFP GIFs on Robinhood Chain. Each citizen is stacked from six layers — venue, note, expression, topper, cable, and riff — then flattened onto one 12-frame GIF. Tilted oval noteheads. Thin stems going up. Flags and beams at the top. Lava-lamp stages.
 
-Four notes only: quarter, eighth, whole, and beamed. The drawing stays airbrushed — soft discs, sunset fill, no ink outline. Shades sit on the head. Chains hang on the stem. Riffs float beside the beat. One shared clock.
+Four notes only: quarter, eighth, whole, and beamed. The drawing stays airbrushed chrome on real notation — not a sphere with a stick. Shades sit on the head. Chains hang on the stem. Riffs float beside the beat. One shared clock.
 
 Minting on Robinhood Chain (chain ID 4663). Gas is ETH.
 ```

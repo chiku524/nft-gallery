@@ -14,7 +14,7 @@ export type GroovyTraitCategory = {
 };
 
 /** Bump when APNG layers change so the studio does not keep a stale loop. */
-export const GROOVY_ART_VERSION = "groovy-v1";
+export const GROOVY_ART_VERSION = "groovy-v2";
 
 export const GROOVY_FRAMES = 12;
 export const GROOVY_DURATION_MS = 90;
@@ -41,7 +41,7 @@ export const groovyTraitCategories: GroovyTraitCategory[] = [
   {
     id: "note",
     label: "Note",
-    blurb: "The citizen — quarter, eighth, whole, or beamed. Chrome disc for a head. Stem as a dance partner.",
+    blurb: "The citizen — a real quarter, eighth, whole, or beamed pair. Tilted oval head. Thin stem. Flag or beam at the top.",
     traits: [
       { id: "quarter", name: "Quarter", image: "/groovy-traits/note/quarter.png", rarity: 34 },
       { id: "eighth", name: "Eighth", image: "/groovy-traits/note/eighth.png", rarity: 28 },
@@ -76,7 +76,7 @@ export const groovyTraitCategories: GroovyTraitCategory[] = [
   {
     id: "cable",
     label: "Cable",
-    blurb: "Hangs on the stem — gold chain, cans, a mic in the wings.",
+    blurb: "Gold chain on the notehead, cans over the ears, a mic in the wings.",
     noneLabel: "None",
     traits: [
       { id: "chain", name: "Gold Chain", image: "/groovy-traits/cable/chain.png", rarity: 24 },
