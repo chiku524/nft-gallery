@@ -8,7 +8,7 @@
   "Venue:Velvet Night": 3,
   "Note:Quarter": 4,
   "Expression:Starry": 3,
-  "Topper:Visor": 3,
+  "Topper:Beanie": 3,
   "Cable:Cans": 4,
   "Riff:None": 2,
   "Venue:Blacklight": 2,
@@ -21,11 +21,11 @@
   "Note:Beamed": 4,
   "Topper:Afro": 4,
   "Riff:Stars": 4,
-  "Venue:Sunset Strip": 3,
   "Cable:Gold Chain": 4,
-  "Riff:Vinyl": 3,
-  "Venue:Lava Lamp": 3,
+  "Venue:Sunset Strip": 3,
   "Expression:Wink": 3,
+  "Venue:Lava Lamp": 3,
   "Expression:Groove": 3,
-  "Topper:Halo": 3
+  "Topper:Halo": 3,
+  "Riff:Vinyl": 3
 }

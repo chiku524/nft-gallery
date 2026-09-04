@@ -342,13 +342,16 @@ def paint_topper(kind: str, frame: int) -> Image.Image:
         draw.ellipse((hx + 8, ey - 16, hx + 48, ey + 16), fill=(48, 42, 56, 255))
         draw.line((hx - 40, ey - 8, hx - 18, ey + 2), fill=(255, 220, 90, 255), width=3)
     elif kind == "visor":
-        brim = ey - 16
-        draw.ellipse((hx - 40, crown - 38, hx + 28, brim + 10), fill=(36, 150, 120, 255), outline=INK, width=STROKE)
-        draw.polygon(
-            [(hx - 78, brim), (hx + 30, brim), (hx + 48, brim + 20), (hx - 60, brim + 20)],
-            fill=(48, 196, 150, 255),
-            outline=INK,
-        )
+        knit = (244, 186, 64, 255)
+        cuff = (196, 128, 40, 255)
+        rib = (176, 108, 28, 255)
+        draw.ellipse((hx - 54, crown - 50, hx + 38, crown + 14), fill=knit, outline=INK, width=STROKE)
+        draw.arc((hx - 40, crown - 46, hx + 6, crown + 2), 200, 340, fill=rib, width=4)
+        draw.arc((hx - 14, crown - 46, hx + 26, crown + 2), 200, 340, fill=rib, width=4)
+        r_cuff = HEAD_R + 6
+        draw.arc((hx - r_cuff, hy - r_cuff, hx + r_cuff, hy + r_cuff), 205, 330, fill=INK, width=20)
+        draw.arc((hx - r_cuff, hy - r_cuff, hx + r_cuff, hy + r_cuff), 205, 330, fill=cuff, width=12)
+        draw_circle(draw, hx - 6, crown - 52, 13, (255, 236, 200, 255))
     else:
         draw.ellipse((hx - 46, crown - 64, hx + 34, crown - 20), outline=(255, 206, 64, 255), width=12)
         draw.ellipse((hx - 46, crown - 64, hx + 34, crown - 20), outline=INK, width=4)
@@ -454,7 +457,7 @@ TRAIT_SPEC: dict[str, list[tuple[str, str, int]]] = {
         ("none", "None", 28),
         ("afro", "Afro", 20),
         ("shades", "Shades", 22),
-        ("visor", "Visor", 16),
+        ("visor", "Beanie", 16),
         ("halo", "Halo", 14),
     ],
     "cable": [
@@ -630,7 +633,7 @@ def write_ts_gallery(samples: list[dict]) -> None:
             "  {\n"
             f"    id: {sample['id']},\n"
             f'    name: "{sample["name"]}",\n'
-            f'    image: "{sample["image"]}?v=4",\n'
+            f'    image: "{sample["image"]}?v=5",\n'
             f"    attributes: [\n      {attrs},\n    ],\n"
             "  }"
         )

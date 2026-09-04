@@ -55,7 +55,7 @@ export default function GroovyGalleryPage() {
         {extraPreviews.map((id) => (
           <article key={id} className="overflow-hidden rounded-2xl border bg-card">
             <ApngImage
-              src={`/groovy-preview/${id}.gif?v=4`}
+              src={`/groovy-preview/${id}.gif?v=5`}
               alt={`Groovy #${id}`}
               width={512}
               height={512}

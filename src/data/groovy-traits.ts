@@ -14,7 +14,7 @@ export type GroovyTraitCategory = {
 };
 
 /** Bump when APNG layers change so the studio does not keep a stale loop. */
-export const GROOVY_ART_VERSION = "groovy-v4";
+export const GROOVY_ART_VERSION = "groovy-v5";
 
 export const GROOVY_FRAMES = 12;
 export const GROOVY_DURATION_MS = 90;
@@ -64,12 +64,12 @@ export const groovyTraitCategories: GroovyTraitCategory[] = [
   {
     id: "topper",
     label: "Topper",
-    blurb: "Sits on the notehead. Afro, shades, visor, a disco halo.",
+    blurb: "Sits on the notehead. Afro, shades, a knit beanie, a disco halo.",
     noneLabel: "None",
     traits: [
       { id: "afro", name: "Afro", image: "/groovy-traits/topper/afro.png", rarity: 20 },
       { id: "shades", name: "Shades", image: "/groovy-traits/topper/shades.png", rarity: 22 },
-      { id: "visor", name: "Visor", image: "/groovy-traits/topper/visor.png", rarity: 16 },
+      { id: "visor", name: "Beanie", image: "/groovy-traits/topper/visor.png", rarity: 16 },
       { id: "halo", name: "Halo", image: "/groovy-traits/topper/halo.png", rarity: 14 },
     ],
   },
