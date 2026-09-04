@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Bake looping GIFs from Afterimages, Loopkins, Inklings, Wicklings, Purrkins, Hoodkins, Birbs, Shook'ums, and Foxins APNGs for OpenSea Drops.
+"""Bake looping GIFs from Afterimages, Loopkins, Inklings, Wicklings, Purrkins, Hoodkins, Birbs, Shook'ums, Foxins, and Santa Paws APNGs for OpenSea Drops.
 
 OpenSea Drops play GIF, not APNG. The site keeps the APNGs. This writes
 quantized looping GIFs and points the Studio CSVs at those files.
@@ -38,6 +38,8 @@ SHOOKUMS_APNG = ROOT / "generated" / "shookums" / "images"
 SHOOKUMS_GIF = ROOT / "generated" / "shookums" / "gifs"
 FOXINS_APNG = ROOT / "generated" / "foxins" / "images"
 FOXINS_GIF = ROOT / "generated" / "foxins" / "gifs"
+SANTAPAWS_APNG = ROOT / "generated" / "santapaws" / "images"
+SANTAPAWS_GIF = ROOT / "generated" / "santapaws" / "gifs"
 
 LOOPKINS_DURATION_MS = 80
 AFTER_DURATION_MS = 100
@@ -48,6 +50,7 @@ HOODKINS_DURATION_MS = 80
 BIRBS_DURATION_MS = 90
 SHOOKUMS_DURATION_MS = 90
 FOXINS_DURATION_MS = 90
+SANTAPAWS_DURATION_MS = 90
 LOOPKINS_TOTAL = 10_000
 AFTER_TOTAL = 3333
 INKLINGS_TOTAL = 5555
@@ -57,6 +60,7 @@ HOODKINS_TOTAL = 10_000
 BIRBS_TOTAL = 2_222
 SHOOKUMS_TOTAL = 5_555
 FOXINS_TOTAL = 5_555
+SANTAPAWS_TOTAL = 7_777
 
 
 def load_apng_frames(path: Path) -> tuple[list[Image.Image], int]:
@@ -194,11 +198,12 @@ def main() -> None:
     parser.add_argument("--birbs", action="store_true", help="Bake Birbs GIFs only")
     parser.add_argument("--shookums", action="store_true", help="Bake Halloween Shook'ums GIFs only")
     parser.add_argument("--foxins", action="store_true", help="Bake Foxins GIFs only")
+    parser.add_argument("--santapaws", action="store_true", help="Bake Santa Paws GIFs only")
     parser.add_argument("--all", action="store_true", help="Bake the full collection supply")
     parser.add_argument("--count", type=int, default=16, help="Count when not using --all")
     parser.add_argument("--workers", type=int, default=max(1, min(6, cpu_count() or 1)))
     args = parser.parse_args()
-    selected = args.afterimages or args.loopkins or args.inklings or args.wicklings or args.purrkins or args.hoodkins or args.birbs or args.shookums or args.foxins
+    selected = args.afterimages or args.loopkins or args.inklings or args.wicklings or args.purrkins or args.hoodkins or args.birbs or args.shookums or args.foxins or args.santapaws
     do_after = args.afterimages or not selected
     do_loopkins = args.loopkins or not selected
     do_inklings = args.inklings or not selected
@@ -208,6 +213,7 @@ def main() -> None:
     do_birbs = args.birbs or not selected
     do_shookums = args.shookums or not selected
     do_foxins = args.foxins or not selected
+    do_santapaws = args.santapaws or not selected
 
     if do_after:
         after_jobs = jobs_for(AFTER_APNG, AFTER_GIF, AFTER_TOTAL, AFTER_DURATION_MS)
@@ -341,6 +347,24 @@ def main() -> None:
             "or `opensea-metadata.csv` to an OpenSea Drop on Base.\n"
             "OpenSea Drops play GIF, not APNG. APNGs stay in `images/` for the site and restacks.\n"
             "The CSV uses OpenSea Studio headers: tokenID, name, description, file_name, and attributes[Trait].\n",
+            encoding="utf-8",
+        )
+
+    if do_santapaws:
+        count = SANTAPAWS_TOTAL if args.all else min(args.count, SANTAPAWS_TOTAL)
+        paw_jobs = jobs_for(SANTAPAWS_APNG, SANTAPAWS_GIF, count, SANTAPAWS_DURATION_MS)
+        bake("Santa Paws", paw_jobs, args.workers)
+        rewrite_csv_filenames(ROOT / "generated" / "santapaws" / "opensea-metadata.csv")
+        rewrite_csv_filenames(ROOT / "generated" / "santapaws" / "SANTAPAWS-opensea-drop.csv")
+        (ROOT / "generated" / "santapaws" / "README.md").write_text(
+            "# Santa Paws OpenSea pack\n\n"
+            f"{count:,} flattened chibi-cat loops at 512×512, 12 frames, 90ms.\n\n"
+            f"Upload every file in `gifs/` (1.gif–{count}.gif) plus `SANTAPAWS-opensea-drop.csv` "
+            "or `opensea-metadata.csv` to an OpenSea Drop on Base.\n"
+            "OpenSea Drops play GIF, not APNG. APNGs stay in `images/` for the site and restacks.\n"
+            "The CSV uses OpenSea Studio headers: tokenID, name, description, file_name, and attributes[Trait].\n"
+            "Full metadata for all 7,777 lives in `json/` after `generate_santapaws.py`. "
+            "Bake every GIF with `python3 scripts/generate_santapaws.py --all`.\n",
             encoding="utf-8",
         )
 

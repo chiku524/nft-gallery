@@ -1,0 +1,217 @@
+export type SantaPawSample = {
+  id: number;
+  name: string;
+  image: string;
+  attributes: { trait_type: string; value: string }[];
+};
+
+export const santapawSamples: SantaPawSample[] = [
+  {
+    id: 1,
+    name: "Santa Paw #1",
+    image: "/santapaws-preview/1.gif",
+    attributes: [
+      { trait_type: "Yard", value: "Snowy Night" },
+      { trait_type: "Glow", value: "Soft Halo" },
+      { trait_type: "Pelt", value: "White Fluff" },
+      { trait_type: "Mug", value: "Cheerful" },
+      { trait_type: "Hat", value: "Santa Hat" },
+      { trait_type: "Gear", value: "Scarf" },
+    ],
+  },
+  {
+    id: 2,
+    name: "Santa Paw #2",
+    image: "/santapaws-preview/2.gif",
+    attributes: [
+      { trait_type: "Yard", value: "Cozy Hearth" },
+      { trait_type: "Glow", value: "Ember" },
+      { trait_type: "Pelt", value: "Ginger" },
+      { trait_type: "Mug", value: "Wink" },
+      { trait_type: "Hat", value: "Pom Beanie" },
+      { trait_type: "Gear", value: "Cocoa" },
+    ],
+  },
+  {
+    id: 3,
+    name: "Santa Paw #3",
+    image: "/santapaws-preview/3.gif",
+    attributes: [
+      { trait_type: "Yard", value: "Candy Cane" },
+      { trait_type: "Glow", value: "Sparkle" },
+      { trait_type: "Pelt", value: "Calico" },
+      { trait_type: "Mug", value: "Heart Eyes" },
+      { trait_type: "Hat", value: "Elf Cap" },
+      { trait_type: "Gear", value: "Present" },
+    ],
+  },
+  {
+    id: 4,
+    name: "Santa Paw #4",
+    image: "/santapaws-preview/4.gif",
+    attributes: [
+      { trait_type: "Yard", value: "Gift Wrap" },
+      { trait_type: "Glow", value: "Snow Glitter" },
+      { trait_type: "Pelt", value: "Tuxedo" },
+      { trait_type: "Mug", value: "Sleepy" },
+      { trait_type: "Hat", value: "Holly Crown" },
+      { trait_type: "Gear", value: "None" },
+    ],
+  },
+  {
+    id: 5,
+    name: "Santa Paw #5",
+    image: "/santapaws-preview/5.gif",
+    attributes: [
+      { trait_type: "Yard", value: "Aurora" },
+      { trait_type: "Glow", value: "Soft Halo" },
+      { trait_type: "Pelt", value: "Charcoal" },
+      { trait_type: "Mug", value: "Surprised" },
+      { trait_type: "Hat", value: "Antlers" },
+      { trait_type: "Gear", value: "Bells" },
+    ],
+  },
+  {
+    id: 6,
+    name: "Santa Paw #6",
+    image: "/santapaws-preview/6.gif",
+    attributes: [
+      { trait_type: "Yard", value: "Cookie Kitchen" },
+      { trait_type: "Glow", value: "No glow" },
+      { trait_type: "Pelt", value: "Cocoa" },
+      { trait_type: "Mug", value: "Tongue Out" },
+      { trait_type: "Hat", value: "None" },
+      { trait_type: "Gear", value: "Stocking" },
+    ],
+  },
+  {
+    id: 7,
+    name: "Santa Paw #7",
+    image: "/santapaws-preview/7.gif",
+    attributes: [
+      { trait_type: "Yard", value: "Snowy Night" },
+      { trait_type: "Glow", value: "Snow Glitter" },
+      { trait_type: "Pelt", value: "Gray Tabby" },
+      { trait_type: "Mug", value: "Blush" },
+      { trait_type: "Hat", value: "Santa Hat" },
+      { trait_type: "Gear", value: "Sweater" },
+    ],
+  },
+  {
+    id: 8,
+    name: "Santa Paw #8",
+    image: "/santapaws-preview/8.gif",
+    attributes: [
+      { trait_type: "Yard", value: "Cozy Hearth" },
+      { trait_type: "Glow", value: "Sparkle" },
+      { trait_type: "Pelt", value: "White Fluff" },
+      { trait_type: "Mug", value: "Cheerful" },
+      { trait_type: "Hat", value: "Elf Cap" },
+      { trait_type: "Gear", value: "Mistletoe" },
+    ],
+  },
+  {
+    id: 9,
+    name: "Santa Paw #9",
+    image: "/santapaws-preview/9.gif",
+    attributes: [
+      { trait_type: "Yard", value: "Candy Cane" },
+      { trait_type: "Glow", value: "No glow" },
+      { trait_type: "Pelt", value: "Ginger" },
+      { trait_type: "Mug", value: "Wink" },
+      { trait_type: "Hat", value: "None" },
+      { trait_type: "Gear", value: "Scarf" },
+    ],
+  },
+  {
+    id: 10,
+    name: "Santa Paw #10",
+    image: "/santapaws-preview/10.gif",
+    attributes: [
+      { trait_type: "Yard", value: "Gift Wrap" },
+      { trait_type: "Glow", value: "Ember" },
+      { trait_type: "Pelt", value: "Calico" },
+      { trait_type: "Mug", value: "Sleepy" },
+      { trait_type: "Hat", value: "Pom Beanie" },
+      { trait_type: "Gear", value: "Cocoa" },
+    ],
+  },
+  {
+    id: 11,
+    name: "Santa Paw #11",
+    image: "/santapaws-preview/11.gif",
+    attributes: [
+      { trait_type: "Yard", value: "Aurora" },
+      { trait_type: "Glow", value: "Sparkle" },
+      { trait_type: "Pelt", value: "Tuxedo" },
+      { trait_type: "Mug", value: "Heart Eyes" },
+      { trait_type: "Hat", value: "Holly Crown" },
+      { trait_type: "Gear", value: "Present" },
+    ],
+  },
+  {
+    id: 12,
+    name: "Santa Paw #12",
+    image: "/santapaws-preview/12.gif",
+    attributes: [
+      { trait_type: "Yard", value: "Cookie Kitchen" },
+      { trait_type: "Glow", value: "Soft Halo" },
+      { trait_type: "Pelt", value: "Gray Tabby" },
+      { trait_type: "Mug", value: "Cheerful" },
+      { trait_type: "Hat", value: "Antlers" },
+      { trait_type: "Gear", value: "Bells" },
+    ],
+  },
+  {
+    id: 13,
+    name: "Santa Paw #13",
+    image: "/santapaws-preview/13.gif",
+    attributes: [
+      { trait_type: "Yard", value: "Snowy Night" },
+      { trait_type: "Glow", value: "Ember" },
+      { trait_type: "Pelt", value: "Cocoa" },
+      { trait_type: "Mug", value: "Blush" },
+      { trait_type: "Hat", value: "Santa Hat" },
+      { trait_type: "Gear", value: "None" },
+    ],
+  },
+  {
+    id: 14,
+    name: "Santa Paw #14",
+    image: "/santapaws-preview/14.gif",
+    attributes: [
+      { trait_type: "Yard", value: "Cozy Hearth" },
+      { trait_type: "Glow", value: "Snow Glitter" },
+      { trait_type: "Pelt", value: "Charcoal" },
+      { trait_type: "Mug", value: "Tongue Out" },
+      { trait_type: "Hat", value: "None" },
+      { trait_type: "Gear", value: "Sweater" },
+    ],
+  },
+  {
+    id: 15,
+    name: "Santa Paw #15",
+    image: "/santapaws-preview/15.gif",
+    attributes: [
+      { trait_type: "Yard", value: "Candy Cane" },
+      { trait_type: "Glow", value: "Soft Halo" },
+      { trait_type: "Pelt", value: "White Fluff" },
+      { trait_type: "Mug", value: "Surprised" },
+      { trait_type: "Hat", value: "Elf Cap" },
+      { trait_type: "Gear", value: "Stocking" },
+    ],
+  },
+  {
+    id: 16,
+    name: "Santa Paw #16",
+    image: "/santapaws-preview/16.gif",
+    attributes: [
+      { trait_type: "Yard", value: "Aurora" },
+      { trait_type: "Glow", value: "No glow" },
+      { trait_type: "Pelt", value: "Ginger" },
+      { trait_type: "Mug", value: "Wink" },
+      { trait_type: "Hat", value: "Holly Crown" },
+      { trait_type: "Gear", value: "Mistletoe" },
+    ],
+  }
+];
