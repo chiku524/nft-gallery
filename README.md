@@ -18,6 +18,10 @@ A house of NFT collections. Each drop is its own sub-project — studio, traits,
 
 **Halloween Shook'ums** is the eighth: 5,555 looping sheet-ghost PFP GIFs, for OpenSea on Abstract (chain ID `2741`). Three bodies, one locked skeleton, snap-on hats and charms. A 12-frame, 90ms clock.
 
+**Foxins** is the ninth: 5,555 looping bold-graphic fox PFP GIFs, for OpenSea on Base (chain ID `8453`). Three pelts, one locked sticker. A 12-frame, 90ms clock.
+
+**Santa Paws** is the tenth: 7,777 looping chibi-cat PFP GIFs, for OpenSea on Base (chain ID `8453`). A Purrkins sibling in a Christmas / giving wardrobe. Same 12-frame, 90ms clock as Foxins.
+
 ## What’s in this repo
 
 | Path | What it is |
@@ -32,6 +36,7 @@ A house of NFT collections. Each drop is its own sub-project — studio, traits,
 | `/birbs` | BirbNation drop, trait loops, gallery, OpenSea notes |
 | `/shookums` | Halloween Shook'ums drop, trait loops, gallery, OpenSea notes |
 | `/foxins` | Foxins drop, trait loops, gallery, OpenSea notes |
+| `/santapaws` | Santa Paws drop, trait loops, gallery, OpenSea notes |
 | `/studio` | Live APNG layer mixer (Loopkins) |
 | `/inklings/studio` | Live ink-wash mixer (Inklings) |
 | `/wicklings/studio` | Live paper-lantern mixer (Wicklings) |
@@ -40,6 +45,7 @@ A house of NFT collections. Each drop is its own sub-project — studio, traits,
 | `/birbs/studio` | Live round-borb robin mixer (BirbNation) |
 | `/shookums/studio` | Live sheet-ghost mixer (Halloween Shook'ums) |
 | `/foxins/studio` | Live bold-graphic fox mixer (Foxins) |
+| `/santapaws/studio` | Live giving-cat mixer (Santa Paws) |
 | `public/traits/` | Loopkins APNG layers (sky, aura, body, face, wear, charm) |
 | `public/afterimages/` | Afterimages 1:1 APNG paintings |
 | `public/inklings-traits/` | Inklings APNG layers (paper, bloom, visage, gaze, mark, adorn) |
@@ -49,6 +55,7 @@ A house of NFT collections. Each drop is its own sub-project — studio, traits,
 | `public/birbs-traits/` | BirbNation APNG layers (field, plumage, mug, accent) |
 | `public/shookums-traits/` | Halloween Shook'ums APNG layers (night, sheet, mug, hat, wrap, charm) |
 | `public/foxins-traits/` | Foxins APNG layers (field, pelt, mug, hat, wrap, charm) |
+| `public/santapaws-traits/` | Santa Paws APNG layers (yard, glow, pelt, mug, hat, gear) |
 | `generated/` | Flattened Loopkins APNGs, OpenSea GIFs + CSV |
 | `generated/afterimages/` | Afterimages OpenSea GIF pack |
 | `generated/inklings/` | Inklings OpenSea GIF pack |
@@ -58,6 +65,7 @@ A house of NFT collections. Each drop is its own sub-project — studio, traits,
 | `generated/birbs/` | BirbNation OpenSea GIF pack |
 | `generated/shookums/` | Halloween Shook'ums OpenSea GIF pack |
 | `generated/foxins/` | Foxins OpenSea GIF pack |
+| `generated/santapaws/` | Santa Paws OpenSea GIF pack |
 | `contracts/Loopkins.sol` | ERC-721 with a 10,000 supply cap |
 | `contracts/Afterimages.sol` | ERC-721 that mints a chosen 1:1 (IDs 1–3333) on Ink |
 | `contracts/Inklings.sol` | ERC-721 with a 5,555 supply cap |
@@ -67,6 +75,7 @@ A house of NFT collections. Each drop is its own sub-project — studio, traits,
 | `contracts/Birbs.sol` | ERC-721 with a 2,222 supply cap |
 | `contracts/Shookums.sol` | ERC-721 with a 5,555 supply cap |
 | `contracts/Foxins.sol` | ERC-721 with a 5,555 supply cap |
+| `contracts/SantaPaws.sol` | ERC-721 with a 7,777 supply cap |
 
 ## Run the site
 
@@ -87,7 +96,8 @@ The app listens on [http://127.0.0.1:43147](http://127.0.0.1:43147).
 - BirbNation: `/birbs`
 - Halloween Shook'ums: `/shookums`
 - Foxins: `/foxins`
-- Trait studio: `/studio` (Loopkins), `/inklings/studio`, `/wicklings/studio`, `/purrkins/studio`, `/hoodkins/studio`, `/birbs/studio`, `/shookums/studio`, or `/foxins/studio`
+- Santa Paws: `/santapaws`
+- Trait studio: `/studio` (Loopkins), `/inklings/studio`, `/wicklings/studio`, `/purrkins/studio`, `/hoodkins/studio`, `/birbs/studio`, `/shookums/studio`, `/foxins/studio`, or `/santapaws/studio`
 
 ## Generate collections
 
@@ -109,6 +119,8 @@ python3 scripts/build_shookums.py
 python3 scripts/generate_shookums.py
 python3 scripts/build_foxins.py
 python3 scripts/generate_foxins.py
+python3 scripts/build_santapaws.py
+python3 scripts/generate_santapaws.py
 python3 scripts/gif_bake.py --afterimages
 python3 scripts/gif_bake.py --loopkins --all
 python3 scripts/gif_bake.py --inklings --all
@@ -118,9 +130,12 @@ python3 scripts/gif_bake.py --hoodkins --all
 python3 scripts/gif_bake.py --birbs --all
 python3 scripts/gif_bake.py --shookums --all
 python3 scripts/gif_bake.py --foxins --all
+python3 scripts/gif_bake.py --santapaws --all
 ```
 
-Requires Python 3 with Pillow and NumPy. See `docs/loopkins.md`, `docs/afterimages.md`, `docs/inklings.md`, `docs/wicklings.md`, `docs/purrkins.md`, `docs/hoodkins.md`, `docs/birbs.md`, `docs/shookums.md`, and `docs/foxins.md` for OpenSea Drop upload steps.
+Requires Python 3 with Pillow and NumPy. See `docs/loopkins.md`, `docs/afterimages.md`, `docs/inklings.md`, `docs/wicklings.md`, `docs/purrkins.md`, `docs/hoodkins.md`, `docs/birbs.md`, `docs/shookums.md`, `docs/foxins.md`, and `docs/santapaws.md` for OpenSea Drop upload steps.
+
+`npm run generate:santapaws` builds traits, brand, and the 16-GIF preview plus full 7,777-token metadata. Bake every marketplace GIF with `python3 scripts/generate_santapaws.py --all`.
 
 ## Deploy
 
@@ -128,4 +143,4 @@ This is a single Next.js app (one Vercel project). Point Vercel at the GitHub re
 
 ## License
 
-Art and site code in this repository are for the collections on the wall. Swap the zero-address fee recipient in `public/metadata/collection.json`, `public/metadata/loopkins.json`, `public/metadata/afterimages.json`, `public/metadata/inklings.json`, `public/metadata/wicklings.json`, `public/metadata/purrkins.json`, `public/metadata/hoodkins.json`, `public/metadata/birbs.json`, `public/metadata/shookums.json`, and `public/metadata/foxins.json` before you list.
+Art and site code in this repository are for the collections on the wall. Swap the zero-address fee recipient in `public/metadata/collection.json`, `public/metadata/loopkins.json`, `public/metadata/afterimages.json`, `public/metadata/inklings.json`, `public/metadata/wicklings.json`, `public/metadata/purrkins.json`, `public/metadata/hoodkins.json`, `public/metadata/birbs.json`, `public/metadata/shookums.json`, `public/metadata/foxins.json`, and `public/metadata/santapaws.json` before you list.

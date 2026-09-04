@@ -12,6 +12,8 @@ import { foxinSamples } from "@/data/foxin-gallery";
 import { foxins } from "@/data/foxins";
 import { purrkinSamples } from "@/data/purrkin-gallery";
 import { purrkins } from "@/data/purrkins";
+import { santapawSamples } from "@/data/santapaw-gallery";
+import { santapaws } from "@/data/santapaws";
 import { sampleMints } from "@/data/gallery";
 import { wicklingSamples } from "@/data/wickling-gallery";
 import { wicklings } from "@/data/wicklings";
@@ -19,6 +21,7 @@ import { AFTERIMAGES_BASE } from "@/lib/afterimages";
 import { BIRBS_BASE } from "@/lib/birbs";
 import { SHOOKUMS_BASE } from "@/lib/shookums";
 import { FOXINS_BASE } from "@/lib/foxins";
+import { SANTAPAWS_BASE } from "@/lib/santapaws";
 import { HOODKINS_BASE } from "@/lib/hoodkins";
 import { INKLINGS_BASE } from "@/lib/inklings";
 import { LOOPKINS_BASE } from "@/lib/loopkins";
@@ -29,7 +32,7 @@ export const gallery = {
   name: "NFT Gallery",
   tagline: "Collections on the wall. One drop at a time.",
   description:
-    "NFT Gallery is a house of on-chain collections — each drop keeps its own studio, traits, and launch path. Loopkins is the layered PFP. Afterimages is the 1:1 APNG drop. Inklings is the cartoon-squid PFP GIF drop on Ink. Wicklings is the paper-lantern PFP GIF drop on Arbitrum. Purrkins is the chibi-cat PFP GIF drop on HyperEVM. Hoodkins is the chibi-raccoon PFP GIF drop on Robinhood Chain. BirbNation is the round-borb robin PFP GIF drop on Robinhood Chain. Halloween Shook'ums is the sheet-ghost PFP GIF drop on Abstract. Foxins is the bold-graphic fox PFP GIF drop on Base.",
+    "NFT Gallery is a house of on-chain collections — each drop keeps its own studio, traits, and launch path. Loopkins is the layered PFP. Afterimages is the 1:1 APNG drop. Inklings is the cartoon-squid PFP GIF drop on Ink. Wicklings is the paper-lantern PFP GIF drop on Arbitrum. Purrkins is the chibi-cat PFP GIF drop on HyperEVM. Hoodkins is the chibi-raccoon PFP GIF drop on Robinhood Chain. BirbNation is the round-borb robin PFP GIF drop on Robinhood Chain. Halloween Shook'ums is the sheet-ghost PFP GIF drop on Abstract. Foxins is the bold-graphic fox PFP GIF drop on Base. Santa Paws is the giving chibi-cat PFP GIF drop on Base.",
 } as const;
 
 export const projects = [
@@ -189,11 +192,29 @@ export const projects = [
     supply: foxins.supply,
     cover: "/brand/banner-foxins.png",
     thumb: foxinSamples[0].image,
-    status: "new on the wall" as const,
+    status: "on the wall" as const,
     kind: "layered-pfp" as const,
     previews: foxinSamples.map((mint) => mint.image),
     studioHref: "/foxins/studio" as const,
     opensea: foxins.opensea.collection,
+  },
+  {
+    slug: "santapaws",
+    href: SANTAPAWS_BASE,
+    name: santapaws.name,
+    symbol: santapaws.symbol,
+    tagline: santapaws.tagline,
+    description: santapaws.description,
+    chain: santapaws.chain.name,
+    chainId: santapaws.chain.chainId,
+    supply: santapaws.supply,
+    cover: "/brand/banner-santapaws.png",
+    thumb: santapawSamples[0].image,
+    status: "new on the wall" as const,
+    kind: "layered-pfp" as const,
+    previews: santapawSamples.map((mint) => mint.image),
+    studioHref: "/santapaws/studio" as const,
+    opensea: santapaws.opensea.collection,
   },
 ] as const;
 

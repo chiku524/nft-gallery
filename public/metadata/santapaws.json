@@ -1,0 +1,12 @@
+{
+  "name": "Santa Paws",
+  "symbol": "PAWS",
+  "description": "Santa Paws is a 7,777-piece collection of looping chibi-cat PFP GIFs on Base. Each cat is stacked from six layers \u2014 yard, glow, pelt, mug, hat, and gear \u2014 then flattened onto one 12-frame GIF. Thick outlines. Cozy winter yards. Always in the mood of giving.",
+  "image": "/brand/collection-santapaws.gif",
+  "featured_image": "/brand/featured-santapaws.jpg",
+  "banner_image": "/brand/banner-santapaws.png",
+  "opensea_banner_image": "/brand/banner-santapaws-opensea.jpg",
+  "external_link": "/santapaws",
+  "seller_fee_basis_points": 500,
+  "fee_recipient": "0x0000000000000000000000000000000000000000"
+}

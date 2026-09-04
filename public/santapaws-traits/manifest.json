@@ -1,0 +1,17 @@
+{
+  "name": "Santa Paws",
+  "size": 512,
+  "frames": 12,
+  "durationMs": 90,
+  "format": "apng",
+  "loop": 0,
+  "order": [
+    "yard",
+    "glow",
+    "pelt",
+    "mug",
+    "hat",
+    "gear"
+  ],
+  "note": "Each trait is a looping APNG. Studio stacks them live. Minted tokens flatten to GIF."
+}
