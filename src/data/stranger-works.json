@@ -1,0 +1,602 @@
+[
+  {
+    "id": 1,
+    "slug": "shift-block",
+    "title": "Shift Block",
+    "image": "/strangers/1.png",
+    "description": "Three enamel slabs refuse to share an edge. The red one keeps the beat.",
+    "attributes": [
+      {
+        "trait_type": "Medium",
+        "value": "Hard-edge enamel"
+      },
+      {
+        "trait_type": "Motion",
+        "value": "Slide"
+      },
+      {
+        "trait_type": "Palette",
+        "value": "Primary enamel"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "Open"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "slug": "two-plate",
+    "title": "Two Plate Offset",
+    "image": "/strangers/2.png",
+    "description": "Fluorescent pink and teal miss each other on purpose. The overlap is the print.",
+    "attributes": [
+      {
+        "trait_type": "Medium",
+        "value": "Risograph"
+      },
+      {
+        "trait_type": "Motion",
+        "value": "Misregister"
+      },
+      {
+        "trait_type": "Palette",
+        "value": "Pink teal pulp"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "Open"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "slug": "phosphor-hold",
+    "title": "Phosphor Hold",
+    "image": "/strangers/3.png",
+    "description": "A green reticle waits on a dead monitor. The raster still believes in work.",
+    "attributes": [
+      {
+        "trait_type": "Medium",
+        "value": "CRT phosphor"
+      },
+      {
+        "trait_type": "Motion",
+        "value": "Raster roll"
+      },
+      {
+        "trait_type": "Palette",
+        "value": "Phosphor black"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "Open"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "slug": "tide-cut",
+    "title": "Tide Cut",
+    "image": "/strangers/4.png",
+    "description": "A block of cream paper takes the tide in carved strokes. Nothing here blends.",
+    "attributes": [
+      {
+        "trait_type": "Medium",
+        "value": "Woodcut"
+      },
+      {
+        "trait_type": "Motion",
+        "value": "Gouge"
+      },
+      {
+        "trait_type": "Palette",
+        "value": "Sumi cream"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "Open"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "slug": "seed-field",
+    "title": "Seed Field",
+    "image": "/strangers/5.png",
+    "description": "A meadow that is only dots. The bloom walks; the ground never draws a line.",
+    "attributes": [
+      {
+        "trait_type": "Medium",
+        "value": "Pointillism"
+      },
+      {
+        "trait_type": "Motion",
+        "value": "Bloom walk"
+      },
+      {
+        "trait_type": "Palette",
+        "value": "Seed ochre"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "Open"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "slug": "proof-sheet",
+    "title": "Proof Sheet",
+    "image": "/strangers/6.png",
+    "description": "A construction that never became a building. The white line is still deciding.",
+    "attributes": [
+      {
+        "trait_type": "Medium",
+        "value": "Cyanotype"
+      },
+      {
+        "trait_type": "Motion",
+        "value": "Draw"
+      },
+      {
+        "trait_type": "Palette",
+        "value": "Prussian white"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "Open"
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "slug": "torn-stack",
+    "title": "Torn Stack",
+    "image": "/strangers/7.png",
+    "description": "Four leftover sheets refuse a tidy stack. One scrap keeps leaving the pile.",
+    "attributes": [
+      {
+        "trait_type": "Medium",
+        "value": "Paper collage"
+      },
+      {
+        "trait_type": "Motion",
+        "value": "Lift"
+      },
+      {
+        "trait_type": "Palette",
+        "value": "Scrap stock"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "Open"
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "slug": "interference",
+    "title": "Interference",
+    "image": "/strangers/8.png",
+    "description": "Two ring families argue in black and white. The moir\u00e9 is the only subject.",
+    "attributes": [
+      {
+        "trait_type": "Medium",
+        "value": "Op-art"
+      },
+      {
+        "trait_type": "Motion",
+        "value": "Phase"
+      },
+      {
+        "trait_type": "Palette",
+        "value": "Ink paper"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "Open"
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "slug": "hold-still",
+    "title": "Hold Still",
+    "image": "/strangers/9.png",
+    "description": "A night that refuses a subject. The grain is the only thing that moves.",
+    "attributes": [
+      {
+        "trait_type": "Medium",
+        "value": "Silver grain"
+      },
+      {
+        "trait_type": "Motion",
+        "value": "Crawl"
+      },
+      {
+        "trait_type": "Palette",
+        "value": "Night silver"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "Open"
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "slug": "tube-script",
+    "title": "Tube Script",
+    "image": "/strangers/10.png",
+    "description": "A glyph that is only glass and gas. The current travels; the word never arrives.",
+    "attributes": [
+      {
+        "trait_type": "Medium",
+        "value": "Neon tube"
+      },
+      {
+        "trait_type": "Motion",
+        "value": "Flicker"
+      },
+      {
+        "trait_type": "Palette",
+        "value": "Magenta night"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "Open"
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "slug": "pressed-leaf",
+    "title": "Pressed Leaf",
+    "image": "/strangers/11.png",
+    "description": "A specimen plate with no garden behind it. The midrib darkens as the press holds.",
+    "attributes": [
+      {
+        "trait_type": "Medium",
+        "value": "Herbarium ink"
+      },
+      {
+        "trait_type": "Motion",
+        "value": "Settle"
+      },
+      {
+        "trait_type": "Palette",
+        "value": "Plate umber"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "Open"
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "slug": "trace-board",
+    "title": "Trace Board",
+    "image": "/strangers/12.png",
+    "description": "A board with no device. Gold pads wait. One trace finally takes current.",
+    "attributes": [
+      {
+        "trait_type": "Medium",
+        "value": "Solder mask"
+      },
+      {
+        "trait_type": "Motion",
+        "value": "Current"
+      },
+      {
+        "trait_type": "Palette",
+        "value": "Mask gold"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "Open"
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "slug": "nine-patch",
+    "title": "Nine Patch",
+    "image": "/strangers/13.png",
+    "description": "Nine fabrics share a seam allowance. The center square keeps inhaling thread.",
+    "attributes": [
+      {
+        "trait_type": "Medium",
+        "value": "Quilt"
+      },
+      {
+        "trait_type": "Motion",
+        "value": "Stitch"
+      },
+      {
+        "trait_type": "Palette",
+        "value": "Calico"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "Open"
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "slug": "calcite",
+    "title": "Calcite",
+    "image": "/strangers/14.png",
+    "description": "A slab of stone with nothing carved into it. The veins keep changing their mind.",
+    "attributes": [
+      {
+        "trait_type": "Medium",
+        "value": "Polished stone"
+      },
+      {
+        "trait_type": "Motion",
+        "value": "Migrate"
+      },
+      {
+        "trait_type": "Palette",
+        "value": "Calcite ink"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "Open"
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "slug": "night-plate",
+    "title": "Night Plate",
+    "image": "/strangers/15.png",
+    "description": "A catalog of lights with no myth attached. The plate turns a few degrees and stops.",
+    "attributes": [
+      {
+        "trait_type": "Medium",
+        "value": "Star plate"
+      },
+      {
+        "trait_type": "Motion",
+        "value": "Turn"
+      },
+      {
+        "trait_type": "Palette",
+        "value": "Navy silver"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "Open"
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "slug": "tesserae",
+    "title": "Tesserae",
+    "image": "/strangers/16.png",
+    "description": "A wall of glass squares with no picture in mind. Light crosses them anyway.",
+    "attributes": [
+      {
+        "trait_type": "Medium",
+        "value": "Glass mosaic"
+      },
+      {
+        "trait_type": "Motion",
+        "value": "Gleam"
+      },
+      {
+        "trait_type": "Palette",
+        "value": "Grout jewel"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "Open"
+      }
+    ]
+  },
+  {
+    "id": 17,
+    "slug": "rime",
+    "title": "Rime",
+    "image": "/strangers/17.png",
+    "description": "Ice writes a tree on cold glass. The growth is the drawing.",
+    "attributes": [
+      {
+        "trait_type": "Medium",
+        "value": "Frost"
+      },
+      {
+        "trait_type": "Motion",
+        "value": "Grow"
+      },
+      {
+        "trait_type": "Palette",
+        "value": "Ice pane"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "Open"
+      }
+    ]
+  },
+  {
+    "id": 18,
+    "slug": "plume",
+    "title": "Plume",
+    "image": "/strangers/18.png",
+    "description": "Pigment forgets it had an edge. The rise is slower than smoke and thicker than air.",
+    "attributes": [
+      {
+        "trait_type": "Medium",
+        "value": "Ink in water"
+      },
+      {
+        "trait_type": "Motion",
+        "value": "Rise"
+      },
+      {
+        "trait_type": "Palette",
+        "value": "Indigo milk"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "Open"
+      }
+    ]
+  },
+  {
+    "id": 19,
+    "slug": "lockup",
+    "title": "Lockup",
+    "image": "/strangers/19.png",
+    "description": "One letter takes the whole chase. The impression deepens; the alphabet stays out of it.",
+    "attributes": [
+      {
+        "trait_type": "Medium",
+        "value": "Letterpress"
+      },
+      {
+        "trait_type": "Motion",
+        "value": "Impression"
+      },
+      {
+        "trait_type": "Palette",
+        "value": "Bone vermilion"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "Open"
+      }
+    ]
+  },
+  {
+    "id": 20,
+    "slug": "fold-plane",
+    "title": "Fold Plane",
+    "image": "/strangers/20.png",
+    "description": "A sheet that has already been thought through. One valley keeps changing its mind.",
+    "attributes": [
+      {
+        "trait_type": "Medium",
+        "value": "Crease pattern"
+      },
+      {
+        "trait_type": "Motion",
+        "value": "Breathe"
+      },
+      {
+        "trait_type": "Palette",
+        "value": "Paper graphite"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "Open"
+      }
+    ]
+  },
+  {
+    "id": 21,
+    "slug": "hatch-dune",
+    "title": "Hatch Dune",
+    "image": "/strangers/21.png",
+    "description": "A map of a place that is only height. The wind rewrites the contours.",
+    "attributes": [
+      {
+        "trait_type": "Medium",
+        "value": "Contour hatch"
+      },
+      {
+        "trait_type": "Motion",
+        "value": "Wind"
+      },
+      {
+        "trait_type": "Palette",
+        "value": "Sepia dust"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "Open"
+      }
+    ]
+  },
+  {
+    "id": 22,
+    "slug": "lead-light",
+    "title": "Lead Light",
+    "image": "/strangers/22.png",
+    "description": "Jewel glass held by lead. No glow, no wash \u2014 only a pane that changes its mind.",
+    "attributes": [
+      {
+        "trait_type": "Medium",
+        "value": "Leaded glass"
+      },
+      {
+        "trait_type": "Motion",
+        "value": "Cycle"
+      },
+      {
+        "trait_type": "Palette",
+        "value": "Jewel lead"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "Open"
+      }
+    ]
+  },
+  {
+    "id": 23,
+    "slug": "punch",
+    "title": "Punch",
+    "image": "/strangers/23.png",
+    "description": "A card that stores nothing you can read. The holes advance; the meaning stays out.",
+    "attributes": [
+      {
+        "trait_type": "Medium",
+        "value": "Punch card"
+      },
+      {
+        "trait_type": "Motion",
+        "value": "Advance"
+      },
+      {
+        "trait_type": "Palette",
+        "value": "Manila void"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "Open"
+      }
+    ]
+  },
+  {
+    "id": 24,
+    "slug": "wet-bloom",
+    "title": "Wet Bloom",
+    "image": "/strangers/24.png",
+    "description": "Water gets there first. Pigment follows and refuses a border.",
+    "attributes": [
+      {
+        "trait_type": "Medium",
+        "value": "Watercolor"
+      },
+      {
+        "trait_type": "Motion",
+        "value": "Expand"
+      },
+      {
+        "trait_type": "Palette",
+        "value": "Wash coral"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "Open"
+      }
+    ]
+  }
+]

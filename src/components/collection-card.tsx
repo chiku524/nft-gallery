@@ -7,7 +7,7 @@ import type { GalleryProject } from "@/data/projects";
 
 export function CollectionCard({ drop }: { drop: GalleryProject }) {
   const galleryHref = `${drop.href}/gallery`;
-  const thumbs = drop.previews.slice(0, drop.kind === "1of1" ? 6 : 8);
+  const thumbs = drop.previews.slice(0, drop.kind === "layered-pfp" ? 8 : 6);
 
   return (
     <article className="overflow-hidden rounded-[2rem] border bg-card">
@@ -30,7 +30,14 @@ export function CollectionCard({ drop }: { drop: GalleryProject }) {
           <p className="text-muted-foreground">{drop.description}</p>
           <dl className="mt-6 grid grid-cols-2 gap-3">
             {[
-              ["Supply", drop.kind === "1of1" ? `${drop.supply} × 1/1` : drop.supply.toLocaleString()],
+              [
+                "Supply",
+                drop.kind === "1of1"
+                  ? `${drop.supply} × 1/1`
+                  : drop.kind === "open-edition"
+                    ? `${drop.supply} open editions`
+                    : drop.supply.toLocaleString(),
+              ],
               ["Chain", drop.chain],
               ["Chain ID", String(drop.chainId)],
             ].map(([label, value]) => (
@@ -53,7 +60,7 @@ export function CollectionCard({ drop }: { drop: GalleryProject }) {
               </Button>
             ) : (
               <Button asChild size="lg" variant="secondary">
-                <Link href={galleryHref}>See the 1:1s</Link>
+                <Link href={galleryHref}>{drop.kind === "open-edition" ? "See the editions" : "See the 1:1s"}</Link>
               </Button>
             )}
             {drop.openseaListings.map((listing) => (
@@ -67,9 +74,9 @@ export function CollectionCard({ drop }: { drop: GalleryProject }) {
         </div>
         <div
           className={
-            drop.kind === "1of1"
-              ? "grid grid-cols-2 gap-3 sm:grid-cols-3 lg:col-span-7"
-              : "grid grid-cols-2 gap-3 sm:grid-cols-4 lg:col-span-7"
+            drop.kind === "layered-pfp"
+              ? "grid grid-cols-2 gap-3 sm:grid-cols-4 lg:col-span-7"
+              : "grid grid-cols-2 gap-3 sm:grid-cols-3 lg:col-span-7"
           }
         >
           {thumbs.map((image, index) => (

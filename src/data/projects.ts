@@ -18,6 +18,7 @@ import { scribblinSamples } from "@/data/scribblin-gallery";
 import { scribblins } from "@/data/scribblins";
 import { groovySamples } from "@/data/groovy-gallery";
 import { groovy } from "@/data/groovy";
+import { strangerWorksList, strangers } from "@/data/strangers";
 import { sampleMints } from "@/data/gallery";
 import { wicklingSamples } from "@/data/wickling-gallery";
 import { wicklings } from "@/data/wicklings";
@@ -28,6 +29,7 @@ import { FOXINS_BASE } from "@/lib/foxins";
 import { SANTAPAWS_BASE } from "@/lib/santapaws";
 import { SCRIBBLINS_BASE } from "@/lib/scribblins";
 import { GROOVY_BASE } from "@/lib/groovy";
+import { STRANGERS_BASE } from "@/lib/strangers";
 import { HOODKINS_BASE } from "@/lib/hoodkins";
 import { INKLINGS_BASE } from "@/lib/inklings";
 import { LOOPKINS_BASE } from "@/lib/loopkins";
@@ -39,7 +41,7 @@ export const gallery = {
   name: "NFT Gallery",
   tagline: "Collections on the wall. One drop at a time.",
   description:
-    "NFT Gallery is a house of on-chain collections — each drop keeps its own studio, traits, and launch path. Loopkins is the layered PFP. Afterimages is the 1:1 APNG drop. Inklings is the cartoon-squid PFP GIF drop on Ink. Wicklings is the paper-lantern PFP GIF drop on Arbitrum. Purrkins is the chibi-cat PFP GIF drop on HyperEVM. Hoodkins is the chibi-raccoon PFP GIF drop on Robinhood Chain. BirbNation is the round-borb robin PFP GIF drop on Robinhood Chain. Halloween Shook'ums is the sheet-ghost PFP GIF drop on Abstract. Foxins is the bold-graphic fox PFP GIF drop on Base. Santa Paws is the giving chibi-cat PFP GIF drop on Base. Scribblins is the doodle-critter PFP GIF drop on Base. Groovy Nation is the cartoon musical-note PFP GIF drop on Robinhood Chain.",
+    "NFT Gallery is a house of on-chain collections — each drop keeps its own studio, traits, and launch path. Loopkins is the layered PFP. Afterimages is the 1:1 APNG drop. Inklings is the cartoon-squid PFP GIF drop on Ink. Wicklings is the paper-lantern PFP GIF drop on Arbitrum. Purrkins is the chibi-cat PFP GIF drop on HyperEVM. Hoodkins is the chibi-raccoon PFP GIF drop on Robinhood Chain. BirbNation is the round-borb robin PFP GIF drop on Robinhood Chain. Halloween Shook'ums is the sheet-ghost PFP GIF drop on Abstract. Foxins is the bold-graphic fox PFP GIF drop on Base. Santa Paws is the giving chibi-cat PFP GIF drop on Base. Scribblins is the doodle-critter PFP GIF drop on Base. Groovy Nation is the cartoon musical-note PFP GIF drop on Robinhood Chain. Strangers is the salon of 24 open-edition 1:1 looping paintings on Base.",
 } as const;
 
 export const projects = [
@@ -264,12 +266,31 @@ export const projects = [
     supply: groovy.supply,
     cover: "/brand/banner-groovy.png",
     thumb: groovySamples[0].image,
-    status: "new on the wall" as const,
+    status: "on the wall" as const,
     kind: "layered-pfp" as const,
     previews: groovySamples.map((mint) => mint.image),
     studioHref: "/groovy/studio" as const,
     opensea: groovy.opensea.collection,
     openseaListings: openSeaListings(groovy.opensea, groovy.chain.name),
+  },
+  {
+    slug: "strangers",
+    href: STRANGERS_BASE,
+    name: strangers.name,
+    symbol: strangers.symbol,
+    tagline: strangers.tagline,
+    description: strangers.description,
+    chain: strangers.chain.name,
+    chainId: strangers.chain.chainId,
+    supply: strangers.supply,
+    cover: "/brand/banner-strangers.png",
+    thumb: strangerWorksList[0].image,
+    status: "new on the wall" as const,
+    kind: "open-edition" as const,
+    previews: strangerWorksList.slice(0, 6).map((work) => work.image),
+    studioHref: null,
+    opensea: strangers.opensea.collection,
+    openseaListings: openSeaListings(strangers.opensea, strangers.chain.name),
   },
 ] as const;
 
