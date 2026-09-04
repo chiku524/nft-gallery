@@ -1,6 +1,6 @@
 # Scribblins OpenSea kit
 
-16 flattened doodle-critter loops at 512×512, 12 frames, 90ms (sample pack — bake all 5,555 with `--all`).
+5,555 flattened doodle-critter loops at 512×512, 12 frames, 90ms.
 
 ## Collection fields
 
@@ -40,7 +40,7 @@ No type on the marketplace images.
 ## Drop upload
 
 1. In OpenSea Studio, create a Drop on Base (chain ID 8453).
-2. Upload every file in `gifs/` (`1.gif`–`16.gif`).
+2. Upload every file in `gifs/` (`1.gif`–`5555.gif`).
 3. Upload `SCRIBBLINS-opensea-drop.csv` (or `opensea-metadata.csv`). The CSV uses OpenSea Studio headers: `tokenID`, `name`, `description`, `file_name`, and `attributes[Trait]`.
 4. Preview the loops, then publish.
 
