@@ -1,17 +1,17 @@
 {
-  "hash": "0f3c06622aaab28f53b9a455d4e5832033dbf000c18bcf9bcba43ef8c5aeac0b",
+  "hash": "8b56b65937f3bba68d419cc22081bfbe8d11f686d80991ab493ffd0e806becb0",
   "rosterHash": "024c4865c1b8c2cfdd44cd4e6153090daf00c656cdd1667a1c98e6352b3d34b3",
   "count": 7777,
-  "baked": 16,
+  "baked": 7777,
   "frames": 12,
   "durationMs": 90,
   "size": 512,
   "gifColors": 160,
-  "bytes": 15059893,
+  "bytes": 7165740777,
   "openseaLimitBytes": 10737418240,
   "underOpenseaLimit": true,
   "seed": 84537777,
   "chain": "base",
   "chainId": 8453,
-  "note": "Preview GIF bake of 16. Run `python3 scripts/generate_santapaws.py --all` for all 7,777 GIFs."
+  "note": null
 }
