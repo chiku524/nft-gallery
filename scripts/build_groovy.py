@@ -18,7 +18,7 @@ import sys
 from pathlib import Path
 
 import numpy as np
-from PIL import Image, ImageDraw
+from PIL import Image, ImageChops, ImageDraw
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
@@ -114,6 +114,40 @@ def draw_line(draw: ImageDraw.ImageDraw, a: tuple[float, float], b: tuple[float,
 
 def draw_circle(draw: ImageDraw.ImageDraw, x: float, y: float, r: float, fill, outline=INK, width: int = STROKE) -> None:
     draw.ellipse((x - r, y - r, x + r, y + r), fill=fill, outline=outline, width=width)
+
+
+def paint_afro(img: Image.Image, hx: float, hy: float) -> None:
+    """Round hair cloud around the notehead. Face stays the full circle."""
+    fill = (90, 46, 22, 255)
+    deep = (54, 26, 12, 255)
+    lift = (136, 80, 44, 255)
+    hair = Image.new("RGBA", (SIZE, SIZE), (0, 0, 0, 0))
+    hd = ImageDraw.Draw(hair)
+    blobs = (
+        (hx - 2, hy - 36, 120),
+        (hx - 4, hy - 132, 40),
+        (hx - 78, hy - 100, 34),
+        (hx + 72, hy - 102, 34),
+        (hx - 102, hy + 6, 32),
+        (hx + 96, hy + 4, 32),
+    )
+    pad = 6
+    for x, y, r in blobs:
+        hd.ellipse((x - r - pad, y - r - pad, x + r + pad, y + r + pad), fill=INK)
+    for x, y, r in blobs:
+        hd.ellipse((x - r, y - r, x + r, y + r), fill=fill)
+    hd.ellipse((hx - 54, hy - 108, hx - 22, hy - 76), fill=lift)
+    hd.arc((hx - 70, hy - 96, hx - 38, hy - 64), 40, 200, fill=deep, width=4)
+    hd.arc((hx + 36, hy - 124, hx + 68, hy - 92), 200, 20, fill=deep, width=4)
+
+    face = Image.new("L", (SIZE, SIZE), 255)
+    ImageDraw.Draw(face).ellipse(
+        (hx - HEAD_R - 2, hy - HEAD_R - 2, hx + HEAD_R + 2, hy + HEAD_R + 2),
+        fill=0,
+    )
+    _r, _g, _b, a = hair.split()
+    hair.putalpha(ImageChops.multiply(a, face))
+    img.alpha_composite(hair)
 
 
 def draw_staff(draw: ImageDraw.ImageDraw, color: tuple[int, int, int, int], width: int = 3) -> None:
@@ -342,8 +376,7 @@ def paint_topper(kind: str, frame: int) -> Image.Image:
     ey = float(seat["ey"])
     crown = float(seat["crown"])
     if kind == "afro":
-        for ox, oy, r in ((-42, -86, 46), (42, -88, 46), (0, -108, 52), (-68, -52, 36), (68, -54, 36)):
-            draw_circle(draw, hx + ox, hy + oy, r, (92, 48, 24, 255), INK, 6)
+        paint_afro(img, hx, hy)
     elif kind == "shades":
         draw.rounded_rectangle((hx - 62, ey - 22, hx + 62, ey + 22), radius=14, fill=INK)
         draw.ellipse((hx - 48, ey - 16, hx - 8, ey + 16), fill=(48, 42, 56, 255))
@@ -648,7 +681,7 @@ def write_ts_gallery(samples: list[dict]) -> None:
             "  {\n"
             f"    id: {sample['id']},\n"
             f'    name: "{sample["name"]}",\n'
-            f'    image: "{sample["image"]}?v=6",\n'
+            f'    image: "{sample["image"]}?v=7",\n'
             f"    attributes: [\n      {attrs},\n    ],\n"
             "  }"
         )
