@@ -22,10 +22,10 @@
   "Expression:Groove": 3,
   "Topper:Halo": 3,
   "Riff:Vinyl": 3,
-  "Venue:Disco Floor": 3,
   "Expression:Shout": 3,
-  "Cable:None": 4,
-  "Riff:Bolt": 3,
+  "Venue:Disco Floor": 3,
+  "Topper:Beanie": 3,
   "Venue:Velvet Night": 3,
-  "Topper:Beanie": 3
+  "Cable:None": 4,
+  "Riff:Bolt": 3
 }

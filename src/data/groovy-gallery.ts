@@ -9,7 +9,7 @@ export const groovySamples: GroovySample[] = [
   {
     id: 1,
     name: "Groovy #1",
-    image: "/groovy-preview/1.gif?v=7",
+    image: "/groovy-preview/1.gif?v=8",
     attributes: [
       { trait_type: "Venue", value: "Sunset Strip" },
       { trait_type: "Note", value: "Eighth" },
@@ -22,7 +22,7 @@ export const groovySamples: GroovySample[] = [
   {
     id: 2,
     name: "Groovy #2",
-    image: "/groovy-preview/2.gif?v=7",
+    image: "/groovy-preview/2.gif?v=8",
     attributes: [
       { trait_type: "Venue", value: "Lava Lamp" },
       { trait_type: "Note", value: "Quarter" },
@@ -35,7 +35,7 @@ export const groovySamples: GroovySample[] = [
   {
     id: 3,
     name: "Groovy #3",
-    image: "/groovy-preview/3.gif?v=7",
+    image: "/groovy-preview/3.gif?v=8",
     attributes: [
       { trait_type: "Venue", value: "Disco Floor" },
       { trait_type: "Note", value: "Beamed" },
@@ -48,7 +48,7 @@ export const groovySamples: GroovySample[] = [
   {
     id: 4,
     name: "Groovy #4",
-    image: "/groovy-preview/4.gif?v=7",
+    image: "/groovy-preview/4.gif?v=8",
     attributes: [
       { trait_type: "Venue", value: "Velvet Night" },
       { trait_type: "Note", value: "Whole" },
@@ -61,7 +61,7 @@ export const groovySamples: GroovySample[] = [
   {
     id: 5,
     name: "Groovy #5",
-    image: "/groovy-preview/5.gif?v=7",
+    image: "/groovy-preview/5.gif?v=8",
     attributes: [
       { trait_type: "Venue", value: "Blacklight" },
       { trait_type: "Note", value: "Eighth" },
@@ -74,7 +74,7 @@ export const groovySamples: GroovySample[] = [
   {
     id: 6,
     name: "Groovy #6",
-    image: "/groovy-preview/6.gif?v=7",
+    image: "/groovy-preview/6.gif?v=8",
     attributes: [
       { trait_type: "Venue", value: "Chrome Wash" },
       { trait_type: "Note", value: "Quarter" },
@@ -87,7 +87,7 @@ export const groovySamples: GroovySample[] = [
   {
     id: 7,
     name: "Groovy #7",
-    image: "/groovy-preview/7.gif?v=7",
+    image: "/groovy-preview/7.gif?v=8",
     attributes: [
       { trait_type: "Venue", value: "Sunset Strip" },
       { trait_type: "Note", value: "Whole" },
@@ -100,7 +100,7 @@ export const groovySamples: GroovySample[] = [
   {
     id: 8,
     name: "Groovy #8",
-    image: "/groovy-preview/8.gif?v=7",
+    image: "/groovy-preview/8.gif?v=8",
     attributes: [
       { trait_type: "Venue", value: "Lava Lamp" },
       { trait_type: "Note", value: "Beamed" },
@@ -113,7 +113,7 @@ export const groovySamples: GroovySample[] = [
   {
     id: 9,
     name: "Groovy #9",
-    image: "/groovy-preview/9.gif?v=7",
+    image: "/groovy-preview/9.gif?v=8",
     attributes: [
       { trait_type: "Venue", value: "Disco Floor" },
       { trait_type: "Note", value: "Eighth" },
@@ -126,7 +126,7 @@ export const groovySamples: GroovySample[] = [
   {
     id: 10,
     name: "Groovy #10",
-    image: "/groovy-preview/10.gif?v=7",
+    image: "/groovy-preview/10.gif?v=8",
     attributes: [
       { trait_type: "Venue", value: "Velvet Night" },
       { trait_type: "Note", value: "Quarter" },
@@ -139,7 +139,7 @@ export const groovySamples: GroovySample[] = [
   {
     id: 11,
     name: "Groovy #11",
-    image: "/groovy-preview/11.gif?v=7",
+    image: "/groovy-preview/11.gif?v=8",
     attributes: [
       { trait_type: "Venue", value: "Blacklight" },
       { trait_type: "Note", value: "Whole" },
@@ -152,7 +152,7 @@ export const groovySamples: GroovySample[] = [
   {
     id: 12,
     name: "Groovy #12",
-    image: "/groovy-preview/12.gif?v=7",
+    image: "/groovy-preview/12.gif?v=8",
     attributes: [
       { trait_type: "Venue", value: "Chrome Wash" },
       { trait_type: "Note", value: "Beamed" },
@@ -165,7 +165,7 @@ export const groovySamples: GroovySample[] = [
   {
     id: 13,
     name: "Groovy #13",
-    image: "/groovy-preview/13.gif?v=7",
+    image: "/groovy-preview/13.gif?v=8",
     attributes: [
       { trait_type: "Venue", value: "Sunset Strip" },
       { trait_type: "Note", value: "Quarter" },
@@ -178,7 +178,7 @@ export const groovySamples: GroovySample[] = [
   {
     id: 14,
     name: "Groovy #14",
-    image: "/groovy-preview/14.gif?v=7",
+    image: "/groovy-preview/14.gif?v=8",
     attributes: [
       { trait_type: "Venue", value: "Lava Lamp" },
       { trait_type: "Note", value: "Eighth" },
@@ -191,7 +191,7 @@ export const groovySamples: GroovySample[] = [
   {
     id: 15,
     name: "Groovy #15",
-    image: "/groovy-preview/15.gif?v=7",
+    image: "/groovy-preview/15.gif?v=8",
     attributes: [
       { trait_type: "Venue", value: "Disco Floor" },
       { trait_type: "Note", value: "Whole" },
@@ -204,7 +204,7 @@ export const groovySamples: GroovySample[] = [
   {
     id: 16,
     name: "Groovy #16",
-    image: "/groovy-preview/16.gif?v=7",
+    image: "/groovy-preview/16.gif?v=8",
     attributes: [
       { trait_type: "Venue", value: "Velvet Night" },
       { trait_type: "Note", value: "Beamed" },

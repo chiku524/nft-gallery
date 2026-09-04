@@ -38,6 +38,7 @@ SRC_DATA = ROOT / "src" / "data"
 INK = (20, 18, 24, 255)
 WHITE = (255, 255, 255, 255)
 TONGUE = (236, 118, 148, 255)
+NOTE_INK = (255, 236, 186, 255)
 STROKE = 8
 LIMB = 7
 
@@ -55,10 +56,10 @@ CABLES = ("none", "chain", "cans", "mic")
 RIFFS = ("none", "treble", "vinyl", "stars", "bolt")
 
 NOTE_FILL = {
-    "quarter": (86, 102, 128, 255),
-    "eighth": (196, 62, 118, 255),
-    "whole": (240, 236, 246, 255),
-    "beamed": (42, 168, 158, 255),
+    "quarter": (156, 186, 224, 255),
+    "eighth": (236, 92, 156, 255),
+    "whole": (255, 250, 240, 255),
+    "beamed": (110, 236, 208, 255),
 }
 
 
@@ -235,6 +236,11 @@ def draw_limbs(draw: ImageDraw.ImageDraw, hx: float, hy: float, swing: float) ->
     draw.ellipse((rf[0] - 18, rf[1] - 8, rf[0] + 20, rf[1] + 10), fill=INK)
 
 
+def draw_stem(draw: ImageDraw.ImageDraw, a: tuple[float, float], b: tuple[float, float]) -> None:
+    draw_line(draw, a, b, INK, STEM_W + 6)
+    draw_line(draw, a, b, NOTE_INK, STEM_W)
+
+
 def draw_flag(draw: ImageDraw.ImageDraw, tx: float, ty: float) -> None:
     pts = [
         (tx - 1, ty),
@@ -246,7 +252,8 @@ def draw_flag(draw: ImageDraw.ImageDraw, tx: float, ty: float) -> None:
         (tx + 16, ty + 30),
         (tx + 2, ty + 22),
     ]
-    draw.polygon(pts, fill=INK)
+    draw.polygon(pts, fill=NOTE_INK, outline=INK)
+    draw.line((pts[0][0], pts[0][1], pts[1][0], pts[1][1]), fill=INK, width=4)
 
 
 def draw_notehead(draw: ImageDraw.ImageDraw, hx: float, hy: float, fill, hollow: bool = False) -> None:
@@ -271,22 +278,17 @@ def paint_note(kind: str, frame: int) -> Image.Image:
     draw_limbs(draw, hx, hy, swing)
 
     if kind != "whole":
-        draw_line(draw, (sx, sy), (tx, ty), INK, STEM_W)
+        draw_stem(draw, (sx, sy), (tx, ty))
 
     if kind == "eighth":
         draw_flag(draw, tx, ty)
     elif kind == "beamed":
         hx2, hy2 = hx + 128, hy + 16
         sx2, sy2, tx2, ty2 = stem_xy(hx2, hy2)
-        draw_line(draw, (sx2, sy2), (tx2, ty2), INK, STEM_W)
-        draw.polygon(
-            [(tx - 4, ty + 2), (tx2 + 6, ty2 + 2), (tx2 + 6, ty2 + 24), (tx - 4, ty + 24)],
-            fill=INK,
-        )
-        draw.polygon(
-            [(tx - 4, ty + 34), (tx2 + 6, ty2 + 34), (tx2 + 6, ty2 + 50), (tx - 4, ty + 50)],
-            fill=INK,
-        )
+        draw_stem(draw, (sx2, sy2), (tx2, ty2))
+        for y0, y1 in ((2, 24), (34, 50)):
+            beam = [(tx - 4, ty + y0), (tx2 + 6, ty2 + y0), (tx2 + 6, ty2 + y1), (tx - 4, ty + y1)]
+            draw.polygon(beam, fill=NOTE_INK, outline=INK)
         draw_notehead(draw, hx2, hy2, fill)
 
     draw_notehead(draw, hx, hy, fill, hollow=(kind == "whole"))
@@ -446,9 +448,12 @@ def paint_riff(kind: str, frame: int) -> Image.Image:
     ox, oy = math.sin(t) * 8, math.cos(t * 1.2) * 10
     if kind == "treble":
         x, y = 454 + ox, 118 + oy
-        draw.arc((x - 18, y - 40, x + 28, y + 8), 200, 40, fill=(240, 186, 48, 255), width=8)
-        draw.arc((x - 22, y, x + 24, y + 48), 20, 200, fill=(240, 186, 48, 255), width=8)
-        draw_circle(draw, x + 4, y + 58, 8, (240, 186, 48, 255), INK, 3)
+        gold = (255, 224, 96, 255)
+        draw.arc((x - 18, y - 40, x + 28, y + 8), 200, 40, fill=INK, width=12)
+        draw.arc((x - 22, y, x + 24, y + 48), 20, 200, fill=INK, width=12)
+        draw.arc((x - 18, y - 40, x + 28, y + 8), 200, 40, fill=gold, width=8)
+        draw.arc((x - 22, y, x + 24, y + 48), 20, 200, fill=gold, width=8)
+        draw_circle(draw, x + 4, y + 58, 8, gold, INK, 3)
     elif kind == "vinyl":
         x, y = 56 + ox * 0.3, 52 + oy * 0.3
         draw_circle(draw, x, y, 30, INK)
@@ -681,7 +686,7 @@ def write_ts_gallery(samples: list[dict]) -> None:
             "  {\n"
             f"    id: {sample['id']},\n"
             f'    name: "{sample["name"]}",\n'
-            f'    image: "{sample["image"]}?v=7",\n'
+            f'    image: "{sample["image"]}?v=8",\n'
             f"    attributes: [\n      {attrs},\n    ],\n"
             "  }"
         )
