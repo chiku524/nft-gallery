@@ -1,7 +1,0 @@
-Strangers do not match.
-
-A salon of 24 unique looping paintings on Base. Each work invents its own medium, palette, silhouette, and motion. Neighboring tokens are not siblings. There is no trait stack and no shared character.
-
-Every artwork is an open edition. The composition is 1:1. The mint is not.
-
-Twelve frames, ninety milliseconds, 512×512. Minting on Base (chain ID 8453). Gas is ETH.

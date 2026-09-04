@@ -3,7 +3,7 @@
     "id": 1,
     "slug": "shift-block",
     "title": "Shift Block",
-    "image": "/strangers/1.png",
+    "image": "/galleria/1.png",
     "description": "Three enamel slabs refuse to share an edge. The red one keeps the beat.",
     "attributes": [
       {
@@ -28,7 +28,7 @@
     "id": 2,
     "slug": "two-plate",
     "title": "Two Plate Offset",
-    "image": "/strangers/2.png",
+    "image": "/galleria/2.png",
     "description": "Fluorescent pink and teal miss each other on purpose. The overlap is the print.",
     "attributes": [
       {
@@ -53,7 +53,7 @@
     "id": 3,
     "slug": "phosphor-hold",
     "title": "Phosphor Hold",
-    "image": "/strangers/3.png",
+    "image": "/galleria/3.png",
     "description": "A green reticle waits on a dead monitor. The raster still believes in work.",
     "attributes": [
       {
@@ -78,7 +78,7 @@
     "id": 4,
     "slug": "tide-cut",
     "title": "Tide Cut",
-    "image": "/strangers/4.png",
+    "image": "/galleria/4.png",
     "description": "A block of cream paper takes the tide in carved strokes. Nothing here blends.",
     "attributes": [
       {
@@ -103,7 +103,7 @@
     "id": 5,
     "slug": "seed-field",
     "title": "Seed Field",
-    "image": "/strangers/5.png",
+    "image": "/galleria/5.png",
     "description": "A meadow that is only dots. The bloom walks; the ground never draws a line.",
     "attributes": [
       {
@@ -128,7 +128,7 @@
     "id": 6,
     "slug": "proof-sheet",
     "title": "Proof Sheet",
-    "image": "/strangers/6.png",
+    "image": "/galleria/6.png",
     "description": "A construction that never became a building. The white line is still deciding.",
     "attributes": [
       {
@@ -153,7 +153,7 @@
     "id": 7,
     "slug": "torn-stack",
     "title": "Torn Stack",
-    "image": "/strangers/7.png",
+    "image": "/galleria/7.png",
     "description": "Four leftover sheets refuse a tidy stack. One scrap keeps leaving the pile.",
     "attributes": [
       {
@@ -178,7 +178,7 @@
     "id": 8,
     "slug": "interference",
     "title": "Interference",
-    "image": "/strangers/8.png",
+    "image": "/galleria/8.png",
     "description": "Two ring families argue in black and white. The moir\u00e9 is the only subject.",
     "attributes": [
       {
@@ -203,7 +203,7 @@
     "id": 9,
     "slug": "hold-still",
     "title": "Hold Still",
-    "image": "/strangers/9.png",
+    "image": "/galleria/9.png",
     "description": "A night that refuses a subject. The grain is the only thing that moves.",
     "attributes": [
       {
@@ -228,7 +228,7 @@
     "id": 10,
     "slug": "tube-script",
     "title": "Tube Script",
-    "image": "/strangers/10.png",
+    "image": "/galleria/10.png",
     "description": "A glyph that is only glass and gas. The current travels; the word never arrives.",
     "attributes": [
       {
@@ -253,7 +253,7 @@
     "id": 11,
     "slug": "pressed-leaf",
     "title": "Pressed Leaf",
-    "image": "/strangers/11.png",
+    "image": "/galleria/11.png",
     "description": "A specimen plate with no garden behind it. The midrib darkens as the press holds.",
     "attributes": [
       {
@@ -278,7 +278,7 @@
     "id": 12,
     "slug": "trace-board",
     "title": "Trace Board",
-    "image": "/strangers/12.png",
+    "image": "/galleria/12.png",
     "description": "A board with no device. Gold pads wait. One trace finally takes current.",
     "attributes": [
       {
@@ -303,7 +303,7 @@
     "id": 13,
     "slug": "nine-patch",
     "title": "Nine Patch",
-    "image": "/strangers/13.png",
+    "image": "/galleria/13.png",
     "description": "Nine fabrics share a seam allowance. The center square keeps inhaling thread.",
     "attributes": [
       {
@@ -328,7 +328,7 @@
     "id": 14,
     "slug": "calcite",
     "title": "Calcite",
-    "image": "/strangers/14.png",
+    "image": "/galleria/14.png",
     "description": "A slab of stone with nothing carved into it. The veins keep changing their mind.",
     "attributes": [
       {
@@ -353,7 +353,7 @@
     "id": 15,
     "slug": "night-plate",
     "title": "Night Plate",
-    "image": "/strangers/15.png",
+    "image": "/galleria/15.png",
     "description": "A catalog of lights with no myth attached. The plate turns a few degrees and stops.",
     "attributes": [
       {
@@ -378,7 +378,7 @@
     "id": 16,
     "slug": "tesserae",
     "title": "Tesserae",
-    "image": "/strangers/16.png",
+    "image": "/galleria/16.png",
     "description": "A wall of glass squares with no picture in mind. Light crosses them anyway.",
     "attributes": [
       {
@@ -403,7 +403,7 @@
     "id": 17,
     "slug": "rime",
     "title": "Rime",
-    "image": "/strangers/17.png",
+    "image": "/galleria/17.png",
     "description": "Ice writes a tree on cold glass. The growth is the drawing.",
     "attributes": [
       {
@@ -428,7 +428,7 @@
     "id": 18,
     "slug": "plume",
     "title": "Plume",
-    "image": "/strangers/18.png",
+    "image": "/galleria/18.png",
     "description": "Pigment forgets it had an edge. The rise is slower than smoke and thicker than air.",
     "attributes": [
       {
@@ -453,7 +453,7 @@
     "id": 19,
     "slug": "lockup",
     "title": "Lockup",
-    "image": "/strangers/19.png",
+    "image": "/galleria/19.png",
     "description": "One letter takes the whole chase. The impression deepens; the alphabet stays out of it.",
     "attributes": [
       {
@@ -478,7 +478,7 @@
     "id": 20,
     "slug": "fold-plane",
     "title": "Fold Plane",
-    "image": "/strangers/20.png",
+    "image": "/galleria/20.png",
     "description": "A sheet that has already been thought through. One valley keeps changing its mind.",
     "attributes": [
       {
@@ -503,7 +503,7 @@
     "id": 21,
     "slug": "hatch-dune",
     "title": "Hatch Dune",
-    "image": "/strangers/21.png",
+    "image": "/galleria/21.png",
     "description": "A map of a place that is only height. The wind rewrites the contours.",
     "attributes": [
       {
@@ -528,7 +528,7 @@
     "id": 22,
     "slug": "lead-light",
     "title": "Lead Light",
-    "image": "/strangers/22.png",
+    "image": "/galleria/22.png",
     "description": "Jewel glass held by lead. No glow, no wash \u2014 only a pane that changes its mind.",
     "attributes": [
       {
@@ -553,7 +553,7 @@
     "id": 23,
     "slug": "punch",
     "title": "Punch",
-    "image": "/strangers/23.png",
+    "image": "/galleria/23.png",
     "description": "A card that stores nothing you can read. The holes advance; the meaning stays out.",
     "attributes": [
       {
@@ -578,7 +578,7 @@
     "id": 24,
     "slug": "wet-bloom",
     "title": "Wet Bloom",
-    "image": "/strangers/24.png",
+    "image": "/galleria/24.png",
     "description": "Water gets there first. Pigment follows and refuses a border.",
     "attributes": [
       {

@@ -1,17 +1,17 @@
 import Link from "next/link";
 import { OpenSeaLink } from "@/components/opensea-link";
-import { strangers } from "@/data/strangers";
-import { strangersPath } from "@/lib/strangers";
+import { galleria } from "@/data/galleria";
+import { galleriaPath } from "@/lib/galleria";
 
-export function StrangersFooter() {
+export function GalleriaFooter() {
   return (
     <footer className="mt-auto border-t border-border bg-[color-mix(in_oklch,var(--secondary)_55%,var(--background))]">
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-4 px-4 py-8 sm:flex-row sm:items-center sm:justify-between sm:px-6">
         <div>
-          <p className="font-heading text-lg">{strangers.name}</p>
+          <p className="font-heading text-lg">{galleria.name}</p>
           <p className="text-sm text-muted-foreground">
-            {strangers.supply} open editions · {strangers.chain.name} ·{" "}
-            <OpenSeaLink href={strangers.opensea.collection} className="hover:underline">
+            {galleria.supply} open editions · {galleria.chain.name} ·{" "}
+            <OpenSeaLink href={galleria.opensea.collection} className="hover:underline">
               OpenSea
             </OpenSeaLink>
           </p>
@@ -20,14 +20,14 @@ export function StrangersFooter() {
           <Link href="/" className="hover:underline">
             NFT Gallery
           </Link>
-          <Link href={strangersPath("/gallery")} className="hover:underline">
+          <Link href={galleriaPath("/gallery")} className="hover:underline">
             Gallery
           </Link>
-          <Link href={strangersPath("/launch")} className="hover:underline">
+          <Link href={galleriaPath("/launch")} className="hover:underline">
             Launch notes
           </Link>
-          <OpenSeaLink href={strangers.opensea.collection} className="hover:underline" />
-          <a href={strangers.chain.docs} className="hover:underline" target="_blank" rel="noreferrer">
+          <OpenSeaLink href={galleria.opensea.collection} className="hover:underline" />
+          <a href={galleria.chain.docs} className="hover:underline" target="_blank" rel="noreferrer">
             Chain docs
           </a>
         </div>

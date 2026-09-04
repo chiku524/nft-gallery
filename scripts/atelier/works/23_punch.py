@@ -55,7 +55,7 @@ def paint(frame: int) -> Image.Image:
                 c.rectangle((x, y, x + 14, y + 18), fill=(42, 36, 30))
             else:
                 c.rectangle((x, y, x + 14, y + 18), outline=(150, 128, 90), width=1)
-    c.text((16, 250), f"STRNGR 23   ROW {shift:02d}", font=_font(14), fill=(92, 72, 48))
+    c.text((16, 250), f"GOI 23   ROW {shift:02d}", font=_font(14), fill=(92, 72, 48))
     canvas.paste(card, (36, 116))
     draw.rectangle((20, 20, 492, 492), outline=(226, 206, 164), width=2)
     return canvas.convert("RGBA")

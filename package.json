@@ -18,7 +18,7 @@
     "generate:santapaws": "python3 scripts/build_santapaws.py && python3 scripts/generate_santapaws.py",
     "generate:scribblins": "python3 scripts/build_scribblins.py && python3 scripts/generate_scribblins.py",
     "generate:groovy": "python3 scripts/build_groovy.py && python3 scripts/generate_groovy.py",
-    "generate:strangers": "python3 scripts/build_strangers.py",
+    "generate:galleria": "python3 scripts/build_galleria.py",
     "generate:gifs": "python3 scripts/gif_bake.py --afterimages && python3 scripts/gif_bake.py --loopkins --all && python3 scripts/gif_bake.py --inklings --all && python3 scripts/gif_bake.py --wicklings --all && python3 scripts/gif_bake.py --purrkins --all && python3 scripts/gif_bake.py --birbs --all && python3 scripts/gif_bake.py --shookums --all && python3 scripts/gif_bake.py --foxins --all && python3 scripts/gif_bake.py --santapaws --all && python3 scripts/gif_bake.py --scribblins --all && python3 scripts/gif_bake.py --groovy --all"
   },
   "dependencies": {

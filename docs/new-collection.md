@@ -15,7 +15,7 @@ The drawing generator is reset. The next drop does not inherit Scribblins, Foxin
 - Doodle charcoal / sticker-cutout / oval-egg body language
 - Trait names Field, Body, Mug, Hat, Wrap, Charm
 
-For a salon of unrelated 1:1 open editions, do not write one painter with scene variants. Add a new file under `scripts/atelier/works/` that exports `WORK` and `paint(frame)`. The orchestrator is `scripts/build_strangers.py`.
+For a salon of unrelated 1:1 open editions, do not write one painter with scene variants. Add a new file under `scripts/atelier/works/` that exports `WORK` and `paint(frame)`. The orchestrator is `scripts/build_galleria.py`.
 
 ## House pipeline (keep)
 

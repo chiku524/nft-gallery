@@ -5,16 +5,16 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import { ApngImage } from "@/components/apng-image";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { getStrangerWork, strangerWorksList, strangers } from "@/data/strangers";
-import { strangersPath } from "@/lib/strangers";
+import { galleria, galleriaWorks, getGalleriaWork } from "@/data/galleria";
+import { galleriaPath } from "@/lib/galleria";
 
 export function generateStaticParams() {
-  return strangerWorksList.map((work) => ({ id: String(work.id) }));
+  return galleriaWorks.map((work) => ({ id: String(work.id) }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const { id } = await params;
-  const work = getStrangerWork(Number(id));
+  const work = getGalleriaWork(Number(id));
   if (!work) {
     return { title: "Artwork" };
   }
@@ -24,20 +24,20 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   };
 }
 
-export default async function StrangerWorkPage({ params }: { params: Promise<{ id: string }> }) {
+export default async function GalleriaWorkPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const work = getStrangerWork(Number(id));
+  const work = getGalleriaWork(Number(id));
   if (!work) {
     notFound();
   }
 
-  const featuredCount = strangerWorksList.length;
-  const prev = getStrangerWork(work.id === 1 ? featuredCount : work.id - 1);
-  const next = getStrangerWork(work.id === featuredCount ? 1 : work.id + 1);
+  const featuredCount = galleriaWorks.length;
+  const prev = getGalleriaWork(work.id === 1 ? featuredCount : work.id - 1);
+  const next = getGalleriaWork(work.id === featuredCount ? 1 : work.id + 1);
 
   return (
     <div className="mx-auto w-full max-w-6xl px-4 py-10 sm:px-6">
-      <Link href={strangersPath("/gallery")} className="text-sm text-muted-foreground hover:text-foreground">
+      <Link href={galleriaPath("/gallery")} className="text-sm text-muted-foreground hover:text-foreground">
         ← Back to the salon
       </Link>
 
@@ -53,7 +53,7 @@ export default async function StrangerWorkPage({ params }: { params: Promise<{ i
         </div>
         <div className="lg:col-span-5">
           <Badge variant="secondary">
-            Work #{work.id} · {strangers.edition}
+            Work #{work.id} · {galleria.edition}
           </Badge>
           <h1 className="mt-4 font-heading text-4xl">{work.title}</h1>
           <p className="mt-4 text-muted-foreground">{work.description}</p>
@@ -67,12 +67,12 @@ export default async function StrangerWorkPage({ params }: { params: Promise<{ i
           </dl>
           <p className="mt-6 text-sm text-muted-foreground">
             File <code className="rounded bg-secondary px-1.5 py-0.5">{work.id}.png</code> ·{" "}
-            {strangers.canvas}×{strangers.canvas} APNG · {strangers.frames} frames · {strangers.mintPriceEth} ETH
+            {galleria.canvas}×{galleria.canvas} APNG · {galleria.frames} frames · {galleria.mintPriceEth} ETH
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             {prev ? (
               <Button asChild variant="secondary">
-                <Link href={strangersPath(`/${prev.id}`)}>
+                <Link href={galleriaPath(`/${prev.id}`)}>
                   <ArrowLeft data-icon="inline-start" />
                   {prev.title}
                 </Link>
@@ -80,7 +80,7 @@ export default async function StrangerWorkPage({ params }: { params: Promise<{ i
             ) : null}
             {next ? (
               <Button asChild>
-                <Link href={strangersPath(`/${next.id}`)}>
+                <Link href={galleriaPath(`/${next.id}`)}>
                   {next.title}
                   <ArrowRight data-icon="inline-end" />
                 </Link>

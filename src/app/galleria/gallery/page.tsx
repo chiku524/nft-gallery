@@ -1,30 +1,30 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ApngImage } from "@/components/apng-image";
-import { strangerWorksList, strangers } from "@/data/strangers";
-import { strangersPath } from "@/lib/strangers";
+import { galleria, galleriaWorks } from "@/data/galleria";
+import { galleriaPath } from "@/lib/galleria";
 
 export const metadata: Metadata = {
   title: "Gallery",
-  description: `${strangers.supply} open-edition Strangers looping paintings.`,
+  description: `${galleria.supply} open-edition Galleria On Ink looping paintings.`,
 };
 
-export default function StrangersGalleryPage() {
+export default function GalleriaGalleryPage() {
   return (
     <div className="mx-auto w-full max-w-6xl px-4 py-10 sm:px-6">
       <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground">Salon</p>
-      <h1 className="mt-2 font-heading text-4xl">{strangers.supply} open editions</h1>
+      <h1 className="mt-2 font-heading text-4xl">{galleria.supply} open editions</h1>
       <p className="mt-3 max-w-2xl text-muted-foreground">
-        Each file is a finished loop — {strangers.canvas}×{strangers.canvas}, {strangers.frames} frames,{" "}
-        {strangers.frameDurationMs}ms — painted by its own engine. Neighboring works do not share a
-        medium. The mint is an open edition on {strangers.chain.name}.
+        Each file is a finished loop — {galleria.canvas}×{galleria.canvas}, {galleria.frames} frames,{" "}
+        {galleria.frameDurationMs}ms — painted by its own engine. Neighboring works do not share a
+        medium. The mint is an open edition on {galleria.chain.name}.
       </p>
 
       <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {strangerWorksList.map((work) => (
+        {galleriaWorks.map((work) => (
           <Link
             key={work.id}
-            href={strangersPath(`/${work.id}`)}
+            href={galleriaPath(`/${work.id}`)}
             className="group overflow-hidden rounded-[1.6rem] border bg-card"
           >
             <ApngImage
@@ -36,7 +36,7 @@ export default function StrangersGalleryPage() {
             />
             <div className="space-y-2 p-4">
               <p className="text-xs uppercase tracking-[0.16em] text-muted-foreground">
-                #{work.id} · {strangers.edition}
+                #{work.id} · {galleria.edition}
               </p>
               <h2 className="font-heading text-xl">{work.title}</h2>
               <p className="text-sm text-muted-foreground">{work.description}</p>

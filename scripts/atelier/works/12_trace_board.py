@@ -40,5 +40,5 @@ def paint(frame: int) -> Image.Image:
         color = (120, 210, 90) if i == live else mask
         draw.line(path, fill=color, width=8, joint="curve")
     draw.ellipse((232, 232, 280, 280), outline=gold, width=4)
-    draw.text((40, 14), "STRNGR  12  REV A", fill=silk)
+    draw.text((40, 14), "GOI  12  REV A", fill=silk)
     return canvas.convert("RGBA")

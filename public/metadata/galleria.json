@@ -1,0 +1,12 @@
+{
+  "name": "Galleria On Ink",
+  "symbol": "GOI",
+  "description": "Galleria On Ink.  A salon of 24 unique looping paintings on Ink. Each work invents its own medium, palette, silhouette, and motion. Neighboring tokens are not siblings. There is no trait stack and no shared character.  Every artwork is an open edition. The composition is 1:1. The mint is not.  Twelve frames, ninety milliseconds, 512\u00d7512. Minting on Ink (chain ID 57073). Gas is ETH.",
+  "image": "/brand/collection-galleria.gif",
+  "featured_image": "/brand/featured-galleria.jpg",
+  "banner_image": "/brand/banner-galleria.png",
+  "opensea_banner_image": "/brand/banner-galleria-opensea.jpg",
+  "external_link": "/galleria",
+  "seller_fee_basis_points": 750,
+  "fee_recipient": "0x0000000000000000000000000000000000000000"
+}

@@ -6,34 +6,36 @@ import { Menu } from "lucide-react";
 import { ApngImage } from "@/components/apng-image";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { strangers } from "@/data/strangers";
-import { strangersPath } from "@/lib/strangers";
+import { galleria } from "@/data/galleria";
+import { galleriaPath } from "@/lib/galleria";
 import { cn } from "@/lib/utils";
 
 const links: { href: string; label: string; external?: boolean }[] = [
-  { href: strangersPath(), label: "Salon" },
-  { href: strangersPath("/gallery"), label: "Gallery" },
-  { href: strangersPath("/launch"), label: "Launch" },
-  { href: strangers.opensea.collection, label: "OpenSea", external: true },
+  { href: galleriaPath(), label: "Salon" },
+  { href: galleriaPath("/gallery"), label: "Gallery" },
+  { href: galleriaPath("/launch"), label: "Launch" },
+  { href: galleria.opensea.collection, label: "OpenSea", external: true },
 ];
 
-export function StrangersHeader() {
+export function GalleriaHeader() {
   const pathname = usePathname();
 
   return (
     <header className="sticky top-0 z-40 border-b border-border/80 bg-[color-mix(in_oklch,var(--background)_86%,#1a1a1e)]/92 backdrop-blur-md">
       <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-4 sm:px-6">
-        <Link href={strangersPath()} className="flex items-center gap-3">
+        <Link href={galleriaPath()} className="flex items-center gap-3">
           <ApngImage
-            src="/brand/logo-strangers.png"
+            src="/brand/logo-galleria.png"
             alt=""
             width={40}
             height={40}
             className="size-10 rounded-md border border-border object-cover"
           />
           <div className="leading-tight">
-            <p className="font-heading text-lg tracking-tight">{strangers.name}</p>
-            <p className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">Open editions</p>
+            <p className="font-heading text-lg tracking-tight">{galleria.name}</p>
+            <p className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
+              {galleria.symbol} · Open editions
+            </p>
           </div>
         </Link>
 
@@ -59,7 +61,7 @@ export function StrangersHeader() {
 
         <div className="flex items-center gap-2">
           <Button asChild size="sm" className="hidden sm:inline-flex">
-            <Link href={strangersPath("/gallery")}>See the editions</Link>
+            <Link href={galleriaPath("/gallery")}>See the editions</Link>
           </Button>
           <Sheet>
             <SheetTrigger asChild>
@@ -69,7 +71,7 @@ export function StrangersHeader() {
             </SheetTrigger>
             <SheetContent side="right" className="w-72">
               <SheetHeader>
-                <SheetTitle>{strangers.name}</SheetTitle>
+                <SheetTitle>{galleria.name}</SheetTitle>
               </SheetHeader>
               <div className="mt-6 flex flex-col gap-2 px-4">
                 {links.map((link) =>
