@@ -28,6 +28,8 @@ from build_groovy import (  # noqa: E402
     COLLECTION_STORY,
     DURATION_MS,
     FRAMES,
+    GIF_COLORS,
+    GIF_DITHER,
     PREVIEW_DIR,
     SIGNATURES,
     SIZE,
@@ -46,7 +48,6 @@ JSON_DIR = OUT / "json"
 TOTAL = 8_888
 SEED = 4663_8888
 DROP_SIZE = 512
-GIF_COLORS = 160
 OPENSEA_LIMIT_BYTES = 10 * 1024 * 1024 * 1024
 
 _CACHE: dict[tuple[str, str], list[Image.Image]] | None = None
@@ -185,7 +186,14 @@ def bake_one(job: tuple[int, dict[str, str]]) -> tuple[int, dict, int]:
     rebuild = _FORCE or traits_newer_than(gif_dest) or missing
     if rebuild:
         frames = compose_cached(selection)
-        save_loop_gif(frames, gif_dest, DURATION_MS, colors=GIF_COLORS)
+        save_loop_gif(
+            frames,
+            gif_dest,
+            DURATION_MS,
+            colors=GIF_COLORS,
+            dither=GIF_DITHER,
+            palette_picks=FRAMES,
+        )
     (JSON_DIR / f"{token_id}.json").write_text(json.dumps(meta) + "\n", encoding="utf-8")
     return token_id, meta, gif_dest.stat().st_size
 

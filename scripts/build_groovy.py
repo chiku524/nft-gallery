@@ -26,6 +26,9 @@ sys.path.insert(0, str(ROOT / "scripts"))
 from gif_bake import save_loop_gif  # noqa: E402
 from paint_kit import DURATION_MS, FRAMES, SIZE, place_portrait, save_apng, save_image  # noqa: E402
 
+GIF_COLORS = 192
+GIF_DITHER = Image.Dither.NONE
+
 TRAIT_DIR = ROOT / "public" / "groovy-traits"
 PREVIEW_DIR = ROOT / "public" / "groovy-preview"
 BRAND_DIR = ROOT / "public" / "brand"
@@ -123,14 +126,19 @@ def paint_venue(kind: str, frame: int) -> Image.Image:
     img = Image.new("RGBA", (SIZE, SIZE), (0, 0, 0, 0))
     draw = ImageDraw.Draw(img)
     if kind == "sunset":
-        for y in range(SIZE):
-            t = y / (SIZE - 1)
-            r = int(255 * (1.0 - t * 0.15) + 210 * t)
-            g = int(140 * (1.0 - t) + 48 * t)
-            b = int(72 * (1.0 - t) + 150 * t)
-            draw.line((0, y, SIZE, y), fill=(r, g, b, 255))
+        bands = (
+            (255, 148, 52, 255),
+            (255, 96, 72, 255),
+            (236, 58, 118, 255),
+            (214, 44, 138, 255),
+            (176, 36, 148, 255),
+        )
+        band_h = SIZE // len(bands)
+        for i, color in enumerate(bands):
+            y1 = SIZE if i == len(bands) - 1 else (i + 1) * band_h
+            draw.rectangle((0, i * band_h, SIZE, y1), fill=color)
         draw.ellipse((36, 28, 196, 188), fill=(255, 214, 96, 255), outline=INK, width=6)
-        draw_staff(draw, (48, 22, 36, 180), 3)
+        draw_staff(draw, (48, 22, 36, 255), 3)
     elif kind == "lava":
         draw.rectangle((0, 0, SIZE, SIZE), fill=(28, 12, 42, 255))
         blobs = ((90, 120, 70, (220, 56, 140, 255)), (360, 200, 86, (48, 196, 186, 255)), (230, 400, 100, (240, 140, 48, 255)))
@@ -139,7 +147,7 @@ def paint_venue(kind: str, frame: int) -> Image.Image:
             ox = math.sin(phase + bx) * 10
             oy = math.cos(phase + by) * 8
             draw.ellipse((bx + ox - br, by + oy - br, bx + ox + br, by + oy + br), fill=col, outline=INK, width=5)
-        draw_staff(draw, (255, 230, 200, 90), 3)
+        draw_staff(draw, (255, 230, 200, 255), 3)
     elif kind == "checker":
         draw.rectangle((0, 0, SIZE, SIZE), fill=(42, 16, 58, 255))
         cell = 48
@@ -148,11 +156,11 @@ def paint_venue(kind: str, frame: int) -> Image.Image:
                 if (row + col) % 2 == 0:
                     x0, y0 = col * cell, row * cell
                     draw.rectangle((x0, y0, x0 + cell, y0 + cell), fill=(244, 196, 64, 255))
-        draw_staff(draw, (255, 230, 180, 70), 3)
+        draw_staff(draw, (255, 230, 180, 255), 3)
     elif kind == "velvet":
         draw.rectangle((0, 0, SIZE, SIZE), fill=(72, 16, 48, 255))
         draw.ellipse((90, 80, 422, 420), fill=(110, 28, 68, 255), outline=INK, width=6)
-        draw_staff(draw, (255, 210, 220, 80), 3)
+        draw_staff(draw, (255, 210, 220, 255), 3)
     elif kind == "blacklight":
         draw.rectangle((0, 0, SIZE, SIZE), fill=(12, 28, 40, 255))
         for i in range(14):
@@ -160,11 +168,11 @@ def paint_venue(kind: str, frame: int) -> Image.Image:
             py = 40 + (i * 53) % 400 + int(math.sin(frame / FRAMES * math.tau + i) * 6)
             col = (72, 230, 140, 255) if i % 2 else (196, 80, 230, 255)
             draw.ellipse((px - 8, py - 8, px + 8, py + 8), fill=col, outline=INK, width=3)
-        draw_staff(draw, (180, 255, 210, 80), 3)
+        draw_staff(draw, (180, 255, 210, 255), 3)
     else:
         draw.rectangle((0, 0, SIZE, SIZE), fill=(186, 194, 210, 255))
-        draw.ellipse((150, 428, 370, 488), fill=(230, 236, 246, 120))
-        draw_staff(draw, (40, 40, 52, 160), 3)
+        draw.ellipse((150, 428, 370, 488), fill=(214, 220, 232, 255), outline=INK, width=4)
+        draw_staff(draw, (40, 40, 52, 255), 3)
     return img
 
 
@@ -214,7 +222,7 @@ def draw_notehead(draw: ImageDraw.ImageDraw, hx: float, hy: float, fill, hollow:
         draw_circle(draw, hx, hy, HEAD_R - 16, None, INK, 14)
     else:
         draw_circle(draw, hx, hy, HEAD_R, fill)
-        draw.ellipse((hx - 52, hy - 72, hx - 12, hy - 40), fill=(255, 255, 255, 55))
+        draw.ellipse((hx - 52, hy - 72, hx - 12, hy - 40), fill=(255, 248, 232, 255))
 
 
 def paint_note(kind: str, frame: int) -> Image.Image:
@@ -225,7 +233,7 @@ def paint_note(kind: str, frame: int) -> Image.Image:
     fill = NOTE_FILL[kind]
     sx, sy, tx, ty = stem_xy(hx, hy)
 
-    draw.ellipse((hx - 74, hy + HEAD_R + 78, hx + 80, hy + HEAD_R + 98), fill=(20, 18, 24, 46))
+    draw.ellipse((hx - 74, hy + HEAD_R + 78, hx + 80, hy + HEAD_R + 98), fill=(32, 24, 40, 255))
     draw_limbs(draw, hx, hy, swing)
 
     if kind != "whole":
@@ -607,7 +615,14 @@ def build_samples() -> None:
     for index, selection in enumerate(SIGNATURES, start=1):
         print(f"  sample #{index}")
         frames = compose_selection(selection)
-        save_loop_gif(frames, PREVIEW_DIR / f"{index}.gif", DURATION_MS, colors=64)
+        save_loop_gif(
+            frames,
+            PREVIEW_DIR / f"{index}.gif",
+            DURATION_MS,
+            colors=GIF_COLORS,
+            dither=GIF_DITHER,
+            palette_picks=FRAMES,
+        )
         samples.append(
             {
                 "id": index,
@@ -633,7 +648,7 @@ def write_ts_gallery(samples: list[dict]) -> None:
             "  {\n"
             f"    id: {sample['id']},\n"
             f'    name: "{sample["name"]}",\n'
-            f'    image: "{sample["image"]}?v=5",\n'
+            f'    image: "{sample["image"]}?v=6",\n'
             f"    attributes: [\n      {attrs},\n    ],\n"
             "  }"
         )
@@ -738,7 +753,14 @@ def build_brand() -> None:
     save_image(featured.convert("RGB"), BRAND_DIR / "featured-groovy.jpg", quality=90)
 
     gif_frames = [frame.resize((1000, 1000), Image.Resampling.LANCZOS) for frame in logo_frames]
-    save_loop_gif(gif_frames, BRAND_DIR / "collection-groovy.gif", DURATION_MS, colors=64)
+    save_loop_gif(
+        gif_frames,
+        BRAND_DIR / "collection-groovy.gif",
+        DURATION_MS,
+        colors=GIF_COLORS,
+        dither=GIF_DITHER,
+        palette_picks=FRAMES,
+    )
     write_collection_meta()
 
 

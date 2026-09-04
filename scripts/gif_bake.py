@@ -83,12 +83,15 @@ def load_apng_frames(path: Path) -> tuple[list[Image.Image], int]:
         return frames, int(duration)
 
 
-def palette_source(frames: list[Image.Image]) -> Image.Image:
-    step = max(1, len(frames) // 4)
-    picks = frames[::step][:4]
-    width, height = picks[0].size
-    mosaic = Image.new("RGB", (width * len(picks), height))
-    for index, frame in enumerate(picks):
+def palette_source(frames: list[Image.Image], picks: int = 4) -> Image.Image:
+    if picks >= len(frames):
+        chosen = frames
+    else:
+        step = max(1, len(frames) // picks)
+        chosen = frames[::step][:picks]
+    width, height = chosen[0].size
+    mosaic = Image.new("RGB", (width * len(chosen), height))
+    for index, frame in enumerate(chosen):
         mosaic.paste(frame, (index * width, 0))
     return mosaic
 
@@ -98,15 +101,17 @@ def save_loop_gif(
     path: Path,
     duration_ms: int,
     colors: int = 240,
+    dither: int = Image.Dither.FLOYDSTEINBERG,
+    palette_picks: int = 4,
 ) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     rgb_frames = [frame.convert("RGB") for frame in frames]
-    palette = palette_source(rgb_frames).quantize(
+    palette = palette_source(rgb_frames, picks=palette_picks).quantize(
         colors=colors,
         method=Image.Quantize.MEDIANCUT,
         dither=Image.Dither.NONE,
     )
-    quantized = [frame.quantize(palette=palette, dither=Image.Dither.FLOYDSTEINBERG) for frame in rgb_frames]
+    quantized = [frame.quantize(palette=palette, dither=dither) for frame in rgb_frames]
     buffer = BytesIO()
     quantized[0].save(
         buffer,
