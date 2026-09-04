@@ -23,3 +23,29 @@ tokenID,name,description,file_name,attributes[Medium],attributes[Motion],attribu
 22,Lead Light,"Jewel glass held by lead. No glow, no wash — only a pane that changes its mind.",22.gif,Leaded glass,Cycle,Jewel lead,Open
 23,Punch,A card that stores nothing you can read. The holes advance; the meaning stays out.,23.gif,Punch card,Advance,Manila void,Open
 24,Wet Bloom,Water gets there first. Pigment follows and refuses a border.,24.gif,Watercolor,Expand,Wash coral,Open
+25,Sampler Row,A counted cloth that never learned a picture. One row of X’s keeps arriving.,25.gif,Cross-stitch,Sew,Floss linen,Open
+26,Lino Bite,A block of linoleum keeps one animal. The beak advances a cut at a time.,26.gif,Linocut,Hop,Crimson block,Open
+27,Teletype,A roll of unused language. The cursor is the only reader.,27.gif,Teletype,Advance,Terminal green,Open
+28,Kintsugi,A bowl that was already broken. The gold is the only part still deciding.,28.gif,Kintsugi,Gleam,Lacquer gold,Open
+29,Waybill,A label for a package that never left. The scan line is the journey.,29.gif,Barcode,Scan,Manila carbon,Open
+30,Instant Peel,A photograph that refuses a subject until the chemistry finishes. It never quite does.,30.gif,Instant film,Develop,Peel chemistry,Open
+31,Ben-Day,Four cheap inks pretending to be a sky. The cyan plate keeps arriving late.,31.gif,Ben-Day,Pulse,Process CMYK,Open
+32,Ikat Shift,A warp that was tied before it was dyed. The miss is the pattern.,32.gif,Ikat,Slip,Warp indigo,Open
+33,Tape Window,A cassette that never plays a song. The reels keep the only motion.,33.gif,Cassette,Reel,Smoke brown,Open
+34,Bitten Plate,Acid remembers every circle. The plate darkens where the bite holds.,34.gif,Etching,Bite,Verdigris copper,Open
+35,Yield Field,A sign with no road. The warning is the whole landscape.,35.gif,Traffic enamel,Warn,Safety yellow,Open
+36,Sand Ring,A mandala made to be swept. One ring turns before the broom arrives.,36.gif,Sand mandala,Turn,Temple dust,Open
+37,Carbon Copy,A second sheet keeps a letter no one mailed. The words slip one row.,37.gif,Carbon paper,Slip,Violet tissue,Open
+38,Barricade,A road closed to nothing. The stripes keep walking anyway.,38.gif,Barricade,Crawl,Safety orange,Open
+39,Urushi,Many coats of night. A red thought shows only when the light is wrong.,39.gif,Urushi,Sheen,Lacquer night,Open
+40,Radar Sweep,A scope that keeps a storm that is not there. The arm is the weather.,40.gif,Radar,Sweep,Scope green,Open
+41,Pennant Line,Flags that name no ship. One pennant keeps changing its mind in the wind.,41.gif,Maritime flag,Snap,Signal cloth,Open
+42,Microfiche,A library reduced to amber. One row of ghosts advances.,42.gif,Microfiche,Index,Amber negative,Open
+43,Garter Knit,A scarf that is only rows. The needle is still working the last one.,43.gif,Knit,Cast,Wool rust,Open
+44,Slate Dust,A blackboard with no lesson. The dust keeps a stroke that will not stay.,44.gif,Chalk,Dust,Slate white,Open
+45,Encaustic,Wax poured over a thought. The thought keeps trying to surface.,45.gif,Encaustic,Well,Wax umber,Open
+46,Cork Pins,A board that never held a note. The pins keep finding new holes.,46.gif,Cork,Hop,Tan pin,Open
+47,Cell Pour,Acrylic that decided to become a map. The cells breathe without blending.,47.gif,Paint pour,Cell,Pour jewel,Open
+48,Staff Walk,A measure with no key. The note keeps the appointment anyway.,48.gif,Notation,Walk,Score black,Open
+49,Flemish Bond,A wall that is only the wall. One brick remembers weather.,49.gif,Brick,Weather,Clay mortar,Open
+50,Thermograph,A temperature with no body. The hot spots keep changing their address.,50.gif,Thermograph,Migrate,Infrared,Open

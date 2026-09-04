@@ -598,5 +598,655 @@
         "value": "Open"
       }
     ]
+  },
+  {
+    "id": 25,
+    "slug": "cross-stitch",
+    "title": "Sampler Row",
+    "image": "/galleria/25.png",
+    "description": "A counted cloth that never learned a picture. One row of X\u2019s keeps arriving.",
+    "attributes": [
+      {
+        "trait_type": "Medium",
+        "value": "Cross-stitch"
+      },
+      {
+        "trait_type": "Motion",
+        "value": "Sew"
+      },
+      {
+        "trait_type": "Palette",
+        "value": "Floss linen"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "Open"
+      }
+    ]
+  },
+  {
+    "id": 26,
+    "slug": "lino-bite",
+    "title": "Lino Bite",
+    "image": "/galleria/26.png",
+    "description": "A block of linoleum keeps one animal. The beak advances a cut at a time.",
+    "attributes": [
+      {
+        "trait_type": "Medium",
+        "value": "Linocut"
+      },
+      {
+        "trait_type": "Motion",
+        "value": "Hop"
+      },
+      {
+        "trait_type": "Palette",
+        "value": "Crimson block"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "Open"
+      }
+    ]
+  },
+  {
+    "id": 27,
+    "slug": "teletype",
+    "title": "Teletype",
+    "image": "/galleria/27.png",
+    "description": "A roll of unused language. The cursor is the only reader.",
+    "attributes": [
+      {
+        "trait_type": "Medium",
+        "value": "Teletype"
+      },
+      {
+        "trait_type": "Motion",
+        "value": "Advance"
+      },
+      {
+        "trait_type": "Palette",
+        "value": "Terminal green"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "Open"
+      }
+    ]
+  },
+  {
+    "id": 28,
+    "slug": "kintsugi",
+    "title": "Kintsugi",
+    "image": "/galleria/28.png",
+    "description": "A bowl that was already broken. The gold is the only part still deciding.",
+    "attributes": [
+      {
+        "trait_type": "Medium",
+        "value": "Kintsugi"
+      },
+      {
+        "trait_type": "Motion",
+        "value": "Gleam"
+      },
+      {
+        "trait_type": "Palette",
+        "value": "Lacquer gold"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "Open"
+      }
+    ]
+  },
+  {
+    "id": 29,
+    "slug": "waybill",
+    "title": "Waybill",
+    "image": "/galleria/29.png",
+    "description": "A label for a package that never left. The scan line is the journey.",
+    "attributes": [
+      {
+        "trait_type": "Medium",
+        "value": "Barcode"
+      },
+      {
+        "trait_type": "Motion",
+        "value": "Scan"
+      },
+      {
+        "trait_type": "Palette",
+        "value": "Manila carbon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "Open"
+      }
+    ]
+  },
+  {
+    "id": 30,
+    "slug": "instant-peel",
+    "title": "Instant Peel",
+    "image": "/galleria/30.png",
+    "description": "A photograph that refuses a subject until the chemistry finishes. It never quite does.",
+    "attributes": [
+      {
+        "trait_type": "Medium",
+        "value": "Instant film"
+      },
+      {
+        "trait_type": "Motion",
+        "value": "Develop"
+      },
+      {
+        "trait_type": "Palette",
+        "value": "Peel chemistry"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "Open"
+      }
+    ]
+  },
+  {
+    "id": 31,
+    "slug": "ben-day",
+    "title": "Ben-Day",
+    "image": "/galleria/31.png",
+    "description": "Four cheap inks pretending to be a sky. The cyan plate keeps arriving late.",
+    "attributes": [
+      {
+        "trait_type": "Medium",
+        "value": "Ben-Day"
+      },
+      {
+        "trait_type": "Motion",
+        "value": "Pulse"
+      },
+      {
+        "trait_type": "Palette",
+        "value": "Process CMYK"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "Open"
+      }
+    ]
+  },
+  {
+    "id": 32,
+    "slug": "ikat-shift",
+    "title": "Ikat Shift",
+    "image": "/galleria/32.png",
+    "description": "A warp that was tied before it was dyed. The miss is the pattern.",
+    "attributes": [
+      {
+        "trait_type": "Medium",
+        "value": "Ikat"
+      },
+      {
+        "trait_type": "Motion",
+        "value": "Slip"
+      },
+      {
+        "trait_type": "Palette",
+        "value": "Warp indigo"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "Open"
+      }
+    ]
+  },
+  {
+    "id": 33,
+    "slug": "tape-window",
+    "title": "Tape Window",
+    "image": "/galleria/33.png",
+    "description": "A cassette that never plays a song. The reels keep the only motion.",
+    "attributes": [
+      {
+        "trait_type": "Medium",
+        "value": "Cassette"
+      },
+      {
+        "trait_type": "Motion",
+        "value": "Reel"
+      },
+      {
+        "trait_type": "Palette",
+        "value": "Smoke brown"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "Open"
+      }
+    ]
+  },
+  {
+    "id": 34,
+    "slug": "bitten-plate",
+    "title": "Bitten Plate",
+    "image": "/galleria/34.png",
+    "description": "Acid remembers every circle. The plate darkens where the bite holds.",
+    "attributes": [
+      {
+        "trait_type": "Medium",
+        "value": "Etching"
+      },
+      {
+        "trait_type": "Motion",
+        "value": "Bite"
+      },
+      {
+        "trait_type": "Palette",
+        "value": "Verdigris copper"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "Open"
+      }
+    ]
+  },
+  {
+    "id": 35,
+    "slug": "yield-field",
+    "title": "Yield Field",
+    "image": "/galleria/35.png",
+    "description": "A sign with no road. The warning is the whole landscape.",
+    "attributes": [
+      {
+        "trait_type": "Medium",
+        "value": "Traffic enamel"
+      },
+      {
+        "trait_type": "Motion",
+        "value": "Warn"
+      },
+      {
+        "trait_type": "Palette",
+        "value": "Safety yellow"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "Open"
+      }
+    ]
+  },
+  {
+    "id": 36,
+    "slug": "sand-ring",
+    "title": "Sand Ring",
+    "image": "/galleria/36.png",
+    "description": "A mandala made to be swept. One ring turns before the broom arrives.",
+    "attributes": [
+      {
+        "trait_type": "Medium",
+        "value": "Sand mandala"
+      },
+      {
+        "trait_type": "Motion",
+        "value": "Turn"
+      },
+      {
+        "trait_type": "Palette",
+        "value": "Temple dust"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "Open"
+      }
+    ]
+  },
+  {
+    "id": 37,
+    "slug": "carbon-copy",
+    "title": "Carbon Copy",
+    "image": "/galleria/37.png",
+    "description": "A second sheet keeps a letter no one mailed. The words slip one row.",
+    "attributes": [
+      {
+        "trait_type": "Medium",
+        "value": "Carbon paper"
+      },
+      {
+        "trait_type": "Motion",
+        "value": "Slip"
+      },
+      {
+        "trait_type": "Palette",
+        "value": "Violet tissue"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "Open"
+      }
+    ]
+  },
+  {
+    "id": 38,
+    "slug": "barricade",
+    "title": "Barricade",
+    "image": "/galleria/38.png",
+    "description": "A road closed to nothing. The stripes keep walking anyway.",
+    "attributes": [
+      {
+        "trait_type": "Medium",
+        "value": "Barricade"
+      },
+      {
+        "trait_type": "Motion",
+        "value": "Crawl"
+      },
+      {
+        "trait_type": "Palette",
+        "value": "Safety orange"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "Open"
+      }
+    ]
+  },
+  {
+    "id": 39,
+    "slug": "urushi",
+    "title": "Urushi",
+    "image": "/galleria/39.png",
+    "description": "Many coats of night. A red thought shows only when the light is wrong.",
+    "attributes": [
+      {
+        "trait_type": "Medium",
+        "value": "Urushi"
+      },
+      {
+        "trait_type": "Motion",
+        "value": "Sheen"
+      },
+      {
+        "trait_type": "Palette",
+        "value": "Lacquer night"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "Open"
+      }
+    ]
+  },
+  {
+    "id": 40,
+    "slug": "radar-sweep",
+    "title": "Radar Sweep",
+    "image": "/galleria/40.png",
+    "description": "A scope that keeps a storm that is not there. The arm is the weather.",
+    "attributes": [
+      {
+        "trait_type": "Medium",
+        "value": "Radar"
+      },
+      {
+        "trait_type": "Motion",
+        "value": "Sweep"
+      },
+      {
+        "trait_type": "Palette",
+        "value": "Scope green"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "Open"
+      }
+    ]
+  },
+  {
+    "id": 41,
+    "slug": "pennant-line",
+    "title": "Pennant Line",
+    "image": "/galleria/41.png",
+    "description": "Flags that name no ship. One pennant keeps changing its mind in the wind.",
+    "attributes": [
+      {
+        "trait_type": "Medium",
+        "value": "Maritime flag"
+      },
+      {
+        "trait_type": "Motion",
+        "value": "Snap"
+      },
+      {
+        "trait_type": "Palette",
+        "value": "Signal cloth"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "Open"
+      }
+    ]
+  },
+  {
+    "id": 42,
+    "slug": "microfiche",
+    "title": "Microfiche",
+    "image": "/galleria/42.png",
+    "description": "A library reduced to amber. One row of ghosts advances.",
+    "attributes": [
+      {
+        "trait_type": "Medium",
+        "value": "Microfiche"
+      },
+      {
+        "trait_type": "Motion",
+        "value": "Index"
+      },
+      {
+        "trait_type": "Palette",
+        "value": "Amber negative"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "Open"
+      }
+    ]
+  },
+  {
+    "id": 43,
+    "slug": "garter-knit",
+    "title": "Garter Knit",
+    "image": "/galleria/43.png",
+    "description": "A scarf that is only rows. The needle is still working the last one.",
+    "attributes": [
+      {
+        "trait_type": "Medium",
+        "value": "Knit"
+      },
+      {
+        "trait_type": "Motion",
+        "value": "Cast"
+      },
+      {
+        "trait_type": "Palette",
+        "value": "Wool rust"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "Open"
+      }
+    ]
+  },
+  {
+    "id": 44,
+    "slug": "slate-dust",
+    "title": "Slate Dust",
+    "image": "/galleria/44.png",
+    "description": "A blackboard with no lesson. The dust keeps a stroke that will not stay.",
+    "attributes": [
+      {
+        "trait_type": "Medium",
+        "value": "Chalk"
+      },
+      {
+        "trait_type": "Motion",
+        "value": "Dust"
+      },
+      {
+        "trait_type": "Palette",
+        "value": "Slate white"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "Open"
+      }
+    ]
+  },
+  {
+    "id": 45,
+    "slug": "encaustic",
+    "title": "Encaustic",
+    "image": "/galleria/45.png",
+    "description": "Wax poured over a thought. The thought keeps trying to surface.",
+    "attributes": [
+      {
+        "trait_type": "Medium",
+        "value": "Encaustic"
+      },
+      {
+        "trait_type": "Motion",
+        "value": "Well"
+      },
+      {
+        "trait_type": "Palette",
+        "value": "Wax umber"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "Open"
+      }
+    ]
+  },
+  {
+    "id": 46,
+    "slug": "cork-pins",
+    "title": "Cork Pins",
+    "image": "/galleria/46.png",
+    "description": "A board that never held a note. The pins keep finding new holes.",
+    "attributes": [
+      {
+        "trait_type": "Medium",
+        "value": "Cork"
+      },
+      {
+        "trait_type": "Motion",
+        "value": "Hop"
+      },
+      {
+        "trait_type": "Palette",
+        "value": "Tan pin"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "Open"
+      }
+    ]
+  },
+  {
+    "id": 47,
+    "slug": "cell-pour",
+    "title": "Cell Pour",
+    "image": "/galleria/47.png",
+    "description": "Acrylic that decided to become a map. The cells breathe without blending.",
+    "attributes": [
+      {
+        "trait_type": "Medium",
+        "value": "Paint pour"
+      },
+      {
+        "trait_type": "Motion",
+        "value": "Cell"
+      },
+      {
+        "trait_type": "Palette",
+        "value": "Pour jewel"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "Open"
+      }
+    ]
+  },
+  {
+    "id": 48,
+    "slug": "staff-walk",
+    "title": "Staff Walk",
+    "image": "/galleria/48.png",
+    "description": "A measure with no key. The note keeps the appointment anyway.",
+    "attributes": [
+      {
+        "trait_type": "Medium",
+        "value": "Notation"
+      },
+      {
+        "trait_type": "Motion",
+        "value": "Walk"
+      },
+      {
+        "trait_type": "Palette",
+        "value": "Score black"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "Open"
+      }
+    ]
+  },
+  {
+    "id": 49,
+    "slug": "flemish-bond",
+    "title": "Flemish Bond",
+    "image": "/galleria/49.png",
+    "description": "A wall that is only the wall. One brick remembers weather.",
+    "attributes": [
+      {
+        "trait_type": "Medium",
+        "value": "Brick"
+      },
+      {
+        "trait_type": "Motion",
+        "value": "Weather"
+      },
+      {
+        "trait_type": "Palette",
+        "value": "Clay mortar"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "Open"
+      }
+    ]
+  },
+  {
+    "id": 50,
+    "slug": "thermograph",
+    "title": "Thermograph",
+    "image": "/galleria/50.png",
+    "description": "A temperature with no body. The hot spots keep changing their address.",
+    "attributes": [
+      {
+        "trait_type": "Medium",
+        "value": "Thermograph"
+      },
+      {
+        "trait_type": "Motion",
+        "value": "Migrate"
+      },
+      {
+        "trait_type": "Palette",
+        "value": "Infrared"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "Open"
+      }
+    ]
   }
 ]

@@ -3,12 +3,12 @@ import galleriaWorksJson from "./galleria-works.json";
 export const galleria = {
   name: "Galleria On Ink",
   symbol: "GOI",
-  tagline: "24 open editions. No two share a medium.",
+  tagline: "50 open editions. No two share a medium.",
   description:
-    "Galleria On Ink is a salon of 24 unique looping paintings on Ink. Each work invents its own medium, palette, and motion. The composition is 1:1. The mint is an open edition.",
+    "Galleria On Ink is a salon of 50 unique looping paintings on Ink. Each work invents its own medium, palette, and motion. The composition is 1:1. The mint is an open edition.",
   story:
-    "Galleria On Ink.\n\nA salon of 24 unique looping paintings on Ink. Each work invents its own medium, palette, silhouette, and motion. Neighboring tokens are not siblings. There is no trait stack and no shared character.\n\nEvery artwork is an open edition. The composition is 1:1. The mint is not.\n\nTwelve frames, ninety milliseconds, 512×512. Minting on Ink (chain ID 57073). Gas is ETH.",
-  supply: 24,
+    "Galleria On Ink.\n\nA salon of 50 unique looping paintings on Ink. Each work invents its own medium, palette, silhouette, and motion. Neighboring tokens are not siblings. There is no trait stack and no shared character.\n\nEvery artwork is an open edition. The composition is 1:1. The mint is not.\n\nTwelve frames, ninety milliseconds, 512×512. Minting on Ink (chain ID 57073). Gas is ETH.",
+  supply: 50,
   mintPriceEth: "0.008",
   frames: 12,
   frameDurationMs: 90,

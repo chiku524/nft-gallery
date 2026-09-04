@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Paint Galleria On Ink — 24 independent 1:1 loops, each an open edition.
+"""Paint Galleria On Ink — 50 independent 1:1 loops, each an open edition.
 
 This orchestrator does not draw. It loads one painter per artwork from
 scripts/atelier/works/, then writes APNG, GIF, CSV, brand, and site catalog.
@@ -33,7 +33,7 @@ JSON_DIR = OUT / "json"
 
 COLLECTION_STORY = (
     "Galleria On Ink.\n\n"
-    "A salon of 24 unique looping paintings on Ink. Each work invents its own "
+    "A salon of 50 unique looping paintings on Ink. Each work invents its own "
     "medium, palette, silhouette, and motion. Neighboring tokens are not siblings. "
     "There is no trait stack and no shared character.\n\n"
     "Every artwork is an open edition. The composition is 1:1. The mint is not.\n\n"
@@ -128,7 +128,7 @@ def write_metadata(works: list[dict]) -> None:
         writer.writerows(rows)
     (OUT / "README.md").write_text(
         "# Galleria On Ink OpenSea pack\n\n"
-        "24 unique looping paintings at 512×512, 12 frames, 90ms. Each artwork is an open edition.\n\n"
+        "50 unique looping paintings at 512×512, 12 frames, 90ms. Each artwork is an open edition.\n\n"
         "Create an OpenSea Open Edition collection on Ink. Upload every file in `gifs/` plus "
         "`opensea-metadata.csv`. OpenSea plays GIF, not APNG. The site keeps the APNGs in "
         "`public/galleria/`.\n",
@@ -173,7 +173,7 @@ def build_brand(frames_by_id: dict[int, list[Image.Image]]) -> None:
         banner.alpha_composite(face, (40 + i * 292, 170))
     draw = ImageDraw.Draw(banner)
     draw.text((48, 36), "GALLERIA ON INK", font=_font(56), fill=(244, 240, 232, 255))
-    draw.text((52, 108), "24 open editions. No two share a medium.", font=_font(26), fill=(180, 176, 168, 255))
+    draw.text((52, 108), "50 open editions. No two share a medium.", font=_font(26), fill=(180, 176, 168, 255))
     banner.convert("RGB").save(BRAND_DIR / "banner-galleria.png", quality=94)
     banner.resize((1500, 500), Image.Resampling.LANCZOS).convert("RGB").save(
         BRAND_DIR / "banner-galleria-opensea.jpg", quality=92
