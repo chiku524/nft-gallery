@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { purrkins } from "@/data/purrkins";
 import { purrkinsPath } from "@/lib/purrkins";
+import { openSeaListings } from "@/lib/opensea";
 import { cn } from "@/lib/utils";
 
 const links: { href: string; label: string; external?: boolean }[] = [
@@ -15,7 +16,11 @@ const links: { href: string; label: string; external?: boolean }[] = [
   { href: purrkinsPath("/traits"), label: "Traits" },
   { href: purrkinsPath("/gallery"), label: "Gallery" },
   { href: purrkinsPath("/launch"), label: "Launch" },
-  { href: purrkins.opensea.collection, label: "OpenSea", external: true },
+  ...openSeaListings(purrkins.opensea).map((listing) => ({
+    href: listing.href,
+    label: `OpenSea · ${listing.label}`,
+    external: true,
+  })),
 ];
 
 export function PurrkinsHeader() {

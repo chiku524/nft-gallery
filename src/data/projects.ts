@@ -33,6 +33,7 @@ import { INKLINGS_BASE } from "@/lib/inklings";
 import { LOOPKINS_BASE } from "@/lib/loopkins";
 import { PURRKINS_BASE } from "@/lib/purrkins";
 import { WICKLINGS_BASE } from "@/lib/wicklings";
+import { openSeaListings } from "@/lib/opensea";
 
 export const gallery = {
   name: "NFT Gallery",
@@ -59,6 +60,7 @@ export const projects = [
     previews: sampleMints.slice(0, 8).map((mint) => mint.image),
     studioHref: "/studio" as const,
     opensea: collection.opensea.collection,
+    openseaListings: openSeaListings(collection.opensea, collection.chain.name),
   },
   {
     slug: "afterimages",
@@ -77,6 +79,7 @@ export const projects = [
     previews: afterimageWorks.slice(0, 6).map((work) => work.image),
     studioHref: null,
     opensea: afterimages.opensea.collection,
+    openseaListings: openSeaListings(afterimages.opensea, afterimages.chain.name),
   },
   {
     slug: "inklings",
@@ -95,6 +98,7 @@ export const projects = [
     previews: inklingSamples.map((mint) => mint.image),
     studioHref: "/inklings/studio" as const,
     opensea: inklings.opensea.collection,
+    openseaListings: openSeaListings(inklings.opensea, inklings.chain.name),
   },
   {
     slug: "wicklings",
@@ -113,6 +117,7 @@ export const projects = [
     previews: wicklingSamples.map((mint) => mint.image),
     studioHref: "/wicklings/studio" as const,
     opensea: wicklings.opensea.collection,
+    openseaListings: openSeaListings(wicklings.opensea, wicklings.chain.name),
   },
   {
     slug: "purrkins",
@@ -131,6 +136,7 @@ export const projects = [
     previews: purrkinSamples.map((mint) => mint.image),
     studioHref: "/purrkins/studio" as const,
     opensea: purrkins.opensea.collection,
+    openseaListings: openSeaListings(purrkins.opensea, purrkins.chain.name),
   },
   {
     slug: "hoodkins",
@@ -149,6 +155,7 @@ export const projects = [
     previews: hoodkinSamples.map((mint) => mint.image),
     studioHref: "/hoodkins/studio" as const,
     opensea: hoodkins.opensea.collection,
+    openseaListings: openSeaListings(hoodkins.opensea, hoodkins.chain.name),
   },
   {
     slug: "birbs",
@@ -167,6 +174,7 @@ export const projects = [
     previews: birbSamples.map((mint) => mint.image),
     studioHref: "/birbs/studio" as const,
     opensea: birbs.opensea.collection,
+    openseaListings: openSeaListings(birbs.opensea, birbs.chain.name),
   },
   {
     slug: "shookums",
@@ -185,6 +193,7 @@ export const projects = [
     previews: shookumSamples.map((mint) => mint.image),
     studioHref: "/shookums/studio" as const,
     opensea: shookums.opensea.collection,
+    openseaListings: openSeaListings(shookums.opensea, shookums.chain.name),
   },
   {
     slug: "foxins",
@@ -203,6 +212,7 @@ export const projects = [
     previews: foxinSamples.map((mint) => mint.image),
     studioHref: "/foxins/studio" as const,
     opensea: foxins.opensea.collection,
+    openseaListings: openSeaListings(foxins.opensea, foxins.chain.name),
   },
   {
     slug: "santapaws",
@@ -221,6 +231,7 @@ export const projects = [
     previews: santapawSamples.map((mint) => mint.image),
     studioHref: "/santapaws/studio" as const,
     opensea: santapaws.opensea.collection,
+    openseaListings: openSeaListings(santapaws.opensea, santapaws.chain.name),
   },
   {
     slug: "scribblins",
@@ -239,6 +250,7 @@ export const projects = [
     previews: scribblinSamples.map((mint) => mint.image),
     studioHref: "/scribblins/studio" as const,
     opensea: scribblins.opensea.collection,
+    openseaListings: openSeaListings(scribblins.opensea, scribblins.chain.name),
   },
   {
     slug: "groovy",
@@ -257,6 +269,7 @@ export const projects = [
     previews: groovySamples.map((mint) => mint.image),
     studioHref: "/groovy/studio" as const,
     opensea: groovy.opensea.collection,
+    openseaListings: openSeaListings(groovy.opensea, groovy.chain.name),
   },
 ] as const;
 

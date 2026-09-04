@@ -22,9 +22,9 @@ export const birbs = {
   },
   opensea: {
     chainSlug: "robinhood",
-    collection: "https://opensea.io/collection/birbnation/overview",
+    collection: "https://opensea.io/collection/birby-nation",
     blog: "https://opensea.io/blog/articles/robinhood-chain-is-live-on-opensea",
-    explore: "https://opensea.io/collection/birbnation/overview",
+    explore: "https://opensea.io/collection/birby-nation",
     metadataGuide: "https://support.opensea.io/en/articles/8867060-preparing-metadata-for-your-drop",
   },
 } as const;

@@ -89,6 +89,10 @@ export default function AfterimagesLaunchPage() {
         <a className="underline" href={afterimages.opensea.metadataGuide} target="_blank" rel="noreferrer">
           Preparing metadata for your drop
         </a>
+        . Live collection:{" "}
+        <a className="underline" href={afterimages.opensea.collection} target="_blank" rel="noreferrer">
+          opensea.io/collection/afterimages-on-ink
+        </a>
         . Ink network docs:{" "}
         <a className="underline" href={afterimages.chain.docs} target="_blank" rel="noreferrer">
           docs.inkonchain.com

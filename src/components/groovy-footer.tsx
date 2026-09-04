@@ -2,6 +2,7 @@ import Link from "next/link";
 import { OpenSeaLink } from "@/components/opensea-link";
 import { groovy } from "@/data/groovy";
 import { groovyPath } from "@/lib/groovy";
+import { openSeaListings } from "@/lib/opensea";
 
 export function GroovyFooter() {
   return (
@@ -11,9 +12,14 @@ export function GroovyFooter() {
           <p className="font-heading text-lg">{groovy.name}</p>
           <p className="text-sm text-muted-foreground">
             {groovy.supply.toLocaleString()} musical note PFPs · {groovy.chain.name} ·{" "}
-            <OpenSeaLink href={groovy.opensea.collection} className="hover:underline">
-              OpenSea
-            </OpenSeaLink>
+            {openSeaListings(groovy.opensea).map((listing, index) => (
+              <span key={listing.href}>
+                {index > 0 ? " · " : null}
+                <OpenSeaLink href={listing.href} className="hover:underline">
+                  OpenSea · {listing.label}
+                </OpenSeaLink>
+              </span>
+            ))}
           </p>
         </div>
         <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm">
@@ -32,7 +38,11 @@ export function GroovyFooter() {
           <Link href={groovyPath("/launch")} className="hover:underline">
             Launch notes
           </Link>
-          <OpenSeaLink href={groovy.opensea.collection} className="hover:underline" />
+          {openSeaListings(groovy.opensea).map((listing) => (
+            <OpenSeaLink key={listing.href} href={listing.href} className="hover:underline">
+              OpenSea · {listing.label}
+            </OpenSeaLink>
+          ))}
           <a href={groovy.chain.docs} className="hover:underline" target="_blank" rel="noreferrer">
             Chain docs
           </a>

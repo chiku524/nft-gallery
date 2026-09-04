@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { groovy } from "@/data/groovy";
 import { groovyPath } from "@/lib/groovy";
+import { openSeaListings } from "@/lib/opensea";
 import { cn } from "@/lib/utils";
 
 const links: { href: string; label: string; external?: boolean }[] = [
@@ -15,7 +16,11 @@ const links: { href: string; label: string; external?: boolean }[] = [
   { href: groovyPath("/traits"), label: "Traits" },
   { href: groovyPath("/gallery"), label: "Gallery" },
   { href: groovyPath("/launch"), label: "Launch" },
-  { href: groovy.opensea.collection, label: "OpenSea", external: true },
+  ...openSeaListings(groovy.opensea).map((listing) => ({
+    href: listing.href,
+    label: `OpenSea · ${listing.label}`,
+    external: true,
+  })),
 ];
 
 export function GroovyHeader() {

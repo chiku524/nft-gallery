@@ -131,7 +131,7 @@ export default function FoxinsLaunchPage() {
         </a>
         . Live collection:{" "}
         <a className="underline" href={foxins.opensea.collection} target="_blank" rel="noreferrer">
-          opensea.io/collection/foxins
+          opensea.io/collection/the-foxins
         </a>
         . OpenSea-compatible chains:{" "}
         <a className="underline" href={foxins.opensea.blog} target="_blank" rel="noreferrer">

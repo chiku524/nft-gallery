@@ -23,6 +23,10 @@ export const groovy = {
   opensea: {
     chainSlug: "robinhood",
     collection: "https://opensea.io/collection/groovy-nation/overview",
+    listings: [
+      { label: "Robinhood Chain", href: "https://opensea.io/collection/groovy-nation/overview" },
+      { label: "Ink", href: "https://opensea.io/collection/groovies-on-ink" },
+    ],
     blog: "https://opensea.io/blog/articles/robinhood-chain-is-live-on-opensea",
     explore: "https://opensea.io/collection/groovy-nation/overview",
     metadataGuide: "https://support.opensea.io/en/articles/8867060-preparing-metadata-for-your-drop",

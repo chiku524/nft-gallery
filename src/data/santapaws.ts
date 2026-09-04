@@ -22,9 +22,9 @@ export const santapaws = {
   },
   opensea: {
     chainSlug: "base",
-    collection: "https://opensea.io/collection/santapaws/overview",
+    collection: "https://opensea.io/collection/santa-paws-123/overview",
     blog: "https://opensea.io/learn/blockchain/blockchains-compatible-with-opensea",
-    explore: "https://opensea.io/collection/santapaws/overview",
+    explore: "https://opensea.io/collection/santa-paws-123/overview",
     metadataGuide: "https://support.opensea.io/en/articles/8867060-preparing-metadata-for-your-drop",
   },
 } as const;

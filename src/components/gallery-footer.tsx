@@ -19,11 +19,15 @@ export function GalleryFooter() {
               {project.name}
             </Link>
           ))}
-          {projects.map((project) => (
-            <OpenSeaLink key={`${project.slug}-opensea`} href={project.opensea} className="hover:underline">
-              {project.name} on OpenSea
-            </OpenSeaLink>
-          ))}
+          {projects.flatMap((project) =>
+            project.openseaListings.map((listing) => (
+              <OpenSeaLink key={`${project.slug}-${listing.href}`} href={listing.href} className="hover:underline">
+                {project.openseaListings.length > 1
+                  ? `${project.name} on ${listing.label}`
+                  : `${project.name} on OpenSea`}
+              </OpenSeaLink>
+            )),
+          )}
         </div>
       </div>
     </footer>

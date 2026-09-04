@@ -8,6 +8,7 @@ import { groovySamples } from "@/data/groovy-gallery";
 import { groovyCombinationCount, groovyTraitCategories } from "@/data/groovy-traits";
 import { groovy } from "@/data/groovy";
 import { groovyPath } from "@/lib/groovy";
+import { openSeaListings } from "@/lib/opensea";
 
 export default function GroovyHomePage() {
   return (
@@ -37,11 +38,19 @@ export default function GroovyHomePage() {
             <Button asChild size="lg" variant="secondary">
               <Link href={groovyPath("/gallery")}>See sample loops</Link>
             </Button>
-            <Button asChild size="lg" variant="outline" className="border-white/30 bg-transparent text-white hover:bg-white/10">
-              <a href={groovy.opensea.collection} target="_blank" rel="noreferrer">
-                View on OpenSea
-              </a>
-            </Button>
+            {openSeaListings(groovy.opensea).map((listing) => (
+              <Button
+                key={listing.href}
+                asChild
+                size="lg"
+                variant="outline"
+                className="border-white/30 bg-transparent text-white hover:bg-white/10"
+              >
+                <a href={listing.href} target="_blank" rel="noreferrer">
+                  OpenSea · {listing.label}
+                </a>
+              </Button>
+            ))}
           </div>
         </div>
       </section>

@@ -22,9 +22,9 @@ export const wicklings = {
   },
   opensea: {
     chainSlug: "arbitrum",
-    collection: "https://opensea.io/collection/wicklings/overview",
+    collection: "https://opensea.io/collection/wicklings",
     blog: "https://opensea.io/learn/blockchain/blockchains-compatible-with-opensea",
-    explore: "https://opensea.io/collection/wicklings/overview",
+    explore: "https://opensea.io/collection/wicklings",
     metadataGuide: "https://support.opensea.io/en/articles/8867060-preparing-metadata-for-your-drop",
   },
 } as const;

@@ -131,7 +131,7 @@ export default function SantaPawsLaunchPage() {
         </a>
         . Live collection:{" "}
         <a className="underline" href={santapaws.opensea.collection} target="_blank" rel="noreferrer">
-          opensea.io/collection/santapaws
+          opensea.io/collection/santa-paws-123
         </a>
         . OpenSea-compatible chains:{" "}
         <a className="underline" href={santapaws.opensea.blog} target="_blank" rel="noreferrer">

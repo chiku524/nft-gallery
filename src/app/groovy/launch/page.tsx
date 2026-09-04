@@ -3,6 +3,7 @@ import { AddChainButton } from "@/components/add-chain-button";
 import { ApngImage } from "@/components/apng-image";
 import { Button } from "@/components/ui/button";
 import { groovy } from "@/data/groovy";
+import { openSeaListings } from "@/lib/opensea";
 
 export const metadata: Metadata = {
   title: "OpenSea launch",
@@ -38,12 +39,14 @@ export default function GroovyLaunchPage() {
         the GIF bake of those loops. The APNG stack stays in this repo for the studio and any later
         restack.
       </p>
-      <div className="mt-6">
-        <Button asChild>
-          <a href={groovy.opensea.collection} target="_blank" rel="noreferrer">
-            View the live collection on OpenSea
-          </a>
-        </Button>
+      <div className="mt-6 flex flex-wrap gap-3">
+        {openSeaListings(groovy.opensea).map((listing) => (
+          <Button key={listing.href} asChild>
+            <a href={listing.href} target="_blank" rel="noreferrer">
+              OpenSea · {listing.label}
+            </a>
+          </Button>
+        ))}
       </div>
 
       <dl className="mt-8 grid gap-3 sm:grid-cols-2">
@@ -129,10 +132,15 @@ export default function GroovyLaunchPage() {
         <a className="underline" href={groovy.opensea.metadataGuide} target="_blank" rel="noreferrer">
           Preparing metadata for your drop
         </a>
-        . Live collection:{" "}
-        <a className="underline" href={groovy.opensea.collection} target="_blank" rel="noreferrer">
-          opensea.io/collection/groovy-nation
-        </a>
+        . Live collections:{" "}
+        {openSeaListings(groovy.opensea).map((listing, index) => (
+          <span key={listing.href}>
+            {index > 0 ? " · " : null}
+            <a className="underline" href={listing.href} target="_blank" rel="noreferrer">
+              {listing.label}
+            </a>
+          </span>
+        ))}
         . OpenSea on Robinhood Chain:{" "}
         <a className="underline" href={groovy.opensea.blog} target="_blank" rel="noreferrer">
           Robinhood Chain is live on OpenSea

@@ -131,7 +131,7 @@ export default function ScribblinsLaunchPage() {
         </a>
         . Live collection:{" "}
         <a className="underline" href={scribblins.opensea.collection} target="_blank" rel="noreferrer">
-          opensea.io/collection/scribblins
+          opensea.io/collection/scribblins-5555
         </a>
         . OpenSea-compatible chains:{" "}
         <a className="underline" href={scribblins.opensea.blog} target="_blank" rel="noreferrer">

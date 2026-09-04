@@ -131,7 +131,7 @@ export default function BirbsLaunchPage() {
         </a>
         . Live collection:{" "}
         <a className="underline" href={birbs.opensea.collection} target="_blank" rel="noreferrer">
-          opensea.io/collection/birbnation
+          opensea.io/collection/birby-nation
         </a>
         . OpenSea on Robinhood Chain:{" "}
         <a className="underline" href={birbs.opensea.blog} target="_blank" rel="noreferrer">

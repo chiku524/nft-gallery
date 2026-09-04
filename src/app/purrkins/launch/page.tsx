@@ -3,6 +3,7 @@ import { AddChainButton } from "@/components/add-chain-button";
 import { ApngImage } from "@/components/apng-image";
 import { Button } from "@/components/ui/button";
 import { purrkins } from "@/data/purrkins";
+import { openSeaListings } from "@/lib/opensea";
 
 export const metadata: Metadata = {
   title: "OpenSea launch",
@@ -38,12 +39,14 @@ export default function PurrkinsLaunchPage() {
         bake of those loops — the same path Loopkins uses. The APNG stack stays in this repo for the
         studio and any later restack.
       </p>
-      <div className="mt-6">
-        <Button asChild>
-          <a href={purrkins.opensea.collection} target="_blank" rel="noreferrer">
-            View the live collection on OpenSea
-          </a>
-        </Button>
+      <div className="mt-6 flex flex-wrap gap-3">
+        {openSeaListings(purrkins.opensea).map((listing) => (
+          <Button key={listing.href} asChild>
+            <a href={listing.href} target="_blank" rel="noreferrer">
+              OpenSea · {listing.label}
+            </a>
+          </Button>
+        ))}
       </div>
 
       <dl className="mt-8 grid gap-3 sm:grid-cols-2">
@@ -129,10 +132,15 @@ export default function PurrkinsLaunchPage() {
         <a className="underline" href={purrkins.opensea.metadataGuide} target="_blank" rel="noreferrer">
           Preparing metadata for your drop
         </a>
-        . Live collection:{" "}
-        <a className="underline" href={purrkins.opensea.collection} target="_blank" rel="noreferrer">
-          opensea.io/collection/purrkins
-        </a>
+        . Live collections:{" "}
+        {openSeaListings(purrkins.opensea).map((listing, index) => (
+          <span key={listing.href}>
+            {index > 0 ? " · " : null}
+            <a className="underline" href={listing.href} target="_blank" rel="noreferrer">
+              {listing.label}
+            </a>
+          </span>
+        ))}
         . OpenSea on HyperEVM:{" "}
         <a className="underline" href={purrkins.opensea.blog} target="_blank" rel="noreferrer">
           supported chains

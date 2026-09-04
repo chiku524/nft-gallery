@@ -8,6 +8,7 @@ import { purrkinSamples } from "@/data/purrkin-gallery";
 import { purrkinCombinationCount, purrkinTraitCategories } from "@/data/purrkin-traits";
 import { purrkins } from "@/data/purrkins";
 import { purrkinsPath } from "@/lib/purrkins";
+import { openSeaListings } from "@/lib/opensea";
 
 export default function PurrkinsHomePage() {
   return (
@@ -37,11 +38,19 @@ export default function PurrkinsHomePage() {
             <Button asChild size="lg" variant="secondary">
               <Link href={purrkinsPath("/gallery")}>See sample loops</Link>
             </Button>
-            <Button asChild size="lg" variant="outline" className="border-white/30 bg-transparent text-white hover:bg-white/10">
-              <a href={purrkins.opensea.collection} target="_blank" rel="noreferrer">
-                View on OpenSea
-              </a>
-            </Button>
+            {openSeaListings(purrkins.opensea).map((listing) => (
+              <Button
+                key={listing.href}
+                asChild
+                size="lg"
+                variant="outline"
+                className="border-white/30 bg-transparent text-white hover:bg-white/10"
+              >
+                <a href={listing.href} target="_blank" rel="noreferrer">
+                  OpenSea · {listing.label}
+                </a>
+              </Button>
+            ))}
           </div>
         </div>
       </section>

@@ -23,6 +23,10 @@ export const purrkins = {
   opensea: {
     chainSlug: "hyperevm",
     collection: "https://opensea.io/collection/purrkins/overview",
+    listings: [
+      { label: "HyperEVM", href: "https://opensea.io/collection/purrkins/overview" },
+      { label: "Ink", href: "https://opensea.io/collection/purrkins-on-ink" },
+    ],
     blog: "https://opensea.io/learn/blockchain/blockchains-compatible-with-opensea",
     explore: "https://opensea.io/collection/purrkins/overview",
     metadataGuide: "https://support.opensea.io/en/articles/8867060-preparing-metadata-for-your-drop",
