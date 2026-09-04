@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Bake looping GIFs from Afterimages, Loopkins, Inklings, Wicklings, Purrkins, Hoodkins, Birbs, Shook'ums, Foxins, and Santa Paws APNGs for OpenSea Drops.
+"""Bake looping GIFs from Afterimages, Loopkins, Inklings, Wicklings, Purrkins, Hoodkins, Birbs, Shook'ums, Foxins, Santa Paws, and Scribblins APNGs for OpenSea Drops.
 
 OpenSea Drops play GIF, not APNG. The site keeps the APNGs. This writes
 quantized looping GIFs and points the Studio CSVs at those files.
@@ -40,6 +40,8 @@ FOXINS_APNG = ROOT / "generated" / "foxins" / "images"
 FOXINS_GIF = ROOT / "generated" / "foxins" / "gifs"
 SANTAPAWS_APNG = ROOT / "generated" / "santapaws" / "images"
 SANTAPAWS_GIF = ROOT / "generated" / "santapaws" / "gifs"
+SCRIBBLINS_APNG = ROOT / "generated" / "scribblins" / "images"
+SCRIBBLINS_GIF = ROOT / "generated" / "scribblins" / "gifs"
 
 LOOPKINS_DURATION_MS = 80
 AFTER_DURATION_MS = 100
@@ -51,6 +53,7 @@ BIRBS_DURATION_MS = 90
 SHOOKUMS_DURATION_MS = 90
 FOXINS_DURATION_MS = 90
 SANTAPAWS_DURATION_MS = 90
+SCRIBBLINS_DURATION_MS = 90
 LOOPKINS_TOTAL = 10_000
 AFTER_TOTAL = 3333
 INKLINGS_TOTAL = 5555
@@ -61,6 +64,7 @@ BIRBS_TOTAL = 2_222
 SHOOKUMS_TOTAL = 5_555
 FOXINS_TOTAL = 5_555
 SANTAPAWS_TOTAL = 7_777
+SCRIBBLINS_TOTAL = 5_555
 
 
 def load_apng_frames(path: Path) -> tuple[list[Image.Image], int]:
@@ -199,11 +203,12 @@ def main() -> None:
     parser.add_argument("--shookums", action="store_true", help="Bake Halloween Shook'ums GIFs only")
     parser.add_argument("--foxins", action="store_true", help="Bake Foxins GIFs only")
     parser.add_argument("--santapaws", action="store_true", help="Bake Santa Paws GIFs only")
+    parser.add_argument("--scribblins", action="store_true", help="Bake Scribblins GIFs only")
     parser.add_argument("--all", action="store_true", help="Bake the full collection supply")
     parser.add_argument("--count", type=int, default=16, help="Count when not using --all")
     parser.add_argument("--workers", type=int, default=max(1, min(6, cpu_count() or 1)))
     args = parser.parse_args()
-    selected = args.afterimages or args.loopkins or args.inklings or args.wicklings or args.purrkins or args.hoodkins or args.birbs or args.shookums or args.foxins or args.santapaws
+    selected = args.afterimages or args.loopkins or args.inklings or args.wicklings or args.purrkins or args.hoodkins or args.birbs or args.shookums or args.foxins or args.santapaws or args.scribblins
     do_after = args.afterimages or not selected
     do_loopkins = args.loopkins or not selected
     do_inklings = args.inklings or not selected
@@ -214,6 +219,7 @@ def main() -> None:
     do_shookums = args.shookums or not selected
     do_foxins = args.foxins or not selected
     do_santapaws = args.santapaws or not selected
+    do_scribblins = args.scribblins or not selected
 
     if do_after:
         after_jobs = jobs_for(AFTER_APNG, AFTER_GIF, AFTER_TOTAL, AFTER_DURATION_MS)
@@ -365,6 +371,22 @@ def main() -> None:
             "The CSV uses OpenSea Studio headers: tokenID, name, description, file_name, and attributes[Trait].\n"
             "Full metadata for all 7,777 lives in `json/` after `generate_santapaws.py`. "
             "Bake every GIF with `python3 scripts/generate_santapaws.py --all`.\n",
+            encoding="utf-8",
+        )
+
+    if do_scribblins:
+        count = SCRIBBLINS_TOTAL if args.all else min(args.count, SCRIBBLINS_TOTAL)
+        scrib_jobs = jobs_for(SCRIBBLINS_APNG, SCRIBBLINS_GIF, count, SCRIBBLINS_DURATION_MS)
+        bake("Scribblins", scrib_jobs, args.workers)
+        rewrite_csv_filenames(ROOT / "generated" / "scribblins" / "opensea-metadata.csv")
+        rewrite_csv_filenames(ROOT / "generated" / "scribblins" / "SCRIBBLINS-opensea-drop.csv")
+        (ROOT / "generated" / "scribblins" / "README.md").write_text(
+            "# Scribblins OpenSea pack\n\n"
+            f"{count:,} flattened doodle-critter loops at 512×512, 12 frames, 90ms.\n\n"
+            f"Upload every file in `gifs/` (1.gif–{count}.gif) plus `SCRIBBLINS-opensea-drop.csv` "
+            "or `opensea-metadata.csv` to an OpenSea Drop on Base.\n"
+            "OpenSea Drops play GIF, not APNG. APNGs stay in `images/` for the site and restacks.\n"
+            "The CSV uses OpenSea Studio headers: tokenID, name, description, file_name, and attributes[Trait].\n",
             encoding="utf-8",
         )
 

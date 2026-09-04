@@ -1,0 +1,12 @@
+{
+  "name": "Scribblins",
+  "symbol": "SCRIB",
+  "description": "Scribblins is a 5,555-piece collection of looping doodle-critter PFP GIFs. Each Scribblin is stacked from six layers \u2014 field, body, mug, hat, wrap, and charm \u2014 then flattened onto one 12-frame GIF. Four bodies. One locked friendly cartoon. Thick ink, warm paper, no rainbow.",
+  "image": "/brand/collection-scribblins.gif",
+  "featured_image": "/brand/featured-scribblins.jpg",
+  "banner_image": "/brand/banner-scribblins.png",
+  "opensea_banner_image": "/brand/banner-scribblins-opensea.jpg",
+  "external_link": "/scribblins",
+  "seller_fee_basis_points": 500,
+  "fee_recipient": "0x0000000000000000000000000000000000000000"
+}

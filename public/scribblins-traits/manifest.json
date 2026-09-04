@@ -1,0 +1,17 @@
+{
+  "name": "Scribblins",
+  "size": 512,
+  "frames": 12,
+  "durationMs": 90,
+  "format": "apng",
+  "loop": 0,
+  "order": [
+    "field",
+    "body",
+    "mug",
+    "hat",
+    "wrap",
+    "charm"
+  ],
+  "note": "Each trait is a looping APNG. Studio stacks them live. Minted tokens flatten to GIF. Four doodle bodies share one locked skeleton; hats, wraps, and charms never edit the body."
+}

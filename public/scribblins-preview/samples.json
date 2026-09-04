@@ -1,0 +1,498 @@
+[
+  {
+    "id": 1,
+    "name": "Scribblin #1",
+    "image": "/scribblins-preview/1.gif",
+    "attributes": [
+      {
+        "trait_type": "Field",
+        "value": "Cream"
+      },
+      {
+        "trait_type": "Body",
+        "value": "Bunny"
+      },
+      {
+        "trait_type": "Mug",
+        "value": "Grin"
+      },
+      {
+        "trait_type": "Hat",
+        "value": "Headphones"
+      },
+      {
+        "trait_type": "Wrap",
+        "value": "None"
+      },
+      {
+        "trait_type": "Charm",
+        "value": "Star"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Scribblin #2",
+    "image": "/scribblins-preview/2.gif",
+    "attributes": [
+      {
+        "trait_type": "Field",
+        "value": "Sky"
+      },
+      {
+        "trait_type": "Body",
+        "value": "Bear"
+      },
+      {
+        "trait_type": "Mug",
+        "value": "Sleepy"
+      },
+      {
+        "trait_type": "Hat",
+        "value": "Beanie"
+      },
+      {
+        "trait_type": "Wrap",
+        "value": "Scarf"
+      },
+      {
+        "trait_type": "Charm",
+        "value": "None"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Scribblin #3",
+    "image": "/scribblins-preview/3.gif",
+    "attributes": [
+      {
+        "trait_type": "Field",
+        "value": "Clay"
+      },
+      {
+        "trait_type": "Body",
+        "value": "Pup"
+      },
+      {
+        "trait_type": "Mug",
+        "value": "Wink"
+      },
+      {
+        "trait_type": "Hat",
+        "value": "Cap"
+      },
+      {
+        "trait_type": "Wrap",
+        "value": "Bandana"
+      },
+      {
+        "trait_type": "Charm",
+        "value": "Pencil"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Scribblin #4",
+    "image": "/scribblins-preview/4.gif",
+    "attributes": [
+      {
+        "trait_type": "Field",
+        "value": "Butter"
+      },
+      {
+        "trait_type": "Body",
+        "value": "Frog"
+      },
+      {
+        "trait_type": "Mug",
+        "value": "Blep"
+      },
+      {
+        "trait_type": "Hat",
+        "value": "Leaf"
+      },
+      {
+        "trait_type": "Wrap",
+        "value": "None"
+      },
+      {
+        "trait_type": "Charm",
+        "value": "Balloon"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Scribblin #5",
+    "image": "/scribblins-preview/5.gif",
+    "attributes": [
+      {
+        "trait_type": "Field",
+        "value": "Cream"
+      },
+      {
+        "trait_type": "Body",
+        "value": "Bear"
+      },
+      {
+        "trait_type": "Mug",
+        "value": "Sparkly"
+      },
+      {
+        "trait_type": "Hat",
+        "value": "Bow"
+      },
+      {
+        "trait_type": "Wrap",
+        "value": "Bowtie"
+      },
+      {
+        "trait_type": "Charm",
+        "value": "Heart"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Scribblin #6",
+    "image": "/scribblins-preview/6.gif",
+    "attributes": [
+      {
+        "trait_type": "Field",
+        "value": "Sky"
+      },
+      {
+        "trait_type": "Body",
+        "value": "Bunny"
+      },
+      {
+        "trait_type": "Mug",
+        "value": "Pout"
+      },
+      {
+        "trait_type": "Hat",
+        "value": "Flower"
+      },
+      {
+        "trait_type": "Wrap",
+        "value": "Scarf"
+      },
+      {
+        "trait_type": "Charm",
+        "value": "None"
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Scribblin #7",
+    "image": "/scribblins-preview/7.gif",
+    "attributes": [
+      {
+        "trait_type": "Field",
+        "value": "Clay"
+      },
+      {
+        "trait_type": "Body",
+        "value": "Frog"
+      },
+      {
+        "trait_type": "Mug",
+        "value": "Grin"
+      },
+      {
+        "trait_type": "Hat",
+        "value": "Headphones"
+      },
+      {
+        "trait_type": "Wrap",
+        "value": "None"
+      },
+      {
+        "trait_type": "Charm",
+        "value": "Star"
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "name": "Scribblin #8",
+    "image": "/scribblins-preview/8.gif",
+    "attributes": [
+      {
+        "trait_type": "Field",
+        "value": "Butter"
+      },
+      {
+        "trait_type": "Body",
+        "value": "Pup"
+      },
+      {
+        "trait_type": "Mug",
+        "value": "Heart"
+      },
+      {
+        "trait_type": "Hat",
+        "value": "Beanie"
+      },
+      {
+        "trait_type": "Wrap",
+        "value": "Bowtie"
+      },
+      {
+        "trait_type": "Charm",
+        "value": "Pencil"
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "name": "Scribblin #9",
+    "image": "/scribblins-preview/9.gif",
+    "attributes": [
+      {
+        "trait_type": "Field",
+        "value": "Cream"
+      },
+      {
+        "trait_type": "Body",
+        "value": "Frog"
+      },
+      {
+        "trait_type": "Mug",
+        "value": "Sleepy"
+      },
+      {
+        "trait_type": "Hat",
+        "value": "None"
+      },
+      {
+        "trait_type": "Wrap",
+        "value": "Bandana"
+      },
+      {
+        "trait_type": "Charm",
+        "value": "Balloon"
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "name": "Scribblin #10",
+    "image": "/scribblins-preview/10.gif",
+    "attributes": [
+      {
+        "trait_type": "Field",
+        "value": "Sky"
+      },
+      {
+        "trait_type": "Body",
+        "value": "Pup"
+      },
+      {
+        "trait_type": "Mug",
+        "value": "Normal"
+      },
+      {
+        "trait_type": "Hat",
+        "value": "Flower"
+      },
+      {
+        "trait_type": "Wrap",
+        "value": "None"
+      },
+      {
+        "trait_type": "Charm",
+        "value": "Heart"
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "name": "Scribblin #11",
+    "image": "/scribblins-preview/11.gif",
+    "attributes": [
+      {
+        "trait_type": "Field",
+        "value": "Clay"
+      },
+      {
+        "trait_type": "Body",
+        "value": "Bunny"
+      },
+      {
+        "trait_type": "Mug",
+        "value": "Sparkly"
+      },
+      {
+        "trait_type": "Hat",
+        "value": "Cap"
+      },
+      {
+        "trait_type": "Wrap",
+        "value": "Scarf"
+      },
+      {
+        "trait_type": "Charm",
+        "value": "Star"
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "name": "Scribblin #12",
+    "image": "/scribblins-preview/12.gif",
+    "attributes": [
+      {
+        "trait_type": "Field",
+        "value": "Butter"
+      },
+      {
+        "trait_type": "Body",
+        "value": "Bear"
+      },
+      {
+        "trait_type": "Mug",
+        "value": "Wink"
+      },
+      {
+        "trait_type": "Hat",
+        "value": "Headphones"
+      },
+      {
+        "trait_type": "Wrap",
+        "value": "None"
+      },
+      {
+        "trait_type": "Charm",
+        "value": "None"
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "name": "Scribblin #13",
+    "image": "/scribblins-preview/13.gif",
+    "attributes": [
+      {
+        "trait_type": "Field",
+        "value": "Cream"
+      },
+      {
+        "trait_type": "Body",
+        "value": "Pup"
+      },
+      {
+        "trait_type": "Mug",
+        "value": "Grin"
+      },
+      {
+        "trait_type": "Hat",
+        "value": "Bow"
+      },
+      {
+        "trait_type": "Wrap",
+        "value": "Bandana"
+      },
+      {
+        "trait_type": "Charm",
+        "value": "Balloon"
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "name": "Scribblin #14",
+    "image": "/scribblins-preview/14.gif",
+    "attributes": [
+      {
+        "trait_type": "Field",
+        "value": "Sky"
+      },
+      {
+        "trait_type": "Body",
+        "value": "Frog"
+      },
+      {
+        "trait_type": "Mug",
+        "value": "Pout"
+      },
+      {
+        "trait_type": "Hat",
+        "value": "Beanie"
+      },
+      {
+        "trait_type": "Wrap",
+        "value": "Bowtie"
+      },
+      {
+        "trait_type": "Charm",
+        "value": "Pencil"
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "name": "Scribblin #15",
+    "image": "/scribblins-preview/15.gif",
+    "attributes": [
+      {
+        "trait_type": "Field",
+        "value": "Clay"
+      },
+      {
+        "trait_type": "Body",
+        "value": "Bear"
+      },
+      {
+        "trait_type": "Mug",
+        "value": "Blep"
+      },
+      {
+        "trait_type": "Hat",
+        "value": "Leaf"
+      },
+      {
+        "trait_type": "Wrap",
+        "value": "Scarf"
+      },
+      {
+        "trait_type": "Charm",
+        "value": "Heart"
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "name": "Scribblin #16",
+    "image": "/scribblins-preview/16.gif",
+    "attributes": [
+      {
+        "trait_type": "Field",
+        "value": "Butter"
+      },
+      {
+        "trait_type": "Body",
+        "value": "Bunny"
+      },
+      {
+        "trait_type": "Mug",
+        "value": "Sleepy"
+      },
+      {
+        "trait_type": "Hat",
+        "value": "None"
+      },
+      {
+        "trait_type": "Wrap",
+        "value": "None"
+      },
+      {
+        "trait_type": "Charm",
+        "value": "Star"
+      }
+    ]
+  }
+]

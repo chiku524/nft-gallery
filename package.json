@@ -16,7 +16,8 @@
     "generate:shookums": "python3 scripts/build_shookums.py && python3 scripts/generate_shookums.py",
     "generate:foxins": "python3 scripts/build_foxins.py && python3 scripts/generate_foxins.py",
     "generate:santapaws": "python3 scripts/build_santapaws.py && python3 scripts/generate_santapaws.py",
-    "generate:gifs": "python3 scripts/gif_bake.py --afterimages && python3 scripts/gif_bake.py --loopkins --all && python3 scripts/gif_bake.py --inklings --all && python3 scripts/gif_bake.py --wicklings --all && python3 scripts/gif_bake.py --purrkins --all && python3 scripts/gif_bake.py --birbs --all && python3 scripts/gif_bake.py --shookums --all && python3 scripts/gif_bake.py --foxins --all && python3 scripts/gif_bake.py --santapaws --all"
+    "generate:scribblins": "python3 scripts/build_scribblins.py && python3 scripts/generate_scribblins.py",
+    "generate:gifs": "python3 scripts/gif_bake.py --afterimages && python3 scripts/gif_bake.py --loopkins --all && python3 scripts/gif_bake.py --inklings --all && python3 scripts/gif_bake.py --wicklings --all && python3 scripts/gif_bake.py --purrkins --all && python3 scripts/gif_bake.py --birbs --all && python3 scripts/gif_bake.py --shookums --all && python3 scripts/gif_bake.py --foxins --all && python3 scripts/gif_bake.py --santapaws --all && python3 scripts/gif_bake.py --scribblins --all"
   },
   "dependencies": {
     "class-variance-authority": "^0.7.1",
