@@ -1,0 +1,19 @@
+---
+description: Start each new NFT drop from a blank look, not the last painter
+alwaysApply: true
+---
+
+# New collection starts blank
+
+There is no shared house style. Each drop invents its own drawing language.
+
+When creating the next collection:
+
+- Start from `scripts/paint_kit.py` (clock + I/O) and `scripts/build_drop.template.py`.
+- Do not clone the last painter (`build_scribblins.py`, `build_foxins.py`, or any other `build_*.py`) for art, palette, skeleton, materials, motion, or trait layer names.
+- Do not reuse Scribblins doodle ink, Foxins sticker cutouts, oval/egg bodies, LINE=11 charcoal, or Field / Body / Mug / Hat / Wrap / Charm.
+- Pipeline conventions may stay: 512×512, 12 frames, 90ms, APNG studio traits, flattened GIF + CSV for OpenSea, ignore `generated/<slug>/{images,gifs,json}/`.
+- Do not start painting until the user locks name, ticker, subject, chain, supply, and mint price.
+- Existing collections keep their own painters. Do not "reset" shipped art.
+
+See `docs/new-collection.md`.
