@@ -24,7 +24,7 @@ A house of NFT collections. Each drop is its own sub-project — studio, traits,
 
 **Scribblins** is the eleventh: 5,555 looping doodle-critter PFP GIFs, for OpenSea on Base (chain ID `8453`). Bunny, bear, pup, and frog in thick ink on warm paper. Same 12-frame, 90ms clock as Foxins.
 
-**Groovy Nation** is the twelfth: 8,888 looping musical-note PFP GIFs, for OpenSea on Robinhood Chain (chain ID `4663`). Airbrushed chrome notes on sunset stages. Same 12-frame, 90ms clock.
+**Groovy Nation** is the twelfth: 8,888 looping musical-note PFP GIFs, for OpenSea on Robinhood Chain (chain ID `4663`). Clip-art note mascots on sunset stages. Same 12-frame, 90ms clock.
 
 ## What’s in this repo
 
@@ -53,7 +53,7 @@ A house of NFT collections. Each drop is its own sub-project — studio, traits,
 | `/foxins/studio` | Live bold-graphic fox mixer (Foxins) |
 | `/santapaws/studio` | Live giving-cat mixer (Santa Paws) |
 | `/scribblins/studio` | Live doodle-critter mixer (Scribblins) |
-| `/groovy/studio` | Live airbrush-note mixer (Groovy Nation) |
+| `/groovy/studio` | Live cartoon-note mixer (Groovy Nation) |
 | `public/traits/` | Loopkins APNG layers (sky, aura, body, face, wear, charm) |
 | `public/afterimages/` | Afterimages 1:1 APNG paintings |
 | `public/inklings-traits/` | Inklings APNG layers (paper, bloom, visage, gaze, mark, adorn) |

@@ -6,7 +6,7 @@ import { groovy } from "@/data/groovy";
 
 export const metadata: Metadata = {
   title: "Trait loops",
-  description: "Every airbrush-note trait layer in the Groovy Nation stack.",
+  description: "Every cartoon-note trait layer in the Groovy Nation stack.",
 };
 
 export default function GroovyTraitsPage() {
@@ -17,7 +17,7 @@ export default function GroovyTraitsPage() {
       <p className="mt-3 max-w-2xl text-muted-foreground">
         Each file is an APNG on a {groovy.canvas}×{groovy.canvas} canvas: {GROOVY_FRAMES} frames,{" "}
         {GROOVY_DURATION_MS}ms, looping. Studio stacks venue → note → expression → topper → cable → riff.
-        Notes bounce. Toppers sit on one head. The chrome stays put.
+        Notes bounce. Toppers sit on one head. The stem stays put.
       </p>
 
       <div className="mt-10 space-y-14">

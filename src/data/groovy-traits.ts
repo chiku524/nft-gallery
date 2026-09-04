@@ -14,7 +14,7 @@ export type GroovyTraitCategory = {
 };
 
 /** Bump when APNG layers change so the studio does not keep a stale loop. */
-export const GROOVY_ART_VERSION = "groovy-v2";
+export const GROOVY_ART_VERSION = "groovy-v3";
 
 export const GROOVY_FRAMES = 12;
 export const GROOVY_DURATION_MS = 90;
@@ -41,7 +41,7 @@ export const groovyTraitCategories: GroovyTraitCategory[] = [
   {
     id: "note",
     label: "Note",
-    blurb: "The citizen — a real quarter, eighth, whole, or beamed pair. Tilted oval head. Thin stem. Flag or beam at the top.",
+    blurb: "The citizen — a cartoon quarter, eighth, whole, or beamed pair. Round head is the face. Black stem. Stick limbs on the beat.",
     traits: [
       { id: "quarter", name: "Quarter", image: "/groovy-traits/note/quarter.png", rarity: 34 },
       { id: "eighth", name: "Eighth", image: "/groovy-traits/note/eighth.png", rarity: 28 },
@@ -64,7 +64,7 @@ export const groovyTraitCategories: GroovyTraitCategory[] = [
   {
     id: "topper",
     label: "Topper",
-    blurb: "Sits on the chrome head. Afro, shades, visor, a disco halo.",
+    blurb: "Sits on the notehead. Afro, shades, visor, a disco halo.",
     noneLabel: "None",
     traits: [
       { id: "afro", name: "Afro", image: "/groovy-traits/topper/afro.png", rarity: 20 },

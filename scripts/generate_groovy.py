@@ -143,7 +143,7 @@ def token_meta(token_id: int, selection: dict[str, str]) -> dict:
     ]
     return {
         "name": f"Groovy #{token_id}",
-        "description": "A looping musical-note citizen from Groovy Nation. Chrome heads. Dancing stems. One clock. Minted on Robinhood Chain.",
+        "description": "A looping musical-note citizen from Groovy Nation. Round heads. Stick limbs. One clock. Minted on Robinhood Chain.",
         "image": f"{token_id}.gif",
         "attributes": attributes,
         "animation_loop": True,

@@ -1,10 +1,10 @@
 # Groovy Nation
 
-Looping **musical-note PFP GIFs** — airbrushed chrome discs, dancing stems, sunset and lava-lamp stages. An **8,888-piece** collection built to mint on **Robinhood Chain** (chain ID `4663`) and list on **OpenSea**.
+Looping **musical-note PFP GIFs** — clip-art note mascots with round heads, black stems, and dancing stick limbs. An **8,888-piece** collection built to mint on **Robinhood Chain** (chain ID `4663`) and list on **OpenSea**.
 
 This collection lives inside **NFT Gallery** at `/groovy`.
 
-The look is 70s album-cover airbrush on **real musical notation** (tilted oval heads, thin stems, flags and beams) on a shared 12-frame clock. Not doodle ink. Not sticker cutouts. OpenSea does **not** assemble collections from trait layers. For a Drop you upload finished GIFs (max 10,000) plus a CSV. The generator flattens the live stack onto one 12-frame clock, then bakes those APNGs to GIF.
+The look is cartoon notation on a shared 12-frame clock: the notehead is the face, a black stem goes up, flags and beams sit at the top. Not doodle ink. Not sticker cutouts. OpenSea does **not** assemble collections from trait layers. For a Drop you upload finished GIFs (max 10,000) plus a CSV. The generator flattens the live stack onto one 12-frame clock, then bakes those APNGs to GIF.
 
 ## What’s in the drop
 

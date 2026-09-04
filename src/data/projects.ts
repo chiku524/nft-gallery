@@ -38,7 +38,7 @@ export const gallery = {
   name: "NFT Gallery",
   tagline: "Collections on the wall. One drop at a time.",
   description:
-    "NFT Gallery is a house of on-chain collections — each drop keeps its own studio, traits, and launch path. Loopkins is the layered PFP. Afterimages is the 1:1 APNG drop. Inklings is the cartoon-squid PFP GIF drop on Ink. Wicklings is the paper-lantern PFP GIF drop on Arbitrum. Purrkins is the chibi-cat PFP GIF drop on HyperEVM. Hoodkins is the chibi-raccoon PFP GIF drop on Robinhood Chain. BirbNation is the round-borb robin PFP GIF drop on Robinhood Chain. Halloween Shook'ums is the sheet-ghost PFP GIF drop on Abstract. Foxins is the bold-graphic fox PFP GIF drop on Base. Santa Paws is the giving chibi-cat PFP GIF drop on Base. Scribblins is the doodle-critter PFP GIF drop on Base. Groovy Nation is the airbrush musical-note PFP GIF drop on Robinhood Chain.",
+    "NFT Gallery is a house of on-chain collections — each drop keeps its own studio, traits, and launch path. Loopkins is the layered PFP. Afterimages is the 1:1 APNG drop. Inklings is the cartoon-squid PFP GIF drop on Ink. Wicklings is the paper-lantern PFP GIF drop on Arbitrum. Purrkins is the chibi-cat PFP GIF drop on HyperEVM. Hoodkins is the chibi-raccoon PFP GIF drop on Robinhood Chain. BirbNation is the round-borb robin PFP GIF drop on Robinhood Chain. Halloween Shook'ums is the sheet-ghost PFP GIF drop on Abstract. Foxins is the bold-graphic fox PFP GIF drop on Base. Santa Paws is the giving chibi-cat PFP GIF drop on Base. Scribblins is the doodle-critter PFP GIF drop on Base. Groovy Nation is the cartoon musical-note PFP GIF drop on Robinhood Chain.",
 } as const;
 
 export const projects = [

@@ -15,7 +15,7 @@ export default function GroovyHomePage() {
       <section className="relative h-[420px] overflow-hidden border-b border-border sm:h-[520px]">
         <ApngImage
           src="/brand/banner-groovy.png"
-          alt="Five Groovy Nation notes lined up as airbrushed portraits"
+          alt="Five Groovy Nation cartoon notes lined up as portraits"
           className="absolute inset-0 size-full object-cover object-[center_40%]"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#1a0610] via-[#1a0610]/50 to-transparent" />
@@ -50,7 +50,7 @@ export default function GroovyHomePage() {
         <div className="grid gap-8 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground">The drop</p>
-            <h2 className="mt-2 font-heading text-3xl sm:text-4xl">Four notes. Real notation.</h2>
+            <h2 className="mt-2 font-heading text-3xl sm:text-4xl">Four notes. Cartoon mascots.</h2>
             <div className="mt-4 space-y-4 text-muted-foreground">
               {groovy.story.split("\n\n").map((paragraph) => (
                 <p key={paragraph.slice(0, 40)}>{paragraph}</p>
