@@ -9,6 +9,10 @@
         "value": "Dusk Chamber"
       },
       {
+        "trait_type": "Vapor",
+        "value": "Pale Disc"
+      },
+      {
         "trait_type": "Cast",
         "value": "Stag"
       },
@@ -38,6 +42,10 @@
       {
         "trait_type": "Atelier",
         "value": "Obsidian Room"
+      },
+      {
+        "trait_type": "Vapor",
+        "value": "Luminous Well"
       },
       {
         "trait_type": "Cast",
@@ -71,6 +79,10 @@
         "value": "Ivory Gallery"
       },
       {
+        "trait_type": "Vapor",
+        "value": "Soft Mist"
+      },
+      {
         "trait_type": "Cast",
         "value": "Stag"
       },
@@ -100,6 +112,10 @@
       {
         "trait_type": "Atelier",
         "value": "Brine Hall"
+      },
+      {
+        "trait_type": "Vapor",
+        "value": "Rising Plume"
       },
       {
         "trait_type": "Cast",
@@ -133,6 +149,10 @@
         "value": "Wine Vault"
       },
       {
+        "trait_type": "Vapor",
+        "value": "Caustic Ribbon"
+      },
+      {
         "trait_type": "Cast",
         "value": "Wyrm"
       },
@@ -162,6 +182,10 @@
       {
         "trait_type": "Atelier",
         "value": "Mercury Wall"
+      },
+      {
+        "trait_type": "Vapor",
+        "value": "Glass Motes"
       },
       {
         "trait_type": "Cast",
@@ -195,6 +219,10 @@
         "value": "Slate Studio"
       },
       {
+        "trait_type": "Vapor",
+        "value": "Clear Air"
+      },
+      {
         "trait_type": "Cast",
         "value": "Serpent"
       },
@@ -224,6 +252,10 @@
       {
         "trait_type": "Atelier",
         "value": "Quartz Court"
+      },
+      {
+        "trait_type": "Vapor",
+        "value": "Pale Disc"
       },
       {
         "trait_type": "Cast",
@@ -257,6 +289,10 @@
         "value": "Dusk Chamber"
       },
       {
+        "trait_type": "Vapor",
+        "value": "Soft Mist"
+      },
+      {
         "trait_type": "Cast",
         "value": "Ram"
       },
@@ -286,6 +322,10 @@
       {
         "trait_type": "Atelier",
         "value": "Obsidian Room"
+      },
+      {
+        "trait_type": "Vapor",
+        "value": "Rising Plume"
       },
       {
         "trait_type": "Cast",
@@ -319,6 +359,10 @@
         "value": "Ivory Gallery"
       },
       {
+        "trait_type": "Vapor",
+        "value": "Glass Motes"
+      },
+      {
         "trait_type": "Cast",
         "value": "Moth"
       },
@@ -348,6 +392,10 @@
       {
         "trait_type": "Atelier",
         "value": "Brine Hall"
+      },
+      {
+        "trait_type": "Vapor",
+        "value": "Luminous Well"
       },
       {
         "trait_type": "Cast",
@@ -381,6 +429,10 @@
         "value": "Wine Vault"
       },
       {
+        "trait_type": "Vapor",
+        "value": "Caustic Ribbon"
+      },
+      {
         "trait_type": "Cast",
         "value": "Serpent"
       },
@@ -410,6 +462,10 @@
       {
         "trait_type": "Atelier",
         "value": "Mercury Wall"
+      },
+      {
+        "trait_type": "Vapor",
+        "value": "Pale Disc"
       },
       {
         "trait_type": "Cast",
@@ -443,6 +499,10 @@
         "value": "Slate Studio"
       },
       {
+        "trait_type": "Vapor",
+        "value": "Clear Air"
+      },
+      {
         "trait_type": "Cast",
         "value": "Beetle"
       },
@@ -472,6 +532,10 @@
       {
         "trait_type": "Atelier",
         "value": "Quartz Court"
+      },
+      {
+        "trait_type": "Vapor",
+        "value": "Soft Mist"
       },
       {
         "trait_type": "Cast",

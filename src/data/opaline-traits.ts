@@ -6,7 +6,7 @@ export type OpalineTrait = {
 };
 
 export type OpalineTraitCategory = {
-  id: "atelier" | "cast" | "sheen" | "regard" | "crest" | "clasp";
+  id: "atelier" | "vapor" | "cast" | "sheen" | "regard" | "crest" | "clasp";
   label: string;
   blurb: string;
   noneLabel?: string;
@@ -14,7 +14,7 @@ export type OpalineTraitCategory = {
 };
 
 /** Bump when APNG layers change so the studio does not keep a stale loop. */
-export const OPALINE_ART_VERSION = "opaline-v4";
+export const OPALINE_ART_VERSION = "opaline-v5";
 
 export const OPALINE_FRAMES = 12;
 export const OPALINE_DURATION_MS = 90;
@@ -38,6 +38,20 @@ export const opalineTraitCategories: OpalineTraitCategory[] = [
       { id: "wine", name: "Wine Vault", image: "/opaline-traits/atelier/wine.png", rarity: 10 },
       { id: "brine", name: "Brine Hall", image: "/opaline-traits/atelier/brine.png", rarity: 10 },
       { id: "quartz", name: "Quartz Court", image: "/opaline-traits/atelier/quartz.png", rarity: 8 },
+    ],
+  },
+  {
+    id: "vapor",
+    label: "Vapor",
+    blurb: "Atmosphere in the room — mist, motes, a caustic ribbon, a pale disc, a rising plume, a luminous well — or clear air.",
+    noneLabel: "Clear Air",
+    traits: [
+      { id: "mist", name: "Soft Mist", image: "/opaline-traits/vapor/mist.png", rarity: 18 },
+      { id: "mote", name: "Glass Motes", image: "/opaline-traits/vapor/mote.png", rarity: 16 },
+      { id: "ribbon", name: "Caustic Ribbon", image: "/opaline-traits/vapor/ribbon.png", rarity: 14 },
+      { id: "disc", name: "Pale Disc", image: "/opaline-traits/vapor/disc.png", rarity: 12 },
+      { id: "plume", name: "Rising Plume", image: "/opaline-traits/vapor/plume.png", rarity: 10 },
+      { id: "well", name: "Luminous Well", image: "/opaline-traits/vapor/well.png", rarity: 8 },
     ],
   },
   {
@@ -125,6 +139,7 @@ export function findOpalineTrait(categoryId: OpalineTraitCategory["id"], traitId
 
 export const defaultOpalineSelection = {
   atelier: "dusk",
+  vapor: "disc",
   cast: "stag",
   sheen: "oil",
   regard: "quiet",
@@ -150,6 +165,7 @@ export function randomOpalineSelection(): OpalineSelection {
 
   return {
     atelier: pick(opalineCategoryById("atelier")),
+    vapor: pick(opalineCategoryById("vapor")),
     cast: pick(opalineCategoryById("cast")),
     sheen: pick(opalineCategoryById("sheen")),
     regard: pick(opalineCategoryById("regard")),
@@ -166,7 +182,7 @@ export function opalineCombinationCount() {
 }
 
 export function opalineSelectionToLayers(selection: OpalineSelection) {
-  return (["atelier", "cast", "sheen", "regard", "crest", "clasp"] as const)
+  return (["atelier", "vapor", "cast", "sheen", "regard", "crest", "clasp"] as const)
     .map((id) => findOpalineTrait(id, selection[id]))
     .filter((trait): trait is OpalineTrait => Boolean(trait?.image))
     .map((trait) => opalineTraitSrc(trait.image));

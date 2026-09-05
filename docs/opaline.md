@@ -30,15 +30,16 @@ Requires Python 3 with Pillow and NumPy. The marketplace pack lives in `generate
 Every layer is already seated on the 512 canvas. Studio and the generator only stack:
 
 1. Atelier
-2. Cast
-3. Sheen
-4. Regard
-5. Crest
-6. Clasp
+2. Vapor
+3. Cast
+4. Sheen
+5. Regard
+6. Crest
+7. Clasp
 
-Eight beasts share one eye line. Crests and clasps never edit the cast file — they composite on the same crown and throat. Light walks the facets. Film shifts hue. Minted tokens composite frame *n* of every layer so the marketplace file stays in sync.
+Eight beasts share one eye line. Vapor hangs behind the animal. Crests and clasps never edit the cast file — they composite on the same crown and throat. Light walks the facets. Film shifts hue. Minted tokens composite frame *n* of every layer so the marketplace file stays in sync.
 
-Token 1 is the signature look — dusk chamber, stag, oil film, quiet regard, platinum band, glass drop.
+Token 1 is the signature look — dusk chamber, pale disc, stag, oil film, quiet regard, platinum band, glass drop.
 
 ## Why APNG in the studio, GIF on OpenSea
 

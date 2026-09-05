@@ -100,7 +100,7 @@ export default function OpalineHomePage() {
       </section>
 
       <section className="border-y border-border bg-card/60">
-        <div className="mx-auto grid w-full max-w-6xl gap-6 px-4 py-14 sm:px-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mx-auto grid w-full max-w-6xl gap-6 px-4 py-14 sm:px-6 sm:grid-cols-2 lg:grid-cols-4">
           {opalineTraitCategories.map((category) => (
             <Card key={category.id} className="border-none bg-transparent shadow-none ring-0">
               <CardContent className="px-0">
@@ -123,7 +123,7 @@ export default function OpalineHomePage() {
               <p className="text-xs uppercase tracking-[0.22em] text-[#c6c2b8]">How the stack works</p>
               <h2 className="mt-2 font-heading text-4xl">Studio plays layers. The drop flattens them.</h2>
               <p className="mt-4 text-[#e8e4dc]/75">
-                Each trait is its own looping APNG. The studio stacks those files so ateliers, casts,
+                Each trait is its own looping APNG. The studio stacks those files so ateliers, vapors, casts,
                 sheens, regards, crests, and clasps keep the same seated clock. The beast stays locked.
                 Minted tokens composite the same 12 frames into one GIF OpenSea can list on Base.
               </p>

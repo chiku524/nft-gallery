@@ -3,9 +3,9 @@ export const opaline = {
   symbol: "OPAL",
   tagline: "Eight glass beasts. Iridescent film. One shared clock.",
   description:
-    "Opaline is a 10,000-piece collection of looping smoked-glass PFP GIFs. Each portrait is stacked from six layers — atelier, cast, sheen, regard, crest, and clasp — then flattened onto one 12-frame GIF. Eight crystal beasts. Dichroic film. Editorial light.",
+    "Opaline is a 10,000-piece collection of looping smoked-glass PFP GIFs. Each portrait is stacked from seven layers — atelier, vapor, cast, sheen, regard, crest, and clasp — then flattened onto one 12-frame GIF. Eight crystal beasts. Dichroic film. Editorial light.",
   story:
-    "Opaline.\n\nA 10,000-piece collection of looping smoked-glass PFP GIFs on Base. Each portrait is stacked from six layers — atelier, cast, sheen, regard, crest, and clasp — then flattened onto one 12-frame GIF. Eight beasts, each its own animal: stag, serpent, moth, beetle, ram, ibis, wyrm, and mantis. Light walks the facets. Film shifts hue. Inclusions dim.\n\nCrystal creatures. Seven films, including bare glass. No charcoal outline. No sticker cutout. The beast stays seated. One shared clock.\n\nMinting on Base (chain ID 8453). Gas is ETH.",
+    "Opaline.\n\nA 10,000-piece collection of looping smoked-glass PFP GIFs on Base. Each portrait is stacked from seven layers — atelier, vapor, cast, sheen, regard, crest, and clasp — then flattened onto one 12-frame GIF. Eight beasts, each its own animal: stag, serpent, moth, beetle, ram, ibis, wyrm, and mantis. Vapor hangs in the room. Light walks the facets. Film shifts hue. Inclusions dim.\n\nCrystal creatures. Seven films, including bare glass. No charcoal outline. No sticker cutout. The beast stays seated. One shared clock.\n\nMinting on Base (chain ID 8453). Gas is ETH.",
   supply: 10000,
   mintPriceEth: "0.005",
   frames: 12,

@@ -74,7 +74,7 @@ A house of NFT collections. Each drop is its own sub-project — studio, traits,
 | `public/scribblins-traits/` | Scribblins APNG layers (field, body, mug, hat, wrap, charm) |
 | `public/groovy-traits/` | Groovy Nation APNG layers (venue, note, expression, topper, cable, riff) |
 | `public/galleria/` | Galleria On Ink 1:1 APNG paintings |
-| `public/opaline-traits/` | Opaline APNG layers (atelier, cast, sheen, regard, crest, clasp) |
+| `public/opaline-traits/` | Opaline APNG layers (atelier, vapor, cast, sheen, regard, crest, clasp) |
 | `generated/` | Flattened Loopkins APNGs, OpenSea GIFs + CSV |
 | `generated/afterimages/` | Afterimages OpenSea GIF pack |
 | `generated/inklings/` | Inklings OpenSea GIF pack |
