@@ -30,6 +30,8 @@ A house of NFT collections. Each drop is its own sub-project — studio, traits,
 
 **Opaline** is the fourteenth: 5,555 looping smoked-glass PFP GIFs, for OpenSea on Base (chain ID `8453`). Eight crystal reef fish, dichroic film, editorial light. A 12-frame, 90ms clock.
 
+**Risota** is the fifteenth: 8,888 looping risograph PFP GIFs, for OpenSea on Robinhood Chain (chain ID `4663`). Dancing characters as overlapping spot-ink plates. A 12-frame, 90ms clock.
+
 ## What’s in this repo
 
 | Path | What it is |
@@ -49,6 +51,7 @@ A house of NFT collections. Each drop is its own sub-project — studio, traits,
 | `/groovy` | Groovy Nation drop, trait loops, gallery, OpenSea notes |
 | `/galleria` | Galleria On Ink salon, 500 open-edition 1:1 loops, OpenSea notes |
 | `/opaline` | Opaline drop, trait loops, gallery, OpenSea notes |
+| `/risota` | Risota drop, trait loops, gallery, OpenSea notes |
 | `/studio` | Live APNG layer mixer (Loopkins) |
 | `/inklings/studio` | Live ink-wash mixer (Inklings) |
 | `/wicklings/studio` | Live paper-lantern mixer (Wicklings) |
@@ -61,6 +64,7 @@ A house of NFT collections. Each drop is its own sub-project — studio, traits,
 | `/scribblins/studio` | Live doodle-critter mixer (Scribblins) |
 | `/groovy/studio` | Live cartoon-note mixer (Groovy Nation) |
 | `/opaline/studio` | Live smoked-glass mixer (Opaline) |
+| `/risota/studio` | Live risograph mixer (Risota) |
 | `public/traits/` | Loopkins APNG layers (sky, aura, body, face, wear, charm) |
 | `public/afterimages/` | Afterimages 1:1 APNG paintings |
 | `public/inklings-traits/` | Inklings APNG layers (paper, bloom, visage, gaze, mark, adorn) |
@@ -75,6 +79,7 @@ A house of NFT collections. Each drop is its own sub-project — studio, traits,
 | `public/groovy-traits/` | Groovy Nation APNG layers (venue, note, expression, topper, cable, riff) |
 | `public/galleria/` | Galleria On Ink 1:1 APNG paintings |
 | `public/opaline-traits/` | Opaline APNG layers (atelier, vapor, cast, sheen, regard, crest, clasp) |
+| `public/risota-traits/` | Risota APNG layers (stock, screen, figure, pass, knockout, slug, mark) |
 | `generated/` | Flattened Loopkins APNGs, OpenSea GIFs + CSV |
 | `generated/afterimages/` | Afterimages OpenSea GIF pack |
 | `generated/inklings/` | Inklings OpenSea GIF pack |
@@ -89,6 +94,7 @@ A house of NFT collections. Each drop is its own sub-project — studio, traits,
 | `generated/groovy/` | Groovy Nation OpenSea GIF pack |
 | `generated/galleria/` | Galleria On Ink OpenSea GIF pack |
 | `generated/opaline/` | Opaline OpenSea GIF pack |
+| `generated/risota/` | Risota OpenSea GIF pack |
 | `contracts/Loopkins.sol` | ERC-721 with a 10,000 supply cap |
 | `contracts/Afterimages.sol` | ERC-721 that mints a chosen 1:1 (IDs 1–3333) on Ink |
 | `contracts/Inklings.sol` | ERC-721 with a 5,555 supply cap |
@@ -102,6 +108,7 @@ A house of NFT collections. Each drop is its own sub-project — studio, traits,
 | `contracts/Scribblins.sol` | ERC-721 with a 5,555 supply cap |
 | `contracts/GroovyNation.sol` | ERC-721 with an 8,888 supply cap |
 | `contracts/Opaline.sol` | ERC-721 with a 5,555 supply cap |
+| `contracts/Risota.sol` | ERC-721 with an 8,888 supply cap |
 
 ## Run the site
 
@@ -127,7 +134,8 @@ The app listens on [http://127.0.0.1:43147](http://127.0.0.1:43147).
 - Groovy Nation: `/groovy`
 - Galleria On Ink: `/galleria`
 - Opaline: `/opaline`
-- Trait studio: `/studio` (Loopkins), `/inklings/studio`, `/wicklings/studio`, `/purrkins/studio`, `/hoodkins/studio`, `/birbs/studio`, `/shookums/studio`, `/foxins/studio`, `/santapaws/studio`, `/scribblins/studio`, `/groovy/studio`, or `/opaline/studio`
+- Risota: `/risota`
+- Trait studio: `/studio` (Loopkins), `/inklings/studio`, `/wicklings/studio`, `/purrkins/studio`, `/hoodkins/studio`, `/birbs/studio`, `/shookums/studio`, `/foxins/studio`, `/santapaws/studio`, `/scribblins/studio`, `/groovy/studio`, `/opaline/studio`, or `/risota/studio`
 
 ## Generate collections
 
@@ -158,6 +166,8 @@ python3 scripts/generate_groovy.py
 python3 scripts/build_galleria.py
 python3 scripts/build_opaline.py
 python3 scripts/generate_opaline.py
+python3 scripts/build_risota.py
+python3 scripts/generate_risota.py
 python3 scripts/gif_bake.py --afterimages
 python3 scripts/gif_bake.py --loopkins --all
 python3 scripts/gif_bake.py --inklings --all
@@ -173,7 +183,7 @@ python3 scripts/gif_bake.py --groovy --all
 python3 scripts/gif_bake.py --opaline --all
 ```
 
-Requires Python 3 with Pillow and NumPy. See `docs/loopkins.md`, `docs/afterimages.md`, `docs/inklings.md`, `docs/wicklings.md`, `docs/purrkins.md`, `docs/hoodkins.md`, `docs/birbs.md`, `docs/shookums.md`, `docs/foxins.md`, `docs/santapaws.md`, `docs/scribblins.md`, `docs/groovy.md`, `docs/galleria.md`, and `docs/opaline.md` for OpenSea Drop upload steps.
+Requires Python 3 with Pillow and NumPy. See `docs/loopkins.md`, `docs/afterimages.md`, `docs/inklings.md`, `docs/wicklings.md`, `docs/purrkins.md`, `docs/hoodkins.md`, `docs/birbs.md`, `docs/shookums.md`, `docs/foxins.md`, `docs/santapaws.md`, `docs/scribblins.md`, `docs/groovy.md`, `docs/galleria.md`, `docs/opaline.md`, and `docs/risota.md` for OpenSea Drop upload steps.
 
 `npm run generate:santapaws` builds traits, brand, and the 16-GIF preview plus full 7,777-token metadata. Bake every marketplace GIF with `python3 scripts/generate_santapaws.py --all`.
 
@@ -185,10 +195,12 @@ Requires Python 3 with Pillow and NumPy. See `docs/loopkins.md`, `docs/afterimag
 
 `npm run generate:opaline` builds traits, brand, and the 16-GIF preview plus sample metadata. Bake every marketplace GIF with `python3 scripts/generate_opaline.py --all`.
 
+`npm run generate:risota` builds traits, brand, and the 16-GIF preview plus sample metadata. Bake every marketplace GIF with `python3 scripts/generate_risota.py --all`.
+
 ## Deploy
 
 This is a single Next.js app (one Vercel project). Point Vercel at the GitHub repo `nft-gallery`, framework preset Next.js, root directory `.`.
 
 ## License
 
-Art and site code in this repository are for the collections on the wall. Swap the zero-address fee recipient in `public/metadata/collection.json`, `public/metadata/loopkins.json`, `public/metadata/afterimages.json`, `public/metadata/inklings.json`, `public/metadata/wicklings.json`, `public/metadata/purrkins.json`, `public/metadata/hoodkins.json`, `public/metadata/birbs.json`, `public/metadata/shookums.json`, `public/metadata/foxins.json`, `public/metadata/santapaws.json`, `public/metadata/scribblins.json`, `public/metadata/groovy.json`, `public/metadata/galleria.json`, and `public/metadata/opaline.json` before you list.
+Art and site code in this repository are for the collections on the wall. Swap the zero-address fee recipient in `public/metadata/collection.json`, `public/metadata/loopkins.json`, `public/metadata/afterimages.json`, `public/metadata/inklings.json`, `public/metadata/wicklings.json`, `public/metadata/purrkins.json`, `public/metadata/hoodkins.json`, `public/metadata/birbs.json`, `public/metadata/shookums.json`, `public/metadata/foxins.json`, `public/metadata/santapaws.json`, `public/metadata/scribblins.json`, `public/metadata/groovy.json`, `public/metadata/galleria.json`, `public/metadata/opaline.json`, and `public/metadata/risota.json` before you list.

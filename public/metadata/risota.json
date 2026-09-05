@@ -1,0 +1,12 @@
+{
+  "name": "Risota",
+  "symbol": "RISO",
+  "description": "Risota is an 8,888-piece collection of looping risograph PFP GIFs. Each print is stacked from seven plates \u2014 stock, screen, figure, pass, knockout, slug, and mark \u2014 then flattened onto one 12-frame GIF. Dancing characters as overlapping ink. Misregister on the beat.",
+  "image": "/brand/collection-risota.gif",
+  "featured_image": "/brand/featured-risota.jpg",
+  "banner_image": "/brand/banner-risota.png",
+  "opensea_banner_image": "/brand/banner-risota-opensea.jpg",
+  "external_link": "/risota",
+  "seller_fee_basis_points": 500,
+  "fee_recipient": "0x0000000000000000000000000000000000000000"
+}

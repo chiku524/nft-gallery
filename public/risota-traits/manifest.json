@@ -1,0 +1,18 @@
+{
+  "name": "Risota",
+  "size": 512,
+  "frames": 12,
+  "durationMs": 90,
+  "format": "apng",
+  "loop": 0,
+  "order": [
+    "stock",
+    "screen",
+    "figure",
+    "pass",
+    "knockout",
+    "slug",
+    "mark"
+  ],
+  "note": "Each trait is a looping APNG. Studio stacks them live. Minted tokens flatten to GIF. Eight dancers share one envelope; passes and slugs never edit the figure file."
+}
