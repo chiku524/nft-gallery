@@ -1,0 +1,12 @@
+{
+  "name": "Perfin",
+  "symbol": "PRFN",
+  "description": "Perfin is an 8,888-piece collection of looping engraved postage-stamp PFP GIFs. Each frank is stacked from seven plates \u2014 wove, guilloche, bust, surcharge, aspect, device, and cancel \u2014 then flattened onto one 12-frame GIF. Intaglio hatch. Perforated edges. A cancellation that walks.",
+  "image": "/brand/collection-perfin.gif",
+  "featured_image": "/brand/featured-perfin.jpg",
+  "banner_image": "/brand/banner-perfin.png",
+  "opensea_banner_image": "/brand/banner-perfin-opensea.jpg",
+  "external_link": "/perfin",
+  "seller_fee_basis_points": 500,
+  "fee_recipient": "0x0000000000000000000000000000000000000000"
+}

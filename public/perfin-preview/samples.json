@@ -1,0 +1,562 @@
+[
+  {
+    "id": 1,
+    "name": "Perfin #1",
+    "image": "/perfin-preview/1.gif",
+    "attributes": [
+      {
+        "trait_type": "Wove",
+        "value": "Ivory Wove"
+      },
+      {
+        "trait_type": "Guilloche",
+        "value": "Rose Engine"
+      },
+      {
+        "trait_type": "Bust",
+        "value": "Pilot"
+      },
+      {
+        "trait_type": "Surcharge",
+        "value": "No Surcharge"
+      },
+      {
+        "trait_type": "Aspect",
+        "value": "Calm"
+      },
+      {
+        "trait_type": "Device",
+        "value": "Goggles"
+      },
+      {
+        "trait_type": "Cancel",
+        "value": "Circular Date"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Perfin #2",
+    "image": "/perfin-preview/2.gif",
+    "attributes": [
+      {
+        "trait_type": "Wove",
+        "value": "Buff Wove"
+      },
+      {
+        "trait_type": "Guilloche",
+        "value": "Value Tablet"
+      },
+      {
+        "trait_type": "Bust",
+        "value": "Keeper"
+      },
+      {
+        "trait_type": "Surcharge",
+        "value": "Carmine Bar"
+      },
+      {
+        "trait_type": "Aspect",
+        "value": "Stern"
+      },
+      {
+        "trait_type": "Device",
+        "value": "Pipe"
+      },
+      {
+        "trait_type": "Cancel",
+        "value": "Wavy Lines"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Perfin #3",
+    "image": "/perfin-preview/3.gif",
+    "attributes": [
+      {
+        "trait_type": "Wove",
+        "value": "Azure Wove"
+      },
+      {
+        "trait_type": "Guilloche",
+        "value": "Geometric Engine"
+      },
+      {
+        "trait_type": "Bust",
+        "value": "Captain"
+      },
+      {
+        "trait_type": "Surcharge",
+        "value": "Prussian Band"
+      },
+      {
+        "trait_type": "Aspect",
+        "value": "Glance"
+      },
+      {
+        "trait_type": "Device",
+        "value": "Medal"
+      },
+      {
+        "trait_type": "Cancel",
+        "value": "Killer Bars"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Perfin #4",
+    "image": "/perfin-preview/4.gif",
+    "attributes": [
+      {
+        "trait_type": "Wove",
+        "value": "Sage Wove"
+      },
+      {
+        "trait_type": "Guilloche",
+        "value": "Sunburst"
+      },
+      {
+        "trait_type": "Bust",
+        "value": "Botanist"
+      },
+      {
+        "trait_type": "Surcharge",
+        "value": "No Surcharge"
+      },
+      {
+        "trait_type": "Aspect",
+        "value": "Smile"
+      },
+      {
+        "trait_type": "Device",
+        "value": "Bare Device"
+      },
+      {
+        "trait_type": "Cancel",
+        "value": "Mint Uncancelled"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Perfin #5",
+    "image": "/perfin-preview/5.gif",
+    "attributes": [
+      {
+        "trait_type": "Wove",
+        "value": "Lilac Wove"
+      },
+      {
+        "trait_type": "Guilloche",
+        "value": "Lattice"
+      },
+      {
+        "trait_type": "Bust",
+        "value": "Clerk"
+      },
+      {
+        "trait_type": "Surcharge",
+        "value": "Violet Oval"
+      },
+      {
+        "trait_type": "Aspect",
+        "value": "Wink"
+      },
+      {
+        "trait_type": "Device",
+        "value": "Spectacles"
+      },
+      {
+        "trait_type": "Cancel",
+        "value": "Circular Date"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Perfin #6",
+    "image": "/perfin-preview/6.gif",
+    "attributes": [
+      {
+        "trait_type": "Wove",
+        "value": "Rose Wove"
+      },
+      {
+        "trait_type": "Guilloche",
+        "value": "Wave Engine"
+      },
+      {
+        "trait_type": "Bust",
+        "value": "Warden"
+      },
+      {
+        "trait_type": "Surcharge",
+        "value": "Orange Triangle"
+      },
+      {
+        "trait_type": "Aspect",
+        "value": "Shout"
+      },
+      {
+        "trait_type": "Device",
+        "value": "Cockade"
+      },
+      {
+        "trait_type": "Cancel",
+        "value": "Mute Killer"
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Perfin #7",
+    "image": "/perfin-preview/7.gif",
+    "attributes": [
+      {
+        "trait_type": "Wove",
+        "value": "Pearl Wove"
+      },
+      {
+        "trait_type": "Guilloche",
+        "value": "Rose Engine"
+      },
+      {
+        "trait_type": "Bust",
+        "value": "Mapper"
+      },
+      {
+        "trait_type": "Surcharge",
+        "value": "No Surcharge"
+      },
+      {
+        "trait_type": "Aspect",
+        "value": "Stern"
+      },
+      {
+        "trait_type": "Device",
+        "value": "Bare Device"
+      },
+      {
+        "trait_type": "Cancel",
+        "value": "Wavy Lines"
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "name": "Perfin #8",
+    "image": "/perfin-preview/8.gif",
+    "attributes": [
+      {
+        "trait_type": "Wove",
+        "value": "Grey Wove"
+      },
+      {
+        "trait_type": "Guilloche",
+        "value": "Geometric Engine"
+      },
+      {
+        "trait_type": "Bust",
+        "value": "Signal"
+      },
+      {
+        "trait_type": "Surcharge",
+        "value": "Carmine Bar"
+      },
+      {
+        "trait_type": "Aspect",
+        "value": "Calm"
+      },
+      {
+        "trait_type": "Device",
+        "value": "Medal"
+      },
+      {
+        "trait_type": "Cancel",
+        "value": "Circular Date"
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "name": "Perfin #9",
+    "image": "/perfin-preview/9.gif",
+    "attributes": [
+      {
+        "trait_type": "Wove",
+        "value": "Ivory Wove"
+      },
+      {
+        "trait_type": "Guilloche",
+        "value": "Value Tablet"
+      },
+      {
+        "trait_type": "Bust",
+        "value": "Captain"
+      },
+      {
+        "trait_type": "Surcharge",
+        "value": "Violet Oval"
+      },
+      {
+        "trait_type": "Aspect",
+        "value": "Smile"
+      },
+      {
+        "trait_type": "Device",
+        "value": "Goggles"
+      },
+      {
+        "trait_type": "Cancel",
+        "value": "Mint Uncancelled"
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "name": "Perfin #10",
+    "image": "/perfin-preview/10.gif",
+    "attributes": [
+      {
+        "trait_type": "Wove",
+        "value": "Buff Wove"
+      },
+      {
+        "trait_type": "Guilloche",
+        "value": "Sunburst"
+      },
+      {
+        "trait_type": "Bust",
+        "value": "Pilot"
+      },
+      {
+        "trait_type": "Surcharge",
+        "value": "Prussian Band"
+      },
+      {
+        "trait_type": "Aspect",
+        "value": "Wink"
+      },
+      {
+        "trait_type": "Device",
+        "value": "Bare Device"
+      },
+      {
+        "trait_type": "Cancel",
+        "value": "Killer Bars"
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "name": "Perfin #11",
+    "image": "/perfin-preview/11.gif",
+    "attributes": [
+      {
+        "trait_type": "Wove",
+        "value": "Azure Wove"
+      },
+      {
+        "trait_type": "Guilloche",
+        "value": "Lattice"
+      },
+      {
+        "trait_type": "Bust",
+        "value": "Keeper"
+      },
+      {
+        "trait_type": "Surcharge",
+        "value": "No Surcharge"
+      },
+      {
+        "trait_type": "Aspect",
+        "value": "Glance"
+      },
+      {
+        "trait_type": "Device",
+        "value": "Cockade"
+      },
+      {
+        "trait_type": "Cancel",
+        "value": "Circular Date"
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "name": "Perfin #12",
+    "image": "/perfin-preview/12.gif",
+    "attributes": [
+      {
+        "trait_type": "Wove",
+        "value": "Sage Wove"
+      },
+      {
+        "trait_type": "Guilloche",
+        "value": "Wave Engine"
+      },
+      {
+        "trait_type": "Bust",
+        "value": "Clerk"
+      },
+      {
+        "trait_type": "Surcharge",
+        "value": "Orange Triangle"
+      },
+      {
+        "trait_type": "Aspect",
+        "value": "Calm"
+      },
+      {
+        "trait_type": "Device",
+        "value": "Pipe"
+      },
+      {
+        "trait_type": "Cancel",
+        "value": "Mute Killer"
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "name": "Perfin #13",
+    "image": "/perfin-preview/13.gif",
+    "attributes": [
+      {
+        "trait_type": "Wove",
+        "value": "Lilac Wove"
+      },
+      {
+        "trait_type": "Guilloche",
+        "value": "Rose Engine"
+      },
+      {
+        "trait_type": "Bust",
+        "value": "Botanist"
+      },
+      {
+        "trait_type": "Surcharge",
+        "value": "Carmine Bar"
+      },
+      {
+        "trait_type": "Aspect",
+        "value": "Shout"
+      },
+      {
+        "trait_type": "Device",
+        "value": "Spectacles"
+      },
+      {
+        "trait_type": "Cancel",
+        "value": "Wavy Lines"
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "name": "Perfin #14",
+    "image": "/perfin-preview/14.gif",
+    "attributes": [
+      {
+        "trait_type": "Wove",
+        "value": "Rose Wove"
+      },
+      {
+        "trait_type": "Guilloche",
+        "value": "Geometric Engine"
+      },
+      {
+        "trait_type": "Bust",
+        "value": "Mapper"
+      },
+      {
+        "trait_type": "Surcharge",
+        "value": "No Surcharge"
+      },
+      {
+        "trait_type": "Aspect",
+        "value": "Smile"
+      },
+      {
+        "trait_type": "Device",
+        "value": "Medal"
+      },
+      {
+        "trait_type": "Cancel",
+        "value": "Circular Date"
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "name": "Perfin #15",
+    "image": "/perfin-preview/15.gif",
+    "attributes": [
+      {
+        "trait_type": "Wove",
+        "value": "Pearl Wove"
+      },
+      {
+        "trait_type": "Guilloche",
+        "value": "Value Tablet"
+      },
+      {
+        "trait_type": "Bust",
+        "value": "Warden"
+      },
+      {
+        "trait_type": "Surcharge",
+        "value": "Prussian Band"
+      },
+      {
+        "trait_type": "Aspect",
+        "value": "Stern"
+      },
+      {
+        "trait_type": "Device",
+        "value": "Bare Device"
+      },
+      {
+        "trait_type": "Cancel",
+        "value": "Killer Bars"
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "name": "Perfin #16",
+    "image": "/perfin-preview/16.gif",
+    "attributes": [
+      {
+        "trait_type": "Wove",
+        "value": "Grey Wove"
+      },
+      {
+        "trait_type": "Guilloche",
+        "value": "Sunburst"
+      },
+      {
+        "trait_type": "Bust",
+        "value": "Signal"
+      },
+      {
+        "trait_type": "Surcharge",
+        "value": "Violet Oval"
+      },
+      {
+        "trait_type": "Aspect",
+        "value": "Wink"
+      },
+      {
+        "trait_type": "Device",
+        "value": "Goggles"
+      },
+      {
+        "trait_type": "Cancel",
+        "value": "Mint Uncancelled"
+      }
+    ]
+  }
+]

@@ -1,0 +1,18 @@
+{
+  "name": "Perfin",
+  "size": 512,
+  "frames": 12,
+  "durationMs": 90,
+  "format": "apng",
+  "loop": 0,
+  "order": [
+    "wove",
+    "guilloche",
+    "bust",
+    "surcharge",
+    "aspect",
+    "device",
+    "cancel"
+  ],
+  "note": "Each trait is a looping APNG. Studio stacks them live. Minted tokens flatten to GIF. Eight engraved busts share one vignette; devices and cancels never edit the bust file."
+}
