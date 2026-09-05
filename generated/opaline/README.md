@@ -1,6 +1,6 @@
 # Opaline OpenSea kit
 
-16 flattened smoked-glass loops at 512×512, 12 frames, 90ms (sample pack — bake all 10,000 with `--all`).
+5,555 flattened smoked-glass loops at 512×512, 12 frames, 90ms.
 
 ## Collection fields
 
@@ -8,7 +8,7 @@
 - Symbol: `OPAL`
 - Category: PFPs
 - Chain: Base (`8453`)
-- Supply: `10000`
+- Supply: `5555`
 - Creator fee: `5%` (set your wallet — `public/metadata/opaline.json` still has a zero address)
 
 ## Paste this as the collection description
@@ -18,7 +18,7 @@ Same file: `public/metadata/opaline-description.txt`
 ```
 Opaline.
 
-A 10,000-piece collection of looping smoked-glass PFP GIFs on Base. Each portrait is stacked from seven layers — atelier, vapor, cast, sheen, regard, crest, and clasp — then flattened onto one 12-frame GIF. Eight beasts, each its own animal: stag, serpent, moth, beetle, ram, ibis, wyrm, and mantis. Vapor hangs in the room. Light walks the facets. Film shifts hue. Inclusions dim.
+A 5,555-piece collection of looping smoked-glass PFP GIFs on Base. Each portrait is stacked from seven layers — atelier, vapor, cast, sheen, regard, crest, and clasp — then flattened onto one 12-frame GIF. Eight beasts, each its own animal: stag, serpent, moth, beetle, ram, ibis, wyrm, and mantis. Vapor hangs in the room. Light walks the facets. Film shifts hue. Inclusions dim.
 
 Crystal creatures. Seven films, including bare glass. No charcoal outline. No sticker cutout. The beast stays seated. One shared clock.
 
@@ -40,7 +40,7 @@ No type on the marketplace images.
 ## Drop upload
 
 1. In OpenSea Studio, create a Drop on Base (chain ID 8453).
-2. Upload every file in `gifs/` (`1.gif`–`16.gif`).
+2. Upload every file in `gifs/` (`1.gif`–`5555.gif`).
 3. Upload `OPALINE-opensea-drop.csv` (or `opensea-metadata.csv`). The CSV uses OpenSea Studio headers: `tokenID`, `name`, `description`, `file_name`, and `attributes[Trait]`.
 4. Preview the loops, then publish.
 

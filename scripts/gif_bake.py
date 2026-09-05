@@ -72,7 +72,7 @@ FOXINS_TOTAL = 5_555
 SANTAPAWS_TOTAL = 7_777
 SCRIBBLINS_TOTAL = 5_555
 GROOVY_TOTAL = 8_888
-OPALINE_TOTAL = 10_000
+OPALINE_TOTAL = 5_555
 
 
 def load_apng_frames(path: Path) -> tuple[list[Image.Image], int]:

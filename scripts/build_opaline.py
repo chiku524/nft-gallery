@@ -771,14 +771,14 @@ TRAIT_LABELS = (
 )
 
 COLLECTION_DESCRIPTION = (
-    "Opaline is a 10,000-piece collection of looping smoked-glass PFP GIFs. "
+    "Opaline is a 5,555-piece collection of looping smoked-glass PFP GIFs. "
     "Each portrait is stacked from seven layers — atelier, vapor, cast, sheen, regard, crest, and clasp — "
     "then flattened onto one 12-frame GIF. Eight crystal beasts. Dichroic film. Editorial light."
 )
 
 COLLECTION_STORY = (
     "Opaline.\n\n"
-    "A 10,000-piece collection of looping smoked-glass PFP GIFs on Base. "
+    "A 5,555-piece collection of looping smoked-glass PFP GIFs on Base. "
     "Each portrait is stacked from seven layers — atelier, vapor, cast, sheen, regard, crest, and clasp — "
     "then flattened onto one 12-frame GIF. Eight beasts, each its own animal: stag, serpent, moth, "
     "beetle, ram, ibis, wyrm, and mantis. Vapor hangs in the room. Light walks the facets. "

@@ -2,7 +2,7 @@
 """Compose Opaline tokens from layered APNG traits.
 
 Default: 16 signature samples.
-Pass --all to shuffle the full 10,000 on the shared 12-frame clock.
+Pass --all to shuffle the full 5,555 on the shared 12-frame clock.
 
 OpenSea gets GIFs only (max 10 GB). Studio traits stay 512×512 APNGs in public/opaline-traits/.
 """
@@ -45,8 +45,8 @@ OUT = ROOT / "generated" / "opaline"
 IMAGE_DIR = OUT / "images"
 GIF_DIR = OUT / "gifs"
 JSON_DIR = OUT / "json"
-TOTAL = 10_000
-SEED = 8453_10000
+TOTAL = 5_555
+SEED = 8453_5555
 DROP_SIZE = 512
 OPENSEA_LIMIT_BYTES = 10 * 1024 * 1024 * 1024
 

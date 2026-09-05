@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 const steps = [
   {
     title: "Traits stay layered. The drop is flattened.",
-    body: "OpenSea does not stack APNG layers for you. Studio is a live compositor. For a Drop you upload finished GIFs plus a CSV. Bake the full 10,000-token pack with python3 scripts/generate_opaline.py --all — gifs/, OPALINE-opensea-drop.csv, and the kit README land in generated/opaline/.",
+    body: "OpenSea does not stack APNG layers for you. Studio is a live compositor. For a Drop you upload finished GIFs plus a CSV. Bake the full 5,555-token pack with python3 scripts/generate_opaline.py --all — gifs/, OPALINE-opensea-drop.csv, and the kit README land in generated/opaline/.",
   },
   {
     title: "Create a Drop on Base",

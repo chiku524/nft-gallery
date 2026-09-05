@@ -1,6 +1,6 @@
 # Opaline
 
-Looping **smoked-glass PFP GIFs** — eight crystal beasts, dichroic film, editorial studio light. A **10,000-piece** collection built to mint on **Base** (chain ID `8453`) and list on **OpenSea**.
+Looping **smoked-glass PFP GIFs** — eight crystal beasts, dichroic film, editorial studio light. A **5,555-piece** collection built to mint on **Base** (chain ID `8453`) and list on **OpenSea**.
 
 This collection lives inside **NFT Gallery** at `/opaline`.
 
@@ -13,17 +13,17 @@ The look is cut-glass creatures on a seated clock: stag, serpent, moth, beetle, 
 - Collection logo, featured image, OpenSea banner, site banner, and 1000×1000 collection GIF in `public/brand/`
 - Paste-ready project description at `public/metadata/opaline-description.txt`
 - Trait studio at `/opaline/studio` — a live CSS stack of APNG `<img>` layers
-- `contracts/Opaline.sol` — ERC-721 named Opaline with a 10,000 supply cap
+- `contracts/Opaline.sol` — ERC-721 named Opaline with a 5,555 supply cap
 
 ## Generate traits and tokens
 
 ```bash
 python3 scripts/build_opaline.py
 python3 scripts/generate_opaline.py        # 16 samples
-python3 scripts/generate_opaline.py --all  # full 10,000 GIFs + OpenSea kit
+python3 scripts/generate_opaline.py --all  # full 5,555 GIFs + OpenSea kit
 ```
 
-Requires Python 3 with Pillow and NumPy. The marketplace pack lives in `generated/opaline/`: `gifs/` (`1.gif`–`10000.gif`), `OPALINE-opensea-drop.csv`, `opensea-metadata.csv`, and the kit README. GIFs stay off git; the CSV and sidecar files are committed.
+Requires Python 3 with Pillow and NumPy. The marketplace pack lives in `generated/opaline/`: `gifs/` (`1.gif`–`5555.gif`), `OPALINE-opensea-drop.csv`, `opensea-metadata.csv`, and the kit README. GIFs stay off git; the CSV and sidecar files are committed.
 
 ## Trait stack
 

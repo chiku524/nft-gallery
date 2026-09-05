@@ -28,7 +28,7 @@ A house of NFT collections. Each drop is its own sub-project — studio, traits,
 
 **Galleria On Ink** is the thirteenth: 500 unique looping paintings on Ink (chain ID `57073`). Each work is painted by its own engine and minted as an open edition. No trait stack. No shared house style.
 
-**Opaline** is the fourteenth: 10,000 looping smoked-glass PFP GIFs, for OpenSea on Base (chain ID `8453`). Eight crystal beasts, dichroic film, editorial light. A 12-frame, 90ms clock.
+**Opaline** is the fourteenth: 5,555 looping smoked-glass PFP GIFs, for OpenSea on Base (chain ID `8453`). Eight crystal beasts, dichroic film, editorial light. A 12-frame, 90ms clock.
 
 ## What’s in this repo
 
@@ -101,7 +101,7 @@ A house of NFT collections. Each drop is its own sub-project — studio, traits,
 | `contracts/SantaPaws.sol` | ERC-721 with a 7,777 supply cap |
 | `contracts/Scribblins.sol` | ERC-721 with a 5,555 supply cap |
 | `contracts/GroovyNation.sol` | ERC-721 with an 8,888 supply cap |
-| `contracts/Opaline.sol` | ERC-721 with a 10,000 supply cap |
+| `contracts/Opaline.sol` | ERC-721 with a 5,555 supply cap |
 
 ## Run the site
 

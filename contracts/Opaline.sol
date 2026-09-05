@@ -7,11 +7,11 @@ import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 import {Strings} from "@openzeppelin/contracts/utils/Strings.sol";
 
 /// @title Opaline
-/// @notice 10,000 looping smoked-glass PFP GIFs for Base (chain ID 8453).
+/// @notice 5,555 looping smoked-glass PFP GIFs for Base (chain ID 8453).
 contract Opaline is ERC721, ERC721Enumerable, Ownable {
     using Strings for uint256;
 
-    uint256 public constant MAX_SUPPLY = 10000;
+    uint256 public constant MAX_SUPPLY = 5555;
     uint256 public mintPrice = 0.005 ether;
     string private _baseTokenURI;
     bool public mintOpen;
