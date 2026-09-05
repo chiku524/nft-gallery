@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Bake looping GIFs from Afterimages, Loopkins, Inklings, Wicklings, Purrkins, Hoodkins, Birbs, Shook'ums, Foxins, Santa Paws, Scribblins, and Groovy Nation APNGs for OpenSea Drops.
+"""Bake looping GIFs from Afterimages, Loopkins, Inklings, Wicklings, Purrkins, Hoodkins, Birbs, Shook'ums, Foxins, Santa Paws, Scribblins, Groovy Nation, and Opaline APNGs for OpenSea Drops.
 
 OpenSea Drops play GIF, not APNG. The site keeps the APNGs. This writes
 quantized looping GIFs and points the Studio CSVs at those files.
@@ -44,6 +44,8 @@ SCRIBBLINS_APNG = ROOT / "generated" / "scribblins" / "images"
 SCRIBBLINS_GIF = ROOT / "generated" / "scribblins" / "gifs"
 GROOVY_APNG = ROOT / "generated" / "groovy" / "images"
 GROOVY_GIF = ROOT / "generated" / "groovy" / "gifs"
+OPALINE_APNG = ROOT / "generated" / "opaline" / "images"
+OPALINE_GIF = ROOT / "generated" / "opaline" / "gifs"
 
 LOOPKINS_DURATION_MS = 80
 AFTER_DURATION_MS = 100
@@ -57,6 +59,7 @@ FOXINS_DURATION_MS = 90
 SANTAPAWS_DURATION_MS = 90
 SCRIBBLINS_DURATION_MS = 90
 GROOVY_DURATION_MS = 90
+OPALINE_DURATION_MS = 90
 LOOPKINS_TOTAL = 10_000
 AFTER_TOTAL = 3333
 INKLINGS_TOTAL = 5555
@@ -69,6 +72,7 @@ FOXINS_TOTAL = 5_555
 SANTAPAWS_TOTAL = 7_777
 SCRIBBLINS_TOTAL = 5_555
 GROOVY_TOTAL = 8_888
+OPALINE_TOTAL = 10_000
 
 
 def load_apng_frames(path: Path) -> tuple[list[Image.Image], int]:
@@ -214,11 +218,12 @@ def main() -> None:
     parser.add_argument("--santapaws", action="store_true", help="Bake Santa Paws GIFs only")
     parser.add_argument("--scribblins", action="store_true", help="Bake Scribblins GIFs only")
     parser.add_argument("--groovy", action="store_true", help="Bake Groovy Nation GIFs only")
+    parser.add_argument("--opaline", action="store_true", help="Bake Opaline GIFs only")
     parser.add_argument("--all", action="store_true", help="Bake the full collection supply")
     parser.add_argument("--count", type=int, default=16, help="Count when not using --all")
     parser.add_argument("--workers", type=int, default=max(1, min(6, cpu_count() or 1)))
     args = parser.parse_args()
-    selected = args.afterimages or args.loopkins or args.inklings or args.wicklings or args.purrkins or args.hoodkins or args.birbs or args.shookums or args.foxins or args.santapaws or args.scribblins or args.groovy
+    selected = args.afterimages or args.loopkins or args.inklings or args.wicklings or args.purrkins or args.hoodkins or args.birbs or args.shookums or args.foxins or args.santapaws or args.scribblins or args.groovy or args.opaline
     do_after = args.afterimages or not selected
     do_loopkins = args.loopkins or not selected
     do_inklings = args.inklings or not selected
@@ -231,6 +236,7 @@ def main() -> None:
     do_santapaws = args.santapaws or not selected
     do_scribblins = args.scribblins or not selected
     do_groovy = args.groovy or not selected
+    do_opaline = args.opaline or not selected
 
     if do_after:
         after_jobs = jobs_for(AFTER_APNG, AFTER_GIF, AFTER_TOTAL, AFTER_DURATION_MS)
@@ -412,6 +418,22 @@ def main() -> None:
             f"{count:,} flattened musical-note loops at 512×512, 12 frames, 90ms.\n\n"
             f"Upload every file in `gifs/` (1.gif–{count}.gif) plus `GROOVY-opensea-drop.csv` "
             "or `opensea-metadata.csv` to an OpenSea Drop on Robinhood Chain.\n"
+            "OpenSea Drops play GIF, not APNG. APNGs stay in `images/` for the site and restacks.\n"
+            "The CSV uses OpenSea Studio headers: tokenID, name, description, file_name, and attributes[Trait].\n",
+            encoding="utf-8",
+        )
+
+    if do_opaline:
+        count = OPALINE_TOTAL if args.all else min(args.count, OPALINE_TOTAL)
+        opaline_jobs = jobs_for(OPALINE_APNG, OPALINE_GIF, count, OPALINE_DURATION_MS)
+        bake("Opaline", opaline_jobs, args.workers)
+        rewrite_csv_filenames(ROOT / "generated" / "opaline" / "opensea-metadata.csv")
+        rewrite_csv_filenames(ROOT / "generated" / "opaline" / "OPALINE-opensea-drop.csv")
+        (ROOT / "generated" / "opaline" / "README.md").write_text(
+            "# Opaline OpenSea pack\n\n"
+            f"{count:,} flattened smoked-glass loops at 512×512, 12 frames, 90ms.\n\n"
+            f"Upload every file in `gifs/` (1.gif–{count}.gif) plus `OPALINE-opensea-drop.csv` "
+            "or `opensea-metadata.csv` to an OpenSea Drop on Base.\n"
             "OpenSea Drops play GIF, not APNG. APNGs stay in `images/` for the site and restacks.\n"
             "The CSV uses OpenSea Studio headers: tokenID, name, description, file_name, and attributes[Trait].\n",
             encoding="utf-8",

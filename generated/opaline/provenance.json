@@ -1,0 +1,13 @@
+{
+  "hash": "e9b8aadd2a04845ba21d3e37fc8172959b59dc4d0d0a924cca51e0d4c48d7816",
+  "count": 16,
+  "frames": 12,
+  "durationMs": 90,
+  "size": 512,
+  "gifColors": 256,
+  "bytes": 8636051,
+  "openseaLimitBytes": 10737418240,
+  "underOpenseaLimit": true,
+  "chain": "base",
+  "chainId": 8453
+}

@@ -1,0 +1,17 @@
+{
+  "name": "Opaline",
+  "size": 512,
+  "frames": 12,
+  "durationMs": 90,
+  "format": "apng",
+  "loop": 0,
+  "order": [
+    "atelier",
+    "cast",
+    "sheen",
+    "regard",
+    "crest",
+    "clasp"
+  ],
+  "note": "Each trait is a looping APNG. Studio stacks them live. Minted tokens flatten to GIF. The crystal bust stays seated; crests and clasps never edit the cast."
+}

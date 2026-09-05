@@ -10,6 +10,7 @@ const nextConfig: NextConfig = {
       { pathname: "/hoodkins-traits/**", search: "?v=*" },
       { pathname: "/shookums-traits/**", search: "?v=*" },
       { pathname: "/foxins-traits/**", search: "?v=*" },
+      { pathname: "/opaline-traits/**", search: "?v=*" },
     ],
   },
   async redirects() {

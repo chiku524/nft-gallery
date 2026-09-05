@@ -1,0 +1,12 @@
+{
+  "name": "Opaline",
+  "symbol": "OPAL",
+  "description": "Opaline is a 10,000-piece collection of looping smoked-glass PFP GIFs. Each portrait is stacked from six layers \u2014 atelier, cast, sheen, regard, crest, and clasp \u2014 then flattened onto one 12-frame GIF. Faceted crystal busts. Dichroic film. Editorial light.",
+  "image": "/brand/collection-opaline.gif",
+  "featured_image": "/brand/featured-opaline.jpg",
+  "banner_image": "/brand/banner-opaline.png",
+  "opensea_banner_image": "/brand/banner-opaline-opensea.jpg",
+  "external_link": "/opaline",
+  "seller_fee_basis_points": 500,
+  "fee_recipient": "0x0000000000000000000000000000000000000000"
+}
