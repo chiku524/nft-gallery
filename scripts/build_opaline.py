@@ -861,7 +861,7 @@ def build_samples() -> None:
         samples.append(
             {
                 "id": index,
-                "name": f"Opaline #{index}",
+                "name": f"Fishy #{index}",
                 "image": f"/opaline-preview/{index}.gif",
                 "attributes": [
                     {"trait_type": label, "value": name_of(key, selection[key])} for key, label in TRAIT_LABELS

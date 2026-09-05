@@ -143,7 +143,7 @@ def token_meta(token_id: int, selection: dict[str, str]) -> dict:
         for key, label in TRAIT_LABELS
     ]
     return {
-        "name": f"Opaline #{token_id}",
+        "name": f"Fishy #{token_id}",
         "description": "A looping smoked-glass reef fish from Opaline. Crystal creature. Dichroic film. One clock. Minted on Base.",
         "image": f"{token_id}.gif",
         "attributes": attributes,
@@ -239,6 +239,7 @@ def write_sidecar(count: int, rows: list[dict], stats: Counter[str], total_bytes
         "## Collection fields\n\n"
         "- Name: `Opaline`\n"
         "- Symbol: `OPAL`\n"
+        "- Token name: `Fishy #{id}`\n"
         "- Category: PFPs\n"
         "- Chain: Base (`8453`)\n"
         f"- Supply: `{TOTAL}`\n"

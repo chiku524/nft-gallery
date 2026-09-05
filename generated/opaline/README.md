@@ -6,6 +6,7 @@
 
 - Name: `Opaline`
 - Symbol: `OPAL`
+- Token name: `Fishy #{id}`
 - Category: PFPs
 - Chain: Base (`8453`)
 - Supply: `5555`

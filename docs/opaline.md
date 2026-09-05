@@ -23,7 +23,7 @@ python3 scripts/generate_opaline.py        # 16 samples
 python3 scripts/generate_opaline.py --all  # full 5,555 GIFs + OpenSea kit
 ```
 
-Requires Python 3 with Pillow and NumPy. The marketplace pack lives in `generated/opaline/`: `gifs/` (`1.gif`–`5555.gif`), `OPALINE-opensea-drop.csv`, `opensea-metadata.csv`, and the kit README. GIFs stay off git; the CSV and sidecar files are committed.
+Requires Python 3 with Pillow and NumPy. The marketplace pack lives in `generated/opaline/`: `gifs/` (`1.gif`–`5555.gif`), `OPALINE-opensea-drop.csv`, `opensea-metadata.csv`, and the kit README. Each token is named `Fishy #{id}`. GIFs stay off git; the CSV and sidecar files are committed.
 
 ## Trait stack
 

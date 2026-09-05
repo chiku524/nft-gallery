@@ -56,7 +56,7 @@ export default function OpalineGalleryPage() {
           <article key={id} className="overflow-hidden rounded-2xl border bg-card">
             <ApngImage
               src={`/opaline-preview/${id}.gif?v=2`}
-              alt={`Opaline #${id}`}
+              alt={`Fishy #${id}`}
               width={512}
               height={512}
               className="aspect-square w-full object-cover"

@@ -8,7 +8,7 @@ export type OpalineSample = {
 export const opalineSamples: OpalineSample[] = [
   {
     id: 1,
-    name: "Opaline #1",
+    name: "Fishy #1",
     image: "/opaline-preview/1.gif?v=6",
     attributes: [
       { trait_type: "Atelier", value: "Dusk Chamber" },
@@ -22,7 +22,7 @@ export const opalineSamples: OpalineSample[] = [
   },
   {
     id: 2,
-    name: "Opaline #2",
+    name: "Fishy #2",
     image: "/opaline-preview/2.gif?v=6",
     attributes: [
       { trait_type: "Atelier", value: "Obsidian Room" },
@@ -36,7 +36,7 @@ export const opalineSamples: OpalineSample[] = [
   },
   {
     id: 3,
-    name: "Opaline #3",
+    name: "Fishy #3",
     image: "/opaline-preview/3.gif?v=6",
     attributes: [
       { trait_type: "Atelier", value: "Ivory Gallery" },
@@ -50,7 +50,7 @@ export const opalineSamples: OpalineSample[] = [
   },
   {
     id: 4,
-    name: "Opaline #4",
+    name: "Fishy #4",
     image: "/opaline-preview/4.gif?v=6",
     attributes: [
       { trait_type: "Atelier", value: "Brine Hall" },
@@ -64,7 +64,7 @@ export const opalineSamples: OpalineSample[] = [
   },
   {
     id: 5,
-    name: "Opaline #5",
+    name: "Fishy #5",
     image: "/opaline-preview/5.gif?v=6",
     attributes: [
       { trait_type: "Atelier", value: "Wine Vault" },
@@ -78,7 +78,7 @@ export const opalineSamples: OpalineSample[] = [
   },
   {
     id: 6,
-    name: "Opaline #6",
+    name: "Fishy #6",
     image: "/opaline-preview/6.gif?v=6",
     attributes: [
       { trait_type: "Atelier", value: "Mercury Wall" },
@@ -92,7 +92,7 @@ export const opalineSamples: OpalineSample[] = [
   },
   {
     id: 7,
-    name: "Opaline #7",
+    name: "Fishy #7",
     image: "/opaline-preview/7.gif?v=6",
     attributes: [
       { trait_type: "Atelier", value: "Slate Studio" },
@@ -106,7 +106,7 @@ export const opalineSamples: OpalineSample[] = [
   },
   {
     id: 8,
-    name: "Opaline #8",
+    name: "Fishy #8",
     image: "/opaline-preview/8.gif?v=6",
     attributes: [
       { trait_type: "Atelier", value: "Quartz Court" },
@@ -120,7 +120,7 @@ export const opalineSamples: OpalineSample[] = [
   },
   {
     id: 9,
-    name: "Opaline #9",
+    name: "Fishy #9",
     image: "/opaline-preview/9.gif?v=6",
     attributes: [
       { trait_type: "Atelier", value: "Dusk Chamber" },
@@ -134,7 +134,7 @@ export const opalineSamples: OpalineSample[] = [
   },
   {
     id: 10,
-    name: "Opaline #10",
+    name: "Fishy #10",
     image: "/opaline-preview/10.gif?v=6",
     attributes: [
       { trait_type: "Atelier", value: "Obsidian Room" },
@@ -148,7 +148,7 @@ export const opalineSamples: OpalineSample[] = [
   },
   {
     id: 11,
-    name: "Opaline #11",
+    name: "Fishy #11",
     image: "/opaline-preview/11.gif?v=6",
     attributes: [
       { trait_type: "Atelier", value: "Ivory Gallery" },
@@ -162,7 +162,7 @@ export const opalineSamples: OpalineSample[] = [
   },
   {
     id: 12,
-    name: "Opaline #12",
+    name: "Fishy #12",
     image: "/opaline-preview/12.gif?v=6",
     attributes: [
       { trait_type: "Atelier", value: "Brine Hall" },
@@ -176,7 +176,7 @@ export const opalineSamples: OpalineSample[] = [
   },
   {
     id: 13,
-    name: "Opaline #13",
+    name: "Fishy #13",
     image: "/opaline-preview/13.gif?v=6",
     attributes: [
       { trait_type: "Atelier", value: "Wine Vault" },
@@ -190,7 +190,7 @@ export const opalineSamples: OpalineSample[] = [
   },
   {
     id: 14,
-    name: "Opaline #14",
+    name: "Fishy #14",
     image: "/opaline-preview/14.gif?v=6",
     attributes: [
       { trait_type: "Atelier", value: "Mercury Wall" },
@@ -204,7 +204,7 @@ export const opalineSamples: OpalineSample[] = [
   },
   {
     id: 15,
-    name: "Opaline #15",
+    name: "Fishy #15",
     image: "/opaline-preview/15.gif?v=6",
     attributes: [
       { trait_type: "Atelier", value: "Slate Studio" },
@@ -218,7 +218,7 @@ export const opalineSamples: OpalineSample[] = [
   },
   {
     id: 16,
-    name: "Opaline #16",
+    name: "Fishy #16",
     image: "/opaline-preview/16.gif?v=6",
     attributes: [
       { trait_type: "Atelier", value: "Quartz Court" },
