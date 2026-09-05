@@ -59,7 +59,7 @@ export default function OpalineHomePage() {
         <div className="grid gap-8 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground">The drop</p>
-            <h2 className="mt-2 font-heading text-3xl sm:text-4xl">Eight beasts. Seated glass.</h2>
+            <h2 className="mt-2 font-heading text-3xl sm:text-4xl">Eight beasts. Animal glass.</h2>
             <div className="mt-4 space-y-4 text-muted-foreground">
               {opaline.story.split("\n\n").map((paragraph) => (
                 <p key={paragraph.slice(0, 40)}>{paragraph}</p>

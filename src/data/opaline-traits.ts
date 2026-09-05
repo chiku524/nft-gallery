@@ -14,7 +14,7 @@ export type OpalineTraitCategory = {
 };
 
 /** Bump when APNG layers change so the studio does not keep a stale loop. */
-export const OPALINE_ART_VERSION = "opaline-v3";
+export const OPALINE_ART_VERSION = "opaline-v4";
 
 export const OPALINE_FRAMES = 12;
 export const OPALINE_DURATION_MS = 90;
@@ -43,7 +43,7 @@ export const opalineTraitCategories: OpalineTraitCategory[] = [
   {
     id: "cast",
     label: "Cast",
-    blurb: "The seated crystal beast — stag, serpent, moth, beetle, ram, ibis, wyrm, mantis. Same eye line, eight silhouettes.",
+    blurb: "The crystal animal — stag, serpent, moth, beetle, ram, ibis, wyrm, mantis. Same eye line, eight skulls.",
     traits: [
       { id: "stag", name: "Stag", image: "/opaline-traits/cast/stag.png", rarity: 18 },
       { id: "serpent", name: "Serpent", image: "/opaline-traits/cast/serpent.png", rarity: 16 },

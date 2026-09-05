@@ -36,7 +36,7 @@ Every layer is already seated on the 512 canvas. Studio and the generator only s
 5. Crest
 6. Clasp
 
-Eight beasts share one seated face. Crests and clasps never edit the cast file — they composite on the same crown and neck. Light walks the facets. Film shifts hue. Minted tokens composite frame *n* of every layer so the marketplace file stays in sync.
+Eight beasts share one eye line. Crests and clasps never edit the cast file — they composite on the same crown and throat. Light walks the facets. Film shifts hue. Minted tokens composite frame *n* of every layer so the marketplace file stays in sync.
 
 Token 1 is the signature look — dusk chamber, stag, oil film, quiet regard, platinum band, glass drop.
 

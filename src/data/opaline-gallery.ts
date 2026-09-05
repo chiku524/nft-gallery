@@ -9,7 +9,7 @@ export const opalineSamples: OpalineSample[] = [
   {
     id: 1,
     name: "Opaline #1",
-    image: "/opaline-preview/1.gif?v=3",
+    image: "/opaline-preview/1.gif?v=4",
     attributes: [
       { trait_type: "Atelier", value: "Dusk Chamber" },
       { trait_type: "Cast", value: "Stag" },
@@ -22,7 +22,7 @@ export const opalineSamples: OpalineSample[] = [
   {
     id: 2,
     name: "Opaline #2",
-    image: "/opaline-preview/2.gif?v=3",
+    image: "/opaline-preview/2.gif?v=4",
     attributes: [
       { trait_type: "Atelier", value: "Obsidian Room" },
       { trait_type: "Cast", value: "Mantis" },
@@ -35,7 +35,7 @@ export const opalineSamples: OpalineSample[] = [
   {
     id: 3,
     name: "Opaline #3",
-    image: "/opaline-preview/3.gif?v=3",
+    image: "/opaline-preview/3.gif?v=4",
     attributes: [
       { trait_type: "Atelier", value: "Ivory Gallery" },
       { trait_type: "Cast", value: "Stag" },
@@ -48,7 +48,7 @@ export const opalineSamples: OpalineSample[] = [
   {
     id: 4,
     name: "Opaline #4",
-    image: "/opaline-preview/4.gif?v=3",
+    image: "/opaline-preview/4.gif?v=4",
     attributes: [
       { trait_type: "Atelier", value: "Brine Hall" },
       { trait_type: "Cast", value: "Ibis" },
@@ -61,7 +61,7 @@ export const opalineSamples: OpalineSample[] = [
   {
     id: 5,
     name: "Opaline #5",
-    image: "/opaline-preview/5.gif?v=3",
+    image: "/opaline-preview/5.gif?v=4",
     attributes: [
       { trait_type: "Atelier", value: "Wine Vault" },
       { trait_type: "Cast", value: "Wyrm" },
@@ -74,7 +74,7 @@ export const opalineSamples: OpalineSample[] = [
   {
     id: 6,
     name: "Opaline #6",
-    image: "/opaline-preview/6.gif?v=3",
+    image: "/opaline-preview/6.gif?v=4",
     attributes: [
       { trait_type: "Atelier", value: "Mercury Wall" },
       { trait_type: "Cast", value: "Moth" },
@@ -87,7 +87,7 @@ export const opalineSamples: OpalineSample[] = [
   {
     id: 7,
     name: "Opaline #7",
-    image: "/opaline-preview/7.gif?v=3",
+    image: "/opaline-preview/7.gif?v=4",
     attributes: [
       { trait_type: "Atelier", value: "Slate Studio" },
       { trait_type: "Cast", value: "Serpent" },
@@ -100,7 +100,7 @@ export const opalineSamples: OpalineSample[] = [
   {
     id: 8,
     name: "Opaline #8",
-    image: "/opaline-preview/8.gif?v=3",
+    image: "/opaline-preview/8.gif?v=4",
     attributes: [
       { trait_type: "Atelier", value: "Quartz Court" },
       { trait_type: "Cast", value: "Beetle" },
@@ -113,7 +113,7 @@ export const opalineSamples: OpalineSample[] = [
   {
     id: 9,
     name: "Opaline #9",
-    image: "/opaline-preview/9.gif?v=3",
+    image: "/opaline-preview/9.gif?v=4",
     attributes: [
       { trait_type: "Atelier", value: "Dusk Chamber" },
       { trait_type: "Cast", value: "Ram" },
@@ -126,7 +126,7 @@ export const opalineSamples: OpalineSample[] = [
   {
     id: 10,
     name: "Opaline #10",
-    image: "/opaline-preview/10.gif?v=3",
+    image: "/opaline-preview/10.gif?v=4",
     attributes: [
       { trait_type: "Atelier", value: "Obsidian Room" },
       { trait_type: "Cast", value: "Ibis" },
@@ -139,7 +139,7 @@ export const opalineSamples: OpalineSample[] = [
   {
     id: 11,
     name: "Opaline #11",
-    image: "/opaline-preview/11.gif?v=3",
+    image: "/opaline-preview/11.gif?v=4",
     attributes: [
       { trait_type: "Atelier", value: "Ivory Gallery" },
       { trait_type: "Cast", value: "Moth" },
@@ -152,7 +152,7 @@ export const opalineSamples: OpalineSample[] = [
   {
     id: 12,
     name: "Opaline #12",
-    image: "/opaline-preview/12.gif?v=3",
+    image: "/opaline-preview/12.gif?v=4",
     attributes: [
       { trait_type: "Atelier", value: "Brine Hall" },
       { trait_type: "Cast", value: "Mantis" },
@@ -165,7 +165,7 @@ export const opalineSamples: OpalineSample[] = [
   {
     id: 13,
     name: "Opaline #13",
-    image: "/opaline-preview/13.gif?v=3",
+    image: "/opaline-preview/13.gif?v=4",
     attributes: [
       { trait_type: "Atelier", value: "Wine Vault" },
       { trait_type: "Cast", value: "Serpent" },
@@ -178,7 +178,7 @@ export const opalineSamples: OpalineSample[] = [
   {
     id: 14,
     name: "Opaline #14",
-    image: "/opaline-preview/14.gif?v=3",
+    image: "/opaline-preview/14.gif?v=4",
     attributes: [
       { trait_type: "Atelier", value: "Mercury Wall" },
       { trait_type: "Cast", value: "Wyrm" },
@@ -191,7 +191,7 @@ export const opalineSamples: OpalineSample[] = [
   {
     id: 15,
     name: "Opaline #15",
-    image: "/opaline-preview/15.gif?v=3",
+    image: "/opaline-preview/15.gif?v=4",
     attributes: [
       { trait_type: "Atelier", value: "Slate Studio" },
       { trait_type: "Cast", value: "Beetle" },
@@ -204,7 +204,7 @@ export const opalineSamples: OpalineSample[] = [
   {
     id: 16,
     name: "Opaline #16",
-    image: "/opaline-preview/16.gif?v=3",
+    image: "/opaline-preview/16.gif?v=4",
     attributes: [
       { trait_type: "Atelier", value: "Quartz Court" },
       { trait_type: "Cast", value: "Ram" },

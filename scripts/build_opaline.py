@@ -182,12 +182,12 @@ def pour_glass(
     canvas[:] = composite_arr(canvas, add)
 
 
-# Shared seat so regard, crest, clasp, and sheen land on every beast.
-# Eyes stay on one line. Each cast grows a different head and body off that seat.
+# Regard sits on one eye line. Crest and clasp overlay the crown and throat.
+# Nothing else is shared — each cast is its own animal skull and body.
 EYE_L = (220.0, 184.0)
 EYE_R = (292.0, 184.0)
-SHEEN_FACE = [(206, 122), (306, 122), (322, 188), (304, 242), (256, 274), (208, 242), (190, 188)]
-SHEEN_NECK = [(240, 274), (272, 274), (278, 352), (234, 352)]
+SHEEN_FACE = [(214, 140), (298, 140), (316, 184), (300, 220), (256, 236), (212, 220), (196, 184)]
+SHEEN_THROAT = [(242, 280), (270, 280), (276, 340), (236, 340)]
 
 
 def mirror(poly: list[tuple[float, float]]) -> list[tuple[float, float]]:
@@ -199,146 +199,164 @@ def pair(poly: list[tuple[float, float]], alpha: int, rim: bool = True) -> list[
 
 
 def face_of(kind: str) -> list[tuple[float, float]]:
+    """Animal skulls. Wide enough to hold the shared eyes, never a mannequin hex."""
     if kind == "stag":
-        return [(198, 100), (314, 100), (338, 164), (318, 248), (256, 322), (194, 248), (174, 164)]
+        return [
+            (222, 88),
+            (290, 88),
+            (328, 148),
+            (318, 196),
+            (286, 268),
+            (268, 348),
+            (256, 372),
+            (244, 348),
+            (226, 268),
+            (194, 196),
+            (184, 148),
+        ]
     if kind == "serpent":
-        return [(256, 86), (348, 168), (328, 248), (256, 316), (184, 248), (164, 168)]
+        return [(256, 112), (348, 168), (332, 208), (286, 236), (256, 248), (226, 236), (180, 208), (164, 168)]
     if kind == "moth":
-        return [(210, 118), (302, 118), (328, 176), (308, 232), (256, 268), (204, 232), (184, 176)]
+        return [(208, 148), (304, 148), (328, 184), (312, 216), (256, 232), (200, 216), (184, 184)]
     if kind == "beetle":
-        return [(204, 92), (308, 92), (344, 176), (322, 246), (256, 286), (190, 246), (168, 176)]
+        return [(216, 108), (296, 108), (332, 168), (318, 208), (256, 236), (194, 208), (180, 168)]
     if kind == "ram":
-        return [(176, 108), (336, 108), (362, 176), (342, 252), (256, 312), (170, 252), (150, 176)]
+        return [
+            (168, 92),
+            (344, 92),
+            (372, 156),
+            (348, 208),
+            (312, 280),
+            (284, 360),
+            (256, 396),
+            (228, 360),
+            (200, 280),
+            (164, 208),
+            (140, 156),
+        ]
     if kind == "ibis":
-        return [(216, 120), (296, 120), (322, 168), (298, 218), (256, 252), (214, 218), (190, 168)]
+        return [(224, 132), (288, 132), (314, 172), (300, 204), (256, 220), (212, 204), (198, 172)]
     if kind == "wyrm":
-        return [(192, 96), (320, 96), (350, 168), (332, 262), (256, 352), (180, 262), (162, 168)]
-    return [(256, 48), (368, 176), (324, 248), (256, 304), (188, 248), (144, 176)]
+        return [
+            (206, 80),
+            (306, 80),
+            (348, 148),
+            (336, 200),
+            (300, 268),
+            (276, 360),
+            (256, 412),
+            (236, 360),
+            (212, 268),
+            (176, 200),
+            (164, 148),
+        ]
+    return [(256, 36), (380, 188), (336, 228), (256, 248), (176, 228), (132, 188)]
 
 
-def neck_of(kind: str) -> list[tuple[float, float]]:
-    if kind == "serpent":
-        return [(226, 304), (286, 304), (318, 408), (194, 408)]
+def necks_of(kind: str) -> list[list[tuple[float, float]]]:
     if kind == "ibis":
-        return [(246, 250), (274, 250), (296, 372), (220, 384)]
+        return [[(248, 216), (276, 220), (268, 292), (300, 360), (268, 420), (248, 360), (244, 292)]]
     if kind == "moth":
-        return [(242, 264), (270, 264), (278, 356), (234, 356)]
+        return [[(240, 228), (272, 228), (276, 268), (256, 284), (236, 268)]]
     if kind == "mantis":
-        return [(240, 292), (272, 292), (280, 384), (232, 384)]
-    if kind == "beetle":
-        return [(236, 282), (276, 282), (282, 348), (230, 348)]
-    return [(236, 300), (276, 300), (284, 368), (228, 368)]
+        return [[(246, 244), (266, 244), (270, 300), (256, 316), (242, 300)]]
+    return []
 
 
 def inner_facets(face: list[tuple[float, float]]) -> list[list[tuple[float, float]]]:
     mx = sum(p[0] for p in face) / len(face)
     my = sum(p[1] for p in face) / len(face)
     mid = (mx, my)
-    facets: list[list[tuple[float, float]]] = []
-    for i, point in enumerate(face):
-        facets.append([point, face[(i + 1) % len(face)], mid])
-    return facets
+    return [[point, face[(i + 1) % len(face)], mid] for i, point in enumerate(face)]
 
 
 def body_of(kind: str) -> list[tuple[list[tuple[float, float]], int, bool]]:
-    """Chest, coils, wings, elytra, scythes — the mass under the shared seat."""
-    if kind == "stag":
-        return [
-            ([(228, 366), (96, 378), (64, 448), (256, 448), (256, 366)], 238, True),
-            (mirror([(228, 366), (96, 378), (64, 448), (256, 448), (256, 366)]), 238, True),
-        ]
     if kind == "serpent":
-        return [
-            ([(196, 400), (316, 400), (372, 456), (140, 456)], 236, True),
-            ([(140, 430), (36, 400), (16, 468), (188, 476)], 232, True),
-            (mirror([(140, 430), (36, 400), (16, 468), (188, 476)]), 232, True),
+        hood = [
+            (256, 28),
+            (420, 88),
+            (508, 200),
+            (480, 320),
+            (320, 300),
+            (256, 248),
+            (192, 300),
+            (32, 320),
+            (4, 200),
+            (92, 88),
         ]
+        tube = [(228, 240), (284, 240), (320, 360), (300, 500), (212, 500), (192, 360)]
+        curl = [(192, 420), (80, 400), (40, 468), (120, 508), (220, 488)]
+        return [(hood, 210, True), (tube, 234, True), (curl, 226, True), (mirror(curl), 226, True)]
     if kind == "moth":
-        return [
-            ([(198, 176), (36, 128), (4, 236), (12, 372), (108, 472), (224, 404), (214, 248)], 198, True),
-            (mirror([(198, 176), (36, 128), (4, 236), (12, 372), (108, 472), (224, 404), (214, 248)]), 198, True),
-            ([(234, 352), (278, 352), (296, 432), (216, 432)], 226, True),
-        ]
+        upper = [(196, 156), (60, 24), (0, 120), (8, 220), (120, 260), (220, 200)]
+        lower = [(200, 200), (16, 240), (8, 360), (72, 488), (200, 428), (228, 260)]
+        mark = [(100, 88), (40, 100), (28, 168), (96, 188), (140, 140)]
+        return pair(upper, 190) + pair(lower, 196) + pair(mark, 148, False)
     if kind == "beetle":
-        return [
-            ([(228, 286), (78, 308), (44, 408), (124, 468), (256, 444), (256, 300)], 236, True),
-            (mirror([(228, 286), (78, 308), (44, 408), (124, 468), (256, 444), (256, 300)]), 236, True),
-        ]
-    if kind == "ram":
-        return [
-            ([(226, 368), (88, 384), (52, 456), (256, 456), (256, 368)], 238, True),
-            (mirror([(226, 368), (88, 384), (52, 456), (256, 456), (256, 368)]), 238, True),
-        ]
-    if kind == "ibis":
-        return [
-            ([(220, 368), (64, 336), (8, 400), (48, 468), (236, 456)], 230, True),
-            (mirror([(220, 368), (64, 336), (8, 400), (48, 468), (236, 456)]), 230, True),
-        ]
-    if kind == "wyrm":
-        return [
-            ([(228, 368), (100, 380), (68, 452), (256, 452), (256, 368)], 238, True),
-            (mirror([(228, 368), (100, 380), (68, 452), (256, 452), (256, 368)]), 238, True),
-        ]
-    return [
-        ([(232, 380), (276, 380), (308, 456), (204, 456)], 228, True),
-    ]
+        shell = [(200, 228), (96, 280), (64, 372), (100, 468), (256, 508), (256, 236)]
+        split = [(248, 236), (264, 236), (264, 500), (248, 500)]
+        leg_a = [(96, 280), (8, 252), (0, 276), (88, 300)]
+        leg_b = [(76, 348), (0, 360), (8, 388), (88, 368)]
+        leg_c = [(100, 420), (28, 460), (44, 484), (116, 440)]
+        return pair(shell, 234) + [(split, 200, False)] + pair(leg_a, 210) + pair(leg_b, 210) + pair(leg_c, 210)
+    return []
 
 
 def beast_parts(kind: str) -> list[tuple[list[tuple[float, float]], int, bool]]:
-    """Species marks. Color comes from CAST_RGB."""
     if kind == "stag":
-        beam = [(200, 100), (156, 36), (72, 2), (54, 28), (128, 52), (188, 100)]
-        outer = [(72, 2), (8, 10), (22, 52), (88, 34)]
-        mid = [(156, 36), (108, 4), (118, 48)]
-        low = [(128, 52), (78, 70), (118, 90)]
-        ear = [(174, 164), (108, 118), (142, 192)]
-        return pair(beam, 232) + pair(outer, 224) + pair(mid, 216, False) + pair(low, 214, False) + pair(ear, 230)
+        beam = [(222, 88), (176, 28), (88, 0), (64, 24), (140, 44), (210, 88)]
+        tine_a = [(88, 0), (12, 8), (28, 44), (100, 28)]
+        tine_b = [(176, 28), (120, 0), (128, 40)]
+        tine_c = [(140, 44), (84, 64), (124, 84)]
+        ear = [(184, 148), (72, 84), (108, 180), (198, 188)]
+        return pair(beam, 232) + pair(tine_a, 224) + pair(tine_b, 216, False) + pair(tine_c, 214, False) + pair(ear, 230)
     if kind == "serpent":
-        hood = [(168, 96), (88, 40), (12, 132), (20, 268), (118, 312), (186, 228), (176, 136)]
-        fang = [(236, 300), (256, 336), (248, 304)]
-        return pair(hood, 228) + [(fang, 220, False), (mirror(fang), 220, False)]
+        hood = [(168, 120), (72, 48), (8, 140), (16, 280), (100, 340), (176, 248), (184, 168)]
+        jaw = [(226, 236), (256, 268), (248, 240)]
+        return pair(hood, 226) + [(jaw, 210, False), (mirror(jaw), 210, False)]
     if kind == "moth":
-        antenna = [(210, 118), (160, 44), (84, 2), (72, 26), (148, 62), (206, 112)]
-        tip = [(84, 2), (36, 0), (48, 22)]
-        return pair(antenna, 218) + pair(tip, 210)
+        antenna = [(208, 148), (152, 64), (72, 4), (56, 28), (140, 80), (204, 144)]
+        club = [(72, 4), (24, 0), (36, 24)]
+        return pair(antenna, 216) + pair(club, 208)
     if kind == "beetle":
-        horn = [(244, 4), (268, 4), (278, 100), (234, 100)]
-        flare = [(256, 4), (308, 52), (256, 40), (204, 52)]
-        jaw = [(190, 246), (128, 278), (136, 328), (204, 286), (256, 286)]
-        return [(horn, 236, True), (flare, 222, True)] + pair(jaw, 230)
+        horn = [(246, 0), (266, 0), (276, 112), (236, 112)]
+        flare = [(256, 0), (316, 48), (256, 36), (196, 48)]
+        mandible = [(194, 208), (120, 236), (128, 292), (208, 236)]
+        return [(horn, 236, True), (flare, 220, True)] + pair(mandible, 228)
     if kind == "ram":
-        curl_a = [(176, 120), (96, 48), (28, 84), (40, 156), (116, 168), (176, 148)]
-        curl_b = [(28, 84), (4, 148), (16, 228), (68, 208), (40, 156)]
-        curl_c = [(16, 228), (36, 292), (112, 268), (88, 216), (68, 208)]
+        curl_a = [(168, 108), (88, 36), (16, 80), (28, 160), (108, 176), (168, 140)]
+        curl_b = [(16, 80), (0, 156), (12, 244), (64, 220), (28, 160)]
+        curl_c = [(12, 244), (32, 316), (108, 288), (80, 228), (64, 220)]
         return pair(curl_a, 232) + pair(curl_b, 224) + pair(curl_c, 218)
     if kind == "ibis":
         beak = [
-            (248, 226),
-            (280, 244),
-            (258, 292),
-            (198, 364),
-            (132, 436),
-            (96, 476),
-            (84, 458),
-            (132, 396),
-            (208, 312),
+            (228, 200),
+            (292, 208),
+            (280, 280),
+            (248, 360),
+            (196, 428),
+            (132, 476),
+            (80, 508),
+            (60, 488),
+            (112, 448),
+            (176, 388),
+            (224, 300),
         ]
-        plume = [(256, 36), (312, 68), (328, 104), (286, 116), (214, 108), (188, 68)]
-        return [(beak, 232, True), (plume, 226, True)]
+        plume = [(256, 20), (340, 68), (352, 112), (300, 132), (212, 124), (168, 68)]
+        return [(beak, 236, True), (plume, 222, True)]
     if kind == "wyrm":
-        snout = [(198, 250), (256, 304), (286, 392), (228, 356)]
-        horn = [(192, 96), (230, 96), (196, 8), (148, 32)]
-        frill = [(162, 168), (68, 128), (44, 220), (144, 214)]
-        return pair(snout, 234) + pair(horn, 230) + pair(frill, 222)
-    cap = [(256, 48), (368, 176), (324, 248), (256, 200), (188, 248), (144, 176)]
-    scythe = [(188, 248), (72, 188), (4, 220), (12, 276), (96, 268), (196, 292)]
-    blade = [(4, 220), (0, 328), (36, 436), (92, 460), (68, 356), (12, 276)]
-    return [(cap, 200, False)] + pair(scythe, 222) + pair(blade, 218)
+        horn = [(206, 80), (246, 80), (212, 4), (152, 28)]
+        brow = [(176, 148), (88, 100), (72, 168), (164, 176)]
+        whisker = [(176, 200), (96, 220), (80, 268), (168, 248)]
+        return pair(horn, 230) + pair(brow, 222) + pair(whisker, 216)
+    scythe = [(176, 228), (48, 140), (0, 176), (16, 240), (96, 236), (188, 248)]
+    blade = [(0, 176), (4, 300), (40, 420), (100, 488), (72, 360), (16, 240)]
+    return pair(scythe, 222) + pair(blade, 216)
 
 
 def sheen_mask() -> np.ndarray:
     acc = np.zeros((SIZE, SIZE), dtype=np.uint8)
-    for poly in (SHEEN_FACE, SHEEN_NECK):
+    for poly in (SHEEN_FACE, SHEEN_THROAT):
         acc = np.maximum(acc, poly_mask(poly))
     return acc
 
@@ -347,18 +365,18 @@ def paint_cast(kind: str, frame: int) -> Image.Image:
     arr = np.zeros((SIZE, SIZE, 4), dtype=np.uint8)
     light = light_vec(frame)
     rgb = CAST_RGB[kind]
+    neck_rgb = tuple(max(0, c - 22) for c in rgb)
+    for poly, alpha, rim in body_of(kind):
+        pour_glass(arr, poly_mask(poly), rgb, light, frame, alpha=alpha, rim=rim)
+    for poly in necks_of(kind):
+        pour_glass(arr, poly_mask(poly), neck_rgb, light, frame, alpha=230, rim=True)
     face = face_of(kind)
     pour_glass(arr, poly_mask(face), rgb, light, frame, alpha=236, rim=True)
     tint = tuple(min(255, max(0, c + offset)) for c, offset in zip(rgb, (8, -4, 6)))
     for poly in inner_facets(face):
         pour_glass(arr, poly_mask(poly), tint, light, frame, alpha=40, caustic_gain=0.08)
-    pour_glass(arr, poly_mask(neck_of(kind)), tuple(max(0, c - 22) for c in rgb), light, frame, alpha=230, rim=True)
-    for poly, alpha, rim in body_of(kind):
-        pour_glass(arr, poly_mask(poly), rgb, light, frame, alpha=alpha, rim=rim)
     for poly, alpha, rim in beast_parts(kind):
         pour_glass(arr, poly_mask(poly), rgb, light, frame, alpha=alpha, rim=rim)
-    core = [(226, 156), (286, 156), (274, 228), (256, 268), (238, 228)]
-    pour_glass(arr, poly_mask(core), tuple(max(0, c * 2 // 5) for c in rgb), light, frame, alpha=36, caustic_gain=0.03)
     return Image.fromarray(arr, "RGBA")
 
 
@@ -659,7 +677,7 @@ COLLECTION_STORY = (
     "Opaline.\n\n"
     "A 10,000-piece collection of looping smoked-glass PFP GIFs on Base. "
     "Each portrait is stacked from six layers — atelier, cast, sheen, regard, crest, and clasp — "
-    "then flattened onto one 12-frame GIF. Eight beasts share one seated face: stag, serpent, moth, "
+    "then flattened onto one 12-frame GIF. Eight beasts, each its own animal: stag, serpent, moth, "
     "beetle, ram, ibis, wyrm, and mantis. Light walks the facets. Film shifts hue. Inclusions dim.\n\n"
     "Crystal creatures. Seven films, including bare glass. No charcoal outline. No sticker cutout. "
     "The beast stays seated. One shared clock.\n\n"
@@ -731,7 +749,7 @@ def build_traits(only: str | None = None, ids: list[str] | None = None) -> None:
         "format": "apng",
         "loop": 0,
         "order": list(STACK),
-        "note": "Each trait is a looping APNG. Studio stacks them live. Minted tokens flatten to GIF. Eight glass beasts share one seated face; crests and clasps never edit the cast.",
+        "note": "Each trait is a looping APNG. Studio stacks them live. Minted tokens flatten to GIF. Eight glass beasts share one eye line; crests and clasps never edit the cast.",
     }
     (TRAIT_DIR / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
 
@@ -775,7 +793,7 @@ def write_ts_gallery(samples: list[dict]) -> None:
             "  {\n"
             f"    id: {sample['id']},\n"
             f'    name: "{sample["name"]}",\n'
-            f'    image: "{sample["image"]}?v=3",\n'
+            f'    image: "{sample["image"]}?v=4",\n'
             f"    attributes: [\n      {attrs},\n    ],\n"
             "  }"
         )
