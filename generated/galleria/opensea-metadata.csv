@@ -49,3 +49,453 @@ tokenID,name,description,file_name,attributes[Medium],attributes[Motion],attribu
 48,Staff Walk,A measure with no key. The note keeps the appointment anyway.,48.gif,Notation,Walk,Score black,Open
 49,Flemish Bond,A wall that is only the wall. One brick remembers weather.,49.gif,Brick,Weather,Clay mortar,Open
 50,Thermograph,A temperature with no body. The hot spots keep changing their address.,50.gif,Thermograph,Migrate,Infrared,Open
+51,Jolt Trace,A needle that writes the floor and will not lift.,51.gif,Seismograph ink,Tick,Graphite cream,Open
+52,Wax Comb,A hive plan with no bees left to argue.,52.gif,Beeswax comb,Fill,Honey black,Open
+53,Armor Scale,A soldier reduced to the idea of overlapping.,53.gif,Lamellar,Lift,Bronze dusk,Open
+54,Oak Chevron,A hallway with nowhere to walk.,54.gif,Chevron parquet,March,Floor honey,Open
+55,Clan Sett,A family reduced to crossings.,55.gif,Tartan sett,Lock,Wool night,Open
+56,Kanoko,Dots that were once pinched cloth.,56.gif,Kanoko shibori,Bind,Indigo rice,Open
+57,Lobby Chip,A floor pouring itself into a wall.,57.gif,Terrazzo chip,Settle,Lobby mint,Open
+58,Tread Plate,A floor that warns the foot.,58.gif,Diamond plate,Grip,Shop aluminum,Open
+59,Mail Field,A body of rings with no body inside.,59.gif,Chainmail,Rattle,Armory steel,Open
+60,Wire Cell,Wires holding color the way a fence holds sheep.,60.gif,Cloisonné,Fill,Kiln jewel,Open
+61,Slip Scratch,Through the pale into the dark.,61.gif,Sgraffito,Carve,Terracotta slip,Open
+62,Celadon Run,The glaze decided to leave.,62.gif,Celadon drip,Run,Jade kiln,Open
+63,Keybed,"A keyboard with no song, still a walk.",63.gif,Piano key,Travel,Ivory ebony,Open
+64,Figure Eight,Two tones arguing until they draw a knot.,64.gif,Lissajous,Knot,Scope amber,Open
+65,Star Zellige,A star that is only cuts.,65.gif,Zellige star,Lock,Fes enamel,Open
+66,Running White,A repair that became a law.,66.gif,Sashiko,Run,Indigo white,Open
+67,Blind Slat,A window that is only its refusal.,67.gif,Venetian blind,Tilt,Office cream,Open
+68,Contour Ridge,Height without a hill.,68.gif,Topographic ink,Wind,Survey brown,Open
+69,Whorl,An identity with no person.,69.gif,Fingerprint whorl,Turn,Ink pad,Open
+70,Box Flute,A box that forgot its product.,70.gif,Corrugated flute,Flex,Carton kraft,Open
+71,Boteh,A seed that learned to be a comma.,71.gif,Paisley boteh,Curl,Kashmir dye,Open
+72,Loom Row,A belt with no waist.,72.gif,Bead loom,String,Trade bead,Open
+73,Honeycomb Vault,A ceiling that climbs down.,73.gif,Muqarnas,Cascade,Vault gold,Open
+74,Spray Star,A star that arrived as weather.,74.gif,Stencil spray,Mist,Shop star,Open
+75,Gold Leaf,"A square of sun, thin as rumor.",75.gif,Gold leaf,Lay,Icon gold,Open
+76,Deckle Edge,The edge that refuses a guillotine.,76.gif,Deckle,Tear,Rag cream,Open
+77,Stone Score,A language of cuts along an edge.,77.gif,Ogham,Score,Standing stone,Open
+78,Centerline,A landing that does not happen.,78.gif,Runway paint,Aim,Tarmac yellow,Open
+79,Cane Web,A seat with no chair.,79.gif,Cane webbing,Seat,Chair cane,Open
+80,Rocker Ground,"A plate made of night, then scraped.",80.gif,Mezzotint rocker,Tooth,Copper black,Open
+81,Fault Line,The paper keeps a secret the bedrock already spent.,81.gif,Drum recorder,Slip,Ink bone,Open
+82,Bolt Head,Hardware enlarged until it becomes a room.,82.gif,Hex bolt,Turn,Shop steel,Open
+83,Roof Scale,Weather on a wall that never saw rain.,83.gif,Fish-scale shingle,Shed,Tar silver,Open
+84,End Grain,The tree seen the hard way.,84.gif,End-grain block,Seat,Butcher warm,Open
+85,Windowpane,A window that is only thread.,85.gif,Windowpane check,Frame,Suit grey,Open
+86,Arashi Pole,Cloth pole-wrapped into weather.,86.gif,Arashi shibori,Twist,Storm indigo,Open
+87,Venetian Chip,"Marble, reduced to confetti and then promoted.",87.gif,Venetian terrazzo,Gleam,Palace chip,Open
+88,Checker Steel,"Raised, repeating, unfriendly.",88.gif,Checker plate,Stamp,Mill grey,Open
+89,Butted Ring,"Cheap armor, honest about it.",89.gif,Butted mail,Close,Iron pale,Open
+90,Enamel Well,A well of glass in a metal room.,90.gif,Cell enamel,Well,Jewel night,Open
+91,Graffito Wall,A facade that writes on itself.,91.gif,Wall sgraffito,Score,Plaster umber,Open
+92,Tenmoku Spot,"Iron, pooled, then a star.",92.gif,Tenmoku,Well,Oil-spot black,Open
+93,Player Roll,Holes that used to be notes.,93.gif,Piano roll,Advance,Perforated cream,Open
+94,Scope Rose,Not a phosphor hold. A ratio.,94.gif,Oscilloscope rose,Bloom,CRT gold,Open
+95,Cut Tile,Irregular on purpose.,95.gif,Hand-cut zellige,Facet,Mosaic mineral,Open
+96,Shippo,Circles that refuse to close.,96.gif,Shippo tsunagi,Link,Seven jewels,Open
+97,Jalousie Glass,A climate drawn as slats.,97.gif,Jalousie,Crank,Miami glass,Open
+98,Closed Loop,A summit that is only a sentence.,98.gif,Closed contour,Nest,Map umber,Open
+99,Loop Print,A loop that never names anyone.,99.gif,Loop print,Enter,Pad black,Open
+100,Roof Iron,A shed elevated.,100.gif,Corrugated iron,Weather,Shed rust,Open
+101,Shawl Field,A field of commas.,101.gif,Paisley shawl,Drape,Kashmir night,Open
+102,Peyote,A stagger that is a law.,102.gif,Peyote stitch,Offset,Medicine bead,Open
+103,Alhambra Cell,A palace reduced to one stalactite.,103.gif,Alhambra muqarnas,Nest,Nasrid gold,Open
+104,Letter Stencil,A letter with no word.,104.gif,Letter stencil,Index,Crate black,Open
+105,Silver Leaf,"Moon, beaten.",105.gif,Silver leaf,Lay,Icon silver,Open
+106,Laid Line,Wires remembered by pulp.,106.gif,Laid paper,Wire,Rag blue,Open
+107,One Letter,One name.,107.gif,Single ogham,Cut,Lone score,Open
+108,Threshold,The bars that mean here.,108.gif,Threshold bars,Hold,Piano tarmac,Open
+109,Wicker Hex,A porch that is only its weave.,109.gif,Wicker,Bind,Porch cane,Open
+110,Scrape Light,Light is what you remove.,110.gif,Mezzotint scrape,Lift,Moon copper,Open
+111,Ward Strip,A heart with no body. The grid is the only furniture.,111.gif,EKG paper,Beat,Clinical red,Open
+112,Tile Hex,A floor that refuses a square.,112.gif,Hex tile,Shift,Lobby clay,Open
+113,Koi Mail,A fish that is only its weather.,113.gif,Koi scale,Swim,Vermilion pond,Open
+114,Versailles,A room quoting another room.,114.gif,Versailles parquet,Turn,Palace oak,Open
+115,Madras Cross,The crossings ran in the rain on purpose.,115.gif,Madras,Bleed,Monsoon dye,Open
+116,Itajime,A fold remembered by dye.,116.gif,Itajime,Clamp,Board indigo,Open
+117,Brass Divider,The divider is the drawing.,117.gif,Terrazzo strip,Bound,Brass mint,Open
+118,Dock Plate,Cargo without the ship.,118.gif,Dock plate,Load,Harbor steel,Open
+119,Riveted Mail,Each ring remembers a hammer.,119.gif,Riveted mail,Lock,Forge dark,Open
+120,Lotus Cell,A flower that is only partitions.,120.gif,Lotus cloisonné,Open,Temple enamel,Open
+121,Black Scratch,The line is a wound in soot.,121.gif,Black sgraffito,Cut,Night slip,Open
+122,Oribe Splash,A copper accident kept on purpose.,122.gif,Oribe,Splash,Oribe green,Open
+123,Prepared,Objects on strings you cannot see.,123.gif,Prepared piano,Mute,Felt brass,Open
+124,Untuned,The lock is lost. The drawing continues.,124.gif,Detuned figure,Drift,Slip amber,Open
+125,Andusi,A memory of a courtyard.,125.gif,Andalusian tile,Repeat,Cordoba glaze,Open
+126,Asanoha,"Hemp leaf, stitched.",126.gif,Asanoha,Radiate,Hemp indigo,Open
+127,Shutter Pair,A porch without a house.,127.gif,Plantation shutter,Fold,Porch white,Open
+128,Depression,A hole drawn politely.,128.gif,Hachure pit,Sink,Pit brown,Open
+129,Arch Print,The quietest kind of identity.,129.gif,Arch print,Rise,Arch ink,Open
+130,Cardboard Edge,"The flute, seen from the cut.",130.gif,Board edge,Reveal,Kraft stripe,Open
+131,One Boteh,One seed.,131.gif,Single boteh,Seat,Lone dye,Open
+132,Brick Bead,Beads pretending they are a wall.,132.gif,Brick stitch,Bond,Bead clay,Open
+133,Plaster Cell,"White caves, stacked.",133.gif,Plaster muqarnas,Cast,Gesso cave,Open
+134,Bridge Stencil,The bridges are the drawing.,134.gif,Bridged stencil,Hold,Army olive,Open
+135,Broken Leaf,The leaf failed. The fault is the drawing.,135.gif,Broken leaf,Crack,Fault gold,Open
+136,Chain Line,The other wires.,136.gif,Chain line,Interval,Rag interval,Open
+137,Edge Script,The arris is the page.,137.gif,Ogham edge,Climb,Pillar grey,Open
+138,Touchdown,A place to hit that is only paint.,138.gif,Touchdown mark,Mark,Aim white,Open
+139,Rattan Peel,Skin of a vine.,139.gif,Rattan peel,Wind,Peel tan,Open
+140,Roulette,A wheel that makes dark.,140.gif,Roulette ground,Roll,Tooth grey,Open
+141,Aftershock,The second wave is smaller and somehow louder.,141.gif,Smoked drum,Jolt,Char lamp,Open
+142,Graphite Net,Six-sided and almost not there.,142.gif,Graphene sketch,Drift,Pencil silver,Open
+143,Pine Cone,"The tree’s argument, stacked.",143.gif,Cone scale,Open,Forest rust,Open
+144,Herring Floor,Not a tweed. A floor that points.,144.gif,Herringbone oak,Walk,Walnut cream,Open
+145,Black Watch,Military cloth without the regiment.,145.gif,Black Watch,Hold,Night green,Open
+146,Kumo Web,Tied into a sky.,146.gif,Kumo shibori,Pull,Spider indigo,Open
+147,Pink Agg,Candy that pretends it is stone.,147.gif,Pink aggregate,Scatter,Salon pink,Open
+148,Ramp Grip,An incline that stayed flat.,148.gif,Ramp tread,Climb,Safety silver,Open
+149,Gold Mail,Ceremony that could still cut.,149.gif,Gilt mail,Gleam,Relic gold,Open
+150,Cloud Wire,"Weather, soldered.",150.gif,Cloud cloisonné,Drift,Sky enamel,Open
+151,White on Red,A vase grammar without the vase.,151.gif,Red-figure scratch,Reveal,Pot red,Open
+152,Shino Crawl,The glaze refused to sit.,152.gif,Shino,Crawl,Shino orange,Open
+153,Harpsi,"A different attack, same furniture.",153.gif,Harpsichord key,Pluck,Gilt cream,Open
+154,Tight Ratio,Too many lobes to count politely.,154.gif,High-order figure,Weave,Fine gold,Open
+155,Black Star,A star that swallowed the room.,155.gif,Black zellige,Absorb,Night tile,Open
+156,Seigaiha,Waves that are only stitches.,156.gif,Seigaiha,Wave,Wave indigo,Open
+157,Black Blind,The room deciding not to see.,157.gif,Black blind,Close,Noir slat,Open
+158,Index Contour,Every fifth line speaks up.,158.gif,Index contour,Bold,Survey ink,Open
+159,Double Loop,Two decisions in one pad.,159.gif,Double loop,Braid,Twin ink,Open
+160,Sine Sheet,A sheet that refused to stay flat.,160.gif,Sine metal,Wave,Mill silver,Open
+161,Gold Paisley,A comma in metal.,161.gif,Gold paisley,Burnish,Brocade gold,Open
+162,Wampum,A treaty with no parties named.,162.gif,Wampum,Treaty,Shell purple,Open
+163,One Cell Vault,One stalactite.,163.gif,Single muqarnas,Hang,Lone gold,Open
+164,One Spray,One pull of the can.,164.gif,Single spray,Burst,Lone mist,Open
+165,Varnish Size,The sticky hour before the leaf.,165.gif,Gilding size,Tack,Size amber,Open
+166,Watermark Wire,A picture that is only thinner.,166.gif,Watermark,Glow,Wire pale,Open
+167,Gold Score,Cuts filled with sun.,167.gif,Gilt ogham,Inlay,Gilt stone,Open
+168,Taxiway,A path for a plane that is not here.,168.gif,Taxiway yellow,Turn,Hold short,Open
+169,One Hex Cane,One hole of a seat.,169.gif,Single cane hex,Hold,Lone cane,Open
+170,One Scrape,One removal.,170.gif,Single scrape,Slash,Lone copper,Open
+171,Quiet Line,Almost nothing happens. That is the drawing.,171.gif,Baseline ink,Hold,Pale graphite,Open
+172,Game Hex,"A campaign with no pieces, only the board breathing.",172.gif,Wargame hex,Advance,Olive map,Open
+173,Paillette,Costume armor for a room.,173.gif,Paillette,Flicker,Show gold,Open
+174,Basket Oak,Squares pretending they are cloth.,174.gif,Basket parquet,Weave,Blond oak,Open
+175,Gingham Field,A tablecloth promoted.,175.gif,Gingham,Picnic,Picnic red,Open
+176,Miura,Loops that never become rope.,176.gif,Miura shibori,Loop,Bound blue,Open
+177,Noir Chip,A night floor.,177.gif,Black terrazzo,Glint,Noir speck,Open
+178,Tread Gold,Utility dressed for a lobby.,178.gif,Gilt tread,Flash,Show plate,Open
+179,Scale Mail,Rings pretending they are scales.,179.gif,Scale mail,Layer,Dragon steel,Open
+180,Gold Cloison,A small empire.,180.gif,Gold cloisonné,Burnish,Imperial gold,Open
+181,Combed Slip,"Fingers, replaced by a tool, replaced by a loop.",181.gif,Combed slip,Drag,Comb clay,Open
+182,Ash Run,"The kiln’s weather, poured.",182.gif,Ash glaze,Melt,Wood ash,Open
+183,Organ Manual,Stops implied by color alone.,183.gif,Organ manual,Stop,Church wood,Open
+184,Circle Lock,1:1. A circle that had to be earned.,184.gif,Locked circle,Hold,Unity amber,Open
+185,White Grid,Almost silence.,185.gif,White zellige,Calm,Riad white,Open
+186,Higaki,A fence drawn with thread.,186.gif,Higaki,Fence,Cypress stitch,Open
+187,Gold Slat,Privacy as luxury.,187.gif,Gilt blind,Sheen,Lobby brass,Open
+188,Spot Height,A number that forgot its digits.,188.gif,Spot height,Mark,Triangle brown,Open
+189,Latent,"Found, not pressed.",189.gif,Latent print,Dust,Powder grey,Open
+190,Packing Void,Protection with nothing to protect.,190.gif,Packing corrugate,Cushion,Void kraft,Open
+191,Mono Paisley,"No color, still a swagger.",191.gif,Mono paisley,Stamp,Ink boteh,Open
+192,Seed Grid,Counting as cloth.,192.gif,Seed bead,Tally,Seed glass,Open
+193,Night Vault,The ceiling after the lamps.,193.gif,Night muqarnas,Dim,Moon vault,Open
+194,Over Spray,The accident around the law.,194.gif,Over-spray,Halo,Halo black,Open
+195,One Square,"One book of gold, one page.",195.gif,Single leaf,Seat,Lone gold,Open
+196,Torn Sheet,A sheet that chose its own border.,196.gif,Torn rag,Rip,Rag wound,Open
+197,Wood Ogham,A stick that is a sentence.,197.gif,Wood ogham,Carve,Ogham oak,Open
+198,Chevron Stop,Do not go further.,198.gif,Blast chevron,Stop,Blast yellow,Open
+199,Broken Cane,The seat failed.,199.gif,Broken cane,Gap,Repair cane,Open
+200,Burnish Moon,A moon made by rubbing.,200.gif,Burnished mezzotint,Polish,Moon plate,Open
+201,Needle Graph,A coil arguing with a strip of paper.,201.gif,Galvanometer,Sweep,Brass pale,Open
+202,Nut Plate,Threaded air.,202.gif,Hex nut,Seat,Cadmium shop,Open
+203,Scallop Tile,A wall learning to be a shore.,203.gif,Scallop tile,Lap,Bath cream,Open
+204,Ship Deck,A boat that will not leave the salon.,204.gif,Teak deck,Caulk,Marine teak,Open
+205,Pinstripe Run,A suit that forgot the body.,205.gif,Pinstripe,Stride,Bank navy,Open
+206,Nui Resist,The stitch is gone. The absence stayed.,206.gif,Nui shibori,Stitch,Sewn indigo,Open
+207,Coarse Pour,The chips refused to be polite.,207.gif,Coarse terrazzo,Heavy,Brutal chip,Open
+208,Worn Tread,The diamonds are tired.,208.gif,Worn plate,Polish,Traffic steel,Open
+209,Void Mail,The wound is a missing circle.,209.gif,Broken mail,Gap,Missing ring,Open
+210,Broken Wire,The fence failed. The color stayed.,210.gif,Broken cloisonné,Gap,Fracture enamel,Open
+211,One Cut,One decision through two colors.,211.gif,Single sgraffito,Slash,Lone slip,Open
+212,Copper Red,A reduction that looks like a blush.,212.gif,Copper red,Flush,Sacrificial red,Open
+213,Black Keys,The pentatonic leftover.,213.gif,Sharps only,Skip,Ebony night,Open
+214,Square Wave,The sine got honest.,214.gif,Square lissajous,Chop,Logic green,Open
+215,Eight Fold,Geometry as hospitality.,215.gif,Eight-point star,Turn,Islamic gold,Open
+216,Kagome,A basket that is only holes.,216.gif,Kagome,Weave,Basket stitch,Open
+217,One Slat,One decision about light.,217.gif,Single slat,Tilt,Lone cream,Open
+218,Ridge Crop,A fragment of a range.,218.gif,Contour crop,Crop,Edge survey,Open
+219,Smudged,The identity failed on purpose.,219.gif,Smudged print,Smear,Bad lift,Open
+220,Painted Iron,A barn that is only its skin.,220.gif,Painted corrugate,Coat,Barn red,Open
+221,Tiny Boteh,A smaller swagger.,221.gif,Micro paisley,Speck,Pocket dye,Open
+222,One Strand,"One decision, vertical.",222.gif,Single strand,Hang,Lone bead,Open
+223,Blue Cell,A sky hanging downward.,223.gif,Blue muqarnas,Well,Isfahan blue,Open
+224,Gold Stencil,A crate dressed for a lobby.,224.gif,Gold stencil,Flash,Show spray,Open
+225,Skewings,The leftovers are the luxury.,225.gif,Skewings,Scatter,Waste gold,Open
+226,One Edge,One ragged decision.,226.gif,Single deckle,Hold,Lone rag,Open
+227,Night Stone,The pillar after the walkers leave.,227.gif,Night ogham,Dim,Moon stone,Open
+228,One Stripe,One decision about direction.,228.gif,Single centerline,Hold,Lone yellow,Open
+229,Night Cane,The porch after dinner.,229.gif,Night rattan,Dim,Void tan,Open
+230,Void Copper,Almost no scrape. Almost a void.,230.gif,Night mezzotint,Hold,Void copper,Open
+231,Tremor Roll,Packed for a ridge. Unpacked as a loop.,231.gif,Portable seismograph,Roll,Field khaki,Open
+232,Comb Void,The cells are open. The honey already left.,232.gif,Empty comb,Drain,Wax night,Open
+233,Dragon Scale,Myth as a repeat.,233.gif,Dragon scale,Heave,Temple green,Open
+234,Inlay Band,A border that thinks it is a river.,234.gif,Marquetry band,Trace,Satinwood,Open
+235,Glen Check,Hills turned into a repeat.,235.gif,Glen plaid,Step,Fog wool,Open
+236,Dip Line,A tide on cloth.,236.gif,Dip dye,Lift,Horizon indigo,Open
+237,Fine Sand,Almost a color field. Then a stone speaks.,237.gif,Fine terrazzo,Dust,Pale grit,Open
+238,Black Plate,A warning that learned to whisper.,238.gif,Black tread,Absorb,Night steel,Open
+239,Copper Mail,Armor that wants to be a roof.,239.gif,Copper mail,Tarnish,Penny mail,Open
+240,Tiny Cells,"Too small to be a story, still a city.",240.gif,Micro cloisonné,Glint,Bead enamel,Open
+241,Lattice Cut,A fence cut into clay.,241.gif,Lattice sgraffito,Grid,Garden slip,Open
+242,Salt Orange,Orange-peel from a vapor.,242.gif,Salt glaze,Pit,Salt orange,Open
+243,Broken Action,A key that will not return.,243.gif,Broken action,Jam,Repair ivory,Open
+244,Phase Slip,The second channel arrived late.,244.gif,Phase portrait,Slip,Phase violet,Open
+245,Broken Glaze,The glaze aged into a second pattern.,245.gif,Crazed zellige,Crack,Craze mineral,Open
+246,Boro Field,Patches that outlived the garment.,246.gif,Boro,Patch,Mended indigo,Open
+247,Broken Slat,The view leaks.,247.gif,Broken blind,Gap,Repair slat,Open
+248,Blue Hydro,Water as a law.,248.gif,Hydrography,Flow,River cyan,Open
+249,Gold Dust,A crime scene dressed for a lobby.,249.gif,Gold latent,Spark,Show powder,Open
+250,Tiny Flute,A smaller box.,250.gif,Microflute,Tick,Mailer kraft,Open
+251,Inverted Boteh,The comma as a hole.,251.gif,Negative paisley,Flip,Void dye,Open
+252,Broken Thread,The belt failed.,252.gif,Broken loom,Gap,Snap bead,Open
+253,Wood Muqarnas,Carpentry pretending it is stone.,253.gif,Wood muqarnas,Join,Cedar vault,Open
+254,Tiny Stencil,A smaller instruction.,254.gif,Mini stencil,Tick,Pocket spray,Open
+255,Night Leaf,Gilding after the lamps.,255.gif,Night leaf,Dim,Void gold,Open
+256,Night Rag,Pulp after the mill.,256.gif,Night paper,Dim,Void rag,Open
+257,Dense Score,Too many names.,257.gif,Dense ogham,Crowd,Packed score,Open
+258,Night Tarmac,The paint after the flights.,258.gif,Night runway,Glow,Void tarmac,Open
+259,Painted Cane,A weave that took a color.,259.gif,Painted wicker,Coat,Porch green,Open
+260,Coarse Tooth,The rocker was sure.,260.gif,Coarse rocker,Grit,Heavy tooth,Open
+261,Scope Needle,Not a radar. A pulse that forgot the patient.,261.gif,Medical scope,Scan,Green ward,Open
+262,Paving Hex,Outdoor geometry brought indoors without permission.,262.gif,Hex paver,Settle,Garden slate,Open
+263,Asphalt Scale,Cheap and glittering.,263.gif,Mineral paper,Grit,Roof black,Open
+264,Ebony Run,"Dark wood, one direction.",264.gif,Ebony run,Slide,Piano black,Open
+265,Shepherd,A blanket for weather that never arrives.,265.gif,Shepherd check,Fold,Flock black,Open
+266,Ne Maki,Wound from the root out.,266.gif,Ne-maki,Wind,Root indigo,Open
+267,Glass Agg,A beach that used to be windows.,267.gif,Glass terrazzo,Spark,Bottle green,Open
+268,Micro Tread,Grip at a smaller scale.,268.gif,Bead plate,Grit,Bead silver,Open
+269,Tiny Mail,A hauberk for no one.,269.gif,Miniature mail,Glint,Toy steel,Open
+270,Black Ground,Night as a setting for wires.,270.gif,Black cloisonné,Absorb,Lacquer enamel,Open
+271,Script Scratch,Words that are only their absence.,271.gif,Script sgraffito,Write,Letter slip,Open
+272,Chun Opalescent,A sky trapped in a bowl that is not here.,272.gif,Jun glaze,Opalesce,Jun blue,Open
+273,Tiny Spinet,Furniture for a smaller room.,273.gif,Spinet,Tinkle,Toy ivory,Open
+274,Fat Trace,A knot drawn with a tired beam.,274.gif,Thick figure,Glow,Bloom gold,Open
+275,Fountain Rim,A rim with no water.,275.gif,Fountain zellige,Ring,Water tile,Open
+276,One Row,One repair across a night.,276.gif,Single sashiko,Sew,Lone running,Open
+277,Micro Blind,A smaller refusal.,277.gif,Mini blind,Tick,Desk white,Open
+278,Night Survey,A map after the office closed.,278.gif,Night topo,Glow,Moon survey,Open
+279,Partial,Not enough for a court. Enough for a painting.,279.gif,Partial print,Crop,Edge pad,Open
+280,Night Iron,The shed after closing.,280.gif,Night corrugate,Dim,Yard black,Open
+281,Border Paisley,The edge doing all the talking.,281.gif,Paisley border,March,Edge kashmir,Open
+282,Gold Bead,Trade that became jewelry.,282.gif,Gold bead,Flash,Gilt glass,Open
+283,Tiny Vault,A smaller heaven.,283.gif,Miniature muqarnas,Glint,Pocket gold,Open
+284,Night Spray,Sprayed in the dark.,284.gif,Night stencil,Mist,Void spray,Open
+285,Copper Leaf,A cheaper sun.,285.gif,Copper leaf,Tarnish,Penny leaf,Open
+286,Colored Rag,The rag already had a past.,286.gif,Colored pulp,Tint,Mill tint,Open
+287,Broken Pillar,The sentence failed mid-word.,287.gif,Broken ogham,Gap,Ruin score,Open
+288,Worn Paint,The landing wore the law away.,288.gif,Worn runway,Fade,Traffic yellow,Open
+289,Tiny Web,A smaller seat.,289.gif,Miniature cane,Tick,Pocket cane,Open
+290,Fine Tooth,A quieter night.,290.gif,Fine rocker,Whisper,Silk tooth,Open
+291,Drift Graph,The room is moving. The ink admits it.,291.gif,Tiltmeter,Lean,Clay slip,Open
+292,Mesh Hex,A net that wants to be jewelry.,292.gif,Hex mesh,Tension,Fence zinc,Open
+293,Nacre Row,Mother-of-pearl without the animal.,293.gif,Nacre,Iridesce,Pearl dusk,Open
+294,Cork Plank,A floor that remembers feet. No pins.,294.gif,Cork plank,Give,Tan give,Open
+295,District Check,Land drawn as crossings.,295.gif,District check,Bound,Estate rust,Open
+296,Tesuji,Pleats that dye like a riverbed.,296.gif,Tesuji,Pleat,Hand indigo,Open
+297,Hospital Chip,Hygiene as a pattern.,297.gif,Clinic terrazzo,Clean,Clinic green,Open
+298,Offset Tread,The pattern missed its registration and stayed.,298.gif,Offset plate,Shift,Mill shift,Open
+299,Japanese Mail,Rings in a different grammar.,299.gif,Kusari,Drape,Kusari ink,Open
+300,One Cell,One room of color.,300.gif,Single cloison,Hold,Lone enamel,Open
+301,Bird Scratch,A silhouette that is a scratch.,301.gif,Bird sgraffito,Peck,Avian slip,Open
+302,Temmoku Hare,Fur without the animal.,302.gif,Hare’s fur,Streak,Hare brown,Open
+303,Felt Hammer,"The hit, without the string.",303.gif,Hammer felt,Strike,Felt dust,Open
+304,Tiny Knot,"A whole argument, small.",304.gif,Miniature figure,Spin,Pocket amber,Open
+305,Tiny Cuts,A wall for a smaller riad.,305.gif,Micro zellige,Glint,Chip glaze,Open
+306,Dense Run,So many repairs the cloth is new.,306.gif,Dense sashiko,Fill,Work indigo,Open
+307,Exterior Louver,A facade’s eyelashes.,307.gif,Louver,Shade,Brutal concrete,Open
+308,Dense Relief,The hill is almost black with trying.,308.gif,Dense contour,Crowd,Steep brown,Open
+309,Night Pad,Pressed in the dark.,309.gif,Night print,Press,Void ink,Open
+310,Gold Flute,A box for nothing expensive.,310.gif,Gilt corrugate,Flash,Luxury kraft,Open
+311,Night Shawl,The shawl after the lamp.,311.gif,Night paisley,Dim,Moon kashmir,Open
+312,Tiny Loom,A smaller treaty.,312.gif,Miniature loom,Tick,Pocket bead,Open
+313,Broken Cell,The cave failed.,313.gif,Broken muqarnas,Gap,Ruin gold,Open
+314,Repeat Stamp,"The same order, again.",314.gif,Repeat stencil,March,Poster spray,Open
+315,Tiny Book,A smaller icon.,315.gif,Miniature leaf,Glint,Pocket gold,Open
+316,Tiny Sheet,A smaller sheet.,316.gif,Miniature deckle,Crop,Pocket rag,Open
+317,Tiny Score,A smaller name.,317.gif,Miniature ogham,Tick,Pocket stone,Open
+318,Tiny Strip,A smaller airport.,318.gif,Model runway,Toy,Pocket tarmac,Open
+319,Tight Bind,No air left.,319.gif,Tight cane,Tension,Work cane,Open
+320,Tiny Plate,A smaller dark.,320.gif,Miniature mezzotint,Glint,Pocket copper,Open
+321,Shock Ribbon,"Light, not ink — but the paper still takes a scar.",321.gif,Ribbon galvanometer,Flick,Violet paper,Open
+322,Cell Map,Addresses for a city that is only corners.,322.gif,Cellular map,Index,Planner blue,Open
+323,Clinker,A hull that forgot the water.,323.gif,Clinker row,Overlap,Boat tar,Open
+324,Ash Ladder,Rungs without a climb.,324.gif,Ash strip,Rise,Pale ash,Open
+325,Overcheck,"A grid on a grid, still not a cage.",325.gif,Overcheck,Layer,Scarlet grid,Open
+326,Boshi,A resist that behaves like a hat.,326.gif,Boshi shibori,Cap,Capped white,Open
+327,Broken Plate,"Dinner, recycled into a ground.",327.gif,Plate terrazzo,Shard,China blue,Open
+328,One Diamond,One raised fact.,328.gif,Single tread,Seat,Lone plate,Open
+329,Mail Collar,A neck with no head.,329.gif,Aventail,Hang,Helm steel,Open
+330,Silver Wire,"Cold metal, warm glass.",330.gif,Silver cloisonné,Trace,Moon enamel,Open
+331,Wet Carve,Carved before it could dry.,331.gif,Wet sgraffito,Slip,Wet terra,Open
+332,Drip Only,"One decision, gravity’s.",332.gif,Single drip,Drop,Lone glaze,Open
+333,Sustain,A bar that means continue.,333.gif,Sustain pedal,Hold,Pedal brass,Open
+334,Grid Scope,The knot vs the furniture.,334.gif,Graticule figure,Align,Scope grid,Open
+335,Green Field,A garden with no plants.,335.gif,Green zellige,Field,Garden tile,Open
+336,Gold Sashiko,Repair as jewelry.,336.gif,Gold sashiko,Gleam,Gilt indigo,Open
+337,Colored Slat,A motel that is only its window.,337.gif,Colored blind,Cycle,Motel tint,Open
+338,Sparse Plain,Almost no news.,338.gif,Sparse contour,Rest,Plain cream,Open
+339,Red Ink,Bureaucracy as a fingertip.,339.gif,Red pad,Stamp,Official red,Open
+340,Crushed,The cushion lost.,340.gif,Crushed flute,Fail,Damaged kraft,Open
+341,Red Boteh,A seed that wants to be a heart.,341.gif,Red paisley,Pulse,Paisley red,Open
+342,Night Bead,Strung in the dark.,342.gif,Night loom,Dim,Void glass,Open
+343,Gold Leaf Vault,Light as structure.,343.gif,Gilt muqarnas,Burnish,Leaf vault,Open
+344,Broken Bridge,The letter leaked.,344.gif,Broken stencil,Gap,Failed spray,Open
+345,Burnish Spot,One place rubbed into a mirror.,345.gif,Burnished leaf,Polish,Mirror gold,Open
+346,Couching,"Wet, transferred, still a drawing.",346.gif,Couched sheet,Press,Felt rag,Open
+347,Red Cut,A charm in cuts.,347.gif,Red ogham,Mark,Amulet score,Open
+348,Edge Lights,Lights without a strip.,348.gif,Edge light,Blink,Blue edge,Open
+349,Loose Web,The seat gave.,349.gif,Loose cane,Sag,Summer cane,Open
+350,Over Rocked,Too much night.,350.gif,Over-rocked,Flood,Black flood,Open
+351,Bedrock Tick,Listening downward until the line flinches.,351.gif,Geophone paper,Tick,Ochre dust,Open
+352,Amber Comb,A fossil of work.,352.gif,Amber section,Glow,Resin lamp,Open
+353,Scale Fan,"One gesture, many lids.",353.gif,Scale fan,Open,Opera red,Open
+354,Parquet Star,The center of a room that is only center.,354.gif,Star parquet,Align,Medallion oak,Open
+355,Silk Plaid,Light doing the weaving.,355.gif,Silk plaid,Sheen,Opera plaid,Open
+356,Indigo Void,The cloth went in and almost did not return.,356.gif,Vat void,Sink,Deep vat,Open
+357,Gold Chip,"Ostentation, ground flat.",357.gif,Gilt terrazzo,Flash,Gilt lobby,Open
+358,Rust Tread,The grip is becoming earth.,358.gif,Rusted plate,Bloom,Yard rust,Open
+359,Rust Mail,Pulled from water and not cleaned.,359.gif,Rusted mail,Bloom,Bog iron,Open
+360,Vessel Lip,The rim of a jar that is not here.,360.gif,Vessel cloisonné,Rim,Vase jewel,Open
+361,Fine Needle,Almost engraving.,361.gif,Needle sgraffito,Tick,Needle clay,Open
+362,Overfired,Too hot. Still a painting.,362.gif,Overfired drip,Boil,Blister kiln,Open
+363,Lid Prop,A mouth.,363.gif,Piano lid,Open,Lacquer black,Open
+364,Red Beam,A warning that learned choreography.,364.gif,Red figure,Burn,Alert red,Open
+365,One Star,The rest of the wall is implied.,365.gif,Single zellige,Seat,Lone star,Open
+366,Pale Cloth,Indigo that almost wasn’t.,366.gif,Pale sashiko,Whisper,Sky hemp,Open
+367,Night Blind,Drawn for a sleep that does not happen.,367.gif,Night blind,Close,Sleep slat,Open
+368,Fault Topo,The lines refuse to meet.,368.gif,Faulted contour,Break,Rift brown,Open
+369,Tiny Whorl,A smaller someone.,369.gif,Miniature print,Spin,Pocket ink,Open
+370,One Ridge,One fold of a box.,370.gif,Single flute,Hold,Lone kraft,Open
+371,Pair Boteh,Two commas conferring.,371.gif,Paired boteh,Face,Twin dye,Open
+372,Color Crash,The palette refused manners.,372.gif,Crash bead,Clash,Fair bead,Open
+373,Corner Cascade,A fragment of a heaven.,373.gif,Muqarnas crop,Crop,Edge vault,Open
+374,Circle Cut,A hole that makes a moon.,374.gif,Circle stencil,Cut,Dot spray,Open
+375,Matte Field,Gold that refused to shine.,375.gif,Matte leaf,Flat,Matte gold,Open
+376,Vatman,The mould coming up.,376.gif,Vat dip,Lift,Vat cream,Open
+377,Two Edges,Two pillars conferring.,377.gif,Paired ogham,Face,Twin stone,Open
+378,Displaced,The landing moved.,378.gif,Displaced threshold,Shift,Arrow tarmac,Open
+379,Edge Cane,A fragment of a chair.,379.gif,Cane crop,Crop,Edge tan,Open
+380,Edge Scrape,A fragment of a dark.,380.gif,Mezzotint crop,Crop,Edge copper,Open
+381,Epicenter,"Rings that mean trouble, drawn as if they were weather.",381.gif,Iso-seismal,Bloom,Map rose,Open
+382,Snow Hex,"Six arms, one decision.",382.gif,Snowflake plate,Melt,Ice paper,Open
+383,Zinc Scale,A shed elevated to a painting.,383.gif,Zinc shingle,Weather,Industrial pale,Open
+384,Worn Path,The walk is the drawing.,384.gif,Worn parquet,Fade,Traffic oak,Open
+385,Faded Sett,The family got tired.,385.gif,Sun-faded tartan,Bleach,Washed clan,Open
+386,Rice Dot,Food used as a dam.,386.gif,Rice resist,Speck,Grain blue,Open
+387,Tiny Agg,A floor for a dollhouse atrium.,387.gif,Micro terrazzo,Speck,Dust marble,Open
+388,Blue Plate,Shop paint over a threat.,388.gif,Painted tread,Coat,Machine blue,Open
+389,Blackened,Armor that refuses highlight.,389.gif,Blackened mail,Absorb,Night iron,Open
+390,Geometric,No flowers. Only law.,390.gif,Geometric cloisonné,Lock,Deco enamel,Open
+391,Broad Gouged,The tool was not polite.,391.gif,Gouge sgraffito,Gouge,Wide slip,Open
+392,White Crawl,The white left islands.,392.gif,Crawl white,Shrink,Snow crawl,Open
+393,Tuning Pin,Hardware that is the music.,393.gif,Tuning pin,Turn,Pin steel,Open
+394,Night Knot,The room is the afterglow.,394.gif,Night lissajous,Orbit,Void gold,Open
+395,Corner Riad,A fragment of a courtyard.,395.gif,Zellige crop,Crop,Edge glaze,Open
+396,Corner Mend,A fragment of a jacket.,396.gif,Sashiko crop,Crop,Edge indigo,Open
+397,Tilt Crop,A fragment of a refusal.,397.gif,Blind crop,Crop,Edge cream,Open
+398,Gold Survey,A luxury map of nothing.,398.gif,Gilt contour,Trace,Gilt map,Open
+399,Over Inked,Too much identity.,399.gif,Over-inked,Flood,Heavy pad,Open
+400,Edge Crop,The cut is the picture.,400.gif,Corrugate crop,Crop,Cut kraft,Open
+401,Crop Curl,Only the hook.,401.gif,Boteh crop,Crop,Edge dye,Open
+402,Edge Loom,A fragment of a belt.,402.gif,Loom crop,Crop,Edge glass,Open
+403,Flat Muqarnas,"The ceiling, seen from above.",403.gif,Plan muqarnas,Plan,Draft gold,Open
+404,Edge Mist,A fragment of an order.,404.gif,Stencil crop,Crop,Edge spray,Open
+405,Edge Leaf,A fragment of an icon.,405.gif,Leaf crop,Crop,Edge gold,Open
+406,Edge Crop Rag,Only the tear.,406.gif,Deckle crop,Crop,Edge rag,Open
+407,Crop Arris,A fragment of a name.,407.gif,Ogham crop,Crop,Edge stone,Open
+408,Crop Tarmac,A fragment of an approach.,408.gif,Runway crop,Crop,Edge yellow,Open
+409,Binder Cane,The wrap that finishes a seat.,409.gif,Binder cane,Wrap,Wrap tan,Open
+410,Burr Catch,A different dark — the burr holds ink.,410.gif,Drypoint burr,Catch,Burr silver,Open
+411,Spikes,A neuron with nowhere to live except this strip.,411.gif,Spike train,Fire,Night phosphor,Open
+412,Oil Cell,A reservoir drawn as if it were polite.,412.gif,Oilstone cell,Well,Slick umber,Open
+413,Scale Void,The hole is the subject.,413.gif,Missing scale,Gap,Ink gap,Open
+414,Green Oak,Unseasoned and already a pattern.,414.gif,Green oak,Cure,Raw sap,Open
+415,Mini Check,"Too small for a clan, still a law.",415.gif,Mini check,Tick,Shirt pale,Open
+416,Pole Crop,"Weather, framed.",416.gif,Arashi crop,Crop,Pole rust,Open
+417,Corner Pour,Only the accident remains.,417.gif,Terrazzo crop,Crop,Edge chip,Open
+418,Corner Grip,Only the warning.,418.gif,Tread crop,Crop,Edge mill,Open
+419,One Ring,The rest of the shirt is implied.,419.gif,Single ring,Turn,Lone iron,Open
+420,Pale Enamel,Color that almost declined.,420.gif,Pale cloisonné,Wash,Opal cell,Open
+421,Corner Scratch,A fragment of a pot.,421.gif,Sgraffito crop,Crop,Edge slip,Open
+422,Lip Run,The pour over the edge.,422.gif,Vessel lip,Spill,Rim glaze,Open
+423,Key Crop,Only a few decisions.,423.gif,Key crop,Crop,Ivory edge,Open
+424,Crop Lobe,One petal of a ratio.,424.gif,Lobe crop,Crop,Edge amber,Open
+425,Gold Line,The line is the luxury.,425.gif,Gold zellige,Trace,Gilt tile,Open
+426,Hitomezashi,"Counted, then crossed.",426.gif,Hitomezashi,Count,Grid stitch,Open
+427,Wood Louver,Furniture that used to be a tree’s privacy.,427.gif,Wood louver,Breathe,Teak slat,Open
+428,Tiny Knoll,A hill for a smaller country.,428.gif,Knoll,Rise,Pocket brown,Open
+429,Ridge Count,Counting as a landscape.,429.gif,Ridge count,Tally,File brown,Open
+430,Plastic Flute,A sign that used to campaign.,430.gif,Corflute,Flex,Yard blue,Open
+431,Block Paisley,"Printed, not woven.",431.gif,Paisley block,Stamp,Wood dye,Open
+432,Metal Bead,Hardware strung.,432.gif,Metal bead,Clink,Shop bead,Open
+433,Shadow Cell,The caves as only their dark.,433.gif,Shadow muqarnas,Shade,Shade vault,Open
+434,Two Color,The second pass missed and stayed.,434.gif,Two-pass stencil,Register,Pass spray,Open
+435,Punch Dot,"The gold, dotted like a sky.",435.gif,Punched leaf,Stamp,Tool gold,Open
+436,Gold Rag,A torn edge dressed up.,436.gif,Gilt deckle,Flash,Luxury rag,Open
+437,Incised Deep,The tool was sure.,437.gif,Deep ogham,Gouge,Deep score,Open
+438,Closed X,Do not land.,438.gif,Closed runway,Cancel,Closed white,Open
+439,Plastic Cane,A porch that never was vine.,439.gif,Plastic cane,Fake,Patio white,Open
+440,Two Moons,Two removals conferring.,440.gif,Paired scrape,Face,Twin copper,Open
+441,Amp Trace,Voltage pretending it has a landscape.,441.gif,Oscillograph,Drive,Amber bakelite,Open
+442,Capsule Hex,Medicine as architecture.,442.gif,Capsule tile,Dock,Clinic white,Open
+443,Gilt Scale,A relic that repeats itself.,443.gif,Gilt scale,Burnish,Icon gold,Open
+444,Tiny Blocks,A floor for a smaller building.,444.gif,Mosaique,Scatter,Toy wood,Open
+445,Bias Plaid,"The sett, turned until it is a new country.",445.gif,Bias tartan,Tilt,Cut wool,Open
+446,Pale Shibori,One dip. A rumor of blue.,446.gif,Once-dipped,Fade,Sky cloth,Open
+447,Wet Grind,The grinder is still in the room.,447.gif,Ground terrazzo,Polish,Wet stone,Open
+448,Inverted Tread,The diamonds went in instead of out.,448.gif,Debossed plate,Sink,Negative steel,Open
+449,Mail Crop,A corner of a war.,449.gif,Mail crop,Crop,Edge steel,Open
+450,Corner Wire,A fragment of a box.,450.gif,Cloisonné crop,Crop,Edge jewel,Open
+451,Inlaid Cut,"The scratch, filled again, still a scar.",451.gif,Inlaid sgraffito,Fill,Inlay clay,Open
+452,Night Tenmoku,Blacker than the room.,452.gif,Night tenmoku,Pool,Void iron,Open
+453,Night Keyboard,The keys after the concert.,453.gif,Night keyboard,Walk,Nocturne,Open
+454,Triple,A third voice enters and ruins the bow.,454.gif,Three-tone figure,Braid,Triple gold,Open
+455,Night Riad,The courtyard after the lamps.,455.gif,Night zellige,Dim,Moon tile,Open
+456,Night Mend,Mending in the dark.,456.gif,Night sashiko,Run,Void indigo,Open
+457,Leaking Light,The sun wins a little.,457.gif,Light leak,Stripe,Dawn slat,Open
+458,Bathymetry,"Down, not up.",458.gif,Bathymetry,Deep,Ocean ink,Open
+459,Two Prints,A meeting that is only ridges.,459.gif,Paired prints,Meet,Twin pad,Open
+460,Wet Kraft,The box met weather.,460.gif,Wet corrugate,Sag,Rain kraft,Open
+461,Pale Kashmir,A rumor of a shawl.,461.gif,Pale paisley,Wash,Mist dye,Open
+462,White Shell,The quiet half of a treaty.,462.gif,White wampum,Calm,Shell pale,Open
+463,Repair Vault,The new cell does not match.,463.gif,Repaired muqarnas,Patch,Misfit gold,Open
+464,Caution Stenc,A warning with no hazard.,464.gif,Caution stencil,Warn,Shop yellow,Open
+465,Water Gild,Red clay under a sun.,465.gif,Water gilding,Flood,Bole red,Open
+466,Two Sheets,Two tears conferring.,466.gif,Overlapped deckle,Stack,Twin rag,Open
+467,Faint Score,Almost gone. Still a law.,467.gif,Faint ogham,Whisper,Weather stone,Open
+468,Two Stripes,Two directions conferring.,468.gif,Paired centerline,Split,Twin yellow,Open
+469,Two Hex,Two holes conferring.,469.gif,Paired cane,Meet,Twin cane,Open
+470,Red Ground,Night in another color.,470.gif,Red mezzotint,Stain,Blood copper,Open
+471,Postage Jolt,"The quake, reduced to a denomination.",471.gif,Stamp seismograph,Crop,Carmine pulp,Open
+472,Tiny Comb,"Too small to harvest, still a field.",472.gif,Microcomb,Pulse,Nectar dusk,Open
+473,Postage Scale,"Armor, perforated.",473.gif,Scale stamp,Crop,Issue blue,Open
+474,Corner Chevron,Only the turn survives.,474.gif,Chevron crop,Crop,Amber varnish,Open
+475,Selvedge,The edge is the only honest part.,475.gif,Selvedge plaid,Stop,Mill cream,Open
+476,Night Bind,Tied in the dark on purpose.,476.gif,Night shibori,Bind,Ink vat,Open
+477,Void Chip,The stone that left.,477.gif,Missing chip,Gap,Hole mint,Open
+478,Runway Plate,A landing that never happens.,478.gif,Airstrip plate,Align,Tarmac silver,Open
+479,Ceremonial,Too bright to hide in.,479.gif,Parade mail,Shine,Parade silver,Open
+480,Fire Scale,The firing left a weather of its own.,480.gif,Fire cloisonné,Pit,Kiln ash,Open
+481,Night Plaster,A wall after the lamps go out.,481.gif,Night sgraffito,Score,Moon plaster,Open
+482,Postage Drip,"A shard, issued.",482.gif,Drip stamp,Crop,Shard green,Open
+483,One Key,Middle C with no middle.,483.gif,Single key,Depress,Lone ivory,Open
+484,Still Dot,The tones agreed to stop. Almost.,484.gif,Spot figure,Park,Parked beam,Open
+485,Repair Tile,The new tile does not match. Good.,485.gif,Replacement zellige,Patch,Misfit glaze,Open
+486,Red Thread,A charm stitched as a field.,486.gif,Red sashiko,Mark,Amulet red,Open
+487,Industrial Fin,A blind that thinks it is an engine.,487.gif,Cooling fin,Radiate,Machine slat,Open
+488,Lone Contour,One height. No neighbors.,488.gif,Single contour,Hold,Lone brown,Open
+489,Void Center,The center declined.,489.gif,Delta void,Gap,Delta ink,Open
+490,Aligned Flutes,Looking down the tunnels.,490.gif,End-on flute,Aim,Tunnel kraft,Open
+491,Overgrown,Too many seeds.,491.gif,Dense paisley,Crowd,Jungle dye,Open
+492,Drop Fringe,The belt growing a weather.,492.gif,Bead fringe,Hang,Fringe glass,Open
+493,Dense Cave,Too many heavens.,493.gif,Dense muqarnas,Crowd,Packed gold,Open
+494,Number Plate,A digit that forgot its lot.,494.gif,Number stencil,Count,Lot white,Open
+495,Loose Leaf,Not yet stuck.,495.gif,Loose leaf,Drift,Floating gold,Open
+496,Dry Edge,"The tear, set.",496.gif,Dried deckle,Cure,Sun rag,Open
+497,New Cut,The stone still pale at the wound.,497.gif,Fresh ogham,Open,Fresh grey,Open
+498,Wet Tarmac,The paint on water.,498.gif,Wet runway,Sheen,Rain tarmac,Open
+499,Sun Bleached,The porch won.,499.gif,Bleached cane,Fade,Sun cane,Open
+500,Proof Wipe,The plate after the printer.,500.gif,Wiped proof,Wipe,Rag copper,Open

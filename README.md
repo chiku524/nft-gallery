@@ -26,7 +26,7 @@ A house of NFT collections. Each drop is its own sub-project — studio, traits,
 
 **Groovy Nation** is the twelfth: 8,888 looping musical-note PFP GIFs, for OpenSea on Robinhood Chain (chain ID `4663`). Clip-art note mascots on sunset stages. Same 12-frame, 90ms clock.
 
-**Galleria On Ink** is the thirteenth: 50 unique looping paintings on Ink (chain ID `57073`). Each work is painted by its own engine and minted as an open edition. No trait stack. No shared house style.
+**Galleria On Ink** is the thirteenth: 500 unique looping paintings on Ink (chain ID `57073`). Each work is painted by its own engine and minted as an open edition. No trait stack. No shared house style.
 
 ## What’s in this repo
 
@@ -45,7 +45,7 @@ A house of NFT collections. Each drop is its own sub-project — studio, traits,
 | `/santapaws` | Santa Paws drop, trait loops, gallery, OpenSea notes |
 | `/scribblins` | Scribblins drop, trait loops, gallery, OpenSea notes |
 | `/groovy` | Groovy Nation drop, trait loops, gallery, OpenSea notes |
-| `/galleria` | Galleria On Ink salon, 50 open-edition 1:1 loops, OpenSea notes |
+| `/galleria` | Galleria On Ink salon, 500 open-edition 1:1 loops, OpenSea notes |
 | `/studio` | Live APNG layer mixer (Loopkins) |
 | `/inklings/studio` | Live ink-wash mixer (Inklings) |
 | `/wicklings/studio` | Live paper-lantern mixer (Wicklings) |
@@ -170,7 +170,7 @@ Requires Python 3 with Pillow and NumPy. See `docs/loopkins.md`, `docs/afterimag
 
 `npm run generate:groovy` builds traits, brand, and the 16-GIF preview plus sample metadata. Bake every marketplace GIF with `python3 scripts/generate_groovy.py --all`.
 
-`npm run generate:galleria` paints all 50 independent salon works, brand assets, and the OpenSea GIF + CSV pack.
+`npm run generate:galleria` paints all 500 independent salon works, brand assets, and the OpenSea GIF + CSV pack.
 
 ## Deploy
 

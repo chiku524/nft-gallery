@@ -11,15 +11,15 @@ export const metadata: Metadata = {
 const steps = [
   {
     title: "Each file is a finished painting.",
-    body: "Galleria On Ink is not a trait stack. Each of the 50 works is painted by its own engine. The site shows APNG loops. OpenSea does not play APNG, so the pack is a GIF bake of every work.",
+    body: "Galleria On Ink is not a trait stack. Each of the 500 works is painted by its own engine. The salon grid uses stills so 500 loops do not lock the page. Open the work to play the APNG. OpenSea does not play APNG, so the pack is a GIF bake of every work.",
   },
   {
     title: `Create an Open Edition collection on ${galleria.chain.name}`,
-    body: `In OpenSea Studio, create a collection on ${galleria.chain.name} (chain ID ${galleria.chain.chainId}) and add 50 open-edition items — one per artwork. Do not set unique 1:1 supply. Paste the collection description from public/metadata/galleria-description.txt. Upload logo-galleria.png, featured-galleria.jpg, banner-galleria-opensea.jpg, and collection-galleria.gif from public/brand. Mint price is ${galleria.mintPriceEth} ETH.`,
+    body: `In OpenSea Studio, create a collection on ${galleria.chain.name} (chain ID ${galleria.chain.chainId}) and add 500 open-edition items — one per artwork. Do not set unique 1:1 supply. Paste the collection description from public/metadata/galleria-description.txt. Upload logo-galleria.png, featured-galleria.jpg, banner-galleria-opensea.jpg, and collection-galleria.gif from public/brand. Mint price is ${galleria.mintPriceEth} ETH.`,
   },
   {
     title: "Bulk-upload GIFs + CSV",
-    body: "Upload every file in generated/galleria/gifs (1.gif–50.gif) and generated/galleria/opensea-metadata.csv. The CSV uses OpenSea’s required headers (tokenID, name, description, file_name, attributes[Trait]). GIF is the media OpenSea will play.",
+    body: "Upload every file in generated/galleria/gifs (1.gif–500.gif) and generated/galleria/opensea-metadata.csv. The CSV uses OpenSea’s required headers (tokenID, name, description, file_name, attributes[Trait]). GIF is the media OpenSea will play.",
   },
 ];
 

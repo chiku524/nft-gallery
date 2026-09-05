@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Paint Galleria On Ink — 50 independent 1:1 loops, each an open edition.
+"""Paint Galleria On Ink — 500 independent 1:1 loops, each an open edition.
 
 This orchestrator does not draw. It loads one painter per artwork from
 scripts/atelier/works/, then writes APNG, GIF, CSV, brand, and site catalog.
@@ -23,6 +23,7 @@ from gif_bake import save_loop_gif
 from paint_kit import DURATION_MS, FRAMES, SIZE, save_apng, save_image
 
 PUBLIC_DIR = ROOT / "public" / "galleria"
+THUMB_DIR = PUBLIC_DIR / "thumbs"
 BRAND_DIR = ROOT / "public" / "brand"
 META_DIR = ROOT / "public" / "metadata"
 SRC_DATA = ROOT / "src" / "data"
@@ -33,7 +34,7 @@ JSON_DIR = OUT / "json"
 
 COLLECTION_STORY = (
     "Galleria On Ink.\n\n"
-    "A salon of 50 unique looping paintings on Ink. Each work invents its own "
+    "A salon of 500 unique looping paintings on Ink. Each work invents its own "
     "medium, palette, silhouette, and motion. Neighboring tokens are not siblings. "
     "There is no trait stack and no shared character.\n\n"
     "Every artwork is an open edition. The composition is 1:1. The mint is not.\n\n"
@@ -128,7 +129,7 @@ def write_metadata(works: list[dict]) -> None:
         writer.writerows(rows)
     (OUT / "README.md").write_text(
         "# Galleria On Ink OpenSea pack\n\n"
-        "50 unique looping paintings at 512×512, 12 frames, 90ms. Each artwork is an open edition.\n\n"
+        "500 unique looping paintings at 512×512, 12 frames, 90ms. Each artwork is an open edition.\n\n"
         "Create an OpenSea Open Edition collection on Ink. Upload every file in `gifs/` plus "
         "`opensea-metadata.csv`. OpenSea plays GIF, not APNG. The site keeps the APNGs in "
         "`public/galleria/`.\n",
@@ -173,7 +174,7 @@ def build_brand(frames_by_id: dict[int, list[Image.Image]]) -> None:
         banner.alpha_composite(face, (40 + i * 292, 170))
     draw = ImageDraw.Draw(banner)
     draw.text((48, 36), "GALLERIA ON INK", font=_font(56), fill=(244, 240, 232, 255))
-    draw.text((52, 108), "50 open editions. No two share a medium.", font=_font(26), fill=(180, 176, 168, 255))
+    draw.text((52, 108), "500 open editions. No two share a medium.", font=_font(26), fill=(180, 176, 168, 255))
     banner.convert("RGB").save(BRAND_DIR / "banner-galleria.png", quality=94)
     banner.resize((1500, 500), Image.Resampling.LANCZOS).convert("RGB").save(
         BRAND_DIR / "banner-galleria-opensea.jpg", quality=92
@@ -191,24 +192,18 @@ def build_brand(frames_by_id: dict[int, list[Image.Image]]) -> None:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--only", type=int, nargs="*", help="Paint only these work ids")
+    parser.add_argument("--from-id", type=int, help="Paint this id through the last work")
     args = parser.parse_args()
 
     loaded = load_works()
     PUBLIC_DIR.mkdir(parents=True, exist_ok=True)
+    THUMB_DIR.mkdir(parents=True, exist_ok=True)
     IMAGE_DIR.mkdir(parents=True, exist_ok=True)
     GIF_DIR.mkdir(parents=True, exist_ok=True)
 
     frames_by_id: dict[int, list[Image.Image]] = {}
     catalog: list[dict] = []
     for spec, painter in loaded:
-        if args.only and spec.id not in args.only:
-            continue
-        print(f"painting {spec.id:02d}  {spec.title}  [{spec.medium}]")
-        frames = render_work(painter)
-        frames_by_id[spec.id] = frames
-        save_apng(frames, PUBLIC_DIR / f"{spec.id}.png")
-        save_apng(frames, IMAGE_DIR / f"{spec.id}.png")
-        save_loop_gif(frames, GIF_DIR / f"{spec.id}.gif", DURATION_MS)
         catalog.append(
             {
                 "id": spec.id,
@@ -220,12 +215,52 @@ def main() -> None:
                 "palette": spec.palette,
             }
         )
+        skip = False
+        if args.only and spec.id not in args.only:
+            skip = True
+        if args.from_id and spec.id < args.from_id:
+            skip = True
+        if skip:
+            existing = PUBLIC_DIR / f"{spec.id}.png"
+            thumb = THUMB_DIR / f"{spec.id}.jpg"
+            if existing.exists() and not thumb.exists():
+                Image.open(existing).convert("RGB").resize((320, 320), Image.Resampling.LANCZOS).save(
+                    thumb, quality=86
+                )
+            continue
+        print(f"painting {spec.id:03d}  {spec.title}  [{spec.medium}]")
+        frames = render_work(painter)
+        if spec.id in (1, 3, 8, 10, 16, 22):
+            frames_by_id[spec.id] = frames
+        save_apng(frames, PUBLIC_DIR / f"{spec.id}.png")
+        save_apng(frames, IMAGE_DIR / f"{spec.id}.png")
+        save_loop_gif(frames, GIF_DIR / f"{spec.id}.gif", DURATION_MS)
+        frames[0].convert("RGB").resize((320, 320), Image.Resampling.LANCZOS).save(
+            THUMB_DIR / f"{spec.id}.jpg", quality=86
+        )
+        if spec.id not in frames_by_id:
+            del frames
 
-    if args.only:
-        return
     write_catalog(catalog)
     write_metadata(catalog)
-    build_brand(frames_by_id)
+    for work_id in (1, 3, 8, 10, 16, 22):
+        if work_id in frames_by_id:
+            continue
+        path = PUBLIC_DIR / f"{work_id}.png"
+        if not path.exists():
+            continue
+        apng = Image.open(path)
+        loaded = []
+        index = 0
+        while True:
+            apng.seek(index)
+            loaded.append(apng.convert("RGBA"))
+            index += 1
+            if index >= getattr(apng, "n_frames", 1):
+                break
+        frames_by_id[work_id] = loaded or [apng.convert("RGBA")]
+    if all(work_id in frames_by_id for work_id in (1, 3, 8, 10, 16, 22)):
+        build_brand(frames_by_id)
     print(f"wrote {len(catalog)} galleria works")
 
 
