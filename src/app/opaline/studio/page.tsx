@@ -14,7 +14,7 @@ export default function OpalineStudioPage() {
       <h1 className="mt-2 font-heading text-4xl">Layered Opaline mixer</h1>
       <p className="mt-3 max-w-2xl text-muted-foreground">
         {opaline.name} plays every trait as its own looping APNG. The preview is a live stack —
-        ateliers breathe, vapor hangs, film shifts, the crystal beast stays seated.
+        ateliers breathe, vapor hangs, film shifts, the crystal fish stays seated.
       </p>
       <div className="mt-10">
         <OpalineStudio />

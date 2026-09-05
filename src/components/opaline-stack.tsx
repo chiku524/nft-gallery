@@ -12,7 +12,7 @@ import { cn } from "@/lib/utils";
 export function OpalineStack({
   selection,
   className,
-  label = "Assembled Opaline beast",
+  label = "Assembled Opaline fish",
 }: {
   selection: OpalineSelection;
   className?: string;

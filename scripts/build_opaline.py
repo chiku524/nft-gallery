@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
-"""Paint Opaline — smoked-glass beasts with iridescent film.
+"""Paint Opaline — smoked-glass saltwater fish with iridescent film.
 
 Every trait is a 12-frame APNG on a shared 512 canvas and 90ms clock.
-The beast is seated: no bounce, no hover. Light walks the facets.
+The fish is seated: no bounce, no hover. Light walks the facets.
 Vapor hangs in the room. Sheen hue-shifts. Regard inclusions dim.
 
-Look: eight crystal creatures — stag, serpent, moth, beetle, ram, ibis,
-wyrm, mantis. Angular glass, not charcoal, not stickers, not an egg body.
-Dichroic film. Platinum jewelry. Editorial studio rooms.
+Look: eight crystal reef fish — parrotfish, blue marlin, queen angelfish,
+lionfish, green moray, triggerfish, seahorse, manta. Species glass, not
+charcoal, not stickers, not an egg body. Dichroic film. Platinum jewelry.
+Editorial studio rooms.
 """
 
 from __future__ import annotations
@@ -40,21 +41,32 @@ CX = 256.0
 
 ATELIERS = ("obsidian", "slate", "dusk", "ivory", "mercury", "wine", "brine", "quartz")
 VAPORS = ("none", "mist", "mote", "ribbon", "disc", "plume", "well")
-CASTS = ("stag", "serpent", "moth", "beetle", "ram", "ibis", "wyrm", "mantis")
+CASTS = ("parrot", "marlin", "angel", "lion", "moray", "trigger", "seahorse", "manta")
 SHEENS = ("none", "oil", "aurora", "rose", "peacock", "quicksilver", "prism")
 REGARDS = ("quiet", "bloom", "slit", "twin", "void", "gleam")
 CRESTS = ("none", "band", "shard", "arc", "spine", "diadem")
 CLASPS = ("none", "bar", "drop", "torque", "pin", "coil")
 
 CAST_RGB = {
-    "stag": (198, 176, 148),
-    "serpent": (58, 112, 92),
-    "moth": (214, 218, 224),
-    "beetle": (156, 92, 64),
-    "ram": (118, 112, 118),
-    "ibis": (62, 118, 126),
-    "wyrm": (104, 72, 122),
-    "mantis": (32, 34, 40),
+    "parrot": (56, 188, 156),
+    "marlin": (168, 196, 220),
+    "angel": (42, 86, 196),
+    "lion": (220, 198, 164),
+    "moray": (78, 118, 68),
+    "trigger": (214, 172, 58),
+    "seahorse": (204, 138, 62),
+    "manta": (34, 38, 50),
+}
+
+ACCENT_RGB = {
+    "parrot": (236, 92, 168),
+    "marlin": (28, 72, 156),
+    "angel": (232, 196, 48),
+    "lion": (132, 44, 56),
+    "moray": (176, 152, 56),
+    "trigger": (44, 44, 48),
+    "seahorse": (236, 198, 118),
+    "manta": (228, 230, 234),
 }
 
 SHEEN_HUE = {
@@ -102,6 +114,27 @@ def hue_rgb(h: np.ndarray, s: float, v: float) -> np.ndarray:
     g = np.choose(i % 6, [t, v, v, q, p, p])
     b = np.choose(i % 6, [p, p, t, v, v, q])
     return np.stack([r, g, b], axis=-1)
+
+
+def glass_color(kind: str, role: str, index: int, frame: int) -> tuple[int, int, int]:
+    if kind == "parrot":
+        base = {"beak": 28.0, "face": 168.0, "facet": 200.0, "body": 130.0, "fin": 300.0, "neck": 150.0}.get(role, 90.0)
+        h = (base + index * 23.0 + frame * 7.0) % 360.0
+        sat = 0.42 if role == "beak" else 0.62
+        val = 0.86 if role != "beak" else 0.78
+        c = hue_rgb(np.array([h]), sat, val)[0] * 255.0
+        return (int(c[0]), int(c[1]), int(c[2]))
+    body = CAST_RGB[kind]
+    accent = ACCENT_RGB[kind]
+    if role in ("sail", "stripe", "spine", "crown", "accent", "horn"):
+        return accent
+    if role == "bill":
+        return (208, 216, 226)
+    if role == "belly":
+        return accent if kind == "manta" else tuple(min(255, c + 36) for c in body)
+    if role == "beak" and kind == "seahorse":
+        return accent
+    return body
 
 
 def poly_mask(points: list[tuple[float, float]]) -> np.ndarray:
@@ -184,7 +217,7 @@ def pour_glass(
 
 
 # Regard sits on one eye line. Crest and clasp overlay the crown and throat.
-# Nothing else is shared — each cast is its own animal skull and body.
+# Nothing else is shared — each cast is its own saltwater fish.
 EYE_L = (220.0, 184.0)
 EYE_R = (292.0, 184.0)
 SHEEN_FACE = [(214, 140), (298, 140), (316, 184), (300, 220), (256, 236), (212, 220), (196, 184)]
@@ -200,71 +233,31 @@ def pair(poly: list[tuple[float, float]], alpha: int, rim: bool = True) -> list[
 
 
 def face_of(kind: str) -> list[tuple[float, float]]:
-    """Animal skulls. Wide enough to hold the shared eyes, never a mannequin hex."""
-    if kind == "stag":
-        return [
-            (218, 76),
-            (294, 76),
-            (336, 140),
-            (322, 196),
-            (292, 268),
-            (272, 348),
-            (256, 388),
-            (240, 348),
-            (220, 268),
-            (190, 196),
-            (176, 140),
-        ]
-    if kind == "serpent":
-        return [(256, 88), (352, 148), (340, 196), (300, 236), (256, 284), (212, 236), (172, 196), (160, 148)]
-    if kind == "moth":
-        return [(196, 148), (316, 148), (340, 184), (320, 216), (256, 232), (192, 216), (172, 184)]
-    if kind == "beetle":
-        return [(216, 88), (296, 88), (336, 156), (320, 204), (256, 236), (192, 204), (176, 156)]
-    if kind == "ram":
-        return [
-            (156, 84),
-            (356, 84),
-            (384, 148),
-            (356, 208),
-            (320, 284),
-            (288, 364),
-            (256, 412),
-            (224, 364),
-            (192, 284),
-            (156, 208),
-            (128, 148),
-        ]
-    if kind == "ibis":
-        return [(228, 124), (284, 124), (312, 168), (298, 200), (256, 216), (214, 200), (200, 168)]
-    if kind == "wyrm":
-        return [
-            (200, 68),
-            (312, 68),
-            (360, 144),
-            (344, 200),
-            (308, 276),
-            (280, 368),
-            (256, 428),
-            (232, 368),
-            (204, 276),
-            (168, 200),
-            (152, 144),
-        ]
-    return [(256, 20), (400, 176), (348, 228), (256, 252), (164, 228), (112, 176)]
+    """Fish heads. Wide enough to hold the shared eyes, never a mannequin hex."""
+    if kind == "parrot":
+        return [(188, 108), (324, 108), (360, 168), (340, 220), (292, 268), (256, 284), (220, 268), (172, 220), (152, 168)]
+    if kind == "marlin":
+        return [(200, 96), (312, 96), (348, 160), (328, 212), (288, 252), (256, 264), (224, 252), (184, 212), (164, 160)]
+    if kind == "angel":
+        return [(204, 132), (308, 132), (336, 180), (316, 220), (256, 240), (196, 220), (176, 180)]
+    if kind == "lion":
+        return [(200, 120), (312, 120), (340, 176), (320, 220), (256, 244), (192, 220), (172, 176)]
+    if kind == "moray":
+        return [(176, 100), (336, 100), (372, 168), (348, 220), (300, 268), (256, 292), (212, 268), (164, 220), (140, 168)]
+    if kind == "trigger":
+        return [(176, 96), (336, 96), (372, 164), (348, 216), (300, 256), (256, 268), (212, 256), (164, 216), (140, 164)]
+    if kind == "seahorse":
+        return [(208, 88), (304, 88), (332, 148), (316, 196), (280, 236), (256, 248), (232, 236), (196, 196), (180, 148)]
+    return [(212, 128), (300, 128), (332, 176), (312, 216), (256, 232), (200, 216), (180, 176)]
 
 
 def necks_of(kind: str) -> list[list[tuple[float, float]]]:
-    if kind == "ibis":
-        return [[(246, 208), (278, 214), (304, 268), (336, 340), (308, 408), (260, 436), (244, 360), (256, 284)]]
-    if kind == "moth":
-        return [[(236, 228), (276, 228), (280, 272), (256, 292), (232, 272)]]
-    if kind == "mantis":
-        return [[(244, 248), (268, 248), (274, 308), (256, 328), (238, 308)]]
-    if kind == "stag":
-        return [[(236, 360), (276, 360), (292, 428), (256, 468), (220, 428)]]
-    if kind == "ram":
-        return [[(228, 388), (284, 388), (300, 456), (256, 492), (212, 456)]]
+    if kind == "seahorse":
+        return [[(240, 244), (272, 244), (280, 320), (256, 348), (232, 320)]]
+    if kind == "moray":
+        return [[(228, 276), (284, 276), (300, 348), (256, 388), (212, 348)]]
+    if kind == "parrot":
+        return [[(228, 268), (284, 268), (296, 332), (256, 360), (216, 332)]]
     return []
 
 
@@ -275,123 +268,105 @@ def inner_facets(face: list[tuple[float, float]]) -> list[list[tuple[float, floa
     return [[point, face[(i + 1) % len(face)], mid] for i, point in enumerate(face)]
 
 
-def body_of(kind: str) -> list[tuple[list[tuple[float, float]], int, bool]]:
-    if kind == "serpent":
-        hood = [
-            (256, 8),
-            (412, 48),
-            (508, 132),
-            (512, 220),
-            (468, 292),
-            (348, 248),
-            (256, 204),
-            (164, 248),
-            (44, 292),
-            (0, 220),
-            (4, 132),
-            (100, 48),
-        ]
-        tube = [(236, 260), (284, 268), (312, 332), (248, 388), (196, 348), (220, 300)]
-        coil_a = [(148, 348), (364, 348), (424, 420), (364, 492), (148, 492), (88, 420)]
-        coil_b = [(196, 412), (316, 412), (368, 468), (316, 512), (196, 512), (144, 468)]
-        return [(hood, 204, True), (tube, 232, True), (coil_a, 226, True), (coil_b, 220, True)]
-    if kind == "moth":
-        upper = [(196, 152), (64, 0), (0, 72), (8, 176), (108, 228), (220, 188)]
-        lower = [(200, 196), (8, 208), (0, 332), (48, 500), (196, 444), (232, 252)]
-        scallop_a = [(72, 24), (16, 40), (8, 96), (68, 120), (116, 72)]
-        scallop_b = [(40, 260), (0, 288), (12, 360), (72, 348), (96, 292)]
-        return pair(upper, 190) + pair(lower, 196) + pair(scallop_a, 150, False) + pair(scallop_b, 146, False)
-    if kind == "beetle":
-        shell = [(200, 216), (72, 260), (36, 368), (80, 488), (256, 512), (256, 224)]
-        split = [(246, 224), (266, 224), (266, 508), (246, 508)]
-        leg_a = [(72, 260), (0, 216), (0, 252), (68, 284)]
-        leg_b = [(52, 340), (0, 348), (4, 388), (72, 364)]
-        leg_c = [(80, 428), (4, 468), (28, 504), (108, 452)]
-        return pair(shell, 234) + [(split, 200, False)] + pair(leg_a, 210) + pair(leg_b, 210) + pair(leg_c, 210)
-    if kind == "ibis":
-        body = [(240, 392), (188, 424), (176, 484), (256, 512), (360, 476), (372, 416), (320, 384)]
-        return [(body, 218, True)]
-    if kind == "mantis":
-        thorax = [(228, 248), (284, 248), (300, 308), (256, 336), (212, 308)]
-        abdomen = [(236, 328), (276, 328), (296, 412), (256, 488), (216, 412)]
-        return [(thorax, 226, True), (abdomen, 220, True)]
-    return []
+def tagged(
+    items: list[tuple[list[tuple[float, float]], int, bool]], role: str
+) -> list[tuple[list[tuple[float, float]], int, bool, str]]:
+    return [(poly, alpha, rim, role) for poly, alpha, rim in items]
 
 
-def beast_parts(kind: str) -> list[tuple[list[tuple[float, float]], int, bool]]:
-    if kind == "stag":
-        beam = [(218, 76), (160, 16), (64, 0), (40, 28), (120, 36), (204, 76)]
-        tine_a = [(64, 0), (0, 12), (16, 48), (76, 28)]
-        tine_b = [(160, 16), (96, 0), (108, 40)]
-        tine_c = [(120, 36), (60, 56), (104, 84)]
-        tine_d = [(40, 28), (8, 72), (52, 60)]
-        ear = [(176, 140), (48, 64), (88, 188), (196, 188)]
-        nostril = [(240, 352), (256, 384), (248, 356)]
+def body_of(kind: str) -> list[tuple[list[tuple[float, float]], int, bool, str]]:
+    if kind == "parrot":
+        torso = [(176, 248), (336, 248), (380, 340), (348, 448), (256, 500), (164, 448), (132, 340)]
+        belly = [(216, 320), (296, 320), (312, 412), (256, 456), (200, 412)]
+        return [(torso, 226, True, "body"), (belly, 200, True, "belly")]
+    if kind == "marlin":
+        torso = [(200, 236), (312, 236), (348, 320), (320, 420), (256, 468), (192, 420), (164, 320)]
+        return [(torso, 228, True, "body")]
+    if kind == "angel":
+        disc = [(256, 40), (420, 140), (500, 256), (420, 400), (256, 508), (92, 400), (12, 256), (92, 140)]
+        return [(disc, 200, True, "body")]
+    if kind == "lion":
+        torso = [(196, 228), (316, 228), (352, 320), (316, 420), (256, 460), (196, 420), (160, 320)]
+        return [(torso, 222, True, "body")]
+    if kind == "moray":
+        tube = [(220, 280), (292, 288), (328, 360), (280, 428), (200, 400), (196, 332)]
+        coil = [(160, 392), (352, 400), (420, 468), (352, 512), (160, 512), (92, 456)]
+        return [(tube, 230, True, "body"), (coil, 220, True, "body")]
+    if kind == "trigger":
+        box = [(168, 220), (344, 220), (388, 320), (340, 440), (256, 488), (172, 440), (124, 320)]
+        return [(box, 226, True, "body")]
+    if kind == "seahorse":
+        belly = [(216, 300), (296, 300), (320, 400), (256, 448), (192, 400)]
+        return [(belly, 224, True, "belly")]
+    wings = [(256, 200), (40, 120), (0, 220), (20, 340), (160, 400), (256, 280)]
+    belly = [(196, 220), (316, 220), (340, 300), (256, 360), (172, 300)]
+    return tagged(pair(wings, 210), "body") + [(belly, 200, True, "belly")]
+
+
+def fish_parts(kind: str) -> list[tuple[list[tuple[float, float]], int, bool, str]]:
+    if kind == "parrot":
+        beak = [(220, 260), (292, 260), (276, 332), (256, 372), (236, 332)]
+        gill = [(152, 168), (88, 188), (96, 248), (176, 220)]
+        fin = [(132, 300), (8, 268), (0, 340), (40, 400), (164, 368)]
+        dorsal = [(220, 108), (256, 8), (292, 108), (276, 128), (236, 128)]
         return (
-            pair(beam, 232)
-            + pair(tine_a, 224)
-            + pair(tine_b, 216, False)
-            + pair(tine_c, 214, False)
-            + pair(tine_d, 210, False)
-            + pair(ear, 230)
-            + [(nostril, 200, False), (mirror(nostril), 200, False)]
+            [(beak, 236, True, "beak"), (dorsal, 210, True, "fin")]
+            + tagged(pair(gill, 216), "fin")
+            + tagged(pair(fin, 214), "fin")
         )
-    if kind == "serpent":
-        fang = [(220, 260), (256, 312), (244, 264)]
-        tongue = [(248, 280), (256, 348), (264, 280)]
-        fork_l = [(256, 348), (232, 380), (252, 352)]
-        fork_r = [(256, 348), (280, 380), (260, 352)]
-        return [(fang, 214, False), (mirror(fang), 214, False), (tongue, 200, False), (fork_l, 196, False), (fork_r, 196, False)]
-    if kind == "moth":
-        antenna = [(196, 148), (128, 40), (36, 0), (16, 28), (116, 64), (192, 144)]
-        club = [(36, 0), (0, 8), (8, 36), (40, 20)]
-        return pair(antenna, 216) + pair(club, 208)
-    if kind == "beetle":
-        horn = [(246, 0), (266, 0), (280, 100), (232, 100)]
-        flare = [(256, 0), (340, 36), (256, 28), (172, 36)]
-        mandible = [(192, 204), (96, 220), (88, 292), (204, 232)]
-        return [(horn, 236, True), (flare, 220, True)] + pair(mandible, 228)
-    if kind == "ram":
-        brow = [(164, 84), (348, 84), (364, 136), (148, 136)]
-        curl_a = [(156, 100), (64, 12), (0, 72), (8, 168), (88, 188), (156, 136)]
-        curl_b = [(0, 72), (0, 188), (16, 292), (84, 268), (20, 176)]
-        curl_c = [(16, 292), (48, 384), (140, 348), (88, 276), (84, 268)]
-        nose = [(228, 360), (284, 360), (276, 404), (256, 420), (236, 404)]
-        return [(brow, 228, True), (nose, 220, True)] + pair(curl_a, 234) + pair(curl_b, 226) + pair(curl_c, 218)
-    if kind == "ibis":
-        beak = [
-            (214, 188),
-            (298, 200),
-            (280, 268),
-            (220, 348),
-            (140, 428),
-            (64, 484),
-            (16, 512),
-            (4, 488),
-            (64, 448),
-            (140, 380),
-            (200, 288),
+    if kind == "marlin":
+        bill = [(236, 252), (276, 252), (268, 380), (256, 468), (244, 380)]
+        sail = [(200, 96), (168, 8), (256, 0), (344, 8), (312, 96), (292, 120), (220, 120)]
+        pec = [(164, 212), (40, 188), (16, 248), (80, 280), (184, 236)]
+        stripe = [(196, 260), (316, 260), (328, 284), (184, 284)]
+        return (
+            [(bill, 236, True, "bill"), (sail, 222, True, "sail"), (stripe, 190, False, "sail")]
+            + tagged(pair(pec, 214), "accent")
+        )
+    if kind == "angel":
+        streamer = [(308, 132), (460, 40), (500, 88), (420, 140), (336, 180)]
+        crown = [(216, 88), (296, 88), (312, 132), (200, 132)]
+        pec = [(176, 180), (48, 160), (28, 220), (96, 248), (196, 220)]
+        return [(crown, 226, True, "crown")] + tagged(pair(streamer, 200), "accent") + tagged(pair(pec, 210), "accent")
+    if kind == "lion":
+        fan_a = [(172, 176), (20, 40), (0, 100), (36, 188), (160, 200)]
+        fan_b = [(160, 220), (0, 220), (0, 300), (48, 348), (180, 252)]
+        fan_c = [(196, 420), (48, 380), (8, 448), (64, 508), (200, 460)]
+        bar = [(28, 80), (8, 96), (24, 140), (44, 120)]
+        return tagged(pair(fan_a, 200), "fin") + tagged(pair(fan_b, 196), "fin") + tagged(pair(fan_c, 192), "fin") + tagged(pair(bar, 180, False), "stripe")
+    if kind == "moray":
+        jaw = [(176, 220), (80, 248), (72, 308), (196, 268)]
+        grin = [(200, 268), (312, 268), (300, 300), (212, 300)]
+        dorsal = [(176, 100), (120, 40), (256, 8), (392, 40), (336, 100), (300, 120), (212, 120)]
+        return [(grin, 210, False, "accent"), (dorsal, 214, True, "accent")] + tagged(pair(jaw, 220), "body")
+    if kind == "trigger":
+        trigger = [(244, 20), (268, 20), (276, 96), (236, 96)]
+        bar_a = [(176, 148), (336, 148), (348, 176), (164, 176)]
+        bar_b = [(168, 300), (344, 300), (360, 336), (152, 336)]
+        pec = [(140, 216), (24, 196), (8, 256), (72, 292), (164, 248)]
+        mouth = [(232, 248), (280, 248), (268, 292), (256, 308), (244, 292)]
+        return (
+            [(trigger, 230, True, "spine"), (bar_a, 200, False, "stripe"), (bar_b, 196, False, "stripe"), (mouth, 220, True, "beak")]
+            + tagged(pair(pec, 214), "accent")
+        )
+    if kind == "seahorse":
+        snout = [(232, 232), (280, 232), (268, 320), (256, 368), (244, 320)]
+        coronet = [(216, 40), (296, 40), (312, 88), (200, 88)]
+        spike = [(244, 8), (268, 8), (272, 44), (240, 44)]
+        plate = [(220, 348), (292, 348), (304, 396), (256, 424), (208, 396)]
+        tail = [(208, 420), (304, 428), (360, 488), (300, 512), (196, 500), (152, 456)]
+        fin = [(296, 300), (400, 268), (420, 332), (340, 360), (300, 336)]
+        return [
+            (snout, 234, True, "beak"),
+            (coronet, 222, True, "crown"),
+            (spike, 216, True, "spine"),
+            (plate, 214, True, "belly"),
+            (tail, 220, True, "body"),
+            (fin, 200, True, "fin"),
         ]
-        plume = [(256, 4), (360, 52), (376, 108), (312, 128), (200, 120), (140, 52)]
-        return [(beak, 236, True), (plume, 222, True)]
-    if kind == "wyrm":
-        horn = [(200, 68), (248, 68), (200, 0), (128, 16)]
-        brow = [(168, 144), (64, 72), (36, 164), (156, 176)]
-        frill = [(152, 176), (24, 188), (8, 248), (148, 220)]
-        jaw = [(168, 200), (72, 220), (48, 284), (160, 256)]
-        fork = [(232, 368), (256, 440), (244, 376)]
-        return (
-            pair(horn, 230)
-            + pair(brow, 222)
-            + pair(frill, 208, False)
-            + pair(jaw, 216)
-            + [(fork, 210, False), (mirror(fork), 210, False)]
-        )
-    scythe = [(164, 228), (28, 88), (0, 136), (12, 216), (88, 224), (180, 248)]
-    blade = [(0, 136), (0, 292), (20, 412), (88, 508), (60, 348), (12, 216)]
-    tooth_a = [(20, 280), (0, 300), (28, 320)]
-    tooth_b = [(28, 360), (8, 384), (40, 400)]
-    return pair(scythe, 222) + pair(blade, 216) + pair(tooth_a, 200, False) + pair(tooth_b, 196, False)
+    horn = [(180, 176), (80, 88), (40, 148), (132, 200), (200, 216)]
+    tip = [(40, 120), (0, 80), (0, 160), (48, 176)]
+    return tagged(pair(horn, 222), "horn") + tagged(pair(tip, 210), "accent")
 
 
 def sheen_mask() -> np.ndarray:
@@ -404,19 +379,30 @@ def sheen_mask() -> np.ndarray:
 def paint_cast(kind: str, frame: int) -> Image.Image:
     arr = np.zeros((SIZE, SIZE, 4), dtype=np.uint8)
     light = light_vec(frame)
-    rgb = CAST_RGB[kind]
-    neck_rgb = tuple(max(0, c - 22) for c in rgb)
-    for poly, alpha, rim in body_of(kind):
-        pour_glass(arr, poly_mask(poly), rgb, light, frame, alpha=alpha, rim=rim)
+    index = 0
+    for poly, alpha, rim, role in body_of(kind):
+        pour_glass(arr, poly_mask(poly), glass_color(kind, role, index, frame), light, frame, alpha=alpha, rim=rim)
+        index += 1
     for poly in necks_of(kind):
-        pour_glass(arr, poly_mask(poly), neck_rgb, light, frame, alpha=230, rim=True)
+        pour_glass(arr, poly_mask(poly), glass_color(kind, "neck", index, frame), light, frame, alpha=228, rim=True)
+        index += 1
     face = face_of(kind)
-    pour_glass(arr, poly_mask(face), rgb, light, frame, alpha=236, rim=True)
-    tint = tuple(min(255, max(0, c + offset)) for c, offset in zip(rgb, (8, -4, 6)))
+    pour_glass(arr, poly_mask(face), glass_color(kind, "face", index, frame), light, frame, alpha=236, rim=True)
+    index += 1
     for poly in inner_facets(face):
-        pour_glass(arr, poly_mask(poly), tint, light, frame, alpha=40, caustic_gain=0.08)
-    for poly, alpha, rim in beast_parts(kind):
-        pour_glass(arr, poly_mask(poly), rgb, light, frame, alpha=alpha, rim=rim)
+        pour_glass(
+            arr,
+            poly_mask(poly),
+            glass_color(kind, "facet", index, frame),
+            light,
+            frame,
+            alpha=48,
+            caustic_gain=0.08,
+        )
+        index += 1
+    for poly, alpha, rim, role in fish_parts(kind):
+        pour_glass(arr, poly_mask(poly), glass_color(kind, role, index, frame), light, frame, alpha=alpha, rim=rim)
+        index += 1
     return Image.fromarray(arr, "RGBA")
 
 
@@ -685,14 +671,14 @@ TRAIT_SPEC: dict[str, list[tuple[str, str, int]]] = {
         ("well", "Luminous Well", 8),
     ],
     "cast": [
-        ("stag", "Stag", 18),
-        ("serpent", "Serpent", 16),
-        ("moth", "Moth", 14),
-        ("beetle", "Beetle", 14),
-        ("ram", "Ram", 12),
-        ("ibis", "Ibis", 10),
-        ("wyrm", "Wyrm", 8),
-        ("mantis", "Mantis", 8),
+        ("parrot", "Parrotfish", 18),
+        ("marlin", "Blue Marlin", 16),
+        ("angel", "Queen Angel", 14),
+        ("lion", "Lionfish", 14),
+        ("trigger", "Triggerfish", 12),
+        ("seahorse", "Seahorse", 10),
+        ("moray", "Green Moray", 8),
+        ("manta", "Manta", 8),
     ],
     "sheen": [
         ("none", "Bare Glass", 22),
@@ -742,22 +728,22 @@ PAINTERS = {
 STACK = ("atelier", "vapor", "cast", "sheen", "regard", "crest", "clasp")
 
 SIGNATURES = [
-    {"atelier": "dusk", "vapor": "disc", "cast": "stag", "sheen": "oil", "regard": "quiet", "crest": "band", "clasp": "drop"},
-    {"atelier": "obsidian", "vapor": "well", "cast": "mantis", "sheen": "quicksilver", "regard": "void", "crest": "spine", "clasp": "bar"},
-    {"atelier": "ivory", "vapor": "mist", "cast": "stag", "sheen": "rose", "regard": "bloom", "crest": "diadem", "clasp": "torque"},
-    {"atelier": "brine", "vapor": "plume", "cast": "ibis", "sheen": "peacock", "regard": "gleam", "crest": "shard", "clasp": "none"},
-    {"atelier": "wine", "vapor": "ribbon", "cast": "wyrm", "sheen": "prism", "regard": "slit", "crest": "arc", "clasp": "pin"},
-    {"atelier": "mercury", "vapor": "mote", "cast": "moth", "sheen": "aurora", "regard": "twin", "crest": "band", "clasp": "coil"},
-    {"atelier": "slate", "vapor": "none", "cast": "serpent", "sheen": "none", "regard": "quiet", "crest": "none", "clasp": "bar"},
-    {"atelier": "quartz", "vapor": "disc", "cast": "beetle", "sheen": "oil", "regard": "bloom", "crest": "diadem", "clasp": "drop"},
-    {"atelier": "dusk", "vapor": "mist", "cast": "ram", "sheen": "quicksilver", "regard": "gleam", "crest": "shard", "clasp": "torque"},
-    {"atelier": "obsidian", "vapor": "plume", "cast": "ibis", "sheen": "rose", "regard": "void", "crest": "arc", "clasp": "none"},
-    {"atelier": "ivory", "vapor": "mote", "cast": "moth", "sheen": "prism", "regard": "slit", "crest": "spine", "clasp": "pin"},
-    {"atelier": "brine", "vapor": "well", "cast": "mantis", "sheen": "aurora", "regard": "twin", "crest": "band", "clasp": "coil"},
-    {"atelier": "wine", "vapor": "ribbon", "cast": "serpent", "sheen": "peacock", "regard": "quiet", "crest": "none", "clasp": "drop"},
-    {"atelier": "mercury", "vapor": "disc", "cast": "wyrm", "sheen": "oil", "regard": "bloom", "crest": "diadem", "clasp": "bar"},
-    {"atelier": "slate", "vapor": "none", "cast": "beetle", "sheen": "none", "regard": "gleam", "crest": "shard", "clasp": "torque"},
-    {"atelier": "quartz", "vapor": "mist", "cast": "ram", "sheen": "rose", "regard": "void", "crest": "arc", "clasp": "pin"},
+    {"atelier": "dusk", "vapor": "disc", "cast": "parrot", "sheen": "oil", "regard": "quiet", "crest": "band", "clasp": "drop"},
+    {"atelier": "obsidian", "vapor": "well", "cast": "manta", "sheen": "quicksilver", "regard": "void", "crest": "spine", "clasp": "bar"},
+    {"atelier": "ivory", "vapor": "mist", "cast": "parrot", "sheen": "rose", "regard": "bloom", "crest": "diadem", "clasp": "torque"},
+    {"atelier": "brine", "vapor": "plume", "cast": "seahorse", "sheen": "peacock", "regard": "gleam", "crest": "shard", "clasp": "none"},
+    {"atelier": "wine", "vapor": "ribbon", "cast": "lion", "sheen": "prism", "regard": "slit", "crest": "arc", "clasp": "pin"},
+    {"atelier": "mercury", "vapor": "mote", "cast": "angel", "sheen": "aurora", "regard": "twin", "crest": "band", "clasp": "coil"},
+    {"atelier": "slate", "vapor": "none", "cast": "marlin", "sheen": "none", "regard": "quiet", "crest": "none", "clasp": "bar"},
+    {"atelier": "quartz", "vapor": "disc", "cast": "trigger", "sheen": "oil", "regard": "bloom", "crest": "diadem", "clasp": "drop"},
+    {"atelier": "dusk", "vapor": "mist", "cast": "moray", "sheen": "quicksilver", "regard": "gleam", "crest": "shard", "clasp": "torque"},
+    {"atelier": "obsidian", "vapor": "plume", "cast": "seahorse", "sheen": "rose", "regard": "void", "crest": "arc", "clasp": "none"},
+    {"atelier": "ivory", "vapor": "mote", "cast": "angel", "sheen": "prism", "regard": "slit", "crest": "spine", "clasp": "pin"},
+    {"atelier": "brine", "vapor": "well", "cast": "manta", "sheen": "aurora", "regard": "twin", "crest": "band", "clasp": "coil"},
+    {"atelier": "wine", "vapor": "ribbon", "cast": "marlin", "sheen": "peacock", "regard": "quiet", "crest": "none", "clasp": "drop"},
+    {"atelier": "mercury", "vapor": "disc", "cast": "lion", "sheen": "oil", "regard": "bloom", "crest": "diadem", "clasp": "bar"},
+    {"atelier": "slate", "vapor": "none", "cast": "trigger", "sheen": "none", "regard": "gleam", "crest": "shard", "clasp": "torque"},
+    {"atelier": "quartz", "vapor": "mist", "cast": "moray", "sheen": "rose", "regard": "void", "crest": "arc", "clasp": "pin"},
 ]
 
 TRAIT_LABELS = (
@@ -773,18 +759,18 @@ TRAIT_LABELS = (
 COLLECTION_DESCRIPTION = (
     "Opaline is a 5,555-piece collection of looping smoked-glass PFP GIFs. "
     "Each portrait is stacked from seven layers — atelier, vapor, cast, sheen, regard, crest, and clasp — "
-    "then flattened onto one 12-frame GIF. Eight crystal beasts. Dichroic film. Editorial light."
+    "then flattened onto one 12-frame GIF. Eight crystal reef fish. Dichroic film. Editorial light."
 )
 
 COLLECTION_STORY = (
     "Opaline.\n\n"
     "A 5,555-piece collection of looping smoked-glass PFP GIFs on Base. "
     "Each portrait is stacked from seven layers — atelier, vapor, cast, sheen, regard, crest, and clasp — "
-    "then flattened onto one 12-frame GIF. Eight beasts, each its own animal: stag, serpent, moth, "
-    "beetle, ram, ibis, wyrm, and mantis. Vapor hangs in the room. Light walks the facets. "
-    "Film shifts hue. Inclusions dim.\n\n"
-    "Crystal creatures. Seven films, including bare glass. No charcoal outline. No sticker cutout. "
-    "The beast stays seated. One shared clock.\n\n"
+    "then flattened onto one 12-frame GIF. Eight saltwater fish, each its own glass: parrotfish, "
+    "blue marlin, queen angelfish, lionfish, triggerfish, seahorse, green moray, and manta. "
+    "Vapor hangs in the room. Light walks the facets. Film shifts hue. Inclusions dim.\n\n"
+    "Crystal reef fish. Seven films, including bare glass. No charcoal outline. No sticker cutout. "
+    "The fish stays seated. One shared clock.\n\n"
     "Minting on Base (chain ID 8453). Gas is ETH."
 )
 
@@ -853,7 +839,7 @@ def build_traits(only: str | None = None, ids: list[str] | None = None) -> None:
         "format": "apng",
         "loop": 0,
         "order": list(STACK),
-        "note": "Each trait is a looping APNG. Studio stacks them live. Minted tokens flatten to GIF. Eight glass beasts share one eye line; crests and clasps never edit the cast.",
+        "note": "Each trait is a looping APNG. Studio stacks them live. Minted tokens flatten to GIF. Eight glass reef fish share one eye line; crests and clasps never edit the cast.",
     }
     (TRAIT_DIR / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
 
@@ -897,7 +883,7 @@ def write_ts_gallery(samples: list[dict]) -> None:
             "  {\n"
             f"    id: {sample['id']},\n"
             f'    name: "{sample["name"]}",\n'
-            f'    image: "{sample["image"]}?v=5",\n'
+            f'    image: "{sample["image"]}?v=6",\n'
             f"    attributes: [\n      {attrs},\n    ],\n"
             "  }"
         )
@@ -1022,7 +1008,7 @@ def main() -> None:
         build_brand()
         print("Done.")
         return
-    print("Building Opaline smoked-glass beasts…")
+    print("Building Opaline smoked-glass reef fish…")
     build_traits()
     print("Compositing sample GIF tokens…")
     build_samples()

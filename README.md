@@ -28,7 +28,7 @@ A house of NFT collections. Each drop is its own sub-project — studio, traits,
 
 **Galleria On Ink** is the thirteenth: 500 unique looping paintings on Ink (chain ID `57073`). Each work is painted by its own engine and minted as an open edition. No trait stack. No shared house style.
 
-**Opaline** is the fourteenth: 5,555 looping smoked-glass PFP GIFs, for OpenSea on Base (chain ID `8453`). Eight crystal beasts, dichroic film, editorial light. A 12-frame, 90ms clock.
+**Opaline** is the fourteenth: 5,555 looping smoked-glass PFP GIFs, for OpenSea on Base (chain ID `8453`). Eight crystal reef fish, dichroic film, editorial light. A 12-frame, 90ms clock.
 
 ## What’s in this repo
 

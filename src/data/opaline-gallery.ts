@@ -9,11 +9,11 @@ export const opalineSamples: OpalineSample[] = [
   {
     id: 1,
     name: "Opaline #1",
-    image: "/opaline-preview/1.gif?v=5",
+    image: "/opaline-preview/1.gif?v=6",
     attributes: [
       { trait_type: "Atelier", value: "Dusk Chamber" },
       { trait_type: "Vapor", value: "Pale Disc" },
-      { trait_type: "Cast", value: "Stag" },
+      { trait_type: "Cast", value: "Parrotfish" },
       { trait_type: "Sheen", value: "Oil Film" },
       { trait_type: "Regard", value: "Quiet" },
       { trait_type: "Crest", value: "Platinum Band" },
@@ -23,11 +23,11 @@ export const opalineSamples: OpalineSample[] = [
   {
     id: 2,
     name: "Opaline #2",
-    image: "/opaline-preview/2.gif?v=5",
+    image: "/opaline-preview/2.gif?v=6",
     attributes: [
       { trait_type: "Atelier", value: "Obsidian Room" },
       { trait_type: "Vapor", value: "Luminous Well" },
-      { trait_type: "Cast", value: "Mantis" },
+      { trait_type: "Cast", value: "Manta" },
       { trait_type: "Sheen", value: "Quicksilver Film" },
       { trait_type: "Regard", value: "Void" },
       { trait_type: "Crest", value: "Glass Spine" },
@@ -37,11 +37,11 @@ export const opalineSamples: OpalineSample[] = [
   {
     id: 3,
     name: "Opaline #3",
-    image: "/opaline-preview/3.gif?v=5",
+    image: "/opaline-preview/3.gif?v=6",
     attributes: [
       { trait_type: "Atelier", value: "Ivory Gallery" },
       { trait_type: "Vapor", value: "Soft Mist" },
-      { trait_type: "Cast", value: "Stag" },
+      { trait_type: "Cast", value: "Parrotfish" },
       { trait_type: "Sheen", value: "Rose Film" },
       { trait_type: "Regard", value: "Bloom" },
       { trait_type: "Crest", value: "Thin Diadem" },
@@ -51,11 +51,11 @@ export const opalineSamples: OpalineSample[] = [
   {
     id: 4,
     name: "Opaline #4",
-    image: "/opaline-preview/4.gif?v=5",
+    image: "/opaline-preview/4.gif?v=6",
     attributes: [
       { trait_type: "Atelier", value: "Brine Hall" },
       { trait_type: "Vapor", value: "Rising Plume" },
-      { trait_type: "Cast", value: "Ibis" },
+      { trait_type: "Cast", value: "Seahorse" },
       { trait_type: "Sheen", value: "Peacock Film" },
       { trait_type: "Regard", value: "Gleam" },
       { trait_type: "Crest", value: "Prism Shard" },
@@ -65,11 +65,11 @@ export const opalineSamples: OpalineSample[] = [
   {
     id: 5,
     name: "Opaline #5",
-    image: "/opaline-preview/5.gif?v=5",
+    image: "/opaline-preview/5.gif?v=6",
     attributes: [
       { trait_type: "Atelier", value: "Wine Vault" },
       { trait_type: "Vapor", value: "Caustic Ribbon" },
-      { trait_type: "Cast", value: "Wyrm" },
+      { trait_type: "Cast", value: "Lionfish" },
       { trait_type: "Sheen", value: "Prism Film" },
       { trait_type: "Regard", value: "Slit" },
       { trait_type: "Crest", value: "Gold Arc" },
@@ -79,11 +79,11 @@ export const opalineSamples: OpalineSample[] = [
   {
     id: 6,
     name: "Opaline #6",
-    image: "/opaline-preview/6.gif?v=5",
+    image: "/opaline-preview/6.gif?v=6",
     attributes: [
       { trait_type: "Atelier", value: "Mercury Wall" },
       { trait_type: "Vapor", value: "Glass Motes" },
-      { trait_type: "Cast", value: "Moth" },
+      { trait_type: "Cast", value: "Queen Angel" },
       { trait_type: "Sheen", value: "Aurora Film" },
       { trait_type: "Regard", value: "Twin" },
       { trait_type: "Crest", value: "Platinum Band" },
@@ -93,11 +93,11 @@ export const opalineSamples: OpalineSample[] = [
   {
     id: 7,
     name: "Opaline #7",
-    image: "/opaline-preview/7.gif?v=5",
+    image: "/opaline-preview/7.gif?v=6",
     attributes: [
       { trait_type: "Atelier", value: "Slate Studio" },
       { trait_type: "Vapor", value: "Clear Air" },
-      { trait_type: "Cast", value: "Serpent" },
+      { trait_type: "Cast", value: "Blue Marlin" },
       { trait_type: "Sheen", value: "Bare Glass" },
       { trait_type: "Regard", value: "Quiet" },
       { trait_type: "Crest", value: "Bare Crown" },
@@ -107,11 +107,11 @@ export const opalineSamples: OpalineSample[] = [
   {
     id: 8,
     name: "Opaline #8",
-    image: "/opaline-preview/8.gif?v=5",
+    image: "/opaline-preview/8.gif?v=6",
     attributes: [
       { trait_type: "Atelier", value: "Quartz Court" },
       { trait_type: "Vapor", value: "Pale Disc" },
-      { trait_type: "Cast", value: "Beetle" },
+      { trait_type: "Cast", value: "Triggerfish" },
       { trait_type: "Sheen", value: "Oil Film" },
       { trait_type: "Regard", value: "Bloom" },
       { trait_type: "Crest", value: "Thin Diadem" },
@@ -121,11 +121,11 @@ export const opalineSamples: OpalineSample[] = [
   {
     id: 9,
     name: "Opaline #9",
-    image: "/opaline-preview/9.gif?v=5",
+    image: "/opaline-preview/9.gif?v=6",
     attributes: [
       { trait_type: "Atelier", value: "Dusk Chamber" },
       { trait_type: "Vapor", value: "Soft Mist" },
-      { trait_type: "Cast", value: "Ram" },
+      { trait_type: "Cast", value: "Green Moray" },
       { trait_type: "Sheen", value: "Quicksilver Film" },
       { trait_type: "Regard", value: "Gleam" },
       { trait_type: "Crest", value: "Prism Shard" },
@@ -135,11 +135,11 @@ export const opalineSamples: OpalineSample[] = [
   {
     id: 10,
     name: "Opaline #10",
-    image: "/opaline-preview/10.gif?v=5",
+    image: "/opaline-preview/10.gif?v=6",
     attributes: [
       { trait_type: "Atelier", value: "Obsidian Room" },
       { trait_type: "Vapor", value: "Rising Plume" },
-      { trait_type: "Cast", value: "Ibis" },
+      { trait_type: "Cast", value: "Seahorse" },
       { trait_type: "Sheen", value: "Rose Film" },
       { trait_type: "Regard", value: "Void" },
       { trait_type: "Crest", value: "Gold Arc" },
@@ -149,11 +149,11 @@ export const opalineSamples: OpalineSample[] = [
   {
     id: 11,
     name: "Opaline #11",
-    image: "/opaline-preview/11.gif?v=5",
+    image: "/opaline-preview/11.gif?v=6",
     attributes: [
       { trait_type: "Atelier", value: "Ivory Gallery" },
       { trait_type: "Vapor", value: "Glass Motes" },
-      { trait_type: "Cast", value: "Moth" },
+      { trait_type: "Cast", value: "Queen Angel" },
       { trait_type: "Sheen", value: "Prism Film" },
       { trait_type: "Regard", value: "Slit" },
       { trait_type: "Crest", value: "Glass Spine" },
@@ -163,11 +163,11 @@ export const opalineSamples: OpalineSample[] = [
   {
     id: 12,
     name: "Opaline #12",
-    image: "/opaline-preview/12.gif?v=5",
+    image: "/opaline-preview/12.gif?v=6",
     attributes: [
       { trait_type: "Atelier", value: "Brine Hall" },
       { trait_type: "Vapor", value: "Luminous Well" },
-      { trait_type: "Cast", value: "Mantis" },
+      { trait_type: "Cast", value: "Manta" },
       { trait_type: "Sheen", value: "Aurora Film" },
       { trait_type: "Regard", value: "Twin" },
       { trait_type: "Crest", value: "Platinum Band" },
@@ -177,11 +177,11 @@ export const opalineSamples: OpalineSample[] = [
   {
     id: 13,
     name: "Opaline #13",
-    image: "/opaline-preview/13.gif?v=5",
+    image: "/opaline-preview/13.gif?v=6",
     attributes: [
       { trait_type: "Atelier", value: "Wine Vault" },
       { trait_type: "Vapor", value: "Caustic Ribbon" },
-      { trait_type: "Cast", value: "Serpent" },
+      { trait_type: "Cast", value: "Blue Marlin" },
       { trait_type: "Sheen", value: "Peacock Film" },
       { trait_type: "Regard", value: "Quiet" },
       { trait_type: "Crest", value: "Bare Crown" },
@@ -191,11 +191,11 @@ export const opalineSamples: OpalineSample[] = [
   {
     id: 14,
     name: "Opaline #14",
-    image: "/opaline-preview/14.gif?v=5",
+    image: "/opaline-preview/14.gif?v=6",
     attributes: [
       { trait_type: "Atelier", value: "Mercury Wall" },
       { trait_type: "Vapor", value: "Pale Disc" },
-      { trait_type: "Cast", value: "Wyrm" },
+      { trait_type: "Cast", value: "Lionfish" },
       { trait_type: "Sheen", value: "Oil Film" },
       { trait_type: "Regard", value: "Bloom" },
       { trait_type: "Crest", value: "Thin Diadem" },
@@ -205,11 +205,11 @@ export const opalineSamples: OpalineSample[] = [
   {
     id: 15,
     name: "Opaline #15",
-    image: "/opaline-preview/15.gif?v=5",
+    image: "/opaline-preview/15.gif?v=6",
     attributes: [
       { trait_type: "Atelier", value: "Slate Studio" },
       { trait_type: "Vapor", value: "Clear Air" },
-      { trait_type: "Cast", value: "Beetle" },
+      { trait_type: "Cast", value: "Triggerfish" },
       { trait_type: "Sheen", value: "Bare Glass" },
       { trait_type: "Regard", value: "Gleam" },
       { trait_type: "Crest", value: "Prism Shard" },
@@ -219,11 +219,11 @@ export const opalineSamples: OpalineSample[] = [
   {
     id: 16,
     name: "Opaline #16",
-    image: "/opaline-preview/16.gif?v=5",
+    image: "/opaline-preview/16.gif?v=6",
     attributes: [
       { trait_type: "Atelier", value: "Quartz Court" },
       { trait_type: "Vapor", value: "Soft Mist" },
-      { trait_type: "Cast", value: "Ram" },
+      { trait_type: "Cast", value: "Green Moray" },
       { trait_type: "Sheen", value: "Rose Film" },
       { trait_type: "Regard", value: "Void" },
       { trait_type: "Crest", value: "Gold Arc" },

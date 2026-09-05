@@ -16,7 +16,7 @@ export default function OpalineHomePage() {
       <section className="relative h-[420px] overflow-hidden border-b border-border sm:h-[520px]">
         <ApngImage
           src="/brand/banner-opaline.png"
-          alt="Five Opaline glass beasts lined up as portraits"
+          alt="Five Opaline glass reef fish lined up as portraits"
           className="absolute inset-0 size-full object-cover object-[center_40%]"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#0c0d12] via-[#0c0d12]/50 to-transparent" />
@@ -59,7 +59,7 @@ export default function OpalineHomePage() {
         <div className="grid gap-8 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground">The drop</p>
-            <h2 className="mt-2 font-heading text-3xl sm:text-4xl">Eight beasts. Animal glass.</h2>
+            <h2 className="mt-2 font-heading text-3xl sm:text-4xl">Eight fish. Reef glass.</h2>
             <div className="mt-4 space-y-4 text-muted-foreground">
               {opaline.story.split("\n\n").map((paragraph) => (
                 <p key={paragraph.slice(0, 40)}>{paragraph}</p>
@@ -124,7 +124,7 @@ export default function OpalineHomePage() {
               <h2 className="mt-2 font-heading text-4xl">Studio plays layers. The drop flattens them.</h2>
               <p className="mt-4 text-[#e8e4dc]/75">
                 Each trait is its own looping APNG. The studio stacks those files so ateliers, vapors, casts,
-                sheens, regards, crests, and clasps keep the same seated clock. The beast stays locked.
+                sheens, regards, crests, and clasps keep the same seated clock. The fish stays locked.
                 Minted tokens composite the same 12 frames into one GIF OpenSea can list on Base.
               </p>
             </div>

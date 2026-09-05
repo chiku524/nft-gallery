@@ -14,7 +14,7 @@ export type OpalineTraitCategory = {
 };
 
 /** Bump when APNG layers change so the studio does not keep a stale loop. */
-export const OPALINE_ART_VERSION = "opaline-v5";
+export const OPALINE_ART_VERSION = "opaline-v6";
 
 export const OPALINE_FRAMES = 12;
 export const OPALINE_DURATION_MS = 90;
@@ -57,16 +57,16 @@ export const opalineTraitCategories: OpalineTraitCategory[] = [
   {
     id: "cast",
     label: "Cast",
-    blurb: "The crystal animal — stag, serpent, moth, beetle, ram, ibis, wyrm, mantis. Same eye line, eight skulls.",
+    blurb: "The crystal fish — parrotfish, blue marlin, queen angel, lionfish, triggerfish, seahorse, green moray, manta. Same eye line, eight species.",
     traits: [
-      { id: "stag", name: "Stag", image: "/opaline-traits/cast/stag.png", rarity: 18 },
-      { id: "serpent", name: "Serpent", image: "/opaline-traits/cast/serpent.png", rarity: 16 },
-      { id: "moth", name: "Moth", image: "/opaline-traits/cast/moth.png", rarity: 14 },
-      { id: "beetle", name: "Beetle", image: "/opaline-traits/cast/beetle.png", rarity: 14 },
-      { id: "ram", name: "Ram", image: "/opaline-traits/cast/ram.png", rarity: 12 },
-      { id: "ibis", name: "Ibis", image: "/opaline-traits/cast/ibis.png", rarity: 10 },
-      { id: "wyrm", name: "Wyrm", image: "/opaline-traits/cast/wyrm.png", rarity: 8 },
-      { id: "mantis", name: "Mantis", image: "/opaline-traits/cast/mantis.png", rarity: 8 },
+      { id: "parrot", name: "Parrotfish", image: "/opaline-traits/cast/parrot.png", rarity: 18 },
+      { id: "marlin", name: "Blue Marlin", image: "/opaline-traits/cast/marlin.png", rarity: 16 },
+      { id: "angel", name: "Queen Angel", image: "/opaline-traits/cast/angel.png", rarity: 14 },
+      { id: "lion", name: "Lionfish", image: "/opaline-traits/cast/lion.png", rarity: 14 },
+      { id: "trigger", name: "Triggerfish", image: "/opaline-traits/cast/trigger.png", rarity: 12 },
+      { id: "seahorse", name: "Seahorse", image: "/opaline-traits/cast/seahorse.png", rarity: 10 },
+      { id: "moray", name: "Green Moray", image: "/opaline-traits/cast/moray.png", rarity: 8 },
+      { id: "manta", name: "Manta", image: "/opaline-traits/cast/manta.png", rarity: 8 },
     ],
   },
   {
@@ -140,7 +140,7 @@ export function findOpalineTrait(categoryId: OpalineTraitCategory["id"], traitId
 export const defaultOpalineSelection = {
   atelier: "dusk",
   vapor: "disc",
-  cast: "stag",
+  cast: "parrot",
   sheen: "oil",
   regard: "quiet",
   crest: "band",

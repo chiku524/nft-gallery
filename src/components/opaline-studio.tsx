@@ -59,7 +59,7 @@ export function OpalineStudio() {
         <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
           <div>
             <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Layer mixer</p>
-            <h2 className="font-heading text-2xl">Stack a beast</h2>
+            <h2 className="font-heading text-2xl">Stack a fish</h2>
           </div>
           <div className="flex gap-2">
             <Button type="button" variant="secondary" onClick={() => setSelection(randomOpalineSelection())}>

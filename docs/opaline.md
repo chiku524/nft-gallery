@@ -1,10 +1,10 @@
 # Opaline
 
-Looping **smoked-glass PFP GIFs** — eight crystal beasts, dichroic film, editorial studio light. A **5,555-piece** collection built to mint on **Base** (chain ID `8453`) and list on **OpenSea**.
+Looping **smoked-glass PFP GIFs** — eight crystal reef fish, dichroic film, editorial studio light. A **5,555-piece** collection built to mint on **Base** (chain ID `8453`) and list on **OpenSea**.
 
 This collection lives inside **NFT Gallery** at `/opaline`.
 
-The look is cut-glass creatures on a seated clock: stag, serpent, moth, beetle, ram, ibis, wyrm, mantis. Not doodle ink. Not sticker cutouts. Not an oval-egg body. OpenSea does **not** assemble collections from trait layers. For a Drop you upload finished GIFs (max 10,000) plus a CSV. The generator flattens the live stack onto one 12-frame clock, then bakes those APNGs to GIF.
+The look is cut-glass reef fish on a seated clock: parrotfish, blue marlin, queen angelfish, lionfish, triggerfish, seahorse, green moray, manta. Not doodle ink. Not sticker cutouts. Not an oval-egg body. OpenSea does **not** assemble collections from trait layers. For a Drop you upload finished GIFs (max 10,000) plus a CSV. The generator flattens the live stack onto one 12-frame clock, then bakes those APNGs to GIF.
 
 ## What’s in the drop
 
@@ -37,9 +37,9 @@ Every layer is already seated on the 512 canvas. Studio and the generator only s
 6. Crest
 7. Clasp
 
-Eight beasts share one eye line. Vapor hangs behind the animal. Crests and clasps never edit the cast file — they composite on the same crown and throat. Light walks the facets. Film shifts hue. Minted tokens composite frame *n* of every layer so the marketplace file stays in sync.
+Eight reef fish share one eye line. Vapor hangs behind the animal. Crests and clasps never edit the cast file — they composite on the same crown and throat. Light walks the facets. Film shifts hue. Minted tokens composite frame *n* of every layer so the marketplace file stays in sync.
 
-Token 1 is the signature look — dusk chamber, pale disc, stag, oil film, quiet regard, platinum band, glass drop.
+Token 1 is the signature look — dusk chamber, pale disc, parrotfish, oil film, quiet regard, platinum band, glass drop.
 
 ## Why APNG in the studio, GIF on OpenSea
 
