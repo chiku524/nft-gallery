@@ -1,0 +1,13 @@
+{
+  "hash": "9751cd9b486f628d612ce81966a1d9b3e9068f211b03def53d371a2946b8e7e5",
+  "count": 500,
+  "frames": 12,
+  "durationMs": 90,
+  "size": 512,
+  "bytes": 32382278,
+  "openseaLimitBytes": 10737418240,
+  "underOpenseaLimit": true,
+  "chain": "ink",
+  "chainId": 57073,
+  "edition": "open"
+}

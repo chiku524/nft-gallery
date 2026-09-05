@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { AddChainButton } from "@/components/add-chain-button";
+import { ApngImage } from "@/components/apng-image";
 import { Button } from "@/components/ui/button";
 import { galleria } from "@/data/galleria";
 
@@ -15,11 +16,11 @@ const steps = [
   },
   {
     title: `Create an Open Edition collection on ${galleria.chain.name}`,
-    body: `In OpenSea Studio, create a collection on ${galleria.chain.name} (chain ID ${galleria.chain.chainId}) and add 500 open-edition items — one per artwork. Do not set unique 1:1 supply. Paste the collection description from public/metadata/galleria-description.txt. Upload logo-galleria.png, featured-galleria.jpg, banner-galleria-opensea.jpg, and collection-galleria.gif from public/brand. Mint price is ${galleria.mintPriceEth} ETH.`,
+    body: `In OpenSea Studio, create a collection on ${galleria.chain.name} (chain ID ${galleria.chain.chainId}) and add 500 open-edition items — one per artwork. Do not set unique 1:1 supply. Paste the collection description, upload the listing kit from public/brand, and set mint to ${galleria.mintPriceEth} ETH.`,
   },
   {
     title: "Bulk-upload GIFs + CSV",
-    body: "Upload every file in generated/galleria/gifs (1.gif–500.gif) and generated/galleria/opensea-metadata.csv. The CSV uses OpenSea’s required headers (tokenID, name, description, file_name, attributes[Trait]). GIF is the media OpenSea will play.",
+    body: "Upload every file in generated/galleria/gifs (1.gif–500.gif) and generated/galleria/GOI-opensea-drop.csv. The CSV uses OpenSea’s required headers (tokenID, name, description, file_name, attributes[Trait]). GIF is the media OpenSea will play.",
   },
 ];
 
@@ -55,6 +56,44 @@ export default function GalleriaLaunchPage() {
         ))}
       </dl>
 
+      <div className="mt-10 rounded-[1.75rem] border bg-card p-6 sm:p-8">
+        <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground">Project description</p>
+        <h2 className="mt-2 font-heading text-2xl">Paste this into OpenSea.</h2>
+        <p className="mt-2 text-sm text-muted-foreground">
+          Collection name {galleria.name}. Symbol {galleria.symbol}. Category Art. The same copy lives in{" "}
+          <code className="rounded bg-secondary px-1.5 py-0.5 text-xs">public/metadata/galleria-description.txt</code>.
+        </p>
+        <pre className="mt-5 overflow-x-auto whitespace-pre-wrap rounded-2xl bg-background p-4 text-sm leading-relaxed text-foreground">
+          {galleria.story}
+        </pre>
+      </div>
+
+      <div className="mt-8 rounded-[1.75rem] border bg-card p-6 sm:p-8">
+        <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground">Listing kit</p>
+        <h2 className="mt-2 font-heading text-2xl">Logo, featured, banner, collection GIF.</h2>
+        <p className="mt-2 text-sm text-muted-foreground">
+          OpenSea wants a square logo, a 3:2 featured image, and a wide 4:1 banner — three different pictures,
+          no type on the marketplace images. The site hero can keep the titled banner.
+        </p>
+        <ul className="mt-6 grid gap-4 sm:grid-cols-2">
+          {[
+            ["Logo", "public/brand/logo-galleria.png", "512×512, 1:1", "/brand/logo-galleria.png"],
+            ["Featured", "public/brand/featured-galleria.jpg", "1200×800, 3:2", "/brand/featured-galleria.jpg"],
+            ["OpenSea banner", "public/brand/banner-galleria-opensea.jpg", "2800×700, 4:1", "/brand/banner-galleria-opensea.jpg"],
+            ["Collection GIF", "public/brand/collection-galleria.gif", "1000×1000 loop", "/brand/collection-galleria.gif"],
+          ].map(([label, path, size, src]) => (
+            <li key={label} className="overflow-hidden rounded-2xl border bg-background">
+              <ApngImage src={src} alt={`${label} preview`} className="aspect-[3/2] w-full object-cover" />
+              <div className="space-y-1 p-3">
+                <p className="font-medium">{label}</p>
+                <p className="text-xs text-muted-foreground">{size}</p>
+                <p className="break-all text-xs text-muted-foreground">{path}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+
       <div className="mt-8 rounded-2xl border bg-card p-5">
         <p className="font-heading text-xl">Wallet setup</p>
         <p className="mt-2 text-sm text-muted-foreground">
@@ -86,6 +125,8 @@ export default function GalleriaLaunchPage() {
         <a className="underline" href={galleria.opensea.metadataGuide} target="_blank" rel="noreferrer">
           Preparing metadata for your drop
         </a>
+        . Kit notes:{" "}
+        <code className="rounded bg-secondary px-1.5 py-0.5 text-xs">generated/galleria/README.md</code>
         . Ink network docs:{" "}
         <a className="underline" href={galleria.chain.docs} target="_blank" rel="noreferrer">
           docs.inkonchain.com

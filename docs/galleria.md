@@ -27,4 +27,17 @@ Adding a work means adding a new file under `scripts/atelier/works/` that export
 
 ## OpenSea Open Editions
 
-OpenSea plays GIF, PNG, JPG, and SVG — not APNG. Upload `generated/galleria/gifs` (1.gif–500.gif) plus `generated/galleria/opensea-metadata.csv`. Create 500 open-edition items on Ink (chain ID `57073`), one per artwork. Mint price is 0.008 ETH.
+OpenSea plays GIF, PNG, JPG, and SVG — not APNG. The listing kit is in `generated/galleria/`:
+
+- GIFs in `gifs/` (`1.gif`–`500.gif`)
+- `GOI-opensea-drop.csv` (same headers as `opensea-metadata.csv`)
+- Paste-ready copy in `public/metadata/galleria-description.txt`
+- Marketplace images in `public/brand/` — logo 512×512, featured 1200×800, OpenSea banner 2800×700, collection GIF 1000×1000. No type on those four.
+
+Create 500 open-edition items on Ink (chain ID `57073`), one per artwork. Do not set unique 1:1 supply. Mint price is 0.008 ETH.
+
+Rebuild listing images and kit sidecars without repainting:
+
+```bash
+python3 scripts/build_galleria.py --kit
+```

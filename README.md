@@ -170,7 +170,7 @@ Requires Python 3 with Pillow and NumPy. See `docs/loopkins.md`, `docs/afterimag
 
 `npm run generate:groovy` builds traits, brand, and the 16-GIF preview plus sample metadata. Bake every marketplace GIF with `python3 scripts/generate_groovy.py --all`.
 
-`npm run generate:galleria` paints all 500 independent salon works, brand assets, and the OpenSea GIF + CSV pack.
+`npm run generate:galleria` paints all 500 independent salon works, brand assets, and the OpenSea GIF + CSV pack. Refresh listing images and kit notes with `python3 scripts/build_galleria.py --kit`.
 
 ## Deploy
 
