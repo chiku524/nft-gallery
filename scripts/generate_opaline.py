@@ -144,7 +144,7 @@ def token_meta(token_id: int, selection: dict[str, str]) -> dict:
     ]
     return {
         "name": f"Opaline #{token_id}",
-        "description": "A looping smoked-glass portrait from Opaline. Faceted crystal. Dichroic film. One clock. Minted on Base.",
+        "description": "A looping smoked-glass beast from Opaline. Crystal creature. Dichroic film. One clock. Minted on Base.",
         "image": f"{token_id}.gif",
         "attributes": attributes,
         "animation_loop": True,

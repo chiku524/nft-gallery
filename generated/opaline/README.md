@@ -18,9 +18,9 @@ Same file: `public/metadata/opaline-description.txt`
 ```
 Opaline.
 
-A 10,000-piece collection of looping smoked-glass PFP GIFs on Base. Each portrait is stacked from six layers — atelier, cast, sheen, regard, crest, and clasp — then flattened onto one 12-frame GIF. The head is a cut crystal: flat crown, angular jaw, column neck, trapezoid shoulders. Light walks the facets. Film shifts hue. Inclusions dim.
+A 10,000-piece collection of looping smoked-glass PFP GIFs on Base. Each portrait is stacked from six layers — atelier, cast, sheen, regard, crest, and clasp — then flattened onto one 12-frame GIF. Eight beasts share one seated face: stag, serpent, moth, beetle, ram, ibis, wyrm, and mantis. Light walks the facets. Film shifts hue. Inclusions dim.
 
-Eight glass recipes. Seven films, including bare glass. No charcoal outline. No sticker cutout. The bust stays seated. One shared clock.
+Crystal creatures. Seven films, including bare glass. No charcoal outline. No sticker cutout. The beast stays seated. One shared clock.
 
 Minting on Base (chain ID 8453). Gas is ETH.
 ```

@@ -55,7 +55,7 @@ export default function OpalineGalleryPage() {
         {extraPreviews.map((id) => (
           <article key={id} className="overflow-hidden rounded-2xl border bg-card">
             <ApngImage
-              src={`/opaline-preview/${id}.gif?v=1`}
+              src={`/opaline-preview/${id}.gif?v=2`}
               alt={`Opaline #${id}`}
               width={512}
               height={512}

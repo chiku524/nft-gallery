@@ -17,7 +17,7 @@ export default function OpalineTraitsPage() {
       <p className="mt-3 max-w-2xl text-muted-foreground">
         Each file is an APNG on a {opaline.canvas}×{opaline.canvas} canvas: {OPALINE_FRAMES} frames,{" "}
         {OPALINE_DURATION_MS}ms, looping. Studio stacks atelier → cast → sheen → regard → crest → clasp.
-        Light walks the facets. Crests sit on one crown. The bust stays put.
+        Light walks the facets. Crests sit on one crown. The beast stays put.
       </p>
 
       <div className="mt-10 space-y-14">

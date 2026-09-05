@@ -14,7 +14,7 @@ export type OpalineTraitCategory = {
 };
 
 /** Bump when APNG layers change so the studio does not keep a stale loop. */
-export const OPALINE_ART_VERSION = "opaline-v1";
+export const OPALINE_ART_VERSION = "opaline-v3";
 
 export const OPALINE_FRAMES = 12;
 export const OPALINE_DURATION_MS = 90;
@@ -43,16 +43,16 @@ export const opalineTraitCategories: OpalineTraitCategory[] = [
   {
     id: "cast",
     label: "Cast",
-    blurb: "The seated crystal bust — eight smoked-glass recipes. Flat crown, angular jaw, column neck.",
+    blurb: "The seated crystal beast — stag, serpent, moth, beetle, ram, ibis, wyrm, mantis. Same eye line, eight silhouettes.",
     traits: [
-      { id: "smoke", name: "Smoke Glass", image: "/opaline-traits/cast/smoke.png", rarity: 18 },
-      { id: "champagne", name: "Champagne Glass", image: "/opaline-traits/cast/champagne.png", rarity: 16 },
-      { id: "amethyst", name: "Amethyst Glass", image: "/opaline-traits/cast/amethyst.png", rarity: 14 },
-      { id: "tide", name: "Tide Glass", image: "/opaline-traits/cast/tide.png", rarity: 14 },
-      { id: "ink", name: "Ink Glass", image: "/opaline-traits/cast/ink.png", rarity: 12 },
-      { id: "frost", name: "Frost Glass", image: "/opaline-traits/cast/frost.png", rarity: 10 },
-      { id: "ember", name: "Ember Glass", image: "/opaline-traits/cast/ember.png", rarity: 8 },
-      { id: "jade", name: "Jade Glass", image: "/opaline-traits/cast/jade.png", rarity: 8 },
+      { id: "stag", name: "Stag", image: "/opaline-traits/cast/stag.png", rarity: 18 },
+      { id: "serpent", name: "Serpent", image: "/opaline-traits/cast/serpent.png", rarity: 16 },
+      { id: "moth", name: "Moth", image: "/opaline-traits/cast/moth.png", rarity: 14 },
+      { id: "beetle", name: "Beetle", image: "/opaline-traits/cast/beetle.png", rarity: 14 },
+      { id: "ram", name: "Ram", image: "/opaline-traits/cast/ram.png", rarity: 12 },
+      { id: "ibis", name: "Ibis", image: "/opaline-traits/cast/ibis.png", rarity: 10 },
+      { id: "wyrm", name: "Wyrm", image: "/opaline-traits/cast/wyrm.png", rarity: 8 },
+      { id: "mantis", name: "Mantis", image: "/opaline-traits/cast/mantis.png", rarity: 8 },
     ],
   },
   {
@@ -85,7 +85,7 @@ export const opalineTraitCategories: OpalineTraitCategory[] = [
   {
     id: "crest",
     label: "Crest",
-    blurb: "Seated on the flat crown — platinum band, prism shard, gold arc, glass spine, thin diadem.",
+    blurb: "Seated on the shared crown — platinum band, prism shard, gold arc, glass spine, thin diadem.",
     noneLabel: "Bare Crown",
     traits: [
       { id: "band", name: "Platinum Band", image: "/opaline-traits/crest/band.png", rarity: 18 },
@@ -125,7 +125,7 @@ export function findOpalineTrait(categoryId: OpalineTraitCategory["id"], traitId
 
 export const defaultOpalineSelection = {
   atelier: "dusk",
-  cast: "smoke",
+  cast: "stag",
   sheen: "oil",
   regard: "quiet",
   crest: "band",

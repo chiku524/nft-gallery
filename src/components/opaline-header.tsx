@@ -40,7 +40,7 @@ export function OpalineHeader() {
           <div className="leading-tight">
             <p className="font-heading text-lg tracking-tight">{opaline.name}</p>
             <p className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
-              Smoked-glass PFPs
+              Glass-beast PFPs
             </p>
           </div>
         </Link>
