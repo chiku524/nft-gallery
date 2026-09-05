@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { OpenSeaLink } from "@/components/opensea-link";
 import { gallery, projects } from "@/data/projects";
 
@@ -11,14 +10,6 @@ export function GalleryFooter() {
           <p className="text-sm text-muted-foreground">{gallery.tagline}</p>
         </div>
         <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm">
-          <Link href="/studio" className="hover:underline">
-            Studio
-          </Link>
-          {projects.map((project) => (
-            <Link key={project.slug} href={project.href} className="hover:underline">
-              {project.name}
-            </Link>
-          ))}
           {projects.flatMap((project) =>
             project.openseaListings.map((listing) => (
               <OpenSeaLink key={`${project.slug}-${listing.href}`} href={listing.href} className="hover:underline">
