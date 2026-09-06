@@ -1,0 +1,18 @@
+{
+  "name": "Kamiori",
+  "size": 512,
+  "frames": 12,
+  "durationMs": 90,
+  "format": "apng",
+  "loop": 0,
+  "order": [
+    "pulp",
+    "fleck",
+    "fold",
+    "score",
+    "facet",
+    "seal",
+    "draft"
+  ],
+  "note": "Each trait is a looping APNG. Studio stacks them live. Minted tokens flatten to GIF. Eight origami folds share one envelope; seals and drafts never edit the fold file."
+}

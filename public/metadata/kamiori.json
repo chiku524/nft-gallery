@@ -1,0 +1,12 @@
+{
+  "name": "Kamiori",
+  "symbol": "KMIO",
+  "description": "Kamiori is an 8,888-piece collection of looping origami PFP GIFs. Each sheet is stacked from seven plates \u2014 pulp, fleck, fold, score, facet, seal, and draft \u2014 then flattened onto one 12-frame GIF. Polygonal facets. Valley and mountain scores. A corner that lifts.",
+  "image": "/brand/collection-kamiori.gif",
+  "featured_image": "/brand/featured-kamiori.jpg",
+  "banner_image": "/brand/banner-kamiori.png",
+  "opensea_banner_image": "/brand/banner-kamiori-opensea.jpg",
+  "external_link": "/kamiori",
+  "seller_fee_basis_points": 500,
+  "fee_recipient": "0x0000000000000000000000000000000000000000"
+}

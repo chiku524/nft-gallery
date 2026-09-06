@@ -1,0 +1,562 @@
+[
+  {
+    "id": 1,
+    "name": "Fold #1",
+    "image": "/kamiori-preview/1.gif",
+    "attributes": [
+      {
+        "trait_type": "Pulp",
+        "value": "Cream Washi"
+      },
+      {
+        "trait_type": "Fleck",
+        "value": "Kozo Fiber"
+      },
+      {
+        "trait_type": "Fold",
+        "value": "Crane"
+      },
+      {
+        "trait_type": "Score",
+        "value": "Mountain Fold"
+      },
+      {
+        "trait_type": "Facet",
+        "value": "Bare Facet"
+      },
+      {
+        "trait_type": "Seal",
+        "value": "Hanko"
+      },
+      {
+        "trait_type": "Draft",
+        "value": "Corner Lift"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Fold #2",
+    "image": "/kamiori-preview/2.gif",
+    "attributes": [
+      {
+        "trait_type": "Pulp",
+        "value": "Indigo Washi"
+      },
+      {
+        "trait_type": "Fleck",
+        "value": "Gold Dust"
+      },
+      {
+        "trait_type": "Fold",
+        "value": "Frog"
+      },
+      {
+        "trait_type": "Score",
+        "value": "Valley Fold"
+      },
+      {
+        "trait_type": "Facet",
+        "value": "Body Wash"
+      },
+      {
+        "trait_type": "Seal",
+        "value": "Twin Cord"
+      },
+      {
+        "trait_type": "Draft",
+        "value": "Flutter"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Fold #3",
+    "image": "/kamiori-preview/3.gif",
+    "attributes": [
+      {
+        "trait_type": "Pulp",
+        "value": "Moss Washi"
+      },
+      {
+        "trait_type": "Fleck",
+        "value": "Plain Sheet"
+      },
+      {
+        "trait_type": "Fold",
+        "value": "Beetle"
+      },
+      {
+        "trait_type": "Score",
+        "value": "Crease Diagram"
+      },
+      {
+        "trait_type": "Facet",
+        "value": "Band Wash"
+      },
+      {
+        "trait_type": "Seal",
+        "value": "Mizuhiki Loop"
+      },
+      {
+        "trait_type": "Draft",
+        "value": "Still Air"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Fold #4",
+    "image": "/kamiori-preview/4.gif",
+    "attributes": [
+      {
+        "trait_type": "Pulp",
+        "value": "Peach Washi"
+      },
+      {
+        "trait_type": "Fleck",
+        "value": "Speckle"
+      },
+      {
+        "trait_type": "Fold",
+        "value": "Hare"
+      },
+      {
+        "trait_type": "Score",
+        "value": "No Score"
+      },
+      {
+        "trait_type": "Facet",
+        "value": "Tip Wash"
+      },
+      {
+        "trait_type": "Seal",
+        "value": "No Seal"
+      },
+      {
+        "trait_type": "Draft",
+        "value": "Loose Scrap"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Fold #5",
+    "image": "/kamiori-preview/5.gif",
+    "attributes": [
+      {
+        "trait_type": "Pulp",
+        "value": "Gold Washi"
+      },
+      {
+        "trait_type": "Fleck",
+        "value": "Laid Stripe"
+      },
+      {
+        "trait_type": "Fold",
+        "value": "Boat"
+      },
+      {
+        "trait_type": "Score",
+        "value": "Valley Fold"
+      },
+      {
+        "trait_type": "Facet",
+        "value": "Wing Wash"
+      },
+      {
+        "trait_type": "Seal",
+        "value": "Tassel"
+      },
+      {
+        "trait_type": "Draft",
+        "value": "Gust"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Fold #6",
+    "image": "/kamiori-preview/6.gif",
+    "attributes": [
+      {
+        "trait_type": "Pulp",
+        "value": "Vermilion Washi"
+      },
+      {
+        "trait_type": "Fleck",
+        "value": "Cloud Wash"
+      },
+      {
+        "trait_type": "Fold",
+        "value": "Fan"
+      },
+      {
+        "trait_type": "Score",
+        "value": "Radial Score"
+      },
+      {
+        "trait_type": "Facet",
+        "value": "Gore Wash"
+      },
+      {
+        "trait_type": "Seal",
+        "value": "Hanko"
+      },
+      {
+        "trait_type": "Draft",
+        "value": "Corner Lift"
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Fold #7",
+    "image": "/kamiori-preview/7.gif",
+    "attributes": [
+      {
+        "trait_type": "Pulp",
+        "value": "Frost Washi"
+      },
+      {
+        "trait_type": "Fleck",
+        "value": "Kozo Fiber"
+      },
+      {
+        "trait_type": "Fold",
+        "value": "Kite"
+      },
+      {
+        "trait_type": "Score",
+        "value": "Grid Score"
+      },
+      {
+        "trait_type": "Facet",
+        "value": "Bare Facet"
+      },
+      {
+        "trait_type": "Seal",
+        "value": "Twin Cord"
+      },
+      {
+        "trait_type": "Draft",
+        "value": "Flutter"
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "name": "Fold #8",
+    "image": "/kamiori-preview/8.gif",
+    "attributes": [
+      {
+        "trait_type": "Pulp",
+        "value": "Ink Washi"
+      },
+      {
+        "trait_type": "Fleck",
+        "value": "Gold Dust"
+      },
+      {
+        "trait_type": "Fold",
+        "value": "Lotus"
+      },
+      {
+        "trait_type": "Score",
+        "value": "Mountain Fold"
+      },
+      {
+        "trait_type": "Facet",
+        "value": "Body Wash"
+      },
+      {
+        "trait_type": "Seal",
+        "value": "Mizuhiki Loop"
+      },
+      {
+        "trait_type": "Draft",
+        "value": "Still Air"
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "name": "Fold #9",
+    "image": "/kamiori-preview/9.gif",
+    "attributes": [
+      {
+        "trait_type": "Pulp",
+        "value": "Cream Washi"
+      },
+      {
+        "trait_type": "Fleck",
+        "value": "Plain Sheet"
+      },
+      {
+        "trait_type": "Fold",
+        "value": "Boat"
+      },
+      {
+        "trait_type": "Score",
+        "value": "Crease Diagram"
+      },
+      {
+        "trait_type": "Facet",
+        "value": "Band Wash"
+      },
+      {
+        "trait_type": "Seal",
+        "value": "No Seal"
+      },
+      {
+        "trait_type": "Draft",
+        "value": "Loose Scrap"
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "name": "Fold #10",
+    "image": "/kamiori-preview/10.gif",
+    "attributes": [
+      {
+        "trait_type": "Pulp",
+        "value": "Indigo Washi"
+      },
+      {
+        "trait_type": "Fleck",
+        "value": "Speckle"
+      },
+      {
+        "trait_type": "Fold",
+        "value": "Crane"
+      },
+      {
+        "trait_type": "Score",
+        "value": "No Score"
+      },
+      {
+        "trait_type": "Facet",
+        "value": "Wing Wash"
+      },
+      {
+        "trait_type": "Seal",
+        "value": "Tassel"
+      },
+      {
+        "trait_type": "Draft",
+        "value": "Gust"
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "name": "Fold #11",
+    "image": "/kamiori-preview/11.gif",
+    "attributes": [
+      {
+        "trait_type": "Pulp",
+        "value": "Moss Washi"
+      },
+      {
+        "trait_type": "Fleck",
+        "value": "Laid Stripe"
+      },
+      {
+        "trait_type": "Fold",
+        "value": "Hare"
+      },
+      {
+        "trait_type": "Score",
+        "value": "Radial Score"
+      },
+      {
+        "trait_type": "Facet",
+        "value": "Tip Wash"
+      },
+      {
+        "trait_type": "Seal",
+        "value": "Hanko"
+      },
+      {
+        "trait_type": "Draft",
+        "value": "Corner Lift"
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "name": "Fold #12",
+    "image": "/kamiori-preview/12.gif",
+    "attributes": [
+      {
+        "trait_type": "Pulp",
+        "value": "Peach Washi"
+      },
+      {
+        "trait_type": "Fleck",
+        "value": "Cloud Wash"
+      },
+      {
+        "trait_type": "Fold",
+        "value": "Frog"
+      },
+      {
+        "trait_type": "Score",
+        "value": "Grid Score"
+      },
+      {
+        "trait_type": "Facet",
+        "value": "Bare Facet"
+      },
+      {
+        "trait_type": "Seal",
+        "value": "Twin Cord"
+      },
+      {
+        "trait_type": "Draft",
+        "value": "Flutter"
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "name": "Fold #13",
+    "image": "/kamiori-preview/13.gif",
+    "attributes": [
+      {
+        "trait_type": "Pulp",
+        "value": "Gold Washi"
+      },
+      {
+        "trait_type": "Fleck",
+        "value": "Kozo Fiber"
+      },
+      {
+        "trait_type": "Fold",
+        "value": "Lotus"
+      },
+      {
+        "trait_type": "Score",
+        "value": "Valley Fold"
+      },
+      {
+        "trait_type": "Facet",
+        "value": "Gore Wash"
+      },
+      {
+        "trait_type": "Seal",
+        "value": "No Seal"
+      },
+      {
+        "trait_type": "Draft",
+        "value": "Still Air"
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "name": "Fold #14",
+    "image": "/kamiori-preview/14.gif",
+    "attributes": [
+      {
+        "trait_type": "Pulp",
+        "value": "Vermilion Washi"
+      },
+      {
+        "trait_type": "Fleck",
+        "value": "Gold Dust"
+      },
+      {
+        "trait_type": "Fold",
+        "value": "Kite"
+      },
+      {
+        "trait_type": "Score",
+        "value": "Mountain Fold"
+      },
+      {
+        "trait_type": "Facet",
+        "value": "Body Wash"
+      },
+      {
+        "trait_type": "Seal",
+        "value": "Mizuhiki Loop"
+      },
+      {
+        "trait_type": "Draft",
+        "value": "Loose Scrap"
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "name": "Fold #15",
+    "image": "/kamiori-preview/15.gif",
+    "attributes": [
+      {
+        "trait_type": "Pulp",
+        "value": "Frost Washi"
+      },
+      {
+        "trait_type": "Fleck",
+        "value": "Plain Sheet"
+      },
+      {
+        "trait_type": "Fold",
+        "value": "Beetle"
+      },
+      {
+        "trait_type": "Score",
+        "value": "Crease Diagram"
+      },
+      {
+        "trait_type": "Facet",
+        "value": "Wing Wash"
+      },
+      {
+        "trait_type": "Seal",
+        "value": "Tassel"
+      },
+      {
+        "trait_type": "Draft",
+        "value": "Gust"
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "name": "Fold #16",
+    "image": "/kamiori-preview/16.gif",
+    "attributes": [
+      {
+        "trait_type": "Pulp",
+        "value": "Ink Washi"
+      },
+      {
+        "trait_type": "Fleck",
+        "value": "Speckle"
+      },
+      {
+        "trait_type": "Fold",
+        "value": "Fan"
+      },
+      {
+        "trait_type": "Score",
+        "value": "No Score"
+      },
+      {
+        "trait_type": "Facet",
+        "value": "Band Wash"
+      },
+      {
+        "trait_type": "Seal",
+        "value": "Hanko"
+      },
+      {
+        "trait_type": "Draft",
+        "value": "Corner Lift"
+      }
+    ]
+  }
+]
