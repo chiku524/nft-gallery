@@ -1,0 +1,562 @@
+[
+  {
+    "id": 1,
+    "name": "Shade #1",
+    "image": "/umbra-preview/1.gif",
+    "attributes": [
+      {
+        "trait_type": "Cloth",
+        "value": "Parchment Screen"
+      },
+      {
+        "trait_type": "Ember",
+        "value": "Oil Lamp"
+      },
+      {
+        "trait_type": "Cast",
+        "value": "Clown"
+      },
+      {
+        "trait_type": "Hinge",
+        "value": "Brass Brad"
+      },
+      {
+        "trait_type": "Cutwork",
+        "value": "Dot Lace"
+      },
+      {
+        "trait_type": "Leaf",
+        "value": "Gold Rim"
+      },
+      {
+        "trait_type": "Soot",
+        "value": "Soot Motes"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Shade #2",
+    "image": "/umbra-preview/2.gif",
+    "attributes": [
+      {
+        "trait_type": "Cloth",
+        "value": "Dusk Screen"
+      },
+      {
+        "trait_type": "Ember",
+        "value": "Coal Glow"
+      },
+      {
+        "trait_type": "Cast",
+        "value": "Knight"
+      },
+      {
+        "trait_type": "Hinge",
+        "value": "Iron Brad"
+      },
+      {
+        "trait_type": "Cutwork",
+        "value": "Solid Hide"
+      },
+      {
+        "trait_type": "Leaf",
+        "value": "Gold Tips"
+      },
+      {
+        "trait_type": "Soot",
+        "value": "Spark Rise"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Shade #3",
+    "image": "/umbra-preview/3.gif",
+    "attributes": [
+      {
+        "trait_type": "Cloth",
+        "value": "Saffron Screen"
+      },
+      {
+        "trait_type": "Ember",
+        "value": "Dawn Glow"
+      },
+      {
+        "trait_type": "Cast",
+        "value": "Bride"
+      },
+      {
+        "trait_type": "Hinge",
+        "value": "Pearl Brad"
+      },
+      {
+        "trait_type": "Cutwork",
+        "value": "Star Lace"
+      },
+      {
+        "trait_type": "Leaf",
+        "value": "Full Leaf"
+      },
+      {
+        "trait_type": "Soot",
+        "value": "Smoke Ribbon"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Shade #4",
+    "image": "/umbra-preview/4.gif",
+    "attributes": [
+      {
+        "trait_type": "Cloth",
+        "value": "Indigo Screen"
+      },
+      {
+        "trait_type": "Ember",
+        "value": "Moon Glow"
+      },
+      {
+        "trait_type": "Cast",
+        "value": "Ogre"
+      },
+      {
+        "trait_type": "Hinge",
+        "value": "Rust Brad"
+      },
+      {
+        "trait_type": "Cutwork",
+        "value": "Diamond Lace"
+      },
+      {
+        "trait_type": "Leaf",
+        "value": "Bare Hide"
+      },
+      {
+        "trait_type": "Soot",
+        "value": "Lamp Haze"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Shade #5",
+    "image": "/umbra-preview/5.gif",
+    "attributes": [
+      {
+        "trait_type": "Cloth",
+        "value": "Rose Screen"
+      },
+      {
+        "trait_type": "Ember",
+        "value": "Hearth Glow"
+      },
+      {
+        "trait_type": "Cast",
+        "value": "Sage"
+      },
+      {
+        "trait_type": "Hinge",
+        "value": "Brass Brad"
+      },
+      {
+        "trait_type": "Cutwork",
+        "value": "Vine Lace"
+      },
+      {
+        "trait_type": "Leaf",
+        "value": "Gold Rim"
+      },
+      {
+        "trait_type": "Soot",
+        "value": "Clear Air"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Shade #6",
+    "image": "/umbra-preview/6.gif",
+    "attributes": [
+      {
+        "trait_type": "Cloth",
+        "value": "Brass Screen"
+      },
+      {
+        "trait_type": "Ember",
+        "value": "Forge Glow"
+      },
+      {
+        "trait_type": "Cast",
+        "value": "Harper"
+      },
+      {
+        "trait_type": "Hinge",
+        "value": "No Hinge"
+      },
+      {
+        "trait_type": "Cutwork",
+        "value": "Dot Lace"
+      },
+      {
+        "trait_type": "Leaf",
+        "value": "Gold Dust"
+      },
+      {
+        "trait_type": "Soot",
+        "value": "Soot Motes"
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Shade #7",
+    "image": "/umbra-preview/7.gif",
+    "attributes": [
+      {
+        "trait_type": "Cloth",
+        "value": "Smoke Screen"
+      },
+      {
+        "trait_type": "Ember",
+        "value": "Oil Lamp"
+      },
+      {
+        "trait_type": "Cast",
+        "value": "Bird"
+      },
+      {
+        "trait_type": "Hinge",
+        "value": "Pearl Brad"
+      },
+      {
+        "trait_type": "Cutwork",
+        "value": "Star Lace"
+      },
+      {
+        "trait_type": "Leaf",
+        "value": "Gold Tips"
+      },
+      {
+        "trait_type": "Soot",
+        "value": "Smoke Ribbon"
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "name": "Shade #8",
+    "image": "/umbra-preview/8.gif",
+    "attributes": [
+      {
+        "trait_type": "Cloth",
+        "value": "Ash Screen"
+      },
+      {
+        "trait_type": "Ember",
+        "value": "Coal Glow"
+      },
+      {
+        "trait_type": "Cast",
+        "value": "Demon"
+      },
+      {
+        "trait_type": "Hinge",
+        "value": "Iron Brad"
+      },
+      {
+        "trait_type": "Cutwork",
+        "value": "Solid Hide"
+      },
+      {
+        "trait_type": "Leaf",
+        "value": "Full Leaf"
+      },
+      {
+        "trait_type": "Soot",
+        "value": "Spark Rise"
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "name": "Shade #9",
+    "image": "/umbra-preview/9.gif",
+    "attributes": [
+      {
+        "trait_type": "Cloth",
+        "value": "Parchment Screen"
+      },
+      {
+        "trait_type": "Ember",
+        "value": "Hearth Glow"
+      },
+      {
+        "trait_type": "Cast",
+        "value": "Knight"
+      },
+      {
+        "trait_type": "Hinge",
+        "value": "Brass Brad"
+      },
+      {
+        "trait_type": "Cutwork",
+        "value": "Vine Lace"
+      },
+      {
+        "trait_type": "Leaf",
+        "value": "Bare Hide"
+      },
+      {
+        "trait_type": "Soot",
+        "value": "Lamp Haze"
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "name": "Shade #10",
+    "image": "/umbra-preview/10.gif",
+    "attributes": [
+      {
+        "trait_type": "Cloth",
+        "value": "Dusk Screen"
+      },
+      {
+        "trait_type": "Ember",
+        "value": "Dawn Glow"
+      },
+      {
+        "trait_type": "Cast",
+        "value": "Clown"
+      },
+      {
+        "trait_type": "Hinge",
+        "value": "No Hinge"
+      },
+      {
+        "trait_type": "Cutwork",
+        "value": "Diamond Lace"
+      },
+      {
+        "trait_type": "Leaf",
+        "value": "Gold Dust"
+      },
+      {
+        "trait_type": "Soot",
+        "value": "Soot Motes"
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "name": "Shade #11",
+    "image": "/umbra-preview/11.gif",
+    "attributes": [
+      {
+        "trait_type": "Cloth",
+        "value": "Saffron Screen"
+      },
+      {
+        "trait_type": "Ember",
+        "value": "Moon Glow"
+      },
+      {
+        "trait_type": "Cast",
+        "value": "Ogre"
+      },
+      {
+        "trait_type": "Hinge",
+        "value": "Pearl Brad"
+      },
+      {
+        "trait_type": "Cutwork",
+        "value": "Dot Lace"
+      },
+      {
+        "trait_type": "Leaf",
+        "value": "Gold Rim"
+      },
+      {
+        "trait_type": "Soot",
+        "value": "Clear Air"
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "name": "Shade #12",
+    "image": "/umbra-preview/12.gif",
+    "attributes": [
+      {
+        "trait_type": "Cloth",
+        "value": "Indigo Screen"
+      },
+      {
+        "trait_type": "Ember",
+        "value": "Forge Glow"
+      },
+      {
+        "trait_type": "Cast",
+        "value": "Bride"
+      },
+      {
+        "trait_type": "Hinge",
+        "value": "Rust Brad"
+      },
+      {
+        "trait_type": "Cutwork",
+        "value": "Solid Hide"
+      },
+      {
+        "trait_type": "Leaf",
+        "value": "Gold Tips"
+      },
+      {
+        "trait_type": "Soot",
+        "value": "Spark Rise"
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "name": "Shade #13",
+    "image": "/umbra-preview/13.gif",
+    "attributes": [
+      {
+        "trait_type": "Cloth",
+        "value": "Rose Screen"
+      },
+      {
+        "trait_type": "Ember",
+        "value": "Oil Lamp"
+      },
+      {
+        "trait_type": "Cast",
+        "value": "Bird"
+      },
+      {
+        "trait_type": "Hinge",
+        "value": "Brass Brad"
+      },
+      {
+        "trait_type": "Cutwork",
+        "value": "Star Lace"
+      },
+      {
+        "trait_type": "Leaf",
+        "value": "Full Leaf"
+      },
+      {
+        "trait_type": "Soot",
+        "value": "Smoke Ribbon"
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "name": "Shade #14",
+    "image": "/umbra-preview/14.gif",
+    "attributes": [
+      {
+        "trait_type": "Cloth",
+        "value": "Brass Screen"
+      },
+      {
+        "trait_type": "Ember",
+        "value": "Coal Glow"
+      },
+      {
+        "trait_type": "Cast",
+        "value": "Sage"
+      },
+      {
+        "trait_type": "Hinge",
+        "value": "Iron Brad"
+      },
+      {
+        "trait_type": "Cutwork",
+        "value": "Diamond Lace"
+      },
+      {
+        "trait_type": "Leaf",
+        "value": "Bare Hide"
+      },
+      {
+        "trait_type": "Soot",
+        "value": "Lamp Haze"
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "name": "Shade #15",
+    "image": "/umbra-preview/15.gif",
+    "attributes": [
+      {
+        "trait_type": "Cloth",
+        "value": "Smoke Screen"
+      },
+      {
+        "trait_type": "Ember",
+        "value": "Hearth Glow"
+      },
+      {
+        "trait_type": "Cast",
+        "value": "Demon"
+      },
+      {
+        "trait_type": "Hinge",
+        "value": "Pearl Brad"
+      },
+      {
+        "trait_type": "Cutwork",
+        "value": "Vine Lace"
+      },
+      {
+        "trait_type": "Leaf",
+        "value": "Gold Dust"
+      },
+      {
+        "trait_type": "Soot",
+        "value": "Soot Motes"
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "name": "Shade #16",
+    "image": "/umbra-preview/16.gif",
+    "attributes": [
+      {
+        "trait_type": "Cloth",
+        "value": "Ash Screen"
+      },
+      {
+        "trait_type": "Ember",
+        "value": "Dawn Glow"
+      },
+      {
+        "trait_type": "Cast",
+        "value": "Harper"
+      },
+      {
+        "trait_type": "Hinge",
+        "value": "Rust Brad"
+      },
+      {
+        "trait_type": "Cutwork",
+        "value": "Star Lace"
+      },
+      {
+        "trait_type": "Leaf",
+        "value": "Gold Rim"
+      },
+      {
+        "trait_type": "Soot",
+        "value": "Spark Rise"
+      }
+    ]
+  }
+]

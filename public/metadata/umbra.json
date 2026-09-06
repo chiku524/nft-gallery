@@ -1,0 +1,12 @@
+{
+  "name": "Umbra",
+  "symbol": "UMBR",
+  "description": "Umbra is an 8,888-piece collection of looping shadow-puppet PFP GIFs. Each shade is stacked from seven plates \u2014 cloth, ember, cast, hinge, cutwork, leaf, and soot \u2014 then flattened onto one 12-frame GIF. Leather silhouettes. Brass brads. A lamp that dances with the limbs.",
+  "image": "/brand/collection-umbra.gif",
+  "featured_image": "/brand/featured-umbra.jpg",
+  "banner_image": "/brand/banner-umbra.png",
+  "opensea_banner_image": "/brand/banner-umbra-opensea.jpg",
+  "external_link": "/umbra",
+  "seller_fee_basis_points": 500,
+  "fee_recipient": "0x0000000000000000000000000000000000000000"
+}

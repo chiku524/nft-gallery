@@ -26,6 +26,8 @@ import { perfinSamples } from "@/data/perfin-gallery";
 import { perfin } from "@/data/perfin";
 import { kamioriSamples } from "@/data/kamiori-gallery";
 import { kamiori } from "@/data/kamiori";
+import { umbraSamples } from "@/data/umbra-gallery";
+import { umbra } from "@/data/umbra";
 import { galleria, galleriaWorks } from "@/data/galleria";
 import { sampleMints } from "@/data/gallery";
 import { wicklingSamples } from "@/data/wickling-gallery";
@@ -41,6 +43,7 @@ import { OPALINE_BASE } from "@/lib/opaline";
 import { RISOTA_BASE } from "@/lib/risota";
 import { PERFIN_BASE } from "@/lib/perfin";
 import { KAMIORI_BASE } from "@/lib/kamiori";
+import { UMBRA_BASE } from "@/lib/umbra";
 import { GALLERIA_BASE } from "@/lib/galleria";
 import { HOODKINS_BASE } from "@/lib/hoodkins";
 import { INKLINGS_BASE } from "@/lib/inklings";
@@ -53,7 +56,7 @@ export const gallery = {
   name: "NFT Gallery",
   tagline: "Collections on the wall. One drop at a time.",
   description:
-    "NFT Gallery is a house of on-chain collections — each drop keeps its own studio, traits, and launch path. Loopkins is the layered PFP. Afterimages is the 1:1 APNG drop. Inklings is the cartoon-squid PFP GIF drop on Ink. Wicklings is the paper-lantern PFP GIF drop on Arbitrum. Purrkins is the chibi-cat PFP GIF drop on HyperEVM. Hoodkins is the chibi-raccoon PFP GIF drop on Robinhood Chain. BirbNation is the round-borb robin PFP GIF drop on Robinhood Chain. Halloween Shook'ums is the sheet-ghost PFP GIF drop on Abstract. Foxins is the bold-graphic fox PFP GIF drop on Base. Santa Paws is the giving chibi-cat PFP GIF drop on Base. Scribblins is the doodle-critter PFP GIF drop on Base. Groovy Nation is the cartoon musical-note PFP GIF drop on Robinhood Chain. Galleria On Ink is the salon of 500 open-edition 1:1 looping paintings on Ink. Opaline is the smoked-glass reef-fish PFP GIF drop on Base. Risota is the risograph dancing-character PFP GIF drop on Robinhood Chain. Perfin is the engraved postage-stamp PFP GIF drop on Robinhood Chain. Kamiori is the origami paper-fold PFP GIF drop on Robinhood Chain.",
+    "NFT Gallery is a house of on-chain collections — each drop keeps its own studio, traits, and launch path. Loopkins is the layered PFP. Afterimages is the 1:1 APNG drop. Inklings is the cartoon-squid PFP GIF drop on Ink. Wicklings is the paper-lantern PFP GIF drop on Arbitrum. Purrkins is the chibi-cat PFP GIF drop on HyperEVM. Hoodkins is the chibi-raccoon PFP GIF drop on Robinhood Chain. BirbNation is the round-borb robin PFP GIF drop on Robinhood Chain. Halloween Shook'ums is the sheet-ghost PFP GIF drop on Abstract. Foxins is the bold-graphic fox PFP GIF drop on Base. Santa Paws is the giving chibi-cat PFP GIF drop on Base. Scribblins is the doodle-critter PFP GIF drop on Base. Groovy Nation is the cartoon musical-note PFP GIF drop on Robinhood Chain. Galleria On Ink is the salon of 500 open-edition 1:1 looping paintings on Ink. Opaline is the smoked-glass reef-fish PFP GIF drop on Base. Risota is the risograph dancing-character PFP GIF drop on Robinhood Chain. Perfin is the engraved postage-stamp PFP GIF drop on Robinhood Chain. Kamiori is the origami paper-fold PFP GIF drop on Robinhood Chain. Umbra is the shadow-puppet dancer PFP GIF drop on Robinhood Chain.",
 } as const;
 
 export const projects = [
@@ -373,12 +376,31 @@ export const projects = [
     supply: kamiori.supply,
     cover: "/brand/banner-kamiori.png",
     thumb: kamioriSamples[0].image,
-    status: "new on the wall" as const,
+    status: "on the wall" as const,
     kind: "layered-pfp" as const,
     previews: kamioriSamples.map((mint) => mint.image),
     studioHref: "/kamiori/studio" as const,
     opensea: kamiori.opensea.collection,
     openseaListings: openSeaListings(kamiori.opensea, kamiori.chain.name),
+  },
+  {
+    slug: "umbra",
+    href: UMBRA_BASE,
+    name: umbra.name,
+    symbol: umbra.symbol,
+    tagline: umbra.tagline,
+    description: umbra.description,
+    chain: umbra.chain.name,
+    chainId: umbra.chain.chainId,
+    supply: umbra.supply,
+    cover: "/brand/banner-umbra.png",
+    thumb: umbraSamples[0].image,
+    status: "new on the wall" as const,
+    kind: "layered-pfp" as const,
+    previews: umbraSamples.map((mint) => mint.image),
+    studioHref: "/umbra/studio" as const,
+    opensea: umbra.opensea.collection,
+    openseaListings: openSeaListings(umbra.opensea, umbra.chain.name),
   },
 ] as const;
 

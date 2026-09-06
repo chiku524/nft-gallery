@@ -22,6 +22,7 @@
     "generate:risota": "python3 scripts/build_risota.py && python3 scripts/generate_risota.py",
     "generate:perfin": "python3 scripts/build_perfin.py && python3 scripts/generate_perfin.py",
     "generate:kamiori": "python3 scripts/build_kamiori.py && python3 scripts/generate_kamiori.py",
+    "generate:umbra": "python3 scripts/build_umbra.py && python3 scripts/generate_umbra.py",
     "generate:galleria": "python3 scripts/build_galleria.py",
     "generate:gifs": "python3 scripts/gif_bake.py --afterimages && python3 scripts/gif_bake.py --loopkins --all && python3 scripts/gif_bake.py --inklings --all && python3 scripts/gif_bake.py --wicklings --all && python3 scripts/gif_bake.py --purrkins --all && python3 scripts/gif_bake.py --birbs --all && python3 scripts/gif_bake.py --shookums --all && python3 scripts/gif_bake.py --foxins --all && python3 scripts/gif_bake.py --santapaws --all && python3 scripts/gif_bake.py --scribblins --all && python3 scripts/gif_bake.py --groovy --all && python3 scripts/gif_bake.py --opaline --all"
   },
