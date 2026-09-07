@@ -178,6 +178,47 @@ def glass(a: Pt, b: Pt, bulge: float = 0.0, n: int = 14, overlap: float = 3.5) -
     return pts
 
 
+def smoothstep(u: float) -> float:
+    u = max(0.0, min(1.0, u))
+    return u * u * (3.0 - 2.0 * u)
+
+
+def perp_of(a: Pt, b: Pt, scale: float) -> Pt:
+    dx, dy = b[0] - a[0], b[1] - a[1]
+    ln = math.hypot(dx, dy) or 1.0
+    return (-dy / ln * scale, dx / ln * scale)
+
+
+def bezier_through(a: Pt, mid: Pt, b: Pt, n: int = 22) -> list[Pt]:
+    """One glass tube that actually bends through the elbow or knee."""
+    ctrl = (2 * mid[0] - 0.5 * (a[0] + b[0]), 2 * mid[1] - 0.5 * (a[1] + b[1]))
+    pts: list[Pt] = []
+    for i in range(n):
+        u = i / (n - 1)
+        om = 1.0 - u
+        pts.append(
+            (
+                om * om * a[0] + 2 * om * u * ctrl[0] + u * u * b[0],
+                om * om * a[1] + 2 * om * u * ctrl[1] + u * u * b[1],
+            )
+        )
+    return pts
+
+
+def cubic(a: Pt, c1: Pt, c2: Pt, b: Pt, n: int = 24) -> list[Pt]:
+    pts: list[Pt] = []
+    for i in range(n):
+        u = i / (n - 1)
+        om = 1.0 - u
+        pts.append(
+            (
+                om**3 * a[0] + 3 * om * om * u * c1[0] + 3 * om * u * u * c2[0] + u**3 * b[0],
+                om**3 * a[1] + 3 * om * om * u * c1[1] + 3 * om * u * u * c2[1] + u**3 * b[1],
+            )
+        )
+    return pts
+
+
 def two_bone_ik(origin: Pt, target: Pt, upper: float, lower: float, bend: float) -> tuple[Pt, Pt]:
     dx = target[0] - origin[0]
     dy = target[1] - origin[1]
@@ -239,16 +280,27 @@ def seat_figure(paths: list[list[Pt]], tips: list[Pt], welds: list[Pt]) -> tuple
 
 
 def bend_figure(kind: str, frame: int) -> tuple[list[list[Pt]], list[Pt], list[Pt]]:
-    """One connected stick: hip → neck → head, arms from collarbone, legs from pelvis."""
-    t = clock(frame)
+    """Connected neon dancer: joints parented, tubes drawn as one bent glass path."""
+    t = clock(frame) + {
+        "sway": 0.85,
+        "kick": 0.55,
+        "wave": 1.05,
+        "hop": 0.7,
+        "point": 0.9,
+        "dip": 0.65,
+        "spin": 0.4,
+        "split": 0.75,
+    }.get(kind, 0.0)
     s = math.sin(t)
     c = math.cos(t)
-    hip: Pt = (256.0, 300.0)
+    s2 = math.sin(t * 2)
+    s_lag = math.sin(t - 0.45)
+    hip: Pt = (256.0, 322.0)
     lean = 0.0
     head_tilt = 0.0
-    sh_w, hip_w = 15.0, 8.0
+    sh_w, hip_w = 8.0, 6.0
     depth = 1.0
-    torso_bulge = 10.0
+    arch = 16.0
     l_arm = (DOWN + 0.55, 0.4)
     r_arm = (DOWN - 0.55, -0.4)
     wave_r = False
@@ -260,90 +312,105 @@ def bend_figure(kind: str, frame: int) -> tuple[list[list[Pt]], list[Pt], list[P
     l_knee_out, r_knee_out = 1.0, -1.0
 
     if kind == "sway":
-        hip = (256.0 + s * 20.0, 300.0 + abs(s) * 6.0)
-        lean = s * 0.32
-        head_tilt = s * 0.2
-        l_foot = (232.0 + s * 10.0, FLOOR_Y)
-        r_foot = (280.0 + s * 10.0, FLOOR_Y)
-        l_arm = (DOWN + 0.4 - s * 1.15, 0.5)
-        r_arm = (DOWN - 0.4 - s * 1.15, -0.5)
+        hip = (256.0 + s * 32.0, 320.0 + abs(s) * 14.0 - s2 * 8.0)
+        lean = s * 0.5
+        head_tilt = s_lag * 0.4
+        arch = 22.0 + 8.0 * c
+        l_foot = (226.0 + s * 16.0, FLOOR_Y)
+        r_foot = (286.0 + s * 16.0, FLOOR_Y)
+        l_arm = (DOWN + 0.45 - max(0.0, s) * 2.2, 0.95 + 0.25 * c)
+        r_arm = (DOWN - 0.45 + max(0.0, -s) * 2.2, -0.95 - 0.25 * c)
     elif kind == "kick":
-        k = (s + 1.0) * 0.5
-        hip = (248.0 - k * 6.0, 298.0 - k * 8.0)
-        lean = -0.2 - k * 0.2
-        head_tilt = -0.1
-        l_foot = (226.0, FLOOR_Y)
+        k = smoothstep((s + 1.0) * 0.5)
+        hip = (248.0 - k * 12.0, 318.0 - k * 16.0 + (1.0 - k) * abs(s2) * 8.0)
+        lean = -0.18 - k * 0.38
+        head_tilt = -0.12 - k * 0.1
+        arch = 14.0 + 10.0 * k
+        l_foot = (222.0, FLOOR_Y - (1.0 - k) * 5.0)
         r_ik = False
-        r_fk = (DOWN - 0.2 - k * 1.9, 0.12 - k * 0.28)
-        l_arm = (UP + 0.4 + k * 0.35, 0.32)
-        r_arm = (DOWN - 0.15 + k * 0.55, -0.48)
+        r_fk = (DOWN - 0.12 - k * 2.2, 1.15 - k * 1.35)
+        l_arm = (UP + 0.2 + k * 0.55, 0.85 + 0.15 * c)
+        r_arm = (DOWN + 0.15 - k * 0.35, -0.95)
     elif kind == "wave":
-        hip = (256.0 + s * 6.0, 300.0)
-        lean = 0.1 + s * 0.08
-        head_tilt = 0.12
-        l_foot = (236.0, FLOOR_Y)
-        r_foot = (276.0, FLOOR_Y)
-        l_arm = (DOWN + 0.5, 0.42)
+        hip = (256.0 + s * 12.0, 320.0 - abs(s2) * 10.0)
+        lean = 0.2 + s * 0.16
+        head_tilt = 0.18 + s_lag * 0.16
+        arch = 18.0 + 6.0 * s
+        l_foot = (234.0 + s * 6.0, FLOOR_Y)
+        r_foot = (278.0 + s * 6.0, FLOOR_Y)
+        l_arm = (DOWN + 0.55 + s * 0.55, 0.95 + 0.2 * c)
         r_arm = (DOWN - 0.2, -0.2)
         wave_r = True
     elif kind == "hop":
-        lift = max(0.0, s) * 46.0
-        squat = max(0.0, -s) * 16.0
-        tuck = max(0.0, s) * 20.0
-        hip = (256.0, 300.0 - lift + squat)
-        lean = s * 0.06
-        l_foot = (234.0, FLOOR_Y - lift + tuck)
-        r_foot = (278.0, FLOOR_Y - lift + tuck)
-        reach = max(0.0, s)
-        l_arm = (UP + 0.55 - reach * 0.95, 0.38)
-        r_arm = (UP - 0.55 + reach * 0.95, -0.38)
+        lift = max(0.0, s) ** 1.15 * 56.0
+        squat = max(0.0, -s) * 24.0
+        tuck = max(0.0, s) * 30.0
+        hip = (256.0 + s_lag * 8.0, 322.0 - lift + squat)
+        lean = s * 0.14
+        head_tilt = s_lag * 0.22
+        arch = 12.0 + 10.0 * max(0.0, s)
+        l_foot = (230.0, FLOOR_Y - lift + tuck)
+        r_foot = (282.0, FLOOR_Y - lift + tuck)
+        reach = max(0.0, s_lag)
+        l_arm = (UP + 1.05 - reach * 0.85, 0.85)
+        r_arm = (UP - 1.05 + reach * 0.85, -0.85)
     elif kind == "point":
-        hip = (246.0 + s * 4.0, 302.0)
-        lean = 0.52 + s * 0.08
-        head_tilt = 0.22
-        l_foot = (214.0, FLOOR_Y)
-        r_foot = (270.0 + s * 6.0, FLOOR_Y - 8.0)
-        l_arm = (math.pi * 0.82, 0.22)
-        r_arm = (-0.42 + s * 0.08, 0.06)
+        hip = (240.0 + s * 8.0, 322.0 - abs(s) * 8.0)
+        lean = 0.64 + s * 0.14
+        head_tilt = 0.28 + s_lag * 0.12
+        arch = 20.0 + 6.0 * s
+        l_foot = (208.0, FLOOR_Y)
+        r_foot = (274.0 + s * 12.0, FLOOR_Y - 14.0 - abs(s) * 8.0)
+        l_arm = (math.pi * 0.88 + s * 0.2, 0.7 + 0.15 * c)
+        r_arm = (-0.58 + s * 0.14, 0.18)
     elif kind == "dip":
-        hip = (266.0 + s * 6.0, 312.0)
-        lean = 0.72 + s * 0.1
-        head_tilt = 0.38
-        torso_bulge = 18.0
-        l_foot = (198.0, FLOOR_Y)
-        r_foot = (328.0, FLOOR_Y - 4.0)
-        l_arm = (DOWN + 0.15, 0.28)
-        r_arm = (UP - 0.45, -0.48)
+        hip = (276.0 + s * 12.0, 328.0 - abs(s) * 8.0)
+        lean = 0.88 + s * 0.2
+        head_tilt = 0.58 + s_lag * 0.22
+        arch = 30.0 + 10.0 * s
+        l_foot = (190.0, FLOOR_Y)
+        r_foot = (334.0, FLOOR_Y - 6.0)
+        l_arm = (DOWN + 0.4 + s * 0.5, 0.85)
+        r_arm = (UP - 0.15 + s * 0.35, -0.95)
     elif kind == "spin":
         depth = c
-        hip = (256.0, 300.0 + abs(s) * 4.0)
-        lean = s * 0.1
-        head_tilt = s * 0.14
-        l_foot = (244.0 + s * 16.0, FLOOR_Y - max(0.0, -c) * 12.0)
-        r_foot = (268.0 - s * 16.0, FLOOR_Y - max(0.0, c) * 12.0)
-        l_arm = (DOWN + 0.35 + s * 1.55, 0.48)
-        r_arm = (DOWN - 0.35 + s * 1.55, -0.48)
+        hip = (256.0 + s * 10.0, 320.0 + abs(s) * 10.0)
+        lean = s * 0.24
+        head_tilt = s_lag * 0.28
+        arch = 16.0 + 8.0 * s
+        l_foot = (240.0 + s * 22.0, FLOOR_Y - max(0.0, -c) * 18.0)
+        r_foot = (272.0 - s * 22.0, FLOOR_Y - max(0.0, c) * 18.0)
+        l_arm = (math.pi + 0.15 * s, 0.75 + 0.15 * c)
+        r_arm = (-0.05 * s, -0.75 - 0.15 * c)
     else:
         reach = THIGH + SHIN - 6.0
-        spread = 108.0
+        spread = 112.0 + abs(s) * 12.0
         drop = math.sqrt(max(64.0, reach * reach - spread * spread))
-        hip = (256.0, FLOOR_Y - drop + abs(s) * 4.0)
-        lean = s * 0.08
-        head_tilt = s * 0.06
-        l_foot = (256.0 - spread - s * 6.0, FLOOR_Y)
-        r_foot = (256.0 + spread + s * 6.0, FLOOR_Y)
-        l_arm = (UP + 0.55, 0.22)
-        r_arm = (UP - 0.55, -0.22)
+        hip = (256.0, FLOOR_Y - drop + abs(s2) * 8.0)
+        lean = s * 0.12
+        head_tilt = s_lag * 0.14
+        arch = 14.0
+        l_foot = (256.0 - spread - s * 8.0, FLOOR_Y)
+        r_foot = (256.0 + spread + s * 8.0, FLOOR_Y)
+        l_arm = (UP + 0.7 + s * 0.4, 0.7)
+        r_arm = (UP - 0.7 - s * 0.4, -0.7)
         l_knee_out, r_knee_out = -1.0, 1.0
 
-    dw = math.copysign(max(0.28, abs(depth)), depth)
+    dw = math.copysign(max(0.32, abs(depth)), depth)
     neck = polar(hip, UP + lean, TORSO_LEN)
     neck_into_head = polar(neck, UP + lean, 10.0)
-    sh_anchor = lerp(hip, neck, 0.78)
+    ox, oy = perp_of(hip, neck, arch * (s if kind != "spin" else 1.0))
+    if kind == "spin":
+        ox, oy = perp_of(hip, neck, arch * s)
+    waist = lerp(hip, neck, 0.36)
+    chest = lerp(hip, neck, 0.72)
+    waist = (waist[0] + ox, waist[1] + oy)
+    chest = (chest[0] - ox * 0.55, chest[1] - oy * 0.55)
+    sh_anchor = chest
     l_sh = (sh_anchor[0] - sh_w * dw, sh_anchor[1] + 2.0)
     r_sh = (sh_anchor[0] + sh_w * dw, sh_anchor[1] + 2.0)
-    l_hip = (hip[0] - hip_w * dw, hip[1])
-    r_hip = (hip[0] + hip_w * dw, hip[1])
+    l_hip = (hip[0] - hip_w * dw, hip[1] + 2.0)
+    r_hip = (hip[0] + hip_w * dw, hip[1] + 2.0)
 
     if l_ik:
         l_knee, l_end = two_bone_ik(l_hip, l_foot, THIGH, SHIN, l_knee_out)
@@ -357,48 +424,37 @@ def bend_figure(kind: str, frame: int) -> tuple[list[list[Pt]], list[Pt], list[P
     l_elb, l_hand = two_bone_fk(l_sh, l_arm[0], UPPER_ARM, l_arm[1], FOREARM)
     wave_mid: Pt | None = None
     if wave_r:
-        base = -0.2
-        r_elb = polar(r_sh, base + math.sin(t) * 0.18, UPPER_ARM)
-        wave_mid = polar(r_elb, base + 0.15 + math.sin(t + 1.1) * 0.85, FOREARM * 0.7)
-        r_hand = polar(wave_mid, base + math.sin(t + 2.2) * 1.05, 32.0)
+        base = -0.28
+        r_elb = polar(r_sh, base + s * 0.4, UPPER_ARM)
+        wave_mid = polar(r_elb, base + 0.45 + math.sin(t + 0.9) * 1.2, FOREARM * 0.78)
+        r_hand = polar(wave_mid, base + 0.15 + math.sin(t + 1.9) * 1.3, 38.0)
     else:
         r_elb, r_hand = two_bone_fk(r_sh, r_arm[0], UPPER_ARM, r_arm[1], FOREARM)
 
-    tubes = [
-        head_loop(neck, head_tilt),
-        glass(hip, neck_into_head, torso_bulge, n=18, overlap=0.0),
-        glass(l_sh, r_sh, 2.0, n=10, overlap=4.0),
-        glass(l_hip, r_hip, 1.0, n=8, overlap=4.0),
-        glass(l_sh, l_elb, 6.0),
-        glass(l_elb, l_hand, 5.0),
-        glass(r_sh, r_elb, -6.0),
-        glass(l_hip, l_knee, 7.0),
-        glass(l_knee, l_end, 5.0),
-        glass(r_hip, r_knee, -7.0),
-        glass(r_knee, r_end, -5.0),
-    ]
+    squash = 1.0 + 0.08 * s2
+    head = head_loop(neck, head_tilt, rx=22.0 * squash, ry=28.0 / squash)
     if wave_mid is not None:
-        tubes.append(glass(r_elb, wave_mid, 8.0 + 6.0 * math.sin(t)))
-        tubes.append(glass(wave_mid, r_hand, 6.0 + 5.0 * math.cos(t)))
+        right_arm = cubic(chest, r_elb, wave_mid, r_hand, n=28)
     else:
-        tubes.append(glass(r_elb, r_hand, -5.0))
-
+        right_arm = bezier_through(chest, r_elb, r_hand)
+    tubes = [
+        head,
+        cubic(hip, waist, chest, neck_into_head),
+        bezier_through(chest, l_elb, l_hand),
+        right_arm,
+        bezier_through(hip, l_knee, l_end),
+        bezier_through(hip, r_knee, r_end),
+    ]
     tips = [l_hand, r_hand, l_end, r_end]
-    welds = [neck, hip, l_sh, r_sh, l_elb, r_elb, l_knee, r_knee, l_hip, r_hip]
-    if wave_mid is not None:
-        welds.append(wave_mid)
+    welds: list[Pt] = []
     return seat_figure(tubes, tips, welds)
 
 
 def paint_bend(kind: str, frame: int) -> Image.Image:
     layer = blank()
-    tubes, tips, welds = bend_figure(kind, frame)
+    tubes, tips, _welds = bend_figure(kind, frame)
     glow_polylines(layer, tubes, (236, 244, 255), core=8, halo=26, halo_alpha=80, electrodes=False)
     draw = ImageDraw.Draw(layer)
-    for x, y in welds:
-        ix, iy = int(x), int(y)
-        draw.ellipse((ix - 5, iy - 5, ix + 5, iy + 5), fill=(236, 244, 255, 255))
-        draw.ellipse((ix - 2, iy - 2, ix + 2, iy + 2), fill=(255, 252, 240, 255))
     for x, y in tips:
         electrode(draw, int(x), int(y), core=8)
     return layer
