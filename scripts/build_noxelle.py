@@ -83,12 +83,14 @@ def arr_to_image(rgb: np.ndarray, alpha: np.ndarray | None = None) -> Image.Imag
 Pt = tuple[float, float]
 DOWN = math.pi / 2
 UP = -math.pi / 2
-TORSO_LEN = 124.0
-UPPER_ARM = 54.0
-FOREARM = 50.0
-THIGH = 66.0
-SHIN = 70.0
+TORSO_LEN = 112.0
+UPPER_ARM = 58.0
+FOREARM = 52.0
+THIGH = 58.0
+SHIN = 62.0
 FLOOR_Y = 436.0
+BODY_TOP = 48.0
+BODY_BOT = 92.0
 
 
 def polar(point: Pt, ang: float, length: float) -> Pt:
@@ -183,10 +185,30 @@ def smoothstep(u: float) -> float:
     return u * u * (3.0 - 2.0 * u)
 
 
-def perp_of(a: Pt, b: Pt, scale: float) -> Pt:
+def unit_perp(a: Pt, b: Pt) -> Pt:
     dx, dy = b[0] - a[0], b[1] - a[1]
     ln = math.hypot(dx, dy) or 1.0
-    return (-dy / ln * scale, dx / ln * scale)
+    return (-dy / ln, dx / ln)
+
+
+def trap_corners(hip: Pt, neck: Pt, top_w: float, bot_w: float, depth: float) -> tuple[Pt, Pt, Pt, Pt]:
+    """Wide glass hull: top-left, top-right, bot-right, bot-left. Arms dock on top, legs on bottom."""
+    px, py = unit_perp(hip, neck)
+    dw = depth
+    top_l = (neck[0] + px * top_w * dw, neck[1] + py * top_w * dw)
+    top_r = (neck[0] - px * top_w * dw, neck[1] - py * top_w * dw)
+    bot_l = (hip[0] + px * bot_w * dw, hip[1] + py * bot_w * dw)
+    bot_r = (hip[0] - px * bot_w * dw, hip[1] - py * bot_w * dw)
+    return top_l, top_r, bot_r, bot_l
+
+
+def hull_loop(top_l: Pt, top_r: Pt, bot_r: Pt, bot_l: Pt, side_bulge: float) -> list[Pt]:
+    """Closed trapezoid of bent glass — a sign body, not a sticker fill."""
+    top = glass(top_l, top_r, bulge=3.0, n=12, overlap=0.0)
+    right = glass(top_r, bot_r, bulge=side_bulge, n=16, overlap=5.0)
+    bot = glass(bot_r, bot_l, bulge=4.0, n=12, overlap=5.0)
+    left = glass(bot_l, top_l, bulge=-side_bulge, n=16, overlap=5.0)
+    return top + right[1:] + bot[1:] + left[1:] + [top_l]
 
 
 def bezier_through(a: Pt, mid: Pt, b: Pt, n: int = 22) -> list[Pt]:
@@ -295,49 +317,48 @@ def bend_figure(kind: str, frame: int) -> tuple[list[list[Pt]], list[Pt], list[P
     c = math.cos(t)
     s2 = math.sin(t * 2)
     s_lag = math.sin(t - 0.45)
-    hip: Pt = (256.0, 322.0)
+    hip: Pt = (256.0, 338.0)
     lean = 0.0
     head_tilt = 0.0
-    sh_w, hip_w = 8.0, 6.0
     depth = 1.0
     arch = 16.0
     l_arm = (DOWN + 0.55, 0.4)
     r_arm = (DOWN - 0.55, -0.4)
     wave_r = False
-    l_foot: Pt = (238.0, FLOOR_Y)
-    r_foot: Pt = (274.0, FLOOR_Y)
+    l_foot: Pt = (176.0, FLOOR_Y)
+    r_foot: Pt = (336.0, FLOOR_Y)
     l_ik = r_ik = True
     l_fk = (DOWN + 0.12, 0.22)
     r_fk = (DOWN - 0.12, -0.22)
     l_knee_out, r_knee_out = 1.0, -1.0
 
     if kind == "sway":
-        hip = (256.0 + s * 32.0, 320.0 + abs(s) * 14.0 - s2 * 8.0)
-        lean = s * 0.5
+        hip = (256.0 + s * 28.0, 336.0 + abs(s) * 12.0 - s2 * 8.0)
+        lean = s * 0.42
         head_tilt = s_lag * 0.4
         arch = 22.0 + 8.0 * c
-        l_foot = (226.0 + s * 16.0, FLOOR_Y)
-        r_foot = (286.0 + s * 16.0, FLOOR_Y)
+        l_foot = (168.0 + s * 18.0, FLOOR_Y)
+        r_foot = (344.0 + s * 18.0, FLOOR_Y)
         l_arm = (DOWN + 0.45 - max(0.0, s) * 2.2, 0.95 + 0.25 * c)
         r_arm = (DOWN - 0.45 + max(0.0, -s) * 2.2, -0.95 - 0.25 * c)
     elif kind == "kick":
         k = smoothstep((s + 1.0) * 0.5)
-        hip = (248.0 - k * 12.0, 318.0 - k * 16.0 + (1.0 - k) * abs(s2) * 8.0)
-        lean = -0.18 - k * 0.38
+        hip = (248.0 - k * 12.0, 332.0 - k * 16.0 + (1.0 - k) * abs(s2) * 8.0)
+        lean = -0.16 - k * 0.32
         head_tilt = -0.12 - k * 0.1
         arch = 14.0 + 10.0 * k
-        l_foot = (222.0, FLOOR_Y - (1.0 - k) * 5.0)
+        l_foot = (168.0, FLOOR_Y - (1.0 - k) * 5.0)
         r_ik = False
         r_fk = (DOWN - 0.12 - k * 2.2, 1.15 - k * 1.35)
         l_arm = (UP + 0.2 + k * 0.55, 0.85 + 0.15 * c)
         r_arm = (DOWN + 0.15 - k * 0.35, -0.95)
     elif kind == "wave":
-        hip = (256.0 + s * 12.0, 320.0 - abs(s2) * 10.0)
-        lean = 0.2 + s * 0.16
+        hip = (256.0 + s * 12.0, 336.0 - abs(s2) * 10.0)
+        lean = 0.16 + s * 0.14
         head_tilt = 0.18 + s_lag * 0.16
         arch = 18.0 + 6.0 * s
-        l_foot = (234.0 + s * 6.0, FLOOR_Y)
-        r_foot = (278.0 + s * 6.0, FLOOR_Y)
+        l_foot = (172.0 + s * 8.0, FLOOR_Y)
+        r_foot = (340.0 + s * 8.0, FLOOR_Y)
         l_arm = (DOWN + 0.55 + s * 0.55, 0.95 + 0.2 * c)
         r_arm = (DOWN - 0.2, -0.2)
         wave_r = True
@@ -345,41 +366,41 @@ def bend_figure(kind: str, frame: int) -> tuple[list[list[Pt]], list[Pt], list[P
         lift = max(0.0, s) ** 1.15 * 56.0
         squat = max(0.0, -s) * 24.0
         tuck = max(0.0, s) * 30.0
-        hip = (256.0 + s_lag * 8.0, 322.0 - lift + squat)
-        lean = s * 0.14
+        hip = (256.0 + s_lag * 8.0, 338.0 - lift + squat)
+        lean = s * 0.12
         head_tilt = s_lag * 0.22
         arch = 12.0 + 10.0 * max(0.0, s)
-        l_foot = (230.0, FLOOR_Y - lift + tuck)
-        r_foot = (282.0, FLOOR_Y - lift + tuck)
+        l_foot = (172.0, FLOOR_Y - lift + tuck)
+        r_foot = (340.0, FLOOR_Y - lift + tuck)
         reach = max(0.0, s_lag)
         l_arm = (UP + 1.05 - reach * 0.85, 0.85)
         r_arm = (UP - 1.05 + reach * 0.85, -0.85)
     elif kind == "point":
-        hip = (240.0 + s * 8.0, 322.0 - abs(s) * 8.0)
-        lean = 0.64 + s * 0.14
+        hip = (244.0 + s * 8.0, 338.0 - abs(s) * 8.0)
+        lean = 0.52 + s * 0.12
         head_tilt = 0.28 + s_lag * 0.12
         arch = 20.0 + 6.0 * s
-        l_foot = (208.0, FLOOR_Y)
-        r_foot = (274.0 + s * 12.0, FLOOR_Y - 14.0 - abs(s) * 8.0)
+        l_foot = (158.0, FLOOR_Y)
+        r_foot = (328.0 + s * 12.0, FLOOR_Y - 14.0 - abs(s) * 8.0)
         l_arm = (math.pi * 0.88 + s * 0.2, 0.7 + 0.15 * c)
         r_arm = (-0.58 + s * 0.14, 0.18)
     elif kind == "dip":
-        hip = (276.0 + s * 12.0, 328.0 - abs(s) * 8.0)
-        lean = 0.88 + s * 0.2
-        head_tilt = 0.58 + s_lag * 0.22
-        arch = 30.0 + 10.0 * s
-        l_foot = (190.0, FLOOR_Y)
-        r_foot = (334.0, FLOOR_Y - 6.0)
+        hip = (268.0 + s * 12.0, 342.0 - abs(s) * 8.0)
+        lean = 0.72 + s * 0.16
+        head_tilt = 0.5 + s_lag * 0.22
+        arch = 26.0 + 8.0 * s
+        l_foot = (148.0, FLOOR_Y)
+        r_foot = (356.0, FLOOR_Y - 6.0)
         l_arm = (DOWN + 0.4 + s * 0.5, 0.85)
         r_arm = (UP - 0.15 + s * 0.35, -0.95)
     elif kind == "spin":
         depth = c
-        hip = (256.0 + s * 10.0, 320.0 + abs(s) * 10.0)
-        lean = s * 0.24
+        hip = (256.0 + s * 10.0, 336.0 + abs(s) * 10.0)
+        lean = s * 0.2
         head_tilt = s_lag * 0.28
         arch = 16.0 + 8.0 * s
-        l_foot = (240.0 + s * 22.0, FLOOR_Y - max(0.0, -c) * 18.0)
-        r_foot = (272.0 - s * 22.0, FLOOR_Y - max(0.0, c) * 18.0)
+        l_foot = (178.0 + s * 22.0, FLOOR_Y - max(0.0, -c) * 18.0)
+        r_foot = (334.0 - s * 22.0, FLOOR_Y - max(0.0, c) * 18.0)
         l_arm = (math.pi + 0.15 * s, 0.75 + 0.15 * c)
         r_arm = (-0.05 * s, -0.75 - 0.15 * c)
     else:
@@ -396,21 +417,17 @@ def bend_figure(kind: str, frame: int) -> tuple[list[list[Pt]], list[Pt], list[P
         r_arm = (UP - 0.7 - s * 0.4, -0.7)
         l_knee_out, r_knee_out = -1.0, 1.0
 
-    dw = math.copysign(max(0.32, abs(depth)), depth)
+    dw = math.copysign(max(0.34, abs(depth)), depth)
+    pulse = 1.0 + 0.05 * s2
     neck = polar(hip, UP + lean, TORSO_LEN)
-    neck_into_head = polar(neck, UP + lean, 10.0)
-    ox, oy = perp_of(hip, neck, arch * (s if kind != "spin" else 1.0))
-    if kind == "spin":
-        ox, oy = perp_of(hip, neck, arch * s)
-    waist = lerp(hip, neck, 0.36)
-    chest = lerp(hip, neck, 0.72)
-    waist = (waist[0] + ox, waist[1] + oy)
-    chest = (chest[0] - ox * 0.55, chest[1] - oy * 0.55)
-    sh_anchor = chest
-    l_sh = (sh_anchor[0] - sh_w * dw, sh_anchor[1] + 2.0)
-    r_sh = (sh_anchor[0] + sh_w * dw, sh_anchor[1] + 2.0)
-    l_hip = (hip[0] - hip_w * dw, hip[1] + 2.0)
-    r_hip = (hip[0] + hip_w * dw, hip[1] + 2.0)
+    neck_into_head = polar(neck, UP + lean, 12.0)
+    top_w = BODY_TOP * pulse
+    bot_w = BODY_BOT * pulse
+    top_l, top_r, bot_r, bot_l = trap_corners(hip, neck, top_w, bot_w, dw)
+    l_sh, r_sh = top_l, top_r
+    l_hip, r_hip = bot_l, bot_r
+    chest_l = lerp(top_l, bot_l, 0.42)
+    chest_r = lerp(top_r, bot_r, 0.42)
 
     if l_ik:
         l_knee, l_end = two_bone_ik(l_hip, l_foot, THIGH, SHIN, l_knee_out)
@@ -432,18 +449,20 @@ def bend_figure(kind: str, frame: int) -> tuple[list[list[Pt]], list[Pt], list[P
         r_elb, r_hand = two_bone_fk(r_sh, r_arm[0], UPPER_ARM, r_arm[1], FOREARM)
 
     squash = 1.0 + 0.08 * s2
-    head = head_loop(neck, head_tilt, rx=22.0 * squash, ry=28.0 / squash)
+    head = head_loop(neck, head_tilt, rx=34.0 * squash, ry=38.0 / squash)
     if wave_mid is not None:
-        right_arm = cubic(chest, r_elb, wave_mid, r_hand, n=28)
+        right_arm = cubic(r_sh, r_elb, wave_mid, r_hand, n=28)
     else:
-        right_arm = bezier_through(chest, r_elb, r_hand)
+        right_arm = bezier_through(r_sh, r_elb, r_hand)
     tubes = [
-        head,
-        cubic(hip, waist, chest, neck_into_head),
-        bezier_through(chest, l_elb, l_hand),
+        hull_loop(top_l, top_r, bot_r, bot_l, 8.0 + 0.25 * arch),
+        glass(chest_l, chest_r, bulge=5.0, n=14, overlap=4.0),
+        glass(lerp(top_l, top_r, 0.5), neck_into_head, bulge=0.0, n=8, overlap=6.0),
+        bezier_through(l_hip, l_knee, l_end),
+        bezier_through(r_hip, r_knee, r_end),
+        bezier_through(l_sh, l_elb, l_hand),
         right_arm,
-        bezier_through(hip, l_knee, l_end),
-        bezier_through(hip, r_knee, r_end),
+        head,
     ]
     tips = [l_hand, r_hand, l_end, r_end]
     welds: list[Pt] = []
