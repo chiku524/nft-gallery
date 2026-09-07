@@ -89,8 +89,8 @@ FOREARM = 54.0
 THIGH = 72.0
 SHIN = 76.0
 FLOOR_Y = 436.0
-BODY_TOP = 46.0
-BODY_BOT = 78.0
+BODY_TOP = 30.0
+BODY_BOT = 50.0
 STAND_Y = 300.0
 
 
@@ -458,14 +458,14 @@ def bend_figure(kind: str, frame: int) -> tuple[list[list[Pt]], list[Pt], list[P
         r_elb, r_hand = two_bone_fk(r_sh, r_arm[0], UPPER_ARM, r_arm[1], FOREARM)
 
     squash = 1.0 + 0.08 * s2
-    head = head_loop(neck, head_tilt, rx=34.0 * squash, ry=38.0 / squash)
+    head = head_loop(neck, head_tilt, rx=26.0 * squash, ry=32.0 / squash)
     if wave_mid is not None:
         right_arm = cubic(r_sh, r_elb, wave_mid, r_hand, n=28)
     else:
         right_arm = bezier_through(r_sh, r_elb, r_hand)
     tubes = [
-        hull_loop(top_l, top_r, bot_r, bot_l, 8.0 + 0.25 * arch),
-        glass(chest_l, chest_r, bulge=5.0, n=14, overlap=4.0),
+        hull_loop(top_l, top_r, bot_r, bot_l, 4.0 + 0.18 * arch),
+        glass(chest_l, chest_r, bulge=3.0, n=14, overlap=4.0),
         glass(lerp(top_l, top_r, 0.5), neck_into_head, bulge=0.0, n=8, overlap=6.0),
         bezier_through(l_hip, l_knee, l_end),
         bezier_through(r_hip, r_knee, r_end),
@@ -894,7 +894,7 @@ def write_ts_gallery(samples: list[dict]) -> None:
             "  {\n"
             f"    id: {sample['id']},\n"
             f'    name: "{sample["name"]}",\n'
-            f'    image: "{sample["image"]}?v=2",\n'
+            f'    image: "{sample["image"]}?v=3",\n'
             f"    attributes: [\n      {attrs},\n    ],\n"
             "  }"
         )
@@ -967,7 +967,7 @@ def write_ts_traits() -> None:
         "  traits: NoxelleTrait[];\n"
         "};\n\n"
         "/** Bump when APNG layers change so the studio does not keep a stale loop. */\n"
-        'export const NOXELLE_ART_VERSION = "noxelle-v2";\n\n'
+        'export const NOXELLE_ART_VERSION = "noxelle-v3";\n\n'
         "export const NOXELLE_FRAMES = 12;\n"
         "export const NOXELLE_DURATION_MS = 90;\n\n"
         "export function noxelleTraitSrc(path?: string) {\n"

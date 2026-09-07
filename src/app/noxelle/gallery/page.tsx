@@ -55,7 +55,7 @@ export default function NoxelleGalleryPage() {
         {extraPreviews.map((id) => (
           <article key={id} className="overflow-hidden rounded-2xl border bg-card">
             <ApngImage
-              src={`/noxelle-preview/${id}.gif?v=2`}
+              src={`/noxelle-preview/${id}.gif?v=3`}
               alt={`Tube #${id}`}
               width={512}
               height={512}

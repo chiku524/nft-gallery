@@ -14,7 +14,7 @@ export type NoxelleTraitCategory = {
 };
 
 /** Bump when APNG layers change so the studio does not keep a stale loop. */
-export const NOXELLE_ART_VERSION = "noxelle-v2";
+export const NOXELLE_ART_VERSION = "noxelle-v3";
 
 export const NOXELLE_FRAMES = 12;
 export const NOXELLE_DURATION_MS = 90;
