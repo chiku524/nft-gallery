@@ -83,14 +83,15 @@ def arr_to_image(rgb: np.ndarray, alpha: np.ndarray | None = None) -> Image.Imag
 Pt = tuple[float, float]
 DOWN = math.pi / 2
 UP = -math.pi / 2
-TORSO_LEN = 112.0
-UPPER_ARM = 58.0
-FOREARM = 52.0
-THIGH = 58.0
-SHIN = 62.0
+TORSO_LEN = 100.0
+UPPER_ARM = 62.0
+FOREARM = 54.0
+THIGH = 72.0
+SHIN = 76.0
 FLOOR_Y = 436.0
-BODY_TOP = 48.0
-BODY_BOT = 92.0
+BODY_TOP = 46.0
+BODY_BOT = 78.0
+STAND_Y = 300.0
 
 
 def polar(point: Pt, ang: float, length: float) -> Pt:
@@ -194,11 +195,12 @@ def unit_perp(a: Pt, b: Pt) -> Pt:
 def trap_corners(hip: Pt, neck: Pt, top_w: float, bot_w: float, depth: float) -> tuple[Pt, Pt, Pt, Pt]:
     """Wide glass hull: top-left, top-right, bot-right, bot-left. Arms dock on top, legs on bottom."""
     px, py = unit_perp(hip, neck)
-    dw = depth
-    top_l = (neck[0] + px * top_w * dw, neck[1] + py * top_w * dw)
-    top_r = (neck[0] - px * top_w * dw, neck[1] - py * top_w * dw)
-    bot_l = (hip[0] + px * bot_w * dw, hip[1] + py * bot_w * dw)
-    bot_r = (hip[0] - px * bot_w * dw, hip[1] - py * bot_w * dw)
+    # Perp(hip→neck) points right when the neck is above the hip. Left is the minus side.
+    dw = max(0.48, abs(depth))
+    top_l = (neck[0] - px * top_w * dw, neck[1] - py * top_w * dw)
+    top_r = (neck[0] + px * top_w * dw, neck[1] + py * top_w * dw)
+    bot_l = (hip[0] - px * bot_w * dw, hip[1] - py * bot_w * dw)
+    bot_r = (hip[0] + px * bot_w * dw, hip[1] + py * bot_w * dw)
     return top_l, top_r, bot_r, bot_l
 
 
@@ -253,6 +255,15 @@ def two_bone_ik(origin: Pt, target: Pt, upper: float, lower: float, bend: float)
     base = math.atan2(end[1] - origin[1], end[0] - origin[0])
     mid = polar(origin, base + a * bend, upper)
     return mid, end
+
+
+def two_bone_ik_out(origin: Pt, target: Pt, upper: float, lower: float, left_side: bool) -> tuple[Pt, Pt]:
+    """Pick the IK solution whose knee stays on the outside so shins never cross."""
+    a, ea = two_bone_ik(origin, target, upper, lower, 1.0)
+    b, eb = two_bone_ik(origin, target, upper, lower, -1.0)
+    if left_side:
+        return (a, ea) if a[0] <= b[0] else (b, eb)
+    return (a, ea) if a[0] >= b[0] else (b, eb)
 
 
 def two_bone_fk(origin: Pt, ang: float, upper: float, flex: float, lower: float) -> tuple[Pt, Pt]:
@@ -317,7 +328,7 @@ def bend_figure(kind: str, frame: int) -> tuple[list[list[Pt]], list[Pt], list[P
     c = math.cos(t)
     s2 = math.sin(t * 2)
     s_lag = math.sin(t - 0.45)
-    hip: Pt = (256.0, 338.0)
+    hip: Pt = (256.0, STAND_Y)
     lean = 0.0
     head_tilt = 0.0
     depth = 1.0
@@ -330,94 +341,92 @@ def bend_figure(kind: str, frame: int) -> tuple[list[list[Pt]], list[Pt], list[P
     l_ik = r_ik = True
     l_fk = (DOWN + 0.12, 0.22)
     r_fk = (DOWN - 0.12, -0.22)
-    l_knee_out, r_knee_out = 1.0, -1.0
 
     if kind == "sway":
-        hip = (256.0 + s * 28.0, 336.0 + abs(s) * 12.0 - s2 * 8.0)
-        lean = s * 0.42
-        head_tilt = s_lag * 0.4
-        arch = 22.0 + 8.0 * c
-        l_foot = (168.0 + s * 18.0, FLOOR_Y)
-        r_foot = (344.0 + s * 18.0, FLOOR_Y)
-        l_arm = (DOWN + 0.45 - max(0.0, s) * 2.2, 0.95 + 0.25 * c)
-        r_arm = (DOWN - 0.45 + max(0.0, -s) * 2.2, -0.95 - 0.25 * c)
+        hip = (256.0 + s * 26.0, STAND_Y + abs(s) * 10.0 - s2 * 8.0)
+        lean = s * 0.38
+        head_tilt = s_lag * 0.36
+        arch = 20.0 + 8.0 * c
+        l_foot = (168.0 + s * 16.0, FLOOR_Y)
+        r_foot = (344.0 + s * 16.0, FLOOR_Y)
+        l_arm = (DOWN + 0.4 - max(0.0, s) * 2.15, 0.9 + 0.25 * c)
+        r_arm = (DOWN - 0.4 + max(0.0, -s) * 2.15, -0.9 - 0.25 * c)
     elif kind == "kick":
         k = smoothstep((s + 1.0) * 0.5)
-        hip = (248.0 - k * 12.0, 332.0 - k * 16.0 + (1.0 - k) * abs(s2) * 8.0)
-        lean = -0.16 - k * 0.32
-        head_tilt = -0.12 - k * 0.1
-        arch = 14.0 + 10.0 * k
-        l_foot = (168.0, FLOOR_Y - (1.0 - k) * 5.0)
+        hip = (250.0 - k * 10.0, STAND_Y - k * 18.0 + (1.0 - k) * abs(s2) * 6.0)
+        lean = -0.14 - k * 0.28
+        head_tilt = -0.1 - k * 0.08
+        arch = 12.0 + 10.0 * k
+        l_foot = (178.0, FLOOR_Y)
         r_ik = False
-        r_fk = (DOWN - 0.12 - k * 2.2, 1.15 - k * 1.35)
-        l_arm = (UP + 0.2 + k * 0.55, 0.85 + 0.15 * c)
-        r_arm = (DOWN + 0.15 - k * 0.35, -0.95)
+        r_fk = (DOWN - 0.15 - k * 2.25, 1.05 - k * 1.25)
+        l_arm = (UP + 0.25 + k * 0.5, 0.8 + 0.15 * c)
+        r_arm = (DOWN + 0.1 - k * 0.3, -0.9)
     elif kind == "wave":
-        hip = (256.0 + s * 12.0, 336.0 - abs(s2) * 10.0)
-        lean = 0.16 + s * 0.14
-        head_tilt = 0.18 + s_lag * 0.16
-        arch = 18.0 + 6.0 * s
-        l_foot = (172.0 + s * 8.0, FLOOR_Y)
-        r_foot = (340.0 + s * 8.0, FLOOR_Y)
-        l_arm = (DOWN + 0.55 + s * 0.55, 0.95 + 0.2 * c)
+        hip = (256.0 + s * 12.0, STAND_Y - abs(s2) * 10.0)
+        lean = 0.14 + s * 0.14
+        head_tilt = 0.16 + s_lag * 0.14
+        arch = 16.0 + 6.0 * s
+        l_foot = (176.0 + s * 8.0, FLOOR_Y)
+        r_foot = (336.0 + s * 8.0, FLOOR_Y)
+        l_arm = (DOWN + 0.5 + s * 0.5, 0.9 + 0.2 * c)
         r_arm = (DOWN - 0.2, -0.2)
         wave_r = True
     elif kind == "hop":
-        lift = max(0.0, s) ** 1.15 * 56.0
-        squat = max(0.0, -s) * 24.0
-        tuck = max(0.0, s) * 30.0
-        hip = (256.0 + s_lag * 8.0, 338.0 - lift + squat)
+        lift = max(0.0, s) ** 1.1 * 92.0
+        squat = max(0.0, -s) * 8.0
+        hang = max(0.0, s) * 6.0
+        hip = (256.0 + s_lag * 8.0, STAND_Y - lift + squat)
         lean = s * 0.12
-        head_tilt = s_lag * 0.22
-        arch = 12.0 + 10.0 * max(0.0, s)
-        l_foot = (172.0, FLOOR_Y - lift + tuck)
-        r_foot = (340.0, FLOOR_Y - lift + tuck)
+        head_tilt = s_lag * 0.2
+        arch = 12.0 + 8.0 * max(0.0, s)
+        l_foot = (168.0 - max(0.0, s) * 10.0, FLOOR_Y - lift + hang)
+        r_foot = (344.0 + max(0.0, s) * 10.0, FLOOR_Y - lift + hang)
         reach = max(0.0, s_lag)
-        l_arm = (UP + 1.05 - reach * 0.85, 0.85)
-        r_arm = (UP - 1.05 + reach * 0.85, -0.85)
+        l_arm = (UP + 1.0 - reach * 0.8, 0.8)
+        r_arm = (UP - 1.0 + reach * 0.8, -0.8)
     elif kind == "point":
-        hip = (244.0 + s * 8.0, 338.0 - abs(s) * 8.0)
-        lean = 0.52 + s * 0.12
-        head_tilt = 0.28 + s_lag * 0.12
-        arch = 20.0 + 6.0 * s
-        l_foot = (158.0, FLOOR_Y)
-        r_foot = (328.0 + s * 12.0, FLOOR_Y - 14.0 - abs(s) * 8.0)
-        l_arm = (math.pi * 0.88 + s * 0.2, 0.7 + 0.15 * c)
-        r_arm = (-0.58 + s * 0.14, 0.18)
+        hip = (248.0 + s * 8.0, STAND_Y - abs(s) * 6.0)
+        lean = 0.48 + s * 0.12
+        head_tilt = 0.26 + s_lag * 0.12
+        arch = 18.0 + 6.0 * s
+        l_foot = (188.0, FLOOR_Y)
+        r_foot = (318.0 + s * 10.0, FLOOR_Y - 18.0 - abs(s) * 10.0)
+        l_arm = (math.pi * 0.88 + s * 0.18, 0.65 + 0.15 * c)
+        r_arm = (-0.55 + s * 0.12, 0.16)
     elif kind == "dip":
-        hip = (268.0 + s * 12.0, 342.0 - abs(s) * 8.0)
-        lean = 0.72 + s * 0.16
-        head_tilt = 0.5 + s_lag * 0.22
-        arch = 26.0 + 8.0 * s
-        l_foot = (148.0, FLOOR_Y)
-        r_foot = (356.0, FLOOR_Y - 6.0)
-        l_arm = (DOWN + 0.4 + s * 0.5, 0.85)
-        r_arm = (UP - 0.15 + s * 0.35, -0.95)
+        hip = (266.0 + s * 10.0, STAND_Y + 6.0)
+        lean = 0.68 + s * 0.16
+        head_tilt = 0.48 + s_lag * 0.2
+        arch = 24.0 + 8.0 * s
+        l_foot = (186.0, FLOOR_Y)
+        r_foot = (348.0, FLOOR_Y)
+        l_arm = (DOWN + 0.35 + s * 0.45, 0.8)
+        r_arm = (UP - 0.12 + s * 0.3, -0.9)
     elif kind == "spin":
         depth = c
-        hip = (256.0 + s * 10.0, 336.0 + abs(s) * 10.0)
-        lean = s * 0.2
-        head_tilt = s_lag * 0.28
-        arch = 16.0 + 8.0 * s
-        l_foot = (178.0 + s * 22.0, FLOOR_Y - max(0.0, -c) * 18.0)
-        r_foot = (334.0 - s * 22.0, FLOOR_Y - max(0.0, c) * 18.0)
-        l_arm = (math.pi + 0.15 * s, 0.75 + 0.15 * c)
-        r_arm = (-0.05 * s, -0.75 - 0.15 * c)
+        hip = (256.0 + s * 8.0, STAND_Y + abs(s) * 4.0)
+        lean = s * 0.18
+        head_tilt = s_lag * 0.24
+        arch = 14.0 + 6.0 * s
+        l_foot = (168.0 + s * 6.0, FLOOR_Y - max(0.0, s) * 42.0)
+        r_foot = (344.0 + s * 6.0, FLOOR_Y - max(0.0, -s) * 42.0)
+        l_arm = (math.pi - 0.1 + s * 0.22, 0.55)
+        r_arm = (0.1 - s * 0.22, -0.55)
     else:
-        reach = THIGH + SHIN - 6.0
-        spread = 112.0 + abs(s) * 12.0
-        drop = math.sqrt(max(64.0, reach * reach - spread * spread))
-        hip = (256.0, FLOOR_Y - drop + abs(s2) * 8.0)
-        lean = s * 0.12
+        # Jumping straddle — wide V in the air, feet well above the floor.
+        hip = (256.0, 188.0 - abs(s) * 22.0)
+        lean = s * 0.08
         head_tilt = s_lag * 0.14
-        arch = 14.0
-        l_foot = (256.0 - spread - s * 8.0, FLOOR_Y)
-        r_foot = (256.0 + spread + s * 8.0, FLOOR_Y)
-        l_arm = (UP + 0.7 + s * 0.4, 0.7)
-        r_arm = (UP - 0.7 - s * 0.4, -0.7)
-        l_knee_out, r_knee_out = -1.0, 1.0
+        arch = 10.0 + 6.0 * abs(s)
+        spread = 168.0 + abs(s2) * 20.0
+        fy = hip[1] + 78.0 + abs(s) * 10.0
+        l_foot = (256.0 - spread, fy)
+        r_foot = (256.0 + spread, fy)
+        l_arm = (UP + 0.55 + s * 0.2, 0.22)
+        r_arm = (UP - 0.55 - s * 0.2, -0.22)
 
-    dw = math.copysign(max(0.34, abs(depth)), depth)
+    dw = max(0.48, abs(depth))
     pulse = 1.0 + 0.05 * s2
     neck = polar(hip, UP + lean, TORSO_LEN)
     neck_into_head = polar(neck, UP + lean, 12.0)
@@ -430,11 +439,11 @@ def bend_figure(kind: str, frame: int) -> tuple[list[list[Pt]], list[Pt], list[P
     chest_r = lerp(top_r, bot_r, 0.42)
 
     if l_ik:
-        l_knee, l_end = two_bone_ik(l_hip, l_foot, THIGH, SHIN, l_knee_out)
+        l_knee, l_end = two_bone_ik_out(l_hip, l_foot, THIGH, SHIN, True)
     else:
         l_knee, l_end = two_bone_fk(l_hip, l_fk[0], THIGH, l_fk[1], SHIN)
     if r_ik:
-        r_knee, r_end = two_bone_ik(r_hip, r_foot, THIGH, SHIN, r_knee_out)
+        r_knee, r_end = two_bone_ik_out(r_hip, r_foot, THIGH, SHIN, False)
     else:
         r_knee, r_end = two_bone_fk(r_hip, r_fk[0], THIGH, r_fk[1], SHIN)
 
@@ -885,7 +894,7 @@ def write_ts_gallery(samples: list[dict]) -> None:
             "  {\n"
             f"    id: {sample['id']},\n"
             f'    name: "{sample["name"]}",\n'
-            f'    image: "{sample["image"]}?v=1",\n'
+            f'    image: "{sample["image"]}?v=2",\n'
             f"    attributes: [\n      {attrs},\n    ],\n"
             "  }"
         )
@@ -958,7 +967,7 @@ def write_ts_traits() -> None:
         "  traits: NoxelleTrait[];\n"
         "};\n\n"
         "/** Bump when APNG layers change so the studio does not keep a stale loop. */\n"
-        'export const NOXELLE_ART_VERSION = "noxelle-v1";\n\n'
+        'export const NOXELLE_ART_VERSION = "noxelle-v2";\n\n'
         "export const NOXELLE_FRAMES = 12;\n"
         "export const NOXELLE_DURATION_MS = 90;\n\n"
         "export function noxelleTraitSrc(path?: string) {\n"

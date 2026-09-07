@@ -9,7 +9,7 @@ export const noxelleSamples: NoxelleSample[] = [
   {
     id: 1,
     name: "Tube #1",
-    image: "/noxelle-preview/1.gif?v=1",
+    image: "/noxelle-preview/1.gif?v=2",
     attributes: [
       { trait_type: "Wall", value: "Velvet Wall" },
       { trait_type: "Spill", value: "Grape Spill" },
@@ -23,7 +23,7 @@ export const noxelleSamples: NoxelleSample[] = [
   {
     id: 2,
     name: "Tube #2",
-    image: "/noxelle-preview/2.gif?v=1",
+    image: "/noxelle-preview/2.gif?v=2",
     attributes: [
       { trait_type: "Wall", value: "Tile Wall" },
       { trait_type: "Spill", value: "Lagoon Spill" },
@@ -37,7 +37,7 @@ export const noxelleSamples: NoxelleSample[] = [
   {
     id: 3,
     name: "Tube #3",
-    image: "/noxelle-preview/3.gif?v=1",
+    image: "/noxelle-preview/3.gif?v=2",
     attributes: [
       { trait_type: "Wall", value: "Brick Wall" },
       { trait_type: "Spill", value: "Cherry Spill" },
@@ -51,7 +51,7 @@ export const noxelleSamples: NoxelleSample[] = [
   {
     id: 4,
     name: "Tube #4",
-    image: "/noxelle-preview/4.gif?v=1",
+    image: "/noxelle-preview/4.gif?v=2",
     attributes: [
       { trait_type: "Wall", value: "Chrome Wall" },
       { trait_type: "Spill", value: "Ice Spill" },
@@ -65,7 +65,7 @@ export const noxelleSamples: NoxelleSample[] = [
   {
     id: 5,
     name: "Tube #5",
-    image: "/noxelle-preview/5.gif?v=1",
+    image: "/noxelle-preview/5.gif?v=2",
     attributes: [
       { trait_type: "Wall", value: "Alley Wall" },
       { trait_type: "Spill", value: "Honey Spill" },
@@ -79,7 +79,7 @@ export const noxelleSamples: NoxelleSample[] = [
   {
     id: 6,
     name: "Tube #6",
-    image: "/noxelle-preview/6.gif?v=1",
+    image: "/noxelle-preview/6.gif?v=2",
     attributes: [
       { trait_type: "Wall", value: "Booth Wall" },
       { trait_type: "Spill", value: "Mint Spill" },
@@ -93,7 +93,7 @@ export const noxelleSamples: NoxelleSample[] = [
   {
     id: 7,
     name: "Tube #7",
-    image: "/noxelle-preview/7.gif?v=1",
+    image: "/noxelle-preview/7.gif?v=2",
     attributes: [
       { trait_type: "Wall", value: "Parking Wall" },
       { trait_type: "Spill", value: "Grape Spill" },
@@ -107,7 +107,7 @@ export const noxelleSamples: NoxelleSample[] = [
   {
     id: 8,
     name: "Tube #8",
-    image: "/noxelle-preview/8.gif?v=1",
+    image: "/noxelle-preview/8.gif?v=2",
     attributes: [
       { trait_type: "Wall", value: "Glass Wall" },
       { trait_type: "Spill", value: "Lagoon Spill" },
@@ -121,7 +121,7 @@ export const noxelleSamples: NoxelleSample[] = [
   {
     id: 9,
     name: "Tube #9",
-    image: "/noxelle-preview/9.gif?v=1",
+    image: "/noxelle-preview/9.gif?v=2",
     attributes: [
       { trait_type: "Wall", value: "Velvet Wall" },
       { trait_type: "Spill", value: "Cherry Spill" },
@@ -135,7 +135,7 @@ export const noxelleSamples: NoxelleSample[] = [
   {
     id: 10,
     name: "Tube #10",
-    image: "/noxelle-preview/10.gif?v=1",
+    image: "/noxelle-preview/10.gif?v=2",
     attributes: [
       { trait_type: "Wall", value: "Tile Wall" },
       { trait_type: "Spill", value: "Honey Spill" },
@@ -149,7 +149,7 @@ export const noxelleSamples: NoxelleSample[] = [
   {
     id: 11,
     name: "Tube #11",
-    image: "/noxelle-preview/11.gif?v=1",
+    image: "/noxelle-preview/11.gif?v=2",
     attributes: [
       { trait_type: "Wall", value: "Brick Wall" },
       { trait_type: "Spill", value: "Mint Spill" },
@@ -163,7 +163,7 @@ export const noxelleSamples: NoxelleSample[] = [
   {
     id: 12,
     name: "Tube #12",
-    image: "/noxelle-preview/12.gif?v=1",
+    image: "/noxelle-preview/12.gif?v=2",
     attributes: [
       { trait_type: "Wall", value: "Chrome Wall" },
       { trait_type: "Spill", value: "Grape Spill" },
@@ -177,7 +177,7 @@ export const noxelleSamples: NoxelleSample[] = [
   {
     id: 13,
     name: "Tube #13",
-    image: "/noxelle-preview/13.gif?v=1",
+    image: "/noxelle-preview/13.gif?v=2",
     attributes: [
       { trait_type: "Wall", value: "Alley Wall" },
       { trait_type: "Spill", value: "Ice Spill" },
@@ -191,7 +191,7 @@ export const noxelleSamples: NoxelleSample[] = [
   {
     id: 14,
     name: "Tube #14",
-    image: "/noxelle-preview/14.gif?v=1",
+    image: "/noxelle-preview/14.gif?v=2",
     attributes: [
       { trait_type: "Wall", value: "Booth Wall" },
       { trait_type: "Spill", value: "Lagoon Spill" },
@@ -205,7 +205,7 @@ export const noxelleSamples: NoxelleSample[] = [
   {
     id: 15,
     name: "Tube #15",
-    image: "/noxelle-preview/15.gif?v=1",
+    image: "/noxelle-preview/15.gif?v=2",
     attributes: [
       { trait_type: "Wall", value: "Parking Wall" },
       { trait_type: "Spill", value: "Cherry Spill" },
@@ -219,7 +219,7 @@ export const noxelleSamples: NoxelleSample[] = [
   {
     id: 16,
     name: "Tube #16",
-    image: "/noxelle-preview/16.gif?v=1",
+    image: "/noxelle-preview/16.gif?v=2",
     attributes: [
       { trait_type: "Wall", value: "Glass Wall" },
       { trait_type: "Spill", value: "Honey Spill" },
