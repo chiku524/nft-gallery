@@ -1,0 +1,12 @@
+{
+  "name": "Noxelle",
+  "symbol": "NOXL",
+  "description": "Noxelle is a 10,000-piece collection of looping neon-tube PFP GIFs. Each sign is stacked from seven plates \u2014 wall, spill, gas, bend, clip, badge, and mote \u2014 then flattened onto one 12-frame GIF. Bent glass. Noble gas. A dancer that is the tube.",
+  "image": "/brand/collection-noxelle.gif",
+  "featured_image": "/brand/featured-noxelle.jpg",
+  "banner_image": "/brand/banner-noxelle.png",
+  "opensea_banner_image": "/brand/banner-noxelle-opensea.jpg",
+  "external_link": "/noxelle",
+  "seller_fee_basis_points": 500,
+  "fee_recipient": "0x0000000000000000000000000000000000000000"
+}
