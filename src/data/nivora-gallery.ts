@@ -9,7 +9,7 @@ export const nivoraSamples: NivoraSample[] = [
   {
     id: 1,
     name: "Globe #1",
-    image: "/nivora-preview/1.gif?v=2",
+    image: "/nivora-preview/1.gif?v=3",
     attributes: [
       { trait_type: "Plinth", value: "Walnut Plinth" },
       { trait_type: "Bath", value: "Gin Bath" },
@@ -23,7 +23,7 @@ export const nivoraSamples: NivoraSample[] = [
   {
     id: 2,
     name: "Globe #2",
-    image: "/nivora-preview/2.gif?v=2",
+    image: "/nivora-preview/2.gif?v=3",
     attributes: [
       { trait_type: "Plinth", value: "Bakelite Plinth" },
       { trait_type: "Bath", value: "Pine Bath" },
@@ -37,7 +37,7 @@ export const nivoraSamples: NivoraSample[] = [
   {
     id: 3,
     name: "Globe #3",
-    image: "/nivora-preview/3.gif?v=2",
+    image: "/nivora-preview/3.gif?v=3",
     attributes: [
       { trait_type: "Plinth", value: "Brass Plinth" },
       { trait_type: "Bath", value: "Ink Bath" },
@@ -51,7 +51,7 @@ export const nivoraSamples: NivoraSample[] = [
   {
     id: 4,
     name: "Globe #4",
-    image: "/nivora-preview/4.gif?v=2",
+    image: "/nivora-preview/4.gif?v=3",
     attributes: [
       { trait_type: "Plinth", value: "Ceramic Plinth" },
       { trait_type: "Bath", value: "Rose Bath" },
@@ -65,7 +65,7 @@ export const nivoraSamples: NivoraSample[] = [
   {
     id: 5,
     name: "Globe #5",
-    image: "/nivora-preview/5.gif?v=2",
+    image: "/nivora-preview/5.gif?v=3",
     attributes: [
       { trait_type: "Plinth", value: "Ice Plastic" },
       { trait_type: "Bath", value: "Amber Bath" },
@@ -79,7 +79,7 @@ export const nivoraSamples: NivoraSample[] = [
   {
     id: 6,
     name: "Globe #6",
-    image: "/nivora-preview/6.gif?v=2",
+    image: "/nivora-preview/6.gif?v=3",
     attributes: [
       { trait_type: "Plinth", value: "Ebon Plinth" },
       { trait_type: "Bath", value: "Cobalt Bath" },
@@ -93,7 +93,7 @@ export const nivoraSamples: NivoraSample[] = [
   {
     id: 7,
     name: "Globe #7",
-    image: "/nivora-preview/7.gif?v=2",
+    image: "/nivora-preview/7.gif?v=3",
     attributes: [
       { trait_type: "Plinth", value: "Cherry Plinth" },
       { trait_type: "Bath", value: "Gin Bath" },
@@ -107,7 +107,7 @@ export const nivoraSamples: NivoraSample[] = [
   {
     id: 8,
     name: "Globe #8",
-    image: "/nivora-preview/8.gif?v=2",
+    image: "/nivora-preview/8.gif?v=3",
     attributes: [
       { trait_type: "Plinth", value: "Marble Plinth" },
       { trait_type: "Bath", value: "Pine Bath" },
@@ -121,7 +121,7 @@ export const nivoraSamples: NivoraSample[] = [
   {
     id: 9,
     name: "Globe #9",
-    image: "/nivora-preview/9.gif?v=2",
+    image: "/nivora-preview/9.gif?v=3",
     attributes: [
       { trait_type: "Plinth", value: "Walnut Plinth" },
       { trait_type: "Bath", value: "Rose Bath" },
@@ -135,7 +135,7 @@ export const nivoraSamples: NivoraSample[] = [
   {
     id: 10,
     name: "Globe #10",
-    image: "/nivora-preview/10.gif?v=2",
+    image: "/nivora-preview/10.gif?v=3",
     attributes: [
       { trait_type: "Plinth", value: "Bakelite Plinth" },
       { trait_type: "Bath", value: "Amber Bath" },
@@ -149,7 +149,7 @@ export const nivoraSamples: NivoraSample[] = [
   {
     id: 11,
     name: "Globe #11",
-    image: "/nivora-preview/11.gif?v=2",
+    image: "/nivora-preview/11.gif?v=3",
     attributes: [
       { trait_type: "Plinth", value: "Brass Plinth" },
       { trait_type: "Bath", value: "Clear Bath" },
@@ -163,7 +163,7 @@ export const nivoraSamples: NivoraSample[] = [
   {
     id: 12,
     name: "Globe #12",
-    image: "/nivora-preview/12.gif?v=2",
+    image: "/nivora-preview/12.gif?v=3",
     attributes: [
       { trait_type: "Plinth", value: "Ceramic Plinth" },
       { trait_type: "Bath", value: "Cobalt Bath" },
@@ -177,7 +177,7 @@ export const nivoraSamples: NivoraSample[] = [
   {
     id: 13,
     name: "Globe #13",
-    image: "/nivora-preview/13.gif?v=2",
+    image: "/nivora-preview/13.gif?v=3",
     attributes: [
       { trait_type: "Plinth", value: "Ice Plastic" },
       { trait_type: "Bath", value: "Ink Bath" },
@@ -191,7 +191,7 @@ export const nivoraSamples: NivoraSample[] = [
   {
     id: 14,
     name: "Globe #14",
-    image: "/nivora-preview/14.gif?v=2",
+    image: "/nivora-preview/14.gif?v=3",
     attributes: [
       { trait_type: "Plinth", value: "Ebon Plinth" },
       { trait_type: "Bath", value: "Gin Bath" },
@@ -205,7 +205,7 @@ export const nivoraSamples: NivoraSample[] = [
   {
     id: 15,
     name: "Globe #15",
-    image: "/nivora-preview/15.gif?v=2",
+    image: "/nivora-preview/15.gif?v=3",
     attributes: [
       { trait_type: "Plinth", value: "Cherry Plinth" },
       { trait_type: "Bath", value: "Pine Bath" },
@@ -219,7 +219,7 @@ export const nivoraSamples: NivoraSample[] = [
   {
     id: 16,
     name: "Globe #16",
-    image: "/nivora-preview/16.gif?v=2",
+    image: "/nivora-preview/16.gif?v=3",
     attributes: [
       { trait_type: "Plinth", value: "Marble Plinth" },
       { trait_type: "Bath", value: "Clear Bath" },

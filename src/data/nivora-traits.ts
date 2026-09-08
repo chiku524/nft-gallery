@@ -14,7 +14,7 @@ export type NivoraTraitCategory = {
 };
 
 /** Bump when APNG layers change so the studio does not keep a stale loop. */
-export const NIVORA_ART_VERSION = "nivora-v2";
+export const NIVORA_ART_VERSION = "nivora-v3";
 
 export const NIVORA_FRAMES = 12;
 export const NIVORA_DURATION_MS = 90;

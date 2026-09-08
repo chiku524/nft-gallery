@@ -34,22 +34,20 @@ META_DIR = ROOT / "public" / "metadata"
 SRC_DATA = ROOT / "src" / "data"
 
 CX = 256.0
-CY = 196.0
-RADIUS = 172.0
-COLLAR_Y = CY + RADIUS * 0.74
-PLINTH_H = 168.0
+CY = 188.0
+RADIUS = 176.0
+COLLAR_Y = CY + RADIUS * 0.76
+PLINTH_H = 112.0
 
-# Surface-of-revolution radii from collar (t=0) to foot (t=1).
+# Short souvenir cup — almost cylindrical, slight belly, modest foot.
 LATHE = (
-    (0.00, 116.0),
-    (0.08, 108.0),
-    (0.18, 86.0),
-    (0.34, 104.0),
-    (0.50, 128.0),
-    (0.64, 118.0),
-    (0.76, 86.0),
-    (0.88, 112.0),
-    (1.00, 140.0),
+    (0.00, 120.0),
+    (0.16, 114.0),
+    (0.34, 110.0),
+    (0.54, 116.0),
+    (0.74, 112.0),
+    (0.88, 122.0),
+    (1.00, 128.0),
 )
 
 PLINTH = {
@@ -138,32 +136,29 @@ def paint_plinth(kind: str, frame: int) -> Image.Image:
     rgb += 2.0 * np.sin(yy / 80.0 + t * 0.06)[..., None]
     floor = arr_to_image(rgb)
 
-    y0 = COLLAR_Y + 6.0
+    y0 = COLLAR_Y + 4.0
     r = lathe_radius(yy, y0, PLINTH_H)
     dx = xx - CX
-    body = (yy >= y0) & (yy <= y0 + PLINTH_H) & (np.abs(dx) <= r)
+    clearance = r - np.abs(dx)
+    in_y = (yy >= y0 - 1.0) & (yy <= y0 + PLINTH_H)
     nx = np.clip(dx / (r + 0.8), -1.0, 1.0)
-    lambert = 0.38 + 0.62 * np.clip(0.22 - 0.9 * nx, 0.0, 1.0)
-    groove = 5.0 * np.sin((yy - y0) * 0.42)
+    lambert = 0.40 + 0.62 * np.clip(0.18 - 0.88 * nx, 0.0, 1.0)
+    groove = 2.0 * np.sin((yy - y0) * 0.28)
     turned = np.zeros((SIZE, SIZE, 3), dtype=np.float32)
     for i in range(3):
-        turned[..., i] = dark[i] + (light[i] - dark[i]) * lambert + groove * 0.35
+        turned[..., i] = dark[i] + (light[i] - dark[i]) * lambert + groove * 0.28
     if kind == "marble":
-        veining = 14.0 * np.sin((xx + yy) / 22.0)
-        turned += veining[..., None] * 0.35
-    alpha = np.zeros((SIZE, SIZE), dtype=np.uint8)
-    alpha[body] = 255
-    wood = arr_to_image(turned, alpha)
+        veining = 12.0 * np.sin((xx + yy) / 26.0)
+        turned += veining[..., None] * 0.28
+    alpha = np.clip(clearance * 1.7, 0.0, 1.0)
+    alpha = np.where(in_y, alpha, 0.0)
+    wood = arr_to_image(turned, (alpha * 255.0).astype(np.uint8))
     floor.alpha_composite(wood)
 
     d = ImageDraw.Draw(floor)
-    lip_y = int(y0 - 6)
-    d.ellipse((int(CX - 114), lip_y, int(CX + 114), lip_y + 24), fill=tuple(max(0, c - 14) for c in dark) + (255,))
-    d.ellipse((int(CX - 96), lip_y + 5, int(CX + 96), lip_y + 16), fill=tuple(min(255, c + 32) for c in light) + (80,))
-    for ty, half, h in ((0.18, 92, 16), (0.50, 124, 20), (0.90, 132, 18)):
-        ey = int(y0 + PLINTH_H * ty)
-        bead = tuple(min(255, int(c * 1.08)) for c in light)
-        d.ellipse((int(CX - half), ey - h // 2, int(CX + half), ey + h // 2), outline=(*bead, 90), width=2)
+    lip_y = int(y0 - 8)
+    d.ellipse((int(CX - 118), lip_y, int(CX + 118), lip_y + 26), fill=tuple(max(0, c - 10) for c in dark) + (255,))
+    d.ellipse((int(CX - 98), lip_y + 6, int(CX + 98), lip_y + 18), fill=tuple(min(255, c + 36) for c in light) + (95,))
 
     shade = Image.new("RGBA", (SIZE, SIZE), (0, 0, 0, 0))
     ImageDraw.Draw(shade).ellipse(
@@ -232,20 +227,25 @@ def paint_vista(kind: str, frame: int) -> Image.Image:
     d.ellipse((int(CX + 18), int(ground_y - 28), int(CX + 64), int(ground_y - 4)), fill=(244, 246, 250, 180))
 
     if kind == "cabin":
-        x0, y0 = g(-44, 8)
-        d.rectangle((x0, y0, x0 + 92, y0 + 62), fill=(132, 78, 48, 255))
+        x0, y0 = g(-36, 10)
+        d.rounded_rectangle((x0, y0, x0 + 96, y0 + 64), radius=4, fill=(128, 74, 44, 255))
         for i in range(5):
-            yy = y0 + 8 + i * 11
-            d.line([(x0 + 2, yy), (x0 + 90, yy)], fill=(96, 52, 32, 180), width=2)
-        d.polygon([(x0 - 12, y0), (x0 + 46, y0 - 44), (x0 + 102, y0)], fill=(92, 40, 30, 255))
-        d.polygon([(x0 - 8, y0 + 2), (x0 + 46, y0 - 36), (x0 + 98, y0 + 2)], fill=(244, 246, 250, 230))
-        d.rectangle((x0 + 36, y0 + 22, x0 + 56, y0 + 62), fill=(48, 30, 22, 255))
+            yy = y0 + 4 + i * 12
+            fill = (108, 58, 34, 255) if i % 2 else (148, 88, 52, 255)
+            d.rectangle((x0 + 3, yy, x0 + 93, yy + 11), fill=fill)
+        d.polygon([(x0 - 14, y0 + 2), (x0 + 48, y0 - 48), (x0 + 108, y0 + 2)], fill=(92, 40, 30, 255))
+        d.polygon([(x0 - 8, y0 + 6), (x0 + 48, y0 - 38), (x0 + 102, y0 + 6)], fill=(244, 246, 250, 235))
+        d.rectangle((x0 + 38, y0 + 24, x0 + 58, y0 + 64), fill=(48, 30, 22, 255))
         glow = Image.new("RGBA", (SIZE, SIZE), (0, 0, 0, 0))
         ImageDraw.Draw(glow).rectangle((x0 + 10, y0 + 16, x0 + 28, y0 + 34), fill=(255, 198, 92, 230))
-        ImageDraw.Draw(glow).rectangle((x0 + 64, y0 + 16, x0 + 82, y0 + 32), fill=(255, 198, 92, 160))
+        ImageDraw.Draw(glow).rectangle((x0 + 66, y0 + 16, x0 + 84, y0 + 32), fill=(255, 198, 92, 160))
         layer.alpha_composite(glow.filter(ImageFilter.GaussianBlur(1)))
-        d.rectangle((x0 + 78, y0 - 28, x0 + 90, y0 + 8), fill=(92, 40, 30, 255))
-        d.ellipse((x0 + 76, y0 - 36, x0 + 92, y0 - 22), fill=(64, 58, 52, 200))
+        d.rectangle((x0 + 80, y0 - 32, x0 + 94, y0 + 8), fill=(92, 40, 30, 255))
+        d.ellipse((x0 + 78, y0 - 42, x0 + 96, y0 - 24), fill=(64, 58, 52, 200))
+        px, py = g(-78, 28)
+        d.polygon([(px, py - 42), (px - 16, py + 10), (px + 16, py + 10)], fill=(34, 78, 46, 255))
+        d.polygon([(px, py - 22), (px - 22, py + 22), (px + 22, py + 22)], fill=(28, 64, 40, 255))
+        d.rectangle((px - 4, py + 18, px + 4, py + 36), fill=(78, 52, 34, 255))
     elif kind == "pine":
         for dx, sc_t, yoff in ((-38, 1.05, 0), (26, 0.82, 10), (2, 1.22, -6)):
             px, y0 = g(dx, 4 + yoff)
@@ -281,21 +281,28 @@ def paint_vista(kind: str, frame: int) -> Image.Image:
         )
         layer.alpha_composite(beam.filter(ImageFilter.GaussianBlur(1)))
     elif kind == "deer":
-        px, y0 = g(-6, 18)
-        hide = (138, 96, 56, 255)
-        d.ellipse((px - 34, y0, px + 36, y0 + 40), fill=hide)
-        d.ellipse((px + 16, y0 - 28, px + 58, y0 + 12), fill=hide)
-        d.polygon([(px + 48, y0 - 8), (px + 68, y0 - 2), (px + 50, y0 + 6)], fill=hide)
+        px, y0 = g(-4, 14)
+        hide = (142, 98, 58, 255)
+        d.ellipse((px - 42, y0 - 8, px + 44, y0 + 48), fill=hide)
+        d.ellipse((px - 16, y0 + 6, px + 32, y0 + 50), fill=hide)
+        d.ellipse((px + 18, y0 - 36, px + 66, y0 + 16), fill=hide)
+        d.polygon([(px + 52, y0 - 10), (px + 78, y0 + 2), (px + 54, y0 + 10)], fill=hide)
         antler = (92, 64, 38, 255)
-        d.line([(px + 28, y0 - 24), (px + 16, y0 - 64)], fill=antler, width=5)
-        d.line([(px + 26, y0 - 42), (px + 2, y0 - 56)], fill=antler, width=4)
-        d.line([(px + 40, y0 - 22), (px + 56, y0 - 62)], fill=antler, width=5)
-        d.line([(px + 46, y0 - 40), (px + 68, y0 - 54)], fill=antler, width=4)
-        d.rectangle((px - 24, y0 + 32, px - 14, y0 + 68), fill=(92, 64, 38, 255))
-        d.rectangle((px - 4, y0 + 32, px + 6, y0 + 68), fill=(92, 64, 38, 255))
-        d.rectangle((px + 14, y0 + 32, px + 24, y0 + 64), fill=(92, 64, 38, 255))
-        d.rectangle((px + 28, y0 + 32, px + 38, y0 + 64), fill=(92, 64, 38, 255))
-        d.ellipse((px + 46, y0 - 16, px + 54, y0 - 8), fill=(32, 22, 14, 255))
+        d.line([(px + 30, y0 - 28), (px + 18, y0 - 70)], fill=antler, width=6)
+        d.line([(px + 28, y0 - 48), (px + 2, y0 - 60)], fill=antler, width=5)
+        d.line([(px + 42, y0 - 26), (px + 58, y0 - 68)], fill=antler, width=6)
+        d.line([(px + 48, y0 - 44), (px + 72, y0 - 58)], fill=antler, width=5)
+        leg = (98, 68, 40, 255)
+        for lx, top, bot, w in (
+            (px - 32, y0 + 28, y0 + 76, 17),
+            (px - 8, y0 + 30, y0 + 78, 16),
+            (px + 12, y0 + 26, y0 + 74, 16),
+            (px + 30, y0 + 26, y0 + 72, 15),
+        ):
+            d.rounded_rectangle((lx, top, lx + w, bot), radius=5, fill=leg)
+            d.ellipse((lx - 2, bot - 7, lx + w + 5, bot + 6), fill=(72, 48, 28, 255))
+        d.ellipse((px + 50, y0 - 18, px + 60, y0 - 8), fill=(32, 22, 14, 255))
+        d.ellipse((px - 36, y0 + 10, px - 18, y0 + 28), fill=(122, 84, 48, 255))
     elif kind == "chapel":
         px, y0 = g(-8, 2)
         d.rectangle((px - 40, y0, px + 54, y0 + 70), fill=(198, 188, 172, 255))
@@ -327,16 +334,17 @@ def paint_vista(kind: str, frame: int) -> Image.Image:
         d.ellipse((px + 8, y0 + 26, px + 18, y0 + 36), fill=(32, 24, 20, 255))
     elif kind == "bridge":
         y0 = int(ground_y - 2)
-        d.ellipse((int(CX - 112), y0 + 10, int(CX + 112), y0 + 42), fill=(48, 92, 112, 170))
-        d.ellipse((int(CX - 40), y0 + 14, int(CX + 48), y0 + 26), fill=(210, 228, 236, 50))
-        d.pieslice((int(CX - 88), y0 - 70, int(CX + 88), y0 + 36), 200, 340, fill=(86, 90, 98, 255))
-        d.pieslice((int(CX - 58), y0 - 42, int(CX + 58), y0 + 28), 200, 340, fill=(48, 92, 112, 0))
-        # Punch the arch with a darker water hole.
-        d.pieslice((int(CX - 56), y0 - 38, int(CX + 56), y0 + 24), 200, 340, fill=(48, 92, 112, 180))
-        d.rectangle((int(CX - 108), y0 - 12, int(CX + 108), y0 + 4), fill=(58, 62, 70, 255))
-        d.rectangle((int(CX - 82), y0 + 2, int(CX - 68), y0 + 32), fill=(58, 62, 70, 255))
-        d.rectangle((int(CX + 68), y0 + 2, int(CX + 82), y0 + 32), fill=(58, 62, 70, 255))
-        d.rectangle((int(CX - 8), y0 + 2, int(CX + 8), y0 + 18), fill=(58, 62, 70, 255))
+        d.ellipse((int(CX - 118), y0 + 8, int(CX + 118), y0 + 46), fill=(48, 92, 112, 185))
+        d.ellipse((int(CX - 50), y0 + 12, int(CX + 46), y0 + 26), fill=(210, 228, 236, 70))
+        stone = (96, 92, 88, 255)
+        d.rounded_rectangle((int(CX - 112), y0 - 10, int(CX - 74), y0 + 36), radius=6, fill=stone)
+        d.rounded_rectangle((int(CX + 74), y0 - 10, int(CX + 112), y0 + 36), radius=6, fill=stone)
+        d.arc((int(CX - 98), y0 - 82, int(CX + 98), y0 + 32), 200, 340, fill=(108, 100, 92, 255), width=24)
+        d.rectangle((int(CX - 102), y0 - 18, int(CX + 102), y0 - 2), fill=(72, 76, 82, 255))
+        d.line([(int(CX - 92), y0 - 32), (int(CX + 92), y0 - 32)], fill=(58, 62, 70, 220), width=3)
+        for i in range(-3, 4):
+            x = int(CX + i * 24)
+            d.rectangle((x - 2, y0 - 32, x + 2, y0 - 16), fill=(58, 62, 70, 220))
     else:
         mx, my = g(22, -36)
         d.ellipse((mx - 48, my - 48, mx + 48, my + 48), fill=(236, 226, 196, 255))
@@ -359,7 +367,7 @@ def paint_flurry(kind: str, frame: int) -> Image.Image:
     n = 96 if kind in {"snow", "mica"} else 68
     az = rng.rand(n) * math.pi * 2
     phase = rng.rand(n)
-    sizes = rng.randint(2, 6, n)
+    sizes = rng.randint(5, 10, n)
     inner = RADIUS - 12
     for i in range(n):
         fall = (phase[i] + frame / FRAMES + 0.04 * math.sin(t + i * 0.4)) % 1.0
@@ -371,35 +379,36 @@ def paint_flurry(kind: str, frame: int) -> Image.Image:
             continue
         s = int(sizes[i])
         if kind == "gold":
-            d.rectangle((int(x), int(y), int(x) + s + 1, int(y) + 2), fill=(*color, 235))
+            d.ellipse((int(x - s * 0.6), int(y), int(x + s * 0.6), int(y) + 3), fill=(*color, 235))
         elif kind == "confetti":
             hue = [(220, 92, 96), (72, 140, 120), (70, 110, 190), (220, 180, 70)][i % 4]
-            d.rectangle((int(x), int(y), int(x) + 4, int(y) + 2), fill=(*hue, 235))
+            d.ellipse((int(x - 3), int(y - 2), int(x + 4), int(y) + 3), fill=(*hue, 235))
         elif kind == "grit":
-            d.polygon([(int(x), int(y)), (int(x) + 4, int(y) + 2), (int(x) - 1, int(y) + 4)], fill=(*color, 220))
+            d.polygon([(int(x), int(y)), (int(x) + 5, int(y) + 2), (int(x) - 2, int(y) + 5)], fill=(*color, 220))
         else:
-            d.ellipse((int(x), int(y), int(x) + s, int(y) + s), fill=(*color, 235))
+            d.ellipse((int(x - s * 0.55), int(y - s * 0.55), int(x + s * 0.55), int(y + s * 0.55)), fill=(*color, 235))
     return clip_sphere(layer, RADIUS - 3)
 
 
 def paint_lens(kind: str, frame: int) -> Image.Image:
     dx, dy, dist = sphere_coords()
-    rim = np.clip((dist - (RADIUS - 10.0)) / 11.0, 0.0, 1.0)
-    shell = (dist <= RADIUS + 2.0) & (dist >= RADIUS - 9.0)
+    rim = np.clip((dist - (RADIUS - 18.0)) / 18.0, 0.0, 1.0)
+    shell = (dist <= RADIUS + 2.5) & (dist >= RADIUS - 16.0)
     rgb = np.zeros((SIZE, SIZE, 3), dtype=np.float32)
-    rgb[..., 0] = 228
-    rgb[..., 1] = 236
-    rgb[..., 2] = 242
+    rgb[..., 0] = 232
+    rgb[..., 1] = 240
+    rgb[..., 2] = 246
     alpha = np.zeros((SIZE, SIZE), dtype=np.float32)
-    alpha[shell] = 40 + rim[shell] * 90
+    alpha[shell] = 32 + rim[shell] * 140
     layer = arr_to_image(rgb, np.clip(alpha, 0, 255).astype(np.uint8))
     d = ImageDraw.Draw(layer)
 
     spec = Image.new("RGBA", (SIZE, SIZE), (0, 0, 0, 0))
     sd = ImageDraw.Draw(spec)
-    spec_box = (int(CX - 124), int(CY - 156), int(CX + 18), int(CY - 8))
-    sd.arc(spec_box, 200, 312, fill=(255, 252, 248, 175), width=16)
-    sd.ellipse((int(CX - 78), int(CY - 118), int(CX - 52), int(CY - 92)), fill=(255, 252, 248, 90))
+    spec_box = (int(CX - 128), int(CY - 162), int(CX + 22), int(CY - 4))
+    sd.arc(spec_box, 198, 318, fill=(255, 252, 248, 200), width=20)
+    sd.arc((int(CX - 96), int(CY - 128), int(CX - 8), int(CY - 36)), 210, 300, fill=(255, 252, 248, 90), width=8)
+    sd.ellipse((int(CX - 82), int(CY - 122), int(CX - 50), int(CY - 90)), fill=(255, 252, 248, 110))
     spec = spec.filter(ImageFilter.GaussianBlur(2))
     layer.alpha_composite(spec)
 
@@ -460,9 +469,9 @@ def paint_collar(kind: str, frame: int) -> Image.Image:
     d.ellipse((int(CX - 122), y - 18, int(CX + 122), y + 34), fill=(*metal, 255))
     hi = tuple(min(255, c + 48) for c in metal)
     lo = tuple(max(0, c - 36) for c in metal)
-    d.arc((int(CX - 122), y - 18, int(CX + 122), y + 34), 200, 340, fill=(*hi, 210), width=4)
-    d.ellipse((int(CX - 102), y - 6, int(CX + 102), y + 16), outline=(*lo, 160), width=3)
-    d.arc((int(CX - 118), y - 14, int(CX + 118), y + 28), 20, 160, fill=(*lo, 120), width=3)
+    d.ellipse((int(CX - 104), y - 4, int(CX + 104), y + 14), fill=(*lo, 255))
+    d.arc((int(CX - 122), y - 18, int(CX + 122), y + 34), 200, 340, fill=(*hi, 210), width=5)
+    d.arc((int(CX - 118), y - 14, int(CX + 118), y + 28), 20, 160, fill=(*lo, 90), width=3)
     return layer
 
 
@@ -727,7 +736,7 @@ def write_ts_gallery(samples: list[dict]) -> None:
             "  {\n"
             f"    id: {sample['id']},\n"
             f'    name: "{sample["name"]}",\n'
-            f'    image: "{sample["image"]}?v=2",\n'
+            f'    image: "{sample["image"]}?v=3",\n'
             f"    attributes: [\n      {attrs},\n    ],\n"
             "  }"
         )
@@ -799,7 +808,7 @@ def write_ts_traits() -> None:
         "  traits: NivoraTrait[];\n"
         "};\n\n"
         "/** Bump when APNG layers change so the studio does not keep a stale loop. */\n"
-        'export const NIVORA_ART_VERSION = "nivora-v2";\n\n'
+        'export const NIVORA_ART_VERSION = "nivora-v3";\n\n'
         "export const NIVORA_FRAMES = 12;\n"
         "export const NIVORA_DURATION_MS = 90;\n\n"
         "export function nivoraTraitSrc(path?: string) {\n"
