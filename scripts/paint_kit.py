@@ -45,8 +45,9 @@ def save_image(image: Image.Image, path: Path, **kwargs) -> None:
     write_bytes_retry(path, buffer.getvalue())
 
 
-def save_apng(frames: list[Image.Image], path: Path) -> None:
+def save_apng(frames: list[Image.Image], path: Path, duration_ms: int | None = None) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
+    delay = DURATION_MS if duration_ms is None else duration_ms
     stamped = []
     for index, frame in enumerate(frames):
         copy = frame.convert("RGBA")
@@ -59,7 +60,7 @@ def save_apng(frames: list[Image.Image], path: Path) -> None:
         buffer := BytesIO(),
         save_all=True,
         append_images=stamped[1:],
-        duration=[DURATION_MS] * len(stamped),
+        duration=[delay] * len(stamped),
         loop=0,
         format="PNG",
         disposal=1,

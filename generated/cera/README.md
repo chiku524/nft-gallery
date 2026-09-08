@@ -1,6 +1,6 @@
 # Cera OpenSea kit
 
-16 flattened lava-lamp loops at 512×512, 12 frames, 90ms (sample pack — bake all 10,000 with `--all`).
+16 flattened lava-lamp loops at 512×512, 12 frames, 120ms (sample pack — bake all 10,000 with `--all`).
 
 ## Collection fields
 

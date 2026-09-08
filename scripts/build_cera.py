@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Paint Cera — paraffin lava lamps.
 
-Every trait is a 12-frame APNG on a shared 512 canvas and 90ms clock.
+Every trait is a 12-frame APNG on a shared 512 canvas and 120ms clock.
 The portrait is a glass flask of oil on a nightstand. The wax is the loop.
 Not cardboard matchbooks. Not snow globes. Not neon tubing. Not stamped tin.
 Not origami. Not engraved busts. Not sticker cutouts. Not oval-egg bodies.
@@ -22,7 +22,9 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
 from gif_bake import save_loop_gif  # noqa: E402
-from paint_kit import DURATION_MS, FRAMES, SIZE, place_portrait, save_apng, save_image  # noqa: E402
+from paint_kit import FRAMES, SIZE, place_portrait, save_apng, save_image  # noqa: E402
+
+DURATION_MS = 120
 
 GIF_COLORS = 128
 GIF_DITHER = Image.Dither.NONE
@@ -492,21 +494,54 @@ def paint_serum(kind: str, frame: int) -> Image.Image:
     return clip_to_inner(out)
 
 
-def blob_pose(frame: int, index: int) -> tuple[float, float, float, float, float, float]:
-    """Full trip: each glob rises to the neck and falls back to the floor."""
+def pingpong(u: float) -> float:
+    """Triangle wave on [0, 1, 0, …] so a loop can bounce without a jump."""
+    u = u % 2.0
+    if u < 0.0:
+        u += 2.0
+    return u if u < 1.0 else 2.0 - u
+
+
+_OIL_HALF: np.ndarray | None = None
+
+
+def oil_half_width(y: float) -> float:
+    """Cached half-width of the oil envelope at y, so wax can ricochet off glass."""
+    global _OIL_HALF
+    if _OIL_HALF is None:
+        mask = np.array(liquid_union_mask())
+        half = np.full(SIZE, 18.0, dtype=np.float32)
+        for row_i, row in enumerate(mask):
+            xs = np.flatnonzero(row > 80)
+            if xs.size >= 2:
+                half[row_i] = 0.5 * float(xs[-1] - xs[0])
+        _OIL_HALF = half
+    yi = max(0, min(SIZE - 1, int(round(y))))
+    return float(_OIL_HALF[yi])
+
+
+def blob_pose(frame: int, index: int) -> tuple[float, float, float, float, float, float, float]:
+    """Full trip: each glob rises to the neck, falls, and bounces off the glass."""
     t = clock(frame)
     phase = index * (math.tau / 4.0)
-    travel = 0.5 + 0.5 * math.sin(t + phase)
+    theta = t + phase
+    travel = 0.5 + 0.5 * math.sin(theta)
     y0 = FLOOR_Y - 14
     y1 = NECK_Y + 12
     y = y0 + (y1 - y0) * travel
-    rising = math.cos(t + phase)
+    rising = math.cos(theta)
     pinch = 0.42 * rising - 0.32 * (travel * travel)
     narrow = 1.0 - 0.48 * (travel ** 1.35)
     rx = (34.0, 26.0, 30.0, 18.0)[index] * narrow * (1.0 + 0.05 * math.cos(t + index))
     ry = (24.0, 32.0, 20.0, 16.0)[index] * (1.10 + 0.22 * abs(rising))
     wobble = 0.10 + 0.05 * math.sin(t + index)
-    return y, rx, ry, pinch, wobble, narrow
+    wall = max(8.0, oil_half_width(y) - rx * 0.70)
+    signed = pingpong(t / math.pi + (0.12, 0.85, 1.38, 0.42)[index]) * 2.0 - 1.0
+    squash = abs(signed) ** 2.0
+    rx *= 1.0 - 0.30 * squash
+    ry *= 1.0 + 0.16 * squash
+    x = CX + signed * wall
+    return x, y, rx, ry, pinch, wobble, signed
 
 
 def paint_melt(kind: str, frame: int) -> Image.Image:
@@ -522,13 +557,13 @@ def paint_melt(kind: str, frame: int) -> Image.Image:
     d = ImageDraw.Draw(layer)
     cx = int(CX)
     t = clock(frame)
-    offsets = (-10, 14, -6, 8)
-    for i, ox in enumerate(offsets):
-        y, rx, ry, pinch, wobble, narrow = blob_pose(frame, i)
-        pts = wax_pts(cx + ox * narrow, y, rx, ry, pinch, wobble, t + i * 1.7)
+    for i in range(4):
+        x, y, rx, ry, pinch, wobble, signed = blob_pose(frame, i)
+        pts = wax_pts(x, y, rx, ry, pinch, wobble, t + i * 1.7)
         d.polygon(pts, fill=color + (242,))
         d.line(pts + [pts[0]], fill=dark + (210,), width=3)
-        hx = cx + ox - rx * 0.22
+        inward = -1.0 if signed >= 0.0 else 1.0
+        hx = x + inward * rx * 0.22
         hy = y - ry * 0.28
         hpts = wax_pts(hx, hy, rx * 0.38, ry * 0.32, pinch * 0.4, wobble * 0.4, t)
         d.polygon(hpts, fill=lite + (130 if kind != "white" else 90,))
@@ -762,7 +797,11 @@ def build_traits(only: str | None = None, ids: list[str] | None = None) -> None:
             if wanted and trait_id not in wanted:
                 continue
             print(f"  {category}/{trait_id}")
-            save_apng(render_trait_frames(category, trait_id), trait_path(category, trait_id))
+            save_apng(
+                render_trait_frames(category, trait_id),
+                trait_path(category, trait_id),
+                duration_ms=DURATION_MS,
+            )
     write_flask_masks()
     manifest = {
         "name": "Cera",
@@ -825,7 +864,7 @@ def write_ts_gallery(samples: list[dict]) -> None:
             "  {\n"
             f"    id: {sample['id']},\n"
             f'    name: "{sample["name"]}",\n'
-            f'    image: "{sample["image"]}?v=6",\n'
+            f'    image: "{sample["image"]}?v=7",\n'
             f"    attributes: [\n      {attrs},\n    ],\n"
             "  }"
         )
@@ -894,9 +933,9 @@ def write_ts_traits() -> None:
         "  traits: CeraTrait[];\n"
         "};\n\n"
         "/** Bump when APNG layers change so the studio does not keep a stale loop. */\n"
-        'export const CERA_ART_VERSION = "cera-v6";\n\n'
+        'export const CERA_ART_VERSION = "cera-v7";\n\n'
         "export const CERA_FRAMES = 12;\n"
-        "export const CERA_DURATION_MS = 90;\n\n"
+        "export const CERA_DURATION_MS = 120;\n\n"
         "export function ceraTraitSrc(path?: string) {\n"
         "  if (!path) return \"\";\n"
         "  return `${path}?v=${CERA_ART_VERSION}`;\n"
@@ -1032,6 +1071,7 @@ def build_brand() -> None:
     save_apng(
         [frame.resize((512, 512), Image.Resampling.LANCZOS) for frame in logo_frames],
         BRAND_DIR / "logo-cera-loop.png",
+        duration_ms=DURATION_MS,
     )
 
     def lineup(width: int, height: int, faces: list[Image.Image]) -> Image.Image:
