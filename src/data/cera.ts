@@ -10,7 +10,7 @@ export const cera = {
   mintPriceUsd: "0.25",
   mintPriceEth: "0.0001",
   frames: 12,
-  frameDurationMs: 120,
+  frameDurationMs: 180,
   canvas: 512,
   chain: {
     name: "Robinhood Chain",

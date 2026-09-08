@@ -9,7 +9,7 @@ export const ceraSamples: CeraSample[] = [
   {
     id: 1,
     name: "Lamp #1",
-    image: "/cera-preview/1.gif?v=7",
+    image: "/cera-preview/1.gif?v=8",
     attributes: [
       { trait_type: "Sill", value: "Wood Sill" },
       { trait_type: "Socket", value: "Rocket Socket" },
@@ -23,7 +23,7 @@ export const ceraSamples: CeraSample[] = [
   {
     id: 2,
     name: "Lamp #2",
-    image: "/cera-preview/2.gif?v=7",
+    image: "/cera-preview/2.gif?v=8",
     attributes: [
       { trait_type: "Sill", value: "Formica Sill" },
       { trait_type: "Socket", value: "Saucer Socket" },
@@ -37,7 +37,7 @@ export const ceraSamples: CeraSample[] = [
   {
     id: 3,
     name: "Lamp #3",
-    image: "/cera-preview/3.gif?v=7",
+    image: "/cera-preview/3.gif?v=8",
     attributes: [
       { trait_type: "Sill", value: "Velvet Sill" },
       { trait_type: "Socket", value: "Cone Socket" },
@@ -51,7 +51,7 @@ export const ceraSamples: CeraSample[] = [
   {
     id: 4,
     name: "Lamp #4",
-    image: "/cera-preview/4.gif?v=7",
+    image: "/cera-preview/4.gif?v=8",
     attributes: [
       { trait_type: "Sill", value: "Tile Sill" },
       { trait_type: "Socket", value: "Cube Socket" },
@@ -65,7 +65,7 @@ export const ceraSamples: CeraSample[] = [
   {
     id: 5,
     name: "Lamp #5",
-    image: "/cera-preview/5.gif?v=7",
+    image: "/cera-preview/5.gif?v=8",
     attributes: [
       { trait_type: "Sill", value: "Night Sill" },
       { trait_type: "Socket", value: "Mushroom Socket" },
@@ -79,7 +79,7 @@ export const ceraSamples: CeraSample[] = [
   {
     id: 6,
     name: "Lamp #6",
-    image: "/cera-preview/6.gif?v=7",
+    image: "/cera-preview/6.gif?v=8",
     attributes: [
       { trait_type: "Sill", value: "Wood Sill" },
       { trait_type: "Socket", value: "Chrome Socket" },
@@ -93,7 +93,7 @@ export const ceraSamples: CeraSample[] = [
   {
     id: 7,
     name: "Lamp #7",
-    image: "/cera-preview/7.gif?v=7",
+    image: "/cera-preview/7.gif?v=8",
     attributes: [
       { trait_type: "Sill", value: "Formica Sill" },
       { trait_type: "Socket", value: "Walnut Socket" },
@@ -107,7 +107,7 @@ export const ceraSamples: CeraSample[] = [
   {
     id: 8,
     name: "Lamp #8",
-    image: "/cera-preview/8.gif?v=7",
+    image: "/cera-preview/8.gif?v=8",
     attributes: [
       { trait_type: "Sill", value: "Velvet Sill" },
       { trait_type: "Socket", value: "Ceramic Socket" },
@@ -121,7 +121,7 @@ export const ceraSamples: CeraSample[] = [
   {
     id: 9,
     name: "Lamp #9",
-    image: "/cera-preview/9.gif?v=7",
+    image: "/cera-preview/9.gif?v=8",
     attributes: [
       { trait_type: "Sill", value: "Tile Sill" },
       { trait_type: "Socket", value: "Rocket Socket" },
@@ -135,7 +135,7 @@ export const ceraSamples: CeraSample[] = [
   {
     id: 10,
     name: "Lamp #10",
-    image: "/cera-preview/10.gif?v=7",
+    image: "/cera-preview/10.gif?v=8",
     attributes: [
       { trait_type: "Sill", value: "Night Sill" },
       { trait_type: "Socket", value: "Saucer Socket" },
@@ -149,7 +149,7 @@ export const ceraSamples: CeraSample[] = [
   {
     id: 11,
     name: "Lamp #11",
-    image: "/cera-preview/11.gif?v=7",
+    image: "/cera-preview/11.gif?v=8",
     attributes: [
       { trait_type: "Sill", value: "Wood Sill" },
       { trait_type: "Socket", value: "Cone Socket" },
@@ -163,7 +163,7 @@ export const ceraSamples: CeraSample[] = [
   {
     id: 12,
     name: "Lamp #12",
-    image: "/cera-preview/12.gif?v=7",
+    image: "/cera-preview/12.gif?v=8",
     attributes: [
       { trait_type: "Sill", value: "Formica Sill" },
       { trait_type: "Socket", value: "Cube Socket" },
@@ -177,7 +177,7 @@ export const ceraSamples: CeraSample[] = [
   {
     id: 13,
     name: "Lamp #13",
-    image: "/cera-preview/13.gif?v=7",
+    image: "/cera-preview/13.gif?v=8",
     attributes: [
       { trait_type: "Sill", value: "Velvet Sill" },
       { trait_type: "Socket", value: "Mushroom Socket" },
@@ -191,7 +191,7 @@ export const ceraSamples: CeraSample[] = [
   {
     id: 14,
     name: "Lamp #14",
-    image: "/cera-preview/14.gif?v=7",
+    image: "/cera-preview/14.gif?v=8",
     attributes: [
       { trait_type: "Sill", value: "Tile Sill" },
       { trait_type: "Socket", value: "Chrome Socket" },
@@ -205,7 +205,7 @@ export const ceraSamples: CeraSample[] = [
   {
     id: 15,
     name: "Lamp #15",
-    image: "/cera-preview/15.gif?v=7",
+    image: "/cera-preview/15.gif?v=8",
     attributes: [
       { trait_type: "Sill", value: "Night Sill" },
       { trait_type: "Socket", value: "Walnut Socket" },
@@ -219,7 +219,7 @@ export const ceraSamples: CeraSample[] = [
   {
     id: 16,
     name: "Lamp #16",
-    image: "/cera-preview/16.gif?v=7",
+    image: "/cera-preview/16.gif?v=8",
     attributes: [
       { trait_type: "Sill", value: "Wood Sill" },
       { trait_type: "Socket", value: "Ceramic Socket" },

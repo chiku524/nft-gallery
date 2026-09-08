@@ -2,7 +2,7 @@
   "name": "Cera",
   "size": 512,
   "frames": 12,
-  "durationMs": 120,
+  "durationMs": 180,
   "format": "apng",
   "loop": 0,
   "order": [

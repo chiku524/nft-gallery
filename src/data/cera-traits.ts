@@ -14,10 +14,10 @@ export type CeraTraitCategory = {
 };
 
 /** Bump when APNG layers change so the studio does not keep a stale loop. */
-export const CERA_ART_VERSION = "cera-v7";
+export const CERA_ART_VERSION = "cera-v8";
 
 export const CERA_FRAMES = 12;
-export const CERA_DURATION_MS = 120;
+export const CERA_DURATION_MS = 180;
 
 export function ceraTraitSrc(path?: string) {
   if (!path) return "";

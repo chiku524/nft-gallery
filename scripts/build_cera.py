@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Paint Cera — paraffin lava lamps.
 
-Every trait is a 12-frame APNG on a shared 512 canvas and 120ms clock.
+Every trait is a 12-frame APNG on a shared 512 canvas and 180ms clock.
 The portrait is a glass flask of oil on a nightstand. The wax is the loop.
 Not cardboard matchbooks. Not snow globes. Not neon tubing. Not stamped tin.
 Not origami. Not engraved busts. Not sticker cutouts. Not oval-egg bodies.
@@ -24,7 +24,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 from gif_bake import save_loop_gif  # noqa: E402
 from paint_kit import FRAMES, SIZE, place_portrait, save_apng, save_image  # noqa: E402
 
-DURATION_MS = 120
+DURATION_MS = 180
 
 GIF_COLORS = 128
 GIF_DITHER = Image.Dither.NONE
@@ -864,7 +864,7 @@ def write_ts_gallery(samples: list[dict]) -> None:
             "  {\n"
             f"    id: {sample['id']},\n"
             f'    name: "{sample["name"]}",\n'
-            f'    image: "{sample["image"]}?v=7",\n'
+            f'    image: "{sample["image"]}?v=8",\n'
             f"    attributes: [\n      {attrs},\n    ],\n"
             "  }"
         )
@@ -933,9 +933,9 @@ def write_ts_traits() -> None:
         "  traits: CeraTrait[];\n"
         "};\n\n"
         "/** Bump when APNG layers change so the studio does not keep a stale loop. */\n"
-        'export const CERA_ART_VERSION = "cera-v7";\n\n'
+        'export const CERA_ART_VERSION = "cera-v8";\n\n'
         "export const CERA_FRAMES = 12;\n"
-        "export const CERA_DURATION_MS = 120;\n\n"
+        "export const CERA_DURATION_MS = 180;\n\n"
         "export function ceraTraitSrc(path?: string) {\n"
         "  if (!path) return \"\";\n"
         "  return `${path}?v=${CERA_ART_VERSION}`;\n"
