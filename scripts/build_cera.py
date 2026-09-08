@@ -42,6 +42,8 @@ NIGHT = (22, 18, 28, 255)
 CHROME = (197, 200, 206)
 GOLD = (212, 168, 72)
 MAGENTA = (217, 70, 166)
+INK = 8
+RING = 6
 
 SILL = {
     "wood": ((142, 92, 48), (92, 54, 28)),
@@ -253,53 +255,54 @@ def paint_socket(kind: str, frame: int) -> Image.Image:
         d.polygon(
             [(cx - 86, bot), (cx - 58, top + 18), (cx - 28, top), (cx + 28, top), (cx + 58, top + 18), (cx + 86, bot)],
             outline=NIGHT[:3] + (255,),
-            width=3,
+            width=INK,
         )
         for y in (top + 22, top + 48, top + 78):
-            d.arc((cx - 54, y, cx + 54, y + 18), 0, 180, fill=lite + (220,), width=3)
-        d.ellipse((cx - 18, top - 8, cx + 18, top + 14), fill=CHROME + (255,), outline=NIGHT[:3] + (255,), width=2)
+            d.arc((cx - 54, y, cx + 54, y + 18), 0, 180, fill=lite + (220,), width=4)
+        d.ellipse((cx - 18, top - 8, cx + 18, top + 14), fill=CHROME + (255,), outline=NIGHT[:3] + (255,), width=RING)
     elif kind == "saucer":
-        d.ellipse((cx - 110, top + 36, cx + 110, bot), fill=fill + (255,), outline=NIGHT[:3] + (255,), width=3)
-        d.ellipse((cx - 70, top + 18, cx + 70, top + 70), fill=lite + (255,), outline=dark + (255,), width=2)
-        d.rectangle((cx - 32, top - 4, cx + 32, top + 28), fill=CHROME + (255,), outline=NIGHT[:3] + (255,), width=2)
+        d.ellipse((cx - 110, top + 36, cx + 110, bot), fill=fill + (255,), outline=NIGHT[:3] + (255,), width=INK)
+        d.ellipse((cx - 70, top + 18, cx + 70, top + 70), fill=lite + (255,), outline=dark + (255,), width=RING)
+        d.rectangle((cx - 32, top - 4, cx + 32, top + 28), fill=CHROME + (255,), outline=NIGHT[:3] + (255,), width=RING)
     elif kind == "cone":
         d.polygon(
             [(cx - 92, bot), (cx - 26, top), (cx + 26, top), (cx + 92, bot)],
             fill=fill + (255,),
             outline=NIGHT[:3] + (255,),
+            width=INK,
         )
-        d.line([(cx - 40, top + 40), (cx + 40, top + 40)], fill=lite + (200,), width=3)
-        d.ellipse((cx - 20, top - 6, cx + 20, top + 16), fill=dark + (255,))
+        d.line([(cx - 40, top + 40), (cx + 40, top + 40)], fill=lite + (200,), width=4)
+        d.ellipse((cx - 20, top - 6, cx + 20, top + 16), fill=dark + (255,), outline=NIGHT[:3] + (255,), width=RING)
     elif kind == "cube":
-        d.rounded_rectangle((cx - 72, top, cx + 72, bot), radius=8, fill=fill + (255,), outline=NIGHT[:3] + (255,), width=3)
+        d.rounded_rectangle((cx - 72, top, cx + 72, bot), radius=8, fill=fill + (255,), outline=NIGHT[:3] + (255,), width=INK)
         d.rectangle((cx - 72, top + 28, cx + 72, top + 36), fill=dark + (255,))
         d.rectangle((cx - 18, top + 70, cx + 18, top + 110), fill=lite + (220,))
         d.ellipse((cx - 8, top + 82, cx + 8, top + 98), fill=NIGHT)
     elif kind == "mushroom":
-        d.ellipse((cx - 96, top + 20, cx + 96, bot + 8), fill=fill + (255,), outline=NIGHT[:3] + (255,), width=3)
-        d.ellipse((cx - 40, top - 8, cx + 40, top + 36), fill=lite + (255,), outline=dark + (255,), width=2)
-        d.arc((cx - 70, top + 40, cx + 70, top + 90), 200, 340, fill=lite + (180,), width=4)
+        d.ellipse((cx - 96, top + 20, cx + 96, bot + 8), fill=fill + (255,), outline=NIGHT[:3] + (255,), width=INK)
+        d.ellipse((cx - 40, top - 8, cx + 40, top + 36), fill=lite + (255,), outline=dark + (255,), width=RING)
+        d.arc((cx - 70, top + 40, cx + 70, top + 90), 200, 340, fill=lite + (180,), width=5)
     elif kind == "chrome":
-        d.rounded_rectangle((cx - 48, top, cx + 48, bot - 10), radius=6, fill=fill + (255,), outline=NIGHT[:3] + (255,), width=3)
+        d.rounded_rectangle((cx - 48, top, cx + 48, bot - 10), radius=6, fill=fill + (255,), outline=NIGHT[:3] + (255,), width=INK)
         d.rectangle((cx - 48, top + 16, cx - 30, bot - 26), fill=(255, 255, 255, 90))
-        d.ellipse((cx - 70, bot - 28, cx + 70, bot + 6), fill=dark + (255,), outline=NIGHT[:3] + (255,), width=2)
-        d.ellipse((cx - 22, top - 6, cx + 22, top + 16), fill=CHROME + (255,))
+        d.ellipse((cx - 70, bot - 28, cx + 70, bot + 6), fill=dark + (255,), outline=NIGHT[:3] + (255,), width=RING)
+        d.ellipse((cx - 22, top - 6, cx + 22, top + 16), fill=CHROME + (255,), outline=NIGHT[:3] + (255,), width=RING)
     elif kind == "walnut":
         d.polygon(
             [(cx - 78, bot), (cx - 50, top + 24), (cx - 22, top), (cx + 22, top), (cx + 50, top + 24), (cx + 78, bot)],
             fill=fill + (255,),
             outline=NIGHT[:3] + (255,),
-            width=3,
+            width=INK,
         )
         for y in range(top + 20, bot - 8, 16):
-            d.arc((cx - 46, y, cx + 46, y + 14), 10, 170, fill=lite + (160,), width=2)
+            d.arc((cx - 46, y, cx + 46, y + 14), 10, 170, fill=lite + (160,), width=RING)
     else:
-        d.rounded_rectangle((cx - 64, top + 8, cx + 64, bot), radius=22, fill=fill + (255,), outline=NIGHT[:3] + (255,), width=3)
+        d.rounded_rectangle((cx - 64, top + 8, cx + 64, bot), radius=22, fill=fill + (255,), outline=NIGHT[:3] + (255,), width=INK)
         d.ellipse((cx - 28, top - 4, cx + 28, top + 28), fill=(255, 255, 255, 40))
-        d.arc((cx - 40, top + 50, cx + 40, top + 90), 200, 340, fill=(255, 255, 255, 120), width=3)
+        d.arc((cx - 40, top + 50, cx + 40, top + 90), 200, 340, fill=(255, 255, 255, 120), width=4)
 
     # contact ring under the flask
-    d.ellipse((cx - 36, top - 10, cx + 36, top + 12), fill=CHROME + (240,), outline=NIGHT[:3] + (255,), width=2)
+    d.ellipse((cx - 36, top - 10, cx + 36, top + 12), fill=CHROME + (240,), outline=NIGHT[:3] + (255,), width=RING)
     return layer
 
 
@@ -309,19 +312,19 @@ def paint_flask(kind: str, frame: int) -> Image.Image:
     poly = flask_poly(kind)
     glass = (226, 236, 242, 36)
     d.polygon(poly, fill=glass)
-    d.polygon(poly, outline=(236, 244, 252, 220), width=4)
-    d.polygon(poly, outline=NIGHT[:3] + (90,), width=1)
+    d.polygon(poly, outline=NIGHT[:3] + (255,), width=INK + 4)
+    d.polygon(poly, outline=(236, 244, 252, 230), width=3)
     # left specular strip
     cx = int(CX)
     d.line(
         [(cx - 38, int(NECK_Y + 24)), (cx - 52, 210), (cx - 58, int(FLOOR_Y - 20))],
-        fill=(255, 255, 255, 140),
-        width=3,
+        fill=(255, 255, 255, 160),
+        width=7,
     )
     d.line(
         [(cx + 40, int(NECK_Y + 30)), (cx + 54, 220), (cx + 60, int(FLOOR_Y - 24))],
-        fill=(180, 210, 230, 70),
-        width=2,
+        fill=(180, 210, 230, 90),
+        width=5,
     )
     # neck collar
     d.rounded_rectangle(
@@ -329,7 +332,7 @@ def paint_flask(kind: str, frame: int) -> Image.Image:
         radius=4,
         fill=CHROME + (255,),
         outline=NIGHT[:3] + (255,),
-        width=2,
+        width=RING,
     )
     return layer
 
@@ -347,7 +350,7 @@ def paint_serum(kind: str, frame: int) -> Image.Image:
     # caustic pulse from the coil
     glow = Image.new("RGBA", (SIZE, SIZE), (0, 0, 0, 0))
     g = ImageDraw.Draw(glow)
-    pulse = 0.55 + 0.45 * (0.5 + 0.5 * math.sin(t * 2.0))
+    pulse = 0.62 + 0.28 * (0.5 + 0.5 * math.sin(t))
     gy = int(FLOOR_Y - 28)
     rad = int(40 + 10 * pulse)
     g.ellipse((cx - rad, gy - 18, cx + rad, int(FLOOR_Y + 4)), fill=(255, 180, 80, int(50 * pulse)))
@@ -364,26 +367,16 @@ def paint_serum(kind: str, frame: int) -> Image.Image:
 
 
 def blob_state(frame: int, index: int) -> tuple[float, float, float]:
-    """Return (y, stretch, width_scale) for a paraffin mass."""
-    phase = (frame / FRAMES + index * 0.31) % 1.0
-    y0 = FLOOR_Y - 28
-    y1 = NECK_Y + 48
-    # rise, mushroom, fall
-    if phase < 0.45:
-        u = phase / 0.45
-        y = y0 + (y1 - y0) * (u * u)
-        stretch = 1.15 + 0.55 * u
-        width = 1.0 - 0.25 * u
-    elif phase < 0.62:
-        u = (phase - 0.45) / 0.17
-        y = y1 + 8 * math.sin(u * math.pi)
-        stretch = 0.7
-        width = 1.15 + 0.25 * u
-    else:
-        u = (phase - 0.62) / 0.38
-        y = y1 + (y0 - y1) * (u ** 1.15)
-        stretch = 0.85 + 0.2 * u
-        width = 1.05 - 0.15 * u
+    """Slow hover: each mass stays in a lane and drifts a little."""
+    t = clock(frame)
+    y0 = FLOOR_Y - 36
+    y1 = NECK_Y + 56
+    homes = (0.16, 0.38, 0.58, 0.78)
+    amps = (8.0, 10.0, 9.0, 6.0)
+    home = y0 + (y1 - y0) * homes[index]
+    y = home + amps[index] * math.sin(t + index * 1.15)
+    stretch = 1.02 + 0.05 * math.sin(t + index * 0.7)
+    width = 1.0 + 0.04 * math.cos(t + index * 0.9)
     return y, stretch, width
 
 
@@ -402,15 +395,15 @@ def paint_melt(kind: str, frame: int) -> Image.Image:
         hh = int(h * stretch)
         x = cx + ox
         box = (x - ww, int(y - hh), x + ww, int(y + hh * 0.85))
-        d.ellipse(box, fill=color + (230,))
+        d.ellipse(box, fill=color + (230,), outline=dark + (220,), width=RING)
         # inner translucency
         d.ellipse(
             (box[0] + ww // 3, box[1] + hh // 4, box[2] - ww // 5, box[3] - hh // 3),
             fill=lite + (90,),
         )
-        d.arc(box, 200, 320, fill=dark + (140,), width=2)
+        d.arc(box, 200, 320, fill=dark + (160,), width=RING)
     # puddle at the floor that feeds the rise
-    puddle_h = 18 + int(6 * math.sin(clock(frame) * 2))
+    puddle_h = 18 + int(2 * math.sin(clock(frame)))
     d.ellipse(
         (cx - 48, int(FLOOR_Y - 8 - puddle_h), cx + 48, int(FLOOR_Y + 2)),
         fill=color + (235,),
@@ -421,7 +414,7 @@ def paint_melt(kind: str, frame: int) -> Image.Image:
 def paint_coil(kind: str, frame: int) -> Image.Image:
     color = COIL[kind]
     t = clock(frame)
-    pulse = 0.7 + 0.3 * math.sin(t * 3.0)
+    pulse = 0.78 + 0.18 * math.sin(t)
     layer = blank()
     glow = Image.new("RGBA", (SIZE, SIZE), (0, 0, 0, 0))
     g = ImageDraw.Draw(glow)
@@ -436,8 +429,8 @@ def paint_coil(kind: str, frame: int) -> Image.Image:
     pts = []
     for i in range(7):
         pts.append((cx - 18 + i * 6, y - 4 + (4 if i % 2 else -4)))
-    d.line(pts, fill=color + (255,), width=3)
-    d.ellipse((cx - 22, y - 2, cx + 22, y + 10), outline=tuple(max(0, c - 30) for c in color) + (200,), width=2)
+    d.line(pts, fill=color + (255,), width=RING)
+    d.ellipse((cx - 22, y - 2, cx + 22, y + 10), outline=tuple(max(0, c - 30) for c in color) + (200,), width=RING)
     return clip_to_inner(layer)
 
 
@@ -454,10 +447,10 @@ def paint_lid(kind: str, frame: int) -> Image.Image:
         radius=8,
         fill=fill + (255,),
         outline=NIGHT[:3] + (255,),
-        width=3,
+        width=INK,
     )
-    d.ellipse((cx - 32, top - 8, cx + 32, top + 16), fill=tuple(min(255, c + 24) for c in fill) + (255,), outline=NIGHT[:3] + (255,), width=2)
-    d.arc((cx - 18, top - 4, cx + 18, top + 10), 200, 340, fill=(255, 255, 255, 140), width=2)
+    d.ellipse((cx - 32, top - 8, cx + 32, top + 16), fill=tuple(min(255, c + 24) for c in fill) + (255,), outline=NIGHT[:3] + (255,), width=RING)
+    d.arc((cx - 18, top - 4, cx + 18, top + 10), 200, 340, fill=(255, 255, 255, 140), width=3)
     if kind == "painted":
         d.ellipse((cx - 8, top, cx + 8, top + 10), fill=(255, 220, 80, 220))
     return layer
@@ -683,7 +676,7 @@ def write_ts_gallery(samples: list[dict]) -> None:
             "  {\n"
             f"    id: {sample['id']},\n"
             f'    name: "{sample["name"]}",\n'
-            f'    image: "{sample["image"]}?v=1",\n'
+            f'    image: "{sample["image"]}?v=3",\n'
             f"    attributes: [\n      {attrs},\n    ],\n"
             "  }"
         )
@@ -752,7 +745,7 @@ def write_ts_traits() -> None:
         "  traits: CeraTrait[];\n"
         "};\n\n"
         "/** Bump when APNG layers change so the studio does not keep a stale loop. */\n"
-        'export const CERA_ART_VERSION = "cera-v1";\n\n'
+        'export const CERA_ART_VERSION = "cera-v3";\n\n'
         "export const CERA_FRAMES = 12;\n"
         "export const CERA_DURATION_MS = 90;\n\n"
         "export function ceraTraitSrc(path?: string) {\n"
