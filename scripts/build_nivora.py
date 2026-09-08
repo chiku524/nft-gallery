@@ -364,10 +364,10 @@ def paint_flurry(kind: str, frame: int) -> Image.Image:
     color = FLURRY_COLOR[kind]
     t = clock(frame)
     rng = np.random.RandomState({"snow": 4101, "gold": 4102, "ash": 4103, "confetti": 4104, "mica": 4105, "grit": 4106}[kind])
-    n = 96 if kind in {"snow", "mica"} else 68
+    n = 108 if kind in {"snow", "mica"} else 80
     az = rng.rand(n) * math.pi * 2
     phase = rng.rand(n)
-    sizes = rng.randint(5, 10, n)
+    sizes = rng.choice([1, 1, 1, 2, 2, 2, 3], size=n)
     inner = RADIUS - 12
     for i in range(n):
         fall = (phase[i] + frame / FRAMES + 0.04 * math.sin(t + i * 0.4)) % 1.0
@@ -377,16 +377,20 @@ def paint_flurry(kind: str, frame: int) -> Image.Image:
         y = CY - math.cos(phi) * inner * 0.92
         if (x - CX) ** 2 + (y - CY) ** 2 > (RADIUS - 8) ** 2:
             continue
-        s = int(sizes[i])
+        s = float(sizes[i])
+        r = 0.45 * s
         if kind == "gold":
-            d.ellipse((int(x - s * 0.6), int(y), int(x + s * 0.6), int(y) + 3), fill=(*color, 235))
+            d.ellipse((int(x - r - 0.4), int(y), int(x + r + 0.8), int(y) + 1), fill=(*color, 220))
         elif kind == "confetti":
             hue = [(220, 92, 96), (72, 140, 120), (70, 110, 190), (220, 180, 70)][i % 4]
-            d.ellipse((int(x - 3), int(y - 2), int(x + 4), int(y) + 3), fill=(*hue, 235))
+            d.ellipse((int(x - 1), int(y - 1), int(x + 1), int(y + 1)), fill=(*hue, 220))
         elif kind == "grit":
-            d.polygon([(int(x), int(y)), (int(x) + 5, int(y) + 2), (int(x) - 2, int(y) + 5)], fill=(*color, 220))
+            d.polygon([(int(x), int(y)), (int(x) + 2, int(y) + 1), (int(x), int(y) + 2)], fill=(*color, 210))
         else:
-            d.ellipse((int(x - s * 0.55), int(y - s * 0.55), int(x + s * 0.55), int(y + s * 0.55)), fill=(*color, 235))
+            d.ellipse(
+                (int(round(x - r)), int(round(y - r)), int(round(x + r)), int(round(y + r))),
+                fill=(*color, 220),
+            )
     return clip_sphere(layer, RADIUS - 3)
 
 
@@ -736,7 +740,7 @@ def write_ts_gallery(samples: list[dict]) -> None:
             "  {\n"
             f"    id: {sample['id']},\n"
             f'    name: "{sample["name"]}",\n'
-            f'    image: "{sample["image"]}?v=3",\n'
+            f'    image: "{sample["image"]}?v=4",\n'
             f"    attributes: [\n      {attrs},\n    ],\n"
             "  }"
         )
@@ -808,7 +812,7 @@ def write_ts_traits() -> None:
         "  traits: NivoraTrait[];\n"
         "};\n\n"
         "/** Bump when APNG layers change so the studio does not keep a stale loop. */\n"
-        'export const NIVORA_ART_VERSION = "nivora-v3";\n\n'
+        'export const NIVORA_ART_VERSION = "nivora-v4";\n\n'
         "export const NIVORA_FRAMES = 12;\n"
         "export const NIVORA_DURATION_MS = 90;\n\n"
         "export function nivoraTraitSrc(path?: string) {\n"

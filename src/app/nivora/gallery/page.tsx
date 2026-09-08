@@ -55,7 +55,7 @@ export default function NivoraGalleryPage() {
         {extraPreviews.map((id) => (
           <article key={id} className="overflow-hidden rounded-2xl border bg-card">
             <ApngImage
-              src={`/nivora-preview/${id}.gif?v=3`}
+              src={`/nivora-preview/${id}.gif?v=4`}
               alt={`Globe #${id}`}
               width={512}
               height={512}
