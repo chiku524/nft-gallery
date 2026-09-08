@@ -55,7 +55,7 @@ export default function CeraGalleryPage() {
         {extraPreviews.map((id) => (
           <article key={id} className="overflow-hidden rounded-2xl border bg-card">
             <ApngImage
-              src={`/cera-preview/${id}.gif?v=5`}
+              src={`/cera-preview/${id}.gif?v=6`}
               alt={`Lamp #${id}`}
               width={512}
               height={512}

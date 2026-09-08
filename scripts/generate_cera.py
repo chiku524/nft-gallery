@@ -30,12 +30,15 @@ from build_cera import (  # noqa: E402
     FRAMES,
     GIF_COLORS,
     GIF_DITHER,
+    LIQUID_CATEGORIES,
     PREVIEW_DIR,
     SIGNATURES,
     SIZE,
     STACK,
     TRAIT_LABELS,
     TRAIT_SPEC,
+    clip_to_mask,
+    flask_liquid_mask,
     name_of,
     trait_path,
 )
@@ -113,12 +116,16 @@ def init_worker(force: bool = False) -> None:
 
 def compose_cached(selection: dict[str, str]) -> list[Image.Image]:
     assert _CACHE is not None
+    liquid_mask = flask_liquid_mask(selection["flask"])
     layers = []
     for category in STACK:
         trait_id = selection[category]
         if trait_id == "none":
             continue
-        layers.append(_CACHE[(category, trait_id)])
+        frames = _CACHE[(category, trait_id)]
+        if category in LIQUID_CATEGORIES:
+            frames = [clip_to_mask(frame, liquid_mask) for frame in frames]
+        layers.append(frames)
     out = []
     for i in range(FRAMES):
         canvas = Image.new("RGBA", (SIZE, SIZE), (0, 0, 0, 0))

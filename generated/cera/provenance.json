@@ -1,11 +1,11 @@
 {
-  "hash": "2e1cc93fb52e13d2735c4ef5a70065705966d35855be63a8e93dd0be228bdd69",
+  "hash": "edd739e78e4390388200e5d7e4e70ec6e00f5286aaa12946fc28fb2f9f3b5ed0",
   "count": 16,
   "frames": 12,
   "durationMs": 90,
   "size": 512,
   "gifColors": 128,
-  "bytes": 16965667,
+  "bytes": 17511544,
   "openseaLimitBytes": 10737418240,
   "underOpenseaLimit": true,
   "chain": "robinhood",

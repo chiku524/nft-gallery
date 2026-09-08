@@ -170,26 +170,7 @@ def wax_pts(cx: float, cy: float, rx: float, ry: float, pinch: float, wobble: fl
     return pts
 
 
-def inner_poly() -> list[tuple[int, int]]:
-    """Shared liquid column every flask encloses — fat enough to read as oil, not a cone."""
-    cx = int(CX)
-    return chaikin(
-        [
-            (cx - 18, int(NECK_Y + 16)),
-            (cx + 18, int(NECK_Y + 16)),
-            (cx + 32, int(NECK_Y + 44)),
-            (cx + 52, 175),
-            (cx + 58, 250),
-            (cx + 52, int(FLOOR_Y - 14)),
-            (cx + 44, int(FLOOR_Y - 2)),
-            (cx - 44, int(FLOOR_Y - 2)),
-            (cx - 52, int(FLOOR_Y - 14)),
-            (cx - 58, 250),
-            (cx - 52, 175),
-            (cx - 32, int(NECK_Y + 44)),
-        ],
-        2,
-    )
+FLASK_KINDS = ("taper", "cylinder", "teardrop", "bulb")
 
 
 def flask_poly(kind: str) -> list[tuple[int, int]]:
@@ -254,16 +235,40 @@ def flask_poly(kind: str) -> list[tuple[int, int]]:
     return chaikin(raw, 3)
 
 
-def flask_mask(kind: str | None = None) -> Image.Image:
+def liquid_union_mask() -> Image.Image:
+    """Oil volume that covers every flask; compose clips it to the selected glass."""
     mask = Image.new("L", (SIZE, SIZE), 0)
-    ImageDraw.Draw(mask).polygon(inner_poly() if kind is None else flask_poly(kind), fill=255)
-    return mask.filter(ImageFilter.GaussianBlur(0.6))
+    d = ImageDraw.Draw(mask)
+    for kind in FLASK_KINDS:
+        d.polygon(flask_poly(kind), fill=255)
+    return mask.filter(ImageFilter.MinFilter(5)).filter(ImageFilter.GaussianBlur(0.6))
+
+
+def flask_mask(kind: str | None = None) -> Image.Image:
+    if kind is None:
+        return liquid_union_mask()
+    mask = Image.new("L", (SIZE, SIZE), 0)
+    ImageDraw.Draw(mask).polygon(flask_poly(kind), fill=255)
+    return mask.filter(ImageFilter.MinFilter(7)).filter(ImageFilter.GaussianBlur(0.6))
+
+
+def flask_liquid_mask(kind: str) -> Image.Image:
+    return flask_mask(kind)
+
+
+def clip_to_mask(layer: Image.Image, mask: Image.Image) -> Image.Image:
+    out = layer.copy()
+    out.putalpha(ImageChops.darker(layer.split()[-1], mask))
+    return out
 
 
 def clip_to_inner(layer: Image.Image) -> Image.Image:
     out = layer.copy()
     out.putalpha(ImageChops.darker(layer.split()[-1], flask_mask()))
     return out
+
+
+LIQUID_CATEGORIES = frozenset({"serum", "melt", "coil"})
 
 
 def paint_sill(kind: str, frame: int) -> Image.Image:
@@ -406,11 +411,10 @@ def paint_flask(kind: str, frame: int) -> Image.Image:
     layer = blank()
     d = ImageDraw.Draw(layer)
     poly = flask_poly(kind)
-    inner = inner_poly()
     cx = int(CX)
-    d.polygon(poly, fill=(28, 36, 52, 150))
-    d.polygon(offset_poly(poly, 9), outline=(80, 255, 255, 255), width=6)
-    d.polygon(inner, outline=(40, 16, 48, 210), width=3)
+    d.polygon(poly, fill=(20, 28, 44, 48))
+    d.polygon(offset_poly(poly, 5), outline=(80, 255, 255, 255), width=5)
+    d.polygon(offset_poly(poly, -3), outline=(40, 16, 48, 140), width=2)
     spec = blank()
     sd = ImageDraw.Draw(spec)
     sd.polygon(
@@ -446,9 +450,11 @@ def paint_serum(kind: str, frame: int) -> Image.Image:
     t = clock(frame)
     color = SERUM[kind]
     layer = blank()
-    d = ImageDraw.Draw(layer)
     alpha = 168 if kind == "clear" else 210
-    d.polygon(inner_poly(), fill=color + (alpha,))
+    fill = Image.new("RGBA", (SIZE, SIZE), color + (alpha,))
+    fill.putalpha(ImageChops.darker(fill.split()[-1], flask_mask()))
+    layer.alpha_composite(fill)
+    d = ImageDraw.Draw(layer)
     cx = int(CX)
     d.ellipse((cx - 20, int(NECK_Y + 8), cx + 20, int(NECK_Y + 24)), fill=tuple(min(255, c + 40) for c in color) + (140,))
     arr = np.array(layer, dtype=np.float32)
@@ -486,21 +492,21 @@ def paint_serum(kind: str, frame: int) -> Image.Image:
     return clip_to_inner(out)
 
 
-def blob_pose(frame: int, index: int) -> tuple[float, float, float, float, float]:
-    """Slow paraffin: each mass keeps a lane and morphs teardrop ↔ mushroom."""
+def blob_pose(frame: int, index: int) -> tuple[float, float, float, float, float, float]:
+    """Full trip: each glob rises to the neck and falls back to the floor."""
     t = clock(frame)
-    y0 = FLOOR_Y - 40
-    y1 = NECK_Y + 64
-    homes = (0.10, 0.32, 0.54, 0.74)
-    amps = (11.0, 13.0, 12.0, 8.0)
-    pinches = (0.42, 0.28, -0.38, 0.18)
-    home = y0 + (y1 - y0) * homes[index]
-    y = home + amps[index] * math.sin(t + index * 1.05)
-    pinch = pinches[index] + 0.22 * math.sin(t + index * 1.35)
-    rx = (36.0, 28.0, 32.0, 20.0)[index] * (1.0 + 0.06 * math.cos(t + index * 0.8))
-    ry = (26.0, 34.0, 22.0, 18.0)[index] * (1.0 + 0.10 * math.sin(t + index * 0.7))
-    wobble = 0.10 + 0.04 * math.sin(t * 0.5 + index)
-    return y, rx, ry, pinch, wobble
+    phase = index * (math.tau / 4.0)
+    travel = 0.5 + 0.5 * math.sin(t + phase)
+    y0 = FLOOR_Y - 14
+    y1 = NECK_Y + 12
+    y = y0 + (y1 - y0) * travel
+    rising = math.cos(t + phase)
+    pinch = 0.42 * rising - 0.32 * (travel * travel)
+    narrow = 1.0 - 0.48 * (travel ** 1.35)
+    rx = (34.0, 26.0, 30.0, 18.0)[index] * narrow * (1.0 + 0.05 * math.cos(t + index))
+    ry = (24.0, 32.0, 20.0, 16.0)[index] * (1.10 + 0.22 * abs(rising))
+    wobble = 0.10 + 0.05 * math.sin(t + index)
+    return y, rx, ry, pinch, wobble, narrow
 
 
 def paint_melt(kind: str, frame: int) -> Image.Image:
@@ -518,8 +524,8 @@ def paint_melt(kind: str, frame: int) -> Image.Image:
     t = clock(frame)
     offsets = (-10, 14, -6, 8)
     for i, ox in enumerate(offsets):
-        y, rx, ry, pinch, wobble = blob_pose(frame, i)
-        pts = wax_pts(cx + ox, y, rx, ry, pinch, wobble, t + i * 1.7)
+        y, rx, ry, pinch, wobble, narrow = blob_pose(frame, i)
+        pts = wax_pts(cx + ox * narrow, y, rx, ry, pinch, wobble, t + i * 1.7)
         d.polygon(pts, fill=color + (242,))
         d.line(pts + [pts[0]], fill=dark + (210,), width=3)
         hx = cx + ox - rx * 0.22
@@ -592,7 +598,7 @@ STACK = ("sill", "socket", "flask", "serum", "melt", "coil", "lid")
 PAINTERS = {
     "sill": {k: (lambda kind: (lambda frame, k=kind: paint_sill(k, frame)))(k) for k in SILL},
     "socket": {k: (lambda kind: (lambda frame, k=kind: paint_socket(k, frame)))(k) for k in SOCKET},
-    "flask": {k: (lambda kind: (lambda frame, k=kind: paint_flask(k, frame)))(k) for k in ("taper", "cylinder", "teardrop", "bulb")},
+    "flask": {k: (lambda kind: (lambda frame, k=kind: paint_flask(k, frame)))(k) for k in FLASK_KINDS},
     "serum": {k: (lambda kind: (lambda frame, k=kind: paint_serum(k, frame)))(k) for k in SERUM},
     "melt": {k: (lambda kind: (lambda frame, k=kind: paint_melt(k, frame)))(k) for k in MELT},
     "coil": {k: (lambda kind: (lambda frame, k=kind: paint_coil(k, frame)))(k) for k in COIL},
@@ -708,6 +714,7 @@ def render_trait_frames(category: str, trait_id: str) -> list[Image.Image]:
 
 
 def compose_selection(selection: dict[str, str]) -> list[Image.Image]:
+    liquid_mask = flask_liquid_mask(selection["flask"])
     layers: list[list[Image.Image]] = []
     for category in STACK:
         trait_id = selection[category]
@@ -722,9 +729,11 @@ def compose_selection(selection: dict[str, str]) -> list[Image.Image]:
                 for i in range(n):
                     im.seek(i)
                     frames.append(im.convert("RGBA").copy())
-                layers.append(frames)
         else:
-            layers.append(render_trait_frames(category, trait_id))
+            frames = render_trait_frames(category, trait_id)
+        if category in LIQUID_CATEGORIES:
+            frames = [clip_to_mask(frame, liquid_mask) for frame in frames]
+        layers.append(frames)
     out = []
     for i in range(FRAMES):
         canvas = Image.new("RGBA", (SIZE, SIZE), (0, 0, 0, 0))
@@ -754,6 +763,7 @@ def build_traits(only: str | None = None, ids: list[str] | None = None) -> None:
                 continue
             print(f"  {category}/{trait_id}")
             save_apng(render_trait_frames(category, trait_id), trait_path(category, trait_id))
+    write_flask_masks()
     manifest = {
         "name": "Cera",
         "size": SIZE,
@@ -765,6 +775,14 @@ def build_traits(only: str | None = None, ids: list[str] | None = None) -> None:
         "note": "Each trait is a looping APNG. Studio stacks them live. Minted tokens flatten to GIF. Eight sockets share one flask column; the wax is the loop.",
     }
     (TRAIT_DIR / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
+
+
+def write_flask_masks() -> None:
+    mask_dir = TRAIT_DIR / "flask-mask"
+    mask_dir.mkdir(parents=True, exist_ok=True)
+    for kind in FLASK_KINDS:
+        mask = flask_liquid_mask(kind)
+        save_image(Image.merge("RGBA", (mask, mask, mask, mask)), mask_dir / f"{kind}.png")
 
 
 def build_samples() -> None:
@@ -807,7 +825,7 @@ def write_ts_gallery(samples: list[dict]) -> None:
             "  {\n"
             f"    id: {sample['id']},\n"
             f'    name: "{sample["name"]}",\n'
-            f'    image: "{sample["image"]}?v=5",\n'
+            f'    image: "{sample["image"]}?v=6",\n'
             f"    attributes: [\n      {attrs},\n    ],\n"
             "  }"
         )
@@ -876,7 +894,7 @@ def write_ts_traits() -> None:
         "  traits: CeraTrait[];\n"
         "};\n\n"
         "/** Bump when APNG layers change so the studio does not keep a stale loop. */\n"
-        'export const CERA_ART_VERSION = "cera-v5";\n\n'
+        'export const CERA_ART_VERSION = "cera-v6";\n\n'
         "export const CERA_FRAMES = 12;\n"
         "export const CERA_DURATION_MS = 90;\n\n"
         "export function ceraTraitSrc(path?: string) {\n"
@@ -937,9 +955,15 @@ def write_ts_traits() -> None:
         "}\n\n"
         "export function ceraSelectionToLayers(selection: CeraSelection) {\n"
         '  return (["sill", "socket", "flask", "serum", "melt", "coil", "lid"] as const)\n'
-        "    .map((id) => findCeraTrait(id, selection[id]))\n"
-        "    .filter((trait): trait is CeraTrait => Boolean(trait?.image))\n"
-        "    .map((trait) => ceraTraitSrc(trait.image));\n"
+        "    .map((id) => {\n"
+        "      const trait = findCeraTrait(id, selection[id]);\n"
+        "      if (!trait?.image) return null;\n"
+        "      return { id, src: ceraTraitSrc(trait.image) };\n"
+        "    })\n"
+        '    .filter((layer): layer is { id: CeraTraitCategory["id"]; src: string } => Boolean(layer));\n'
+        "}\n\n"
+        "export function ceraFlaskMaskSrc(flask: string) {\n"
+        "  return ceraTraitSrc(`/cera-traits/flask-mask/${flask}.png`);\n"
         "}\n",
         encoding="utf-8",
     )

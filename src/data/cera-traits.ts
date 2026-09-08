@@ -14,7 +14,7 @@ export type CeraTraitCategory = {
 };
 
 /** Bump when APNG layers change so the studio does not keep a stale loop. */
-export const CERA_ART_VERSION = "cera-v5";
+export const CERA_ART_VERSION = "cera-v6";
 
 export const CERA_FRAMES = 12;
 export const CERA_DURATION_MS = 90;
@@ -169,7 +169,14 @@ export function ceraCombinationCount() {
 
 export function ceraSelectionToLayers(selection: CeraSelection) {
   return (["sill", "socket", "flask", "serum", "melt", "coil", "lid"] as const)
-    .map((id) => findCeraTrait(id, selection[id]))
-    .filter((trait): trait is CeraTrait => Boolean(trait?.image))
-    .map((trait) => ceraTraitSrc(trait.image));
+    .map((id) => {
+      const trait = findCeraTrait(id, selection[id]);
+      if (!trait?.image) return null;
+      return { id, src: ceraTraitSrc(trait.image) };
+    })
+    .filter((layer): layer is { id: CeraTraitCategory["id"]; src: string } => Boolean(layer));
+}
+
+export function ceraFlaskMaskSrc(flask: string) {
+  return ceraTraitSrc(`/cera-traits/flask-mask/${flask}.png`);
 }
