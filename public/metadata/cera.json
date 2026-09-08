@@ -1,0 +1,12 @@
+{
+  "name": "Cera",
+  "symbol": "CERA",
+  "description": "Cera is a 10,000-piece collection of looping lava-lamp PFP GIFs. Each lamp is stacked from seven plates \u2014 sill, socket, flask, serum, melt, coil, and lid \u2014 then flattened onto one 12-frame GIF. Paraffin in a glass flask on a nightstand. The wax is the loop.",
+  "image": "/brand/collection-cera.gif",
+  "featured_image": "/brand/featured-cera.jpg",
+  "banner_image": "/brand/banner-cera.png",
+  "opensea_banner_image": "/brand/banner-cera-opensea.jpg",
+  "external_link": "/cera",
+  "seller_fee_basis_points": 500,
+  "fee_recipient": "0x0000000000000000000000000000000000000000"
+}

@@ -1,0 +1,18 @@
+{
+  "name": "Cera",
+  "size": 512,
+  "frames": 12,
+  "durationMs": 90,
+  "format": "apng",
+  "loop": 0,
+  "order": [
+    "sill",
+    "socket",
+    "flask",
+    "serum",
+    "melt",
+    "coil",
+    "lid"
+  ],
+  "note": "Each trait is a looping APNG. Studio stacks them live. Minted tokens flatten to GIF. Eight sockets share one flask column; the wax is the loop."
+}
