@@ -26,11 +26,11 @@
   "Serum:Green Serum": 3,
   "Melt:White Melt": 4,
   "Lid:Painted Lid": 4,
-  "Socket:Mushroom Socket": 2,
-  "Socket:Chrome Socket": 2,
   "Sill:Night Sill": 3,
-  "Socket:Walnut Socket": 2,
+  "Socket:Mushroom Socket": 2,
   "Serum:Clear Serum": 3,
-  "Socket:Ceramic Socket": 2,
-  "Melt:Black Melt": 2
+  "Melt:Black Melt": 2,
+  "Socket:Chrome Socket": 2,
+  "Socket:Walnut Socket": 2,
+  "Socket:Ceramic Socket": 2
 }
