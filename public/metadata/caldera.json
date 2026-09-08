@@ -1,0 +1,12 @@
+{
+  "name": "Caldera",
+  "symbol": "CALD",
+  "description": "Caldera is a 10,000-piece collection of looping hotel-matchbook PFP GIFs. Each book is stacked from seven plates \u2014 cloth, sleeve, inn, comb, strike, flame, and mark \u2014 then flattened onto one 12-frame GIF. Offset-printed cardboard on a cafe table. The flame is the loop.",
+  "image": "/brand/collection-caldera.gif",
+  "featured_image": "/brand/featured-caldera.jpg",
+  "banner_image": "/brand/banner-caldera.png",
+  "opensea_banner_image": "/brand/banner-caldera-opensea.jpg",
+  "external_link": "/caldera",
+  "seller_fee_basis_points": 500,
+  "fee_recipient": "0x0000000000000000000000000000000000000000"
+}

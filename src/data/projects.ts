@@ -34,6 +34,8 @@ import { nivoraSamples } from "@/data/nivora-gallery";
 import { nivora } from "@/data/nivora";
 import { virelloSamples } from "@/data/virello-gallery";
 import { virello } from "@/data/virello";
+import { calderaSamples } from "@/data/caldera-gallery";
+import { caldera } from "@/data/caldera";
 import { galleria, galleriaWorks } from "@/data/galleria";
 import { sampleMints } from "@/data/gallery";
 import { wicklingSamples } from "@/data/wickling-gallery";
@@ -53,6 +55,7 @@ import { UMBRA_BASE } from "@/lib/umbra";
 import { NOXELLE_BASE } from "@/lib/noxelle";
 import { NIVORA_BASE } from "@/lib/nivora";
 import { VIRELLO_BASE } from "@/lib/virello";
+import { CALDERA_BASE } from "@/lib/caldera";
 import { GALLERIA_BASE } from "@/lib/galleria";
 import { HOODKINS_BASE } from "@/lib/hoodkins";
 import { INKLINGS_BASE } from "@/lib/inklings";
@@ -65,7 +68,7 @@ export const gallery = {
   name: "NFT Gallery",
   tagline: "Collections on the wall. One drop at a time.",
   description:
-    "NFT Gallery is a house of on-chain collections — each drop keeps its own studio, traits, and launch path. Loopkins is the layered PFP. Afterimages is the 1:1 APNG drop. Inklings is the cartoon-squid PFP GIF drop on Ink. Wicklings is the paper-lantern PFP GIF drop on Arbitrum. Purrkins is the chibi-cat PFP GIF drop on HyperEVM. Hoodkins is the chibi-raccoon PFP GIF drop on Robinhood Chain. BirbNation is the round-borb robin PFP GIF drop on Robinhood Chain. Halloween Shook'ums is the sheet-ghost PFP GIF drop on Abstract. Foxins is the bold-graphic fox PFP GIF drop on Base. Santa Paws is the giving chibi-cat PFP GIF drop on Base. Scribblins is the doodle-critter PFP GIF drop on Base. Groovy Nation is the cartoon musical-note PFP GIF drop on Robinhood Chain. Galleria On Ink is the salon of 500 open-edition 1:1 looping paintings on Ink. Opaline is the smoked-glass reef-fish PFP GIF drop on Base. Risota is the risograph dancing-character PFP GIF drop on Robinhood Chain. Perfin is the engraved postage-stamp PFP GIF drop on Robinhood Chain. Kamiori is the origami paper-fold PFP GIF drop on Robinhood Chain. Umbra is the shadow-puppet dancer PFP GIF drop on Robinhood Chain. Noxelle is the neon-tube dancer PFP GIF drop on Robinhood Chain. Nivora is the snow-globe souvenir PFP GIF drop on Robinhood Chain. Virello is the wind-up tin-toy PFP GIF drop on Robinhood Chain.",
+    "NFT Gallery is a house of on-chain collections — each drop keeps its own studio, traits, and launch path. Loopkins is the layered PFP. Afterimages is the 1:1 APNG drop. Inklings is the cartoon-squid PFP GIF drop on Ink. Wicklings is the paper-lantern PFP GIF drop on Arbitrum. Purrkins is the chibi-cat PFP GIF drop on HyperEVM. Hoodkins is the chibi-raccoon PFP GIF drop on Robinhood Chain. BirbNation is the round-borb robin PFP GIF drop on Robinhood Chain. Halloween Shook'ums is the sheet-ghost PFP GIF drop on Abstract. Foxins is the bold-graphic fox PFP GIF drop on Base. Santa Paws is the giving chibi-cat PFP GIF drop on Base. Scribblins is the doodle-critter PFP GIF drop on Base. Groovy Nation is the cartoon musical-note PFP GIF drop on Robinhood Chain. Galleria On Ink is the salon of 500 open-edition 1:1 looping paintings on Ink. Opaline is the smoked-glass reef-fish PFP GIF drop on Base. Risota is the risograph dancing-character PFP GIF drop on Robinhood Chain. Perfin is the engraved postage-stamp PFP GIF drop on Robinhood Chain. Kamiori is the origami paper-fold PFP GIF drop on Robinhood Chain. Umbra is the shadow-puppet dancer PFP GIF drop on Robinhood Chain. Noxelle is the neon-tube dancer PFP GIF drop on Robinhood Chain. Nivora is the snow-globe souvenir PFP GIF drop on Robinhood Chain. Virello is the wind-up tin-toy PFP GIF drop on Robinhood Chain. Caldera is the hotel-matchbook PFP GIF drop on Robinhood Chain.",
 } as const;
 
 export const projects = [
@@ -461,12 +464,31 @@ export const projects = [
     supply: virello.supply,
     cover: "/brand/banner-virello.png",
     thumb: virelloSamples[0].image,
-    status: "new on the wall" as const,
+    status: "on the wall" as const,
     kind: "layered-pfp" as const,
     previews: virelloSamples.map((mint) => mint.image),
     studioHref: "/virello/studio" as const,
     opensea: virello.opensea.collection,
     openseaListings: openSeaListings(virello.opensea, virello.chain.name),
+  },
+  {
+    slug: "caldera",
+    href: CALDERA_BASE,
+    name: caldera.name,
+    symbol: caldera.symbol,
+    tagline: caldera.tagline,
+    description: caldera.description,
+    chain: caldera.chain.name,
+    chainId: caldera.chain.chainId,
+    supply: caldera.supply,
+    cover: "/brand/banner-caldera.png",
+    thumb: calderaSamples[0].image,
+    status: "new on the wall" as const,
+    kind: "layered-pfp" as const,
+    previews: calderaSamples.map((mint) => mint.image),
+    studioHref: "/caldera/studio" as const,
+    opensea: caldera.opensea.collection,
+    openseaListings: openSeaListings(caldera.opensea, caldera.chain.name),
   },
 ] as const;
 
