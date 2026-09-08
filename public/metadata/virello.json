@@ -1,0 +1,12 @@
+{
+  "name": "Virello",
+  "symbol": "VIRL",
+  "description": "Virello is a 10,000-piece collection of looping wind-up tin-toy PFP GIFs. Each toy is stacked from seven plates \u2014 bench, chassis, enamel, decal, key, spark, and wear \u2014 then flattened onto one 12-frame GIF. Lithographed enamel on stamped metal. The winding key is the loop.",
+  "image": "/brand/collection-virello.gif",
+  "featured_image": "/brand/featured-virello.jpg",
+  "banner_image": "/brand/banner-virello.png",
+  "opensea_banner_image": "/brand/banner-virello-opensea.jpg",
+  "external_link": "/virello",
+  "seller_fee_basis_points": 500,
+  "fee_recipient": "0x0000000000000000000000000000000000000000"
+}
