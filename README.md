@@ -40,6 +40,8 @@ A house of NFT collections. Each drop is its own sub-project — studio, traits,
 
 **Noxelle** is the nineteenth: 10,000 looping neon-tube PFP GIFs, for OpenSea on Robinhood Chain (chain ID `4663`) at $0.25. Bent glass, noble gas, a dancer that is the tube. A 12-frame, 90ms clock.
 
+**Nivora** is the twentieth: 10,000 looping snow-globe PFP GIFs, for OpenSea on Robinhood Chain (chain ID `4663`) at $0.25. A dome of liquor on a lathe-turned plinth. Glitter is the loop. A 12-frame, 90ms clock.
+
 ## What’s in this repo
 
 | Path | What it is |
@@ -64,6 +66,7 @@ A house of NFT collections. Each drop is its own sub-project — studio, traits,
 | `/kamiori` | Kamiori drop, trait loops, gallery, OpenSea notes |
 | `/umbra` | Umbra drop, trait loops, gallery, OpenSea notes |
 | `/noxelle` | Noxelle drop, trait loops, gallery, OpenSea notes |
+| `/nivora` | Nivora drop, trait loops, gallery, OpenSea notes |
 | `/studio` | Live APNG layer mixer (Loopkins) |
 | `/inklings/studio` | Live ink-wash mixer (Inklings) |
 | `/wicklings/studio` | Live paper-lantern mixer (Wicklings) |
@@ -81,6 +84,7 @@ A house of NFT collections. Each drop is its own sub-project — studio, traits,
 | `/kamiori/studio` | Live origami mixer (Kamiori) |
 | `/umbra/studio` | Live lamp mixer (Umbra) |
 | `/noxelle/studio` | Live neon-tube mixer (Noxelle) |
+| `/nivora/studio` | Live snow-globe mixer (Nivora) |
 | `public/traits/` | Loopkins APNG layers (sky, aura, body, face, wear, charm) |
 | `public/afterimages/` | Afterimages 1:1 APNG paintings |
 | `public/inklings-traits/` | Inklings APNG layers (paper, bloom, visage, gaze, mark, adorn) |
@@ -100,6 +104,7 @@ A house of NFT collections. Each drop is its own sub-project — studio, traits,
 | `public/kamiori-traits/` | Kamiori APNG layers (pulp, fleck, fold, score, facet, seal, draft) |
 | `public/umbra-traits/` | Umbra APNG layers (cloth, ember, cast, hinge, cutwork, leaf, soot) |
 | `public/noxelle-traits/` | Noxelle APNG layers (wall, spill, gas, bend, clip, badge, mote) |
+| `public/nivora-traits/` | Nivora APNG layers (plinth, bath, vista, flurry, lens, collar, plaque) |
 | `generated/` | Flattened Loopkins APNGs, OpenSea GIFs + CSV |
 | `generated/afterimages/` | Afterimages OpenSea GIF pack |
 | `generated/inklings/` | Inklings OpenSea GIF pack |
@@ -119,6 +124,7 @@ A house of NFT collections. Each drop is its own sub-project — studio, traits,
 | `generated/kamiori/` | Kamiori OpenSea GIF pack |
 | `generated/umbra/` | Umbra OpenSea GIF pack |
 | `generated/noxelle/` | Noxelle OpenSea GIF pack |
+| `generated/nivora/` | Nivora OpenSea GIF pack |
 | `contracts/Loopkins.sol` | ERC-721 with a 10,000 supply cap |
 | `contracts/Afterimages.sol` | ERC-721 that mints a chosen 1:1 (IDs 1–3333) on Ink |
 | `contracts/Inklings.sol` | ERC-721 with a 5,555 supply cap |
@@ -137,6 +143,7 @@ A house of NFT collections. Each drop is its own sub-project — studio, traits,
 | `contracts/Kamiori.sol` | ERC-721 with an 8,888 supply cap and a free mint |
 | `contracts/Umbra.sol` | ERC-721 with an 8,888 supply cap and a free mint |
 | `contracts/Noxelle.sol` | ERC-721 with a 10,000 supply cap and a $0.25 mint |
+| `contracts/Nivora.sol` | ERC-721 with a 10,000 supply cap and a $0.25 mint |
 
 ## Run the site
 
@@ -167,7 +174,8 @@ The app listens on [http://127.0.0.1:43147](http://127.0.0.1:43147).
 - Kamiori: `/kamiori`
 - Umbra: `/umbra`
 - Noxelle: `/noxelle`
-- Trait studio: `/studio` (Loopkins), `/inklings/studio`, `/wicklings/studio`, `/purrkins/studio`, `/hoodkins/studio`, `/birbs/studio`, `/shookums/studio`, `/foxins/studio`, `/santapaws/studio`, `/scribblins/studio`, `/groovy/studio`, `/opaline/studio`, `/risota/studio`, `/perfin/studio`, `/kamiori/studio`, `/umbra/studio`, or `/noxelle/studio`
+- Nivora: `/nivora`
+- Trait studio: `/studio` (Loopkins), `/inklings/studio`, `/wicklings/studio`, `/purrkins/studio`, `/hoodkins/studio`, `/birbs/studio`, `/shookums/studio`, `/foxins/studio`, `/santapaws/studio`, `/scribblins/studio`, `/groovy/studio`, `/opaline/studio`, `/risota/studio`, `/perfin/studio`, `/kamiori/studio`, `/umbra/studio`, `/noxelle/studio`, or `/nivora/studio`
 
 ## Generate collections
 
@@ -208,6 +216,8 @@ python3 scripts/build_umbra.py
 python3 scripts/generate_umbra.py
 python3 scripts/build_noxelle.py
 python3 scripts/generate_noxelle.py
+python3 scripts/build_nivora.py
+python3 scripts/generate_nivora.py
 python3 scripts/gif_bake.py --afterimages
 python3 scripts/gif_bake.py --loopkins --all
 python3 scripts/gif_bake.py --inklings --all
@@ -223,7 +233,7 @@ python3 scripts/gif_bake.py --groovy --all
 python3 scripts/gif_bake.py --opaline --all
 ```
 
-Requires Python 3 with Pillow and NumPy. See `docs/loopkins.md`, `docs/afterimages.md`, `docs/inklings.md`, `docs/wicklings.md`, `docs/purrkins.md`, `docs/hoodkins.md`, `docs/birbs.md`, `docs/shookums.md`, `docs/foxins.md`, `docs/santapaws.md`, `docs/scribblins.md`, `docs/groovy.md`, `docs/galleria.md`, `docs/opaline.md`, `docs/risota.md`, `docs/perfin.md`, `docs/kamiori.md`, `docs/umbra.md`, and `docs/noxelle.md` for OpenSea Drop upload steps.
+Requires Python 3 with Pillow and NumPy. See `docs/loopkins.md`, `docs/afterimages.md`, `docs/inklings.md`, `docs/wicklings.md`, `docs/purrkins.md`, `docs/hoodkins.md`, `docs/birbs.md`, `docs/shookums.md`, `docs/foxins.md`, `docs/santapaws.md`, `docs/scribblins.md`, `docs/groovy.md`, `docs/galleria.md`, `docs/opaline.md`, `docs/risota.md`, `docs/perfin.md`, `docs/kamiori.md`, `docs/umbra.md`, `docs/noxelle.md`, and `docs/nivora.md` for OpenSea Drop upload steps.
 
 `npm run generate:santapaws` builds traits, brand, and the 16-GIF preview plus full 7,777-token metadata. Bake every marketplace GIF with `python3 scripts/generate_santapaws.py --all`.
 
@@ -245,10 +255,12 @@ Requires Python 3 with Pillow and NumPy. See `docs/loopkins.md`, `docs/afterimag
 
 `npm run generate:noxelle` builds traits, brand, and the 16-GIF preview plus sample metadata. Bake every marketplace GIF with `python3 scripts/generate_noxelle.py --all`.
 
+`npm run generate:nivora` builds traits, brand, and the 16-GIF preview plus sample metadata. Bake every marketplace GIF with `python3 scripts/generate_nivora.py --all`.
+
 ## Deploy
 
 This is a single Next.js app (one Vercel project). Point Vercel at the GitHub repo `nft-gallery`, framework preset Next.js, root directory `.`.
 
 ## License
 
-Art and site code in this repository are for the collections on the wall. Swap the zero-address fee recipient in `public/metadata/collection.json`, `public/metadata/loopkins.json`, `public/metadata/afterimages.json`, `public/metadata/inklings.json`, `public/metadata/wicklings.json`, `public/metadata/purrkins.json`, `public/metadata/hoodkins.json`, `public/metadata/birbs.json`, `public/metadata/shookums.json`, `public/metadata/foxins.json`, `public/metadata/santapaws.json`, `public/metadata/scribblins.json`, `public/metadata/groovy.json`, `public/metadata/galleria.json`, `public/metadata/opaline.json`, `public/metadata/risota.json`, `public/metadata/perfin.json`, `public/metadata/kamiori.json`, `public/metadata/umbra.json`, and `public/metadata/noxelle.json` before you list.
+Art and site code in this repository are for the collections on the wall. Swap the zero-address fee recipient in `public/metadata/collection.json`, `public/metadata/loopkins.json`, `public/metadata/afterimages.json`, `public/metadata/inklings.json`, `public/metadata/wicklings.json`, `public/metadata/purrkins.json`, `public/metadata/hoodkins.json`, `public/metadata/birbs.json`, `public/metadata/shookums.json`, `public/metadata/foxins.json`, `public/metadata/santapaws.json`, `public/metadata/scribblins.json`, `public/metadata/groovy.json`, `public/metadata/galleria.json`, `public/metadata/opaline.json`, `public/metadata/risota.json`, `public/metadata/perfin.json`, `public/metadata/kamiori.json`, `public/metadata/umbra.json`, `public/metadata/noxelle.json`, and `public/metadata/nivora.json` before you list.

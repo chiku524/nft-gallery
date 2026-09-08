@@ -1,0 +1,12 @@
+{
+  "name": "Nivora",
+  "symbol": "NIVO",
+  "description": "Nivora is a 10,000-piece collection of looping snow-globe PFP GIFs. Each souvenir is stacked from seven plates \u2014 plinth, bath, vista, flurry, lens, collar, and plaque \u2014 then flattened onto one 12-frame GIF. A dome of liquor on a lathe-turned base. Glitter is the loop.",
+  "image": "/brand/collection-nivora.gif",
+  "featured_image": "/brand/featured-nivora.jpg",
+  "banner_image": "/brand/banner-nivora.png",
+  "opensea_banner_image": "/brand/banner-nivora-opensea.jpg",
+  "external_link": "/nivora",
+  "seller_fee_basis_points": 500,
+  "fee_recipient": "0x0000000000000000000000000000000000000000"
+}

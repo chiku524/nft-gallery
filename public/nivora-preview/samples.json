@@ -1,0 +1,562 @@
+[
+  {
+    "id": 1,
+    "name": "Globe #1",
+    "image": "/nivora-preview/1.gif",
+    "attributes": [
+      {
+        "trait_type": "Plinth",
+        "value": "Walnut Plinth"
+      },
+      {
+        "trait_type": "Bath",
+        "value": "Gin Bath"
+      },
+      {
+        "trait_type": "Vista",
+        "value": "Cabin Vista"
+      },
+      {
+        "trait_type": "Flurry",
+        "value": "Snow Flurry"
+      },
+      {
+        "trait_type": "Lens",
+        "value": "Clear Lens"
+      },
+      {
+        "trait_type": "Collar",
+        "value": "Brass Collar"
+      },
+      {
+        "trait_type": "Plaque",
+        "value": "Year Plaque"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Globe #2",
+    "image": "/nivora-preview/2.gif",
+    "attributes": [
+      {
+        "trait_type": "Plinth",
+        "value": "Bakelite Plinth"
+      },
+      {
+        "trait_type": "Bath",
+        "value": "Pine Bath"
+      },
+      {
+        "trait_type": "Vista",
+        "value": "Pine Vista"
+      },
+      {
+        "trait_type": "Flurry",
+        "value": "Gold Leaf"
+      },
+      {
+        "trait_type": "Lens",
+        "value": "Smoked Lens"
+      },
+      {
+        "trait_type": "Collar",
+        "value": "Pewter Collar"
+      },
+      {
+        "trait_type": "Plaque",
+        "value": "No Plaque"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Globe #3",
+    "image": "/nivora-preview/3.gif",
+    "attributes": [
+      {
+        "trait_type": "Plinth",
+        "value": "Brass Plinth"
+      },
+      {
+        "trait_type": "Bath",
+        "value": "Ink Bath"
+      },
+      {
+        "trait_type": "Vista",
+        "value": "Lighthouse Vista"
+      },
+      {
+        "trait_type": "Flurry",
+        "value": "Ash Flurry"
+      },
+      {
+        "trait_type": "Lens",
+        "value": "Bubble Lens"
+      },
+      {
+        "trait_type": "Collar",
+        "value": "Copper Collar"
+      },
+      {
+        "trait_type": "Plaque",
+        "value": "Crest Plaque"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Globe #4",
+    "image": "/nivora-preview/4.gif",
+    "attributes": [
+      {
+        "trait_type": "Plinth",
+        "value": "Ceramic Plinth"
+      },
+      {
+        "trait_type": "Bath",
+        "value": "Rose Bath"
+      },
+      {
+        "trait_type": "Vista",
+        "value": "Deer Vista"
+      },
+      {
+        "trait_type": "Flurry",
+        "value": "Confetti Flurry"
+      },
+      {
+        "trait_type": "Lens",
+        "value": "Hairline Crack"
+      },
+      {
+        "trait_type": "Collar",
+        "value": "Bare Neck"
+      },
+      {
+        "trait_type": "Plaque",
+        "value": "Ribbon Plaque"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Globe #5",
+    "image": "/nivora-preview/5.gif",
+    "attributes": [
+      {
+        "trait_type": "Plinth",
+        "value": "Ice Plastic"
+      },
+      {
+        "trait_type": "Bath",
+        "value": "Amber Bath"
+      },
+      {
+        "trait_type": "Vista",
+        "value": "Chapel Vista"
+      },
+      {
+        "trait_type": "Flurry",
+        "value": "Mica Flurry"
+      },
+      {
+        "trait_type": "Lens",
+        "value": "Frost Lens"
+      },
+      {
+        "trait_type": "Collar",
+        "value": "Brass Collar"
+      },
+      {
+        "trait_type": "Plaque",
+        "value": "Stamp Plaque"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Globe #6",
+    "image": "/nivora-preview/6.gif",
+    "attributes": [
+      {
+        "trait_type": "Plinth",
+        "value": "Ebon Plinth"
+      },
+      {
+        "trait_type": "Bath",
+        "value": "Cobalt Bath"
+      },
+      {
+        "trait_type": "Vista",
+        "value": "Tram Vista"
+      },
+      {
+        "trait_type": "Flurry",
+        "value": "Grit Flurry"
+      },
+      {
+        "trait_type": "Lens",
+        "value": "Tinted Lens"
+      },
+      {
+        "trait_type": "Collar",
+        "value": "Black Collar"
+      },
+      {
+        "trait_type": "Plaque",
+        "value": "Year Plaque"
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Globe #7",
+    "image": "/nivora-preview/7.gif",
+    "attributes": [
+      {
+        "trait_type": "Plinth",
+        "value": "Cherry Plinth"
+      },
+      {
+        "trait_type": "Bath",
+        "value": "Gin Bath"
+      },
+      {
+        "trait_type": "Vista",
+        "value": "Bridge Vista"
+      },
+      {
+        "trait_type": "Flurry",
+        "value": "Snow Flurry"
+      },
+      {
+        "trait_type": "Lens",
+        "value": "Clear Lens"
+      },
+      {
+        "trait_type": "Collar",
+        "value": "Pewter Collar"
+      },
+      {
+        "trait_type": "Plaque",
+        "value": "No Plaque"
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "name": "Globe #8",
+    "image": "/nivora-preview/8.gif",
+    "attributes": [
+      {
+        "trait_type": "Plinth",
+        "value": "Marble Plinth"
+      },
+      {
+        "trait_type": "Bath",
+        "value": "Pine Bath"
+      },
+      {
+        "trait_type": "Vista",
+        "value": "Moon Vista"
+      },
+      {
+        "trait_type": "Flurry",
+        "value": "Gold Leaf"
+      },
+      {
+        "trait_type": "Lens",
+        "value": "Smoked Lens"
+      },
+      {
+        "trait_type": "Collar",
+        "value": "Copper Collar"
+      },
+      {
+        "trait_type": "Plaque",
+        "value": "Crest Plaque"
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "name": "Globe #9",
+    "image": "/nivora-preview/9.gif",
+    "attributes": [
+      {
+        "trait_type": "Plinth",
+        "value": "Walnut Plinth"
+      },
+      {
+        "trait_type": "Bath",
+        "value": "Rose Bath"
+      },
+      {
+        "trait_type": "Vista",
+        "value": "Pine Vista"
+      },
+      {
+        "trait_type": "Flurry",
+        "value": "Mica Flurry"
+      },
+      {
+        "trait_type": "Lens",
+        "value": "Bubble Lens"
+      },
+      {
+        "trait_type": "Collar",
+        "value": "Bare Neck"
+      },
+      {
+        "trait_type": "Plaque",
+        "value": "Stamp Plaque"
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "name": "Globe #10",
+    "image": "/nivora-preview/10.gif",
+    "attributes": [
+      {
+        "trait_type": "Plinth",
+        "value": "Bakelite Plinth"
+      },
+      {
+        "trait_type": "Bath",
+        "value": "Amber Bath"
+      },
+      {
+        "trait_type": "Vista",
+        "value": "Cabin Vista"
+      },
+      {
+        "trait_type": "Flurry",
+        "value": "Snow Flurry"
+      },
+      {
+        "trait_type": "Lens",
+        "value": "Frost Lens"
+      },
+      {
+        "trait_type": "Collar",
+        "value": "Brass Collar"
+      },
+      {
+        "trait_type": "Plaque",
+        "value": "Ribbon Plaque"
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "name": "Globe #11",
+    "image": "/nivora-preview/11.gif",
+    "attributes": [
+      {
+        "trait_type": "Plinth",
+        "value": "Brass Plinth"
+      },
+      {
+        "trait_type": "Bath",
+        "value": "Clear Bath"
+      },
+      {
+        "trait_type": "Vista",
+        "value": "Deer Vista"
+      },
+      {
+        "trait_type": "Flurry",
+        "value": "Gold Leaf"
+      },
+      {
+        "trait_type": "Lens",
+        "value": "Clear Lens"
+      },
+      {
+        "trait_type": "Collar",
+        "value": "Black Collar"
+      },
+      {
+        "trait_type": "Plaque",
+        "value": "No Plaque"
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "name": "Globe #12",
+    "image": "/nivora-preview/12.gif",
+    "attributes": [
+      {
+        "trait_type": "Plinth",
+        "value": "Ceramic Plinth"
+      },
+      {
+        "trait_type": "Bath",
+        "value": "Cobalt Bath"
+      },
+      {
+        "trait_type": "Vista",
+        "value": "Lighthouse Vista"
+      },
+      {
+        "trait_type": "Flurry",
+        "value": "Snow Flurry"
+      },
+      {
+        "trait_type": "Lens",
+        "value": "Tinted Lens"
+      },
+      {
+        "trait_type": "Collar",
+        "value": "Pewter Collar"
+      },
+      {
+        "trait_type": "Plaque",
+        "value": "Year Plaque"
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "name": "Globe #13",
+    "image": "/nivora-preview/13.gif",
+    "attributes": [
+      {
+        "trait_type": "Plinth",
+        "value": "Ice Plastic"
+      },
+      {
+        "trait_type": "Bath",
+        "value": "Ink Bath"
+      },
+      {
+        "trait_type": "Vista",
+        "value": "Chapel Vista"
+      },
+      {
+        "trait_type": "Flurry",
+        "value": "Ash Flurry"
+      },
+      {
+        "trait_type": "Lens",
+        "value": "Hairline Crack"
+      },
+      {
+        "trait_type": "Collar",
+        "value": "Copper Collar"
+      },
+      {
+        "trait_type": "Plaque",
+        "value": "Crest Plaque"
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "name": "Globe #14",
+    "image": "/nivora-preview/14.gif",
+    "attributes": [
+      {
+        "trait_type": "Plinth",
+        "value": "Ebon Plinth"
+      },
+      {
+        "trait_type": "Bath",
+        "value": "Gin Bath"
+      },
+      {
+        "trait_type": "Vista",
+        "value": "Moon Vista"
+      },
+      {
+        "trait_type": "Flurry",
+        "value": "Confetti Flurry"
+      },
+      {
+        "trait_type": "Lens",
+        "value": "Bubble Lens"
+      },
+      {
+        "trait_type": "Collar",
+        "value": "Bare Neck"
+      },
+      {
+        "trait_type": "Plaque",
+        "value": "Year Plaque"
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "name": "Globe #15",
+    "image": "/nivora-preview/15.gif",
+    "attributes": [
+      {
+        "trait_type": "Plinth",
+        "value": "Cherry Plinth"
+      },
+      {
+        "trait_type": "Bath",
+        "value": "Pine Bath"
+      },
+      {
+        "trait_type": "Vista",
+        "value": "Tram Vista"
+      },
+      {
+        "trait_type": "Flurry",
+        "value": "Grit Flurry"
+      },
+      {
+        "trait_type": "Lens",
+        "value": "Frost Lens"
+      },
+      {
+        "trait_type": "Collar",
+        "value": "Brass Collar"
+      },
+      {
+        "trait_type": "Plaque",
+        "value": "Stamp Plaque"
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "name": "Globe #16",
+    "image": "/nivora-preview/16.gif",
+    "attributes": [
+      {
+        "trait_type": "Plinth",
+        "value": "Marble Plinth"
+      },
+      {
+        "trait_type": "Bath",
+        "value": "Clear Bath"
+      },
+      {
+        "trait_type": "Vista",
+        "value": "Bridge Vista"
+      },
+      {
+        "trait_type": "Flurry",
+        "value": "Mica Flurry"
+      },
+      {
+        "trait_type": "Lens",
+        "value": "Clear Lens"
+      },
+      {
+        "trait_type": "Collar",
+        "value": "Black Collar"
+      },
+      {
+        "trait_type": "Plaque",
+        "value": "Ribbon Plaque"
+      }
+    ]
+  }
+]
