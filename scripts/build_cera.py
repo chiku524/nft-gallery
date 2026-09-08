@@ -38,52 +38,71 @@ NECK_Y = 82.0
 FLOOR_Y = 322.0
 SOCKET_TOP = 308.0
 
-NIGHT = (22, 18, 28, 255)
-CHROME = (197, 200, 206)
-GOLD = (212, 168, 72)
-MAGENTA = (217, 70, 166)
+NIGHT = (10, 8, 16, 255)
+CHROME = (148, 158, 176)
+GOLD = (255, 196, 48)
+MAGENTA = (255, 48, 176)
 INK = 8
 RING = 6
 
 SILL = {
-    "wood": ((142, 92, 48), (92, 54, 28)),
-    "formica": ((196, 186, 148), (88, 112, 64)),
-    "velvet": ((48, 22, 42), (92, 36, 72)),
-    "tile": ((214, 198, 176), (168, 92, 72)),
-    "night": ((18, 16, 28), (42, 36, 62)),
+    "wood": ((22, 12, 16), (14, 8, 10)),
+    "formica": ((18, 16, 24), (28, 18, 36)),
+    "velvet": ((14, 8, 18), (28, 10, 32)),
+    "tile": ((20, 16, 24), (12, 10, 16)),
+    "night": ((8, 8, 14), (18, 12, 36)),
+}
+
+SILL_BOUNCE = {
+    "wood": (255, 40, 140, 58),
+    "formica": (40, 255, 230, 52),
+    "velvet": (255, 48, 200, 62),
+    "tile": (80, 255, 90, 48),
+    "night": (160, 70, 255, 56),
 }
 
 SOCKET = {
-    "rocket": (186, 188, 194),
-    "saucer": (212, 168, 64),
-    "cone": (88, 112, 64),
-    "cube": (196, 72, 48),
-    "mushroom": (148, 92, 168),
-    "chrome": (210, 214, 220),
-    "walnut": (92, 54, 32),
-    "ceramic": (236, 228, 214),
+    "rocket": (72, 78, 92),
+    "saucer": (132, 92, 28),
+    "cone": (32, 72, 44),
+    "cube": (96, 24, 40),
+    "mushroom": (72, 32, 102),
+    "chrome": (78, 88, 102),
+    "walnut": (36, 22, 16),
+    "ceramic": (42, 38, 52),
+}
+
+SOCKET_ACCENT = {
+    "rocket": (60, 255, 255),
+    "saucer": (255, 210, 40),
+    "cone": (80, 255, 90),
+    "cube": (255, 40, 90),
+    "mushroom": (220, 80, 255),
+    "chrome": (180, 230, 255),
+    "walnut": (255, 120, 40),
+    "ceramic": (255, 70, 200),
 }
 
 SERUM = {
-    "clear": (214, 226, 232),
-    "cyan": (48, 176, 188),
-    "amber": (212, 148, 48),
-    "violet": (112, 72, 168),
-    "green": (48, 148, 92),
+    "clear": (170, 230, 255),
+    "cyan": (20, 245, 255),
+    "amber": (255, 140, 20),
+    "violet": (168, 48, 255),
+    "green": (40, 255, 90),
 }
 
 MELT = {
-    "crimson": (196, 36, 48),
-    "gold": (236, 176, 36),
-    "white": (236, 230, 220),
-    "magenta": (208, 48, 148),
-    "black": (36, 28, 32),
+    "crimson": (255, 36, 88),
+    "gold": (255, 230, 40),
+    "white": (240, 255, 255),
+    "magenta": (255, 40, 210),
+    "black": (16, 8, 20),
 }
 
 COIL = {
-    "dim": (148, 72, 28),
-    "orange": (255, 132, 36),
-    "whitehot": (255, 236, 196),
+    "dim": (96, 40, 18),
+    "orange": (255, 96, 24),
+    "whitehot": (255, 252, 220),
 }
 
 LID = {
@@ -253,19 +272,19 @@ def paint_sill(kind: str, frame: int) -> Image.Image:
     yy, xx = np.mgrid[0:SIZE, 0:SIZE].astype(np.float32)
     rgb = np.zeros((SIZE, SIZE, 3), dtype=np.float32)
     if kind == "wood":
-        grain = 14.0 * np.sin(yy / 7.5 + 0.35 * np.sin(xx / 40.0))
+        grain = 10.0 * np.sin(yy / 7.5 + 0.35 * np.sin(xx / 40.0))
         for i in range(3):
-            rgb[..., i] = a[i] + grain * (0.55 if i == 0 else 0.35)
+            rgb[..., i] = a[i] + grain * (0.35 if i == 0 else 0.12)
         rgb[yy > 400] = np.array(b, dtype=np.float32)
     elif kind == "formica":
         for i in range(3):
             rgb[..., i] = a[i]
         boomer = np.sin((xx / 28.0) + np.cos(yy / 36.0) * 2.2) * np.sin((xx + yy) / 50.0)
-        rgb[boomer > 0.55] = np.array(b, dtype=np.float32) * 0.85 + np.array(a, dtype=np.float32) * 0.15
+        rgb[boomer > 0.55] = np.array(b, dtype=np.float32)
         kidney = ((xx - 390) ** 2 / 70 ** 2 + (yy - 90) ** 2 / 40 ** 2) < 1.0
-        rgb[kidney] = np.array((176, 86, 102), dtype=np.float32)
+        rgb[kidney] = np.array((220, 36, 110), dtype=np.float32)
     elif kind == "velvet":
-        nap = 10.0 * np.sin(xx / 11.0) * np.sin(yy / 17.0)
+        nap = 8.0 * np.sin(xx / 11.0) * np.sin(yy / 17.0)
         for i in range(3):
             rgb[..., i] = a[i] + nap
         rgb[yy > 430] = np.array(b, dtype=np.float32)
@@ -276,21 +295,33 @@ def paint_sill(kind: str, frame: int) -> Image.Image:
         for i in range(3):
             rgb[..., i] = a[i] * (1.0 - checker) + b[i] * checker
         grout = (np.abs(xx % 48 - 0) < 2) | (np.abs(yy % 48 - 0) < 2)
-        rgb[grout] = np.array((92, 78, 70), dtype=np.float32)
+        rgb[grout] = np.array((6, 6, 10), dtype=np.float32)
     else:
         for i in range(3):
-            rgb[..., i] = a[i] + 8.0 * np.sin((xx + yy) / 90.0)
+            rgb[..., i] = a[i] + 6.0 * np.sin((xx + yy) / 90.0)
         window = (xx > 360) & (xx < 490) & (yy > 40) & (yy < 210)
-        rgb[window] = np.array(b, dtype=np.float32)
+        rgb[window] = np.array((40, 18, 72), dtype=np.float32)
+        left_pane = window & (xx < 425)
+        rgb[left_pane] = np.array((20, 180, 200), dtype=np.float32) * 0.35 + np.array((12, 8, 28), dtype=np.float32) * 0.65
+        right_pane = window & (xx >= 425)
+        rgb[right_pane] = np.array((220, 40, 160), dtype=np.float32) * 0.32 + np.array((12, 8, 28), dtype=np.float32) * 0.68
         pane = (np.abs(xx - 425) < 2) | (np.abs(yy - 125) < 2)
-        rgb[window & pane] = np.array((18, 16, 28), dtype=np.float32)
-    rgb += 3.0 * np.sin(yy / 80.0 + t * 0.05)[..., None]
+        rgb[window & pane] = np.array((8, 6, 14), dtype=np.float32)
+    rgb += 2.0 * np.sin(yy / 80.0 + t * 0.05)[..., None]
+    cx = SIZE / 2.0
+    cy = SIZE / 2.0
+    vignette = np.clip((np.sqrt((xx - cx) ** 2 + (yy - cy) ** 2) - 160.0) / 240.0, 0.0, 1.0)
+    rgb *= (1.0 - 0.58 * vignette)[..., None]
     rng = np.random.RandomState(41)
-    rgb += rng.randn(SIZE, SIZE, 1).astype(np.float32) * 2.2
+    rgb += rng.randn(SIZE, SIZE, 1).astype(np.float32) * 1.6
     layer = Image.fromarray(np.clip(rgb, 0, 255).astype(np.uint8), "RGB").convert("RGBA")
-    shade = Image.new("RGBA", (SIZE, SIZE), (0, 0, 0, 0))
-    ImageDraw.Draw(shade).ellipse((int(CX - 90), 350, int(CX + 100), 455), fill=(8, 6, 14, 90))
-    layer.alpha_composite(shade.filter(ImageFilter.GaussianBlur(12)))
+    bounce = Image.new("RGBA", (SIZE, SIZE), (0, 0, 0, 0))
+    bd = ImageDraw.Draw(bounce)
+    bd.ellipse((int(CX - 90), 350, int(CX + 100), 455), fill=(6, 4, 10, 110))
+    layer.alpha_composite(bounce.filter(ImageFilter.GaussianBlur(12)))
+    glow = Image.new("RGBA", (SIZE, SIZE), (0, 0, 0, 0))
+    ImageDraw.Draw(glow).ellipse((int(CX - 70), 368, int(CX + 78), 442), fill=SILL_BOUNCE[kind])
+    layer.alpha_composite(glow.filter(ImageFilter.GaussianBlur(16)))
     return layer
 
 
@@ -366,6 +397,8 @@ def paint_socket(kind: str, frame: int) -> Image.Image:
         d.ellipse((cx + 18, top + 80, cx + 48, bot - 20), fill=dark + (50,))
 
     d.ellipse((cx - 38, top - 10, cx + 38, top + 14), fill=CHROME + (240,), outline=ink, width=RING)
+    accent = SOCKET_ACCENT[kind]
+    d.arc((cx - 42, top - 10, cx + 42, top + 20), 200, 340, fill=accent + (200,), width=4)
     return shade_volume(layer)
 
 
@@ -375,9 +408,9 @@ def paint_flask(kind: str, frame: int) -> Image.Image:
     poly = flask_poly(kind)
     inner = inner_poly()
     cx = int(CX)
-    d.polygon(poly, fill=(198, 216, 228, 185))
-    d.polygon(offset_poly(poly, 9), outline=(230, 238, 246, 255), width=6)
-    d.polygon(inner, outline=(40, 36, 48, 200), width=3)
+    d.polygon(poly, fill=(28, 36, 52, 150))
+    d.polygon(offset_poly(poly, 9), outline=(80, 255, 255, 255), width=6)
+    d.polygon(inner, outline=(40, 16, 48, 210), width=3)
     spec = blank()
     sd = ImageDraw.Draw(spec)
     sd.polygon(
@@ -389,12 +422,12 @@ def paint_flask(kind: str, frame: int) -> Image.Image:
             (cx - 62, int(FLOOR_Y - 28)),
             (cx - 52, 210),
         ],
-        fill=(255, 255, 255, 150),
+        fill=(180, 255, 255, 170),
     )
     layer.alpha_composite(spec.filter(ImageFilter.GaussianBlur(1.2)))
     d.line(
         [(cx + 48, int(NECK_Y + 36)), (cx + 60, 220), (cx + 66, int(FLOOR_Y - 30))],
-        fill=(90, 110, 130, 110),
+        fill=(255, 60, 180, 90),
         width=5,
     )
     d.polygon(poly, outline=NIGHT[:3] + (255,), width=INK + 3)
@@ -414,37 +447,42 @@ def paint_serum(kind: str, frame: int) -> Image.Image:
     color = SERUM[kind]
     layer = blank()
     d = ImageDraw.Draw(layer)
-    alpha = 150 if kind == "clear" else 198
+    alpha = 168 if kind == "clear" else 210
     d.polygon(inner_poly(), fill=color + (alpha,))
     cx = int(CX)
-    d.ellipse((cx - 20, int(NECK_Y + 8), cx + 20, int(NECK_Y + 24)), fill=tuple(min(255, c + 36) for c in color) + (110,))
+    d.ellipse((cx - 20, int(NECK_Y + 8), cx + 20, int(NECK_Y + 24)), fill=tuple(min(255, c + 40) for c in color) + (140,))
     arr = np.array(layer, dtype=np.float32)
     yy = np.linspace(0.0, 1.0, SIZE, dtype=np.float32)[:, None]
     heat = np.clip((yy - 0.48) / 0.28, 0.0, 1.0)
     pulse = 0.55 + 0.45 * (0.5 + 0.5 * math.sin(t))
     vis = arr[..., 3] > 0
-    warm = np.array((255.0, 168.0, 72.0), dtype=np.float32)
+    lift = np.array([min(255.0, c + 40.0) for c in color], dtype=np.float32)
     for i in range(3):
         arr[..., i] = np.where(
             vis,
-            arr[..., i] * (1.0 - 0.22 * heat * pulse) + warm[i] * 0.22 * heat * pulse,
+            arr[..., i] * (1.0 - 0.28 * heat * pulse) + lift[i] * 0.28 * heat * pulse,
             arr[..., i],
         )
     xx = np.linspace(-1.0, 1.0, SIZE, dtype=np.float32)
     edge = np.clip(np.abs(xx[None, :]) - 0.08, 0.0, 1.0)
     for i in range(3):
-        arr[..., i] = np.where(vis, arr[..., i] * (1.0 - 0.18 * edge), arr[..., i])
+        arr[..., i] = np.where(vis, arr[..., i] * (1.0 - 0.12 * edge), arr[..., i])
     rng = np.random.RandomState(73)
-    streak = rng.randn(SIZE, SIZE).astype(np.float32) * 2.0
+    streak = rng.randn(SIZE, SIZE).astype(np.float32) * 1.6
     for i in range(3):
         arr[..., i] = np.where(vis, arr[..., i] + streak, arr[..., i])
     out = Image.fromarray(np.clip(arr, 0, 255).astype(np.uint8), "RGBA")
     glow = Image.new("RGBA", (SIZE, SIZE), (0, 0, 0, 0))
     g = ImageDraw.Draw(glow)
     gy = int(FLOOR_Y - 24)
-    rad = int(36 + 8 * pulse)
-    g.ellipse((cx - rad, gy - 16, cx + rad, int(FLOOR_Y + 4)), fill=(255, 150, 60, int(55 * pulse)))
-    out.alpha_composite(glow.filter(ImageFilter.GaussianBlur(10)))
+    rad = int(40 + 10 * pulse)
+    g.ellipse((cx - rad, gy - 18, cx + rad, int(FLOOR_Y + 4)), fill=color + (int(90 * pulse),))
+    bloom = out.filter(ImageFilter.GaussianBlur(7))
+    bloom_arr = np.array(bloom)
+    bloom_arr[..., 3] = (bloom_arr[..., 3].astype(np.float32) * 0.40).astype(np.uint8)
+    bloom = Image.fromarray(bloom_arr, "RGBA")
+    out = Image.alpha_composite(bloom, out)
+    out.alpha_composite(glow.filter(ImageFilter.GaussianBlur(11)))
     return clip_to_inner(out)
 
 
@@ -467,12 +505,13 @@ def blob_pose(frame: int, index: int) -> tuple[float, float, float, float, float
 
 def paint_melt(kind: str, frame: int) -> Image.Image:
     color = MELT[kind]
-    lite_amt = 22 if kind in ("white", "gold") else 40
-    dark_amt = 28 if kind == "black" else 48
+    lite_amt = 18 if kind in ("white", "gold") else 36
+    dark_amt = 20 if kind == "black" else 40
     lite = tuple(min(255, c + lite_amt) for c in color)
     dark = tuple(max(0, c - dark_amt) for c in color)
     if kind == "black":
-        lite = (118, 96, 104)
+        lite = (80, 255, 230)
+        dark = (255, 40, 180)
     layer = blank()
     d = ImageDraw.Draw(layer)
     cx = int(CX)
@@ -481,14 +520,14 @@ def paint_melt(kind: str, frame: int) -> Image.Image:
     for i, ox in enumerate(offsets):
         y, rx, ry, pinch, wobble = blob_pose(frame, i)
         pts = wax_pts(cx + ox, y, rx, ry, pinch, wobble, t + i * 1.7)
-        d.polygon(pts, fill=color + (236,))
-        d.line(pts + [pts[0]], fill=dark + (200,), width=3)
+        d.polygon(pts, fill=color + (242,))
+        d.line(pts + [pts[0]], fill=dark + (210,), width=3)
         hx = cx + ox - rx * 0.22
         hy = y - ry * 0.28
         hpts = wax_pts(hx, hy, rx * 0.38, ry * 0.32, pinch * 0.4, wobble * 0.4, t)
-        d.polygon(hpts, fill=lite + (100 if kind != "white" else 70,))
+        d.polygon(hpts, fill=lite + (130 if kind != "white" else 90,))
     puddle_h = 22 + int(4 * math.sin(t))
-    d.ellipse((cx - 46, int(FLOOR_Y - 6 - puddle_h), cx + 46, int(FLOOR_Y + 4)), fill=color + (240,))
+    d.ellipse((cx - 46, int(FLOOR_Y - 6 - puddle_h), cx + 46, int(FLOOR_Y + 4)), fill=color + (244,))
     d.ellipse((cx - 58, int(FLOOR_Y - 10), cx - 18, int(FLOOR_Y + 6)), fill=color + (220,))
     d.ellipse((cx + 16, int(FLOOR_Y - 12), cx + 54, int(FLOOR_Y + 5)), fill=color + (220,))
     stalk = 28 + int(8 * math.sin(t + 0.4))
@@ -499,10 +538,14 @@ def paint_melt(kind: str, frame: int) -> Image.Image:
             (cx + 4, int(FLOOR_Y - stalk)),
             (cx - 6, int(FLOOR_Y - stalk - 6)),
         ],
-        fill=color + (230,),
+        fill=color + (236,),
     )
-    d.ellipse((cx - 18, int(FLOOR_Y - 14), cx + 22, int(FLOOR_Y + 2)), fill=lite + (50,))
-    return clip_to_inner(layer.filter(ImageFilter.GaussianBlur(0.5)))
+    d.ellipse((cx - 18, int(FLOOR_Y - 14), cx + 22, int(FLOOR_Y + 2)), fill=lite + (70,))
+    bloom = layer.filter(ImageFilter.GaussianBlur(6))
+    bloom_arr = np.array(bloom)
+    bloom_arr[..., 3] = (bloom_arr[..., 3].astype(np.float32) * 0.50).astype(np.uint8)
+    layer = Image.alpha_composite(Image.fromarray(bloom_arr, "RGBA"), layer)
+    return clip_to_inner(layer.filter(ImageFilter.GaussianBlur(0.4)))
 
 
 def paint_coil(kind: str, frame: int) -> Image.Image:
@@ -515,7 +558,7 @@ def paint_coil(kind: str, frame: int) -> Image.Image:
     cx = int(CX)
     y = int(FLOOR_Y - 10)
     rad = int(34 + 10 * pulse)
-    alpha = {"dim": 80, "orange": 140, "whitehot": 180}[kind]
+    alpha = {"dim": 100, "orange": 170, "whitehot": 210}[kind]
     g.ellipse((cx - rad, y - 18, cx + rad, y + 16), fill=color + (int(alpha * pulse),))
     layer.alpha_composite(glow.filter(ImageFilter.GaussianBlur(9)))
     d = ImageDraw.Draw(layer)
@@ -764,7 +807,7 @@ def write_ts_gallery(samples: list[dict]) -> None:
             "  {\n"
             f"    id: {sample['id']},\n"
             f'    name: "{sample["name"]}",\n'
-            f'    image: "{sample["image"]}?v=4",\n'
+            f'    image: "{sample["image"]}?v=5",\n'
             f"    attributes: [\n      {attrs},\n    ],\n"
             "  }"
         )
@@ -833,7 +876,7 @@ def write_ts_traits() -> None:
         "  traits: CeraTrait[];\n"
         "};\n\n"
         "/** Bump when APNG layers change so the studio does not keep a stale loop. */\n"
-        'export const CERA_ART_VERSION = "cera-v4";\n\n'
+        'export const CERA_ART_VERSION = "cera-v5";\n\n'
         "export const CERA_FRAMES = 12;\n"
         "export const CERA_DURATION_MS = 90;\n\n"
         "export function ceraTraitSrc(path?: string) {\n"
@@ -905,10 +948,10 @@ def write_ts_traits() -> None:
 def panoramic_wash(width: int, height: int) -> Image.Image:
     colors = np.array(
         [
-            [0.09, 0.07, 0.11],
-            [0.85, 0.27, 0.65],
-            [0.19, 0.69, 0.74],
-            [0.83, 0.66, 0.28],
+            [0.04, 0.03, 0.07],
+            [0.95, 0.12, 0.70],
+            [0.04, 0.90, 0.95],
+            [0.10, 0.04, 0.16],
         ],
         dtype=np.float32,
     )
