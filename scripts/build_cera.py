@@ -413,6 +413,7 @@ def paint_flask(kind: str, frame: int) -> Image.Image:
     layer = blank()
     d = ImageDraw.Draw(layer)
     poly = flask_poly(kind)
+    inside = flask_liquid_mask(kind)
     cx = int(CX)
     d.polygon(poly, fill=(20, 28, 44, 48))
     d.polygon(offset_poly(poly, 5), outline=(80, 255, 255, 255), width=5)
@@ -430,12 +431,8 @@ def paint_flask(kind: str, frame: int) -> Image.Image:
         ],
         fill=(180, 255, 255, 170),
     )
+    spec.putalpha(ImageChops.darker(spec.split()[-1], inside))
     layer.alpha_composite(spec.filter(ImageFilter.GaussianBlur(1.2)))
-    d.line(
-        [(cx + 48, int(NECK_Y + 36)), (cx + 60, 220), (cx + 66, int(FLOOR_Y - 30))],
-        fill=(255, 60, 180, 90),
-        width=5,
-    )
     d.polygon(poly, outline=NIGHT[:3] + (255,), width=INK + 3)
     d.rounded_rectangle(
         (cx - 26, int(NECK_Y - 8), cx + 26, int(NECK_Y + 14)),
@@ -864,7 +861,7 @@ def write_ts_gallery(samples: list[dict]) -> None:
             "  {\n"
             f"    id: {sample['id']},\n"
             f'    name: "{sample["name"]}",\n'
-            f'    image: "{sample["image"]}?v=8",\n'
+            f'    image: "{sample["image"]}?v=9",\n'
             f"    attributes: [\n      {attrs},\n    ],\n"
             "  }"
         )
@@ -933,7 +930,7 @@ def write_ts_traits() -> None:
         "  traits: CeraTrait[];\n"
         "};\n\n"
         "/** Bump when APNG layers change so the studio does not keep a stale loop. */\n"
-        'export const CERA_ART_VERSION = "cera-v8";\n\n'
+        'export const CERA_ART_VERSION = "cera-v9";\n\n'
         "export const CERA_FRAMES = 12;\n"
         "export const CERA_DURATION_MS = 180;\n\n"
         "export function ceraTraitSrc(path?: string) {\n"
