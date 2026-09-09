@@ -1,0 +1,12 @@
+{
+  "name": "Boogie Squad",
+  "symbol": "BOOG",
+  "description": "Boogie Squad is a 10,000-piece collection of looping jelly-cel dance PFP GIFs on Robinhood Chain. Each dancer is stacked from six layers \u2014 stage, lights, cast, face, fit, and prop \u2014 then flattened onto one 12-frame GIF. Cats, frogs, blobs, birds, robots, and more. A side-step. A groove. One shared clock.",
+  "image": "/brand/collection-boogiesquad.gif",
+  "featured_image": "/brand/featured-boogiesquad.jpg",
+  "banner_image": "/brand/banner-boogiesquad.png",
+  "opensea_banner_image": "/brand/banner-boogiesquad-opensea.jpg",
+  "external_link": "/boogiesquad",
+  "seller_fee_basis_points": 500,
+  "fee_recipient": "0x0000000000000000000000000000000000000000"
+}

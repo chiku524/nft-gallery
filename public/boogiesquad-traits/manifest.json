@@ -1,0 +1,17 @@
+{
+  "name": "Boogie Squad",
+  "size": 512,
+  "frames": 12,
+  "durationMs": 90,
+  "format": "apng",
+  "loop": 0,
+  "order": [
+    "stage",
+    "lights",
+    "cast",
+    "face",
+    "fit",
+    "prop"
+  ],
+  "note": "Each trait is a looping APNG. Studio stacks them live. Minted tokens flatten to GIF. Cast, face, fit, and prop share one dance clock; stage and lights move on their own loops."
+}

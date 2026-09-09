@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "generate": "python3 scripts/build_loopkins.py && python3 scripts/generate_collection.py && python3 scripts/build_afterimages.py && python3 scripts/build_inklings.py && python3 scripts/generate_inklings.py && python3 scripts/build_wicklings.py && python3 scripts/generate_wicklings.py && python3 scripts/build_purrkins.py && python3 scripts/generate_purrkins.py && python3 scripts/build_santapaws.py && python3 scripts/generate_santapaws.py && python3 scripts/gif_bake.py",
+    "generate": "python3 scripts/build_loopkins.py && python3 scripts/generate_collection.py && python3 scripts/build_afterimages.py && python3 scripts/build_inklings.py && python3 scripts/generate_inklings.py && python3 scripts/build_wicklings.py && python3 scripts/generate_wicklings.py && python3 scripts/build_purrkins.py && python3 scripts/generate_purrkins.py && python3 scripts/build_santapaws.py && python3 scripts/generate_santapaws.py && python3 scripts/build_boogiesquad.py && python3 scripts/generate_boogiesquad.py && python3 scripts/gif_bake.py",
     "generate:afterimages": "python3 scripts/build_afterimages.py",
     "generate:inklings": "python3 scripts/build_inklings.py && python3 scripts/generate_inklings.py",
     "generate:wicklings": "python3 scripts/build_wicklings.py && python3 scripts/generate_wicklings.py",
@@ -29,8 +29,9 @@
     "generate:caldera": "python3 scripts/build_caldera.py && python3 scripts/generate_caldera.py",
     "generate:cera": "python3 scripts/build_cera.py && python3 scripts/generate_cera.py",
     "generate:ossein": "python3 scripts/build_ossein.py && python3 scripts/generate_ossein.py",
+    "generate:boogiesquad": "python3 scripts/build_boogiesquad.py && python3 scripts/generate_boogiesquad.py",
     "generate:galleria": "python3 scripts/build_galleria.py",
-    "generate:gifs": "python3 scripts/gif_bake.py --afterimages && python3 scripts/gif_bake.py --loopkins --all && python3 scripts/gif_bake.py --inklings --all && python3 scripts/gif_bake.py --wicklings --all && python3 scripts/gif_bake.py --purrkins --all && python3 scripts/gif_bake.py --birbs --all && python3 scripts/gif_bake.py --shookums --all && python3 scripts/gif_bake.py --foxins --all && python3 scripts/gif_bake.py --santapaws --all && python3 scripts/gif_bake.py --scribblins --all && python3 scripts/gif_bake.py --groovy --all && python3 scripts/gif_bake.py --opaline --all"
+    "generate:gifs": "python3 scripts/gif_bake.py --afterimages && python3 scripts/gif_bake.py --loopkins --all && python3 scripts/gif_bake.py --inklings --all && python3 scripts/gif_bake.py --wicklings --all && python3 scripts/gif_bake.py --purrkins --all && python3 scripts/gif_bake.py --birbs --all && python3 scripts/gif_bake.py --shookums --all && python3 scripts/gif_bake.py --foxins --all && python3 scripts/gif_bake.py --santapaws --all && python3 scripts/gif_bake.py --scribblins --all && python3 scripts/gif_bake.py --groovy --all && python3 scripts/gif_bake.py --opaline --all && python3 scripts/gif_bake.py --boogiesquad --all"
   },
   "dependencies": {
     "class-variance-authority": "^0.7.1",

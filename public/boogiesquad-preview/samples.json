@@ -1,0 +1,498 @@
+[
+  {
+    "id": 1,
+    "name": "Boogie #1",
+    "image": "/boogiesquad-preview/1.gif",
+    "attributes": [
+      {
+        "trait_type": "Stage",
+        "value": "Dance Floor"
+      },
+      {
+        "trait_type": "Lights",
+        "value": "None"
+      },
+      {
+        "trait_type": "Cast",
+        "value": "Peach Cat"
+      },
+      {
+        "trait_type": "Face",
+        "value": "Hype"
+      },
+      {
+        "trait_type": "Fit",
+        "value": "None"
+      },
+      {
+        "trait_type": "Prop",
+        "value": "None"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Boogie #2",
+    "image": "/boogiesquad-preview/2.gif",
+    "attributes": [
+      {
+        "trait_type": "Stage",
+        "value": "Disco Hall"
+      },
+      {
+        "trait_type": "Lights",
+        "value": "Disco Glints"
+      },
+      {
+        "trait_type": "Cast",
+        "value": "Lime Frog"
+      },
+      {
+        "trait_type": "Face",
+        "value": "Grin"
+      },
+      {
+        "trait_type": "Fit",
+        "value": "Shades"
+      },
+      {
+        "trait_type": "Prop",
+        "value": "Mic"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Boogie #3",
+    "image": "/boogiesquad-preview/3.gif",
+    "attributes": [
+      {
+        "trait_type": "Stage",
+        "value": "Rooftop Party"
+      },
+      {
+        "trait_type": "Lights",
+        "value": "Spotlights"
+      },
+      {
+        "trait_type": "Cast",
+        "value": "Grape Blob"
+      },
+      {
+        "trait_type": "Face",
+        "value": "Party Scream"
+      },
+      {
+        "trait_type": "Fit",
+        "value": "Hoodie"
+      },
+      {
+        "trait_type": "Prop",
+        "value": "Boombox"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Boogie #4",
+    "image": "/boogiesquad-preview/4.gif",
+    "attributes": [
+      {
+        "trait_type": "Stage",
+        "value": "Neon Alley"
+      },
+      {
+        "trait_type": "Lights",
+        "value": "Neon Glow"
+      },
+      {
+        "trait_type": "Cast",
+        "value": "Canary Bird"
+      },
+      {
+        "trait_type": "Face",
+        "value": "Wink"
+      },
+      {
+        "trait_type": "Fit",
+        "value": "Headphones"
+      },
+      {
+        "trait_type": "Prop",
+        "value": "Vinyl"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Boogie #5",
+    "image": "/boogiesquad-preview/5.gif",
+    "attributes": [
+      {
+        "trait_type": "Stage",
+        "value": "Club Booth"
+      },
+      {
+        "trait_type": "Lights",
+        "value": "Beat Rings"
+      },
+      {
+        "trait_type": "Cast",
+        "value": "Chrome Robot"
+      },
+      {
+        "trait_type": "Face",
+        "value": "Cool"
+      },
+      {
+        "trait_type": "Fit",
+        "value": "Visor"
+      },
+      {
+        "trait_type": "Prop",
+        "value": "Glow Sticks"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Boogie #6",
+    "image": "/boogiesquad-preview/6.gif",
+    "attributes": [
+      {
+        "trait_type": "Stage",
+        "value": "Backyard Jam"
+      },
+      {
+        "trait_type": "Lights",
+        "value": "Confetti Burst"
+      },
+      {
+        "trait_type": "Cast",
+        "value": "Cream Bunny"
+      },
+      {
+        "trait_type": "Face",
+        "value": "Heart Eyes"
+      },
+      {
+        "trait_type": "Fit",
+        "value": "Jacket"
+      },
+      {
+        "trait_type": "Prop",
+        "value": "Drink"
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Boogie #7",
+    "image": "/boogiesquad-preview/7.gif",
+    "attributes": [
+      {
+        "trait_type": "Stage",
+        "value": "Warehouse Rave"
+      },
+      {
+        "trait_type": "Lights",
+        "value": "Spotlights"
+      },
+      {
+        "trait_type": "Cast",
+        "value": "Blush Pig"
+      },
+      {
+        "trait_type": "Face",
+        "value": "Tongue Out"
+      },
+      {
+        "trait_type": "Fit",
+        "value": "Chain"
+      },
+      {
+        "trait_type": "Prop",
+        "value": "Trophy"
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "name": "Boogie #8",
+    "image": "/boogiesquad-preview/8.gif",
+    "attributes": [
+      {
+        "trait_type": "Stage",
+        "value": "Disco Hall"
+      },
+      {
+        "trait_type": "Lights",
+        "value": "Neon Glow"
+      },
+      {
+        "trait_type": "Cast",
+        "value": "Midnight Cat"
+      },
+      {
+        "trait_type": "Face",
+        "value": "Focused"
+      },
+      {
+        "trait_type": "Fit",
+        "value": "Hoodie"
+      },
+      {
+        "trait_type": "Prop",
+        "value": "Mic"
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "name": "Boogie #9",
+    "image": "/boogiesquad-preview/9.gif",
+    "attributes": [
+      {
+        "trait_type": "Stage",
+        "value": "Dance Floor"
+      },
+      {
+        "trait_type": "Lights",
+        "value": "Disco Glints"
+      },
+      {
+        "trait_type": "Cast",
+        "value": "Teal Frog"
+      },
+      {
+        "trait_type": "Face",
+        "value": "Hype"
+      },
+      {
+        "trait_type": "Fit",
+        "value": "Shades"
+      },
+      {
+        "trait_type": "Prop",
+        "value": "Glow Sticks"
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "name": "Boogie #10",
+    "image": "/boogiesquad-preview/10.gif",
+    "attributes": [
+      {
+        "trait_type": "Stage",
+        "value": "Rooftop Party"
+      },
+      {
+        "trait_type": "Lights",
+        "value": "None"
+      },
+      {
+        "trait_type": "Cast",
+        "value": "Mango Blob"
+      },
+      {
+        "trait_type": "Face",
+        "value": "Grin"
+      },
+      {
+        "trait_type": "Fit",
+        "value": "None"
+      },
+      {
+        "trait_type": "Prop",
+        "value": "Vinyl"
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "name": "Boogie #11",
+    "image": "/boogiesquad-preview/11.gif",
+    "attributes": [
+      {
+        "trait_type": "Stage",
+        "value": "Neon Alley"
+      },
+      {
+        "trait_type": "Lights",
+        "value": "Confetti Burst"
+      },
+      {
+        "trait_type": "Cast",
+        "value": "Indigo Bird"
+      },
+      {
+        "trait_type": "Face",
+        "value": "Wink"
+      },
+      {
+        "trait_type": "Fit",
+        "value": "Jacket"
+      },
+      {
+        "trait_type": "Prop",
+        "value": "Boombox"
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "name": "Boogie #12",
+    "image": "/boogiesquad-preview/12.gif",
+    "attributes": [
+      {
+        "trait_type": "Stage",
+        "value": "Club Booth"
+      },
+      {
+        "trait_type": "Lights",
+        "value": "Spotlights"
+      },
+      {
+        "trait_type": "Cast",
+        "value": "Candy Robot"
+      },
+      {
+        "trait_type": "Face",
+        "value": "Party Scream"
+      },
+      {
+        "trait_type": "Fit",
+        "value": "Headphones"
+      },
+      {
+        "trait_type": "Prop",
+        "value": "None"
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "name": "Boogie #13",
+    "image": "/boogiesquad-preview/13.gif",
+    "attributes": [
+      {
+        "trait_type": "Stage",
+        "value": "Backyard Jam"
+      },
+      {
+        "trait_type": "Lights",
+        "value": "Beat Rings"
+      },
+      {
+        "trait_type": "Cast",
+        "value": "Peach Cat"
+      },
+      {
+        "trait_type": "Face",
+        "value": "Cool"
+      },
+      {
+        "trait_type": "Fit",
+        "value": "Visor"
+      },
+      {
+        "trait_type": "Prop",
+        "value": "Drink"
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "name": "Boogie #14",
+    "image": "/boogiesquad-preview/14.gif",
+    "attributes": [
+      {
+        "trait_type": "Stage",
+        "value": "Warehouse Rave"
+      },
+      {
+        "trait_type": "Lights",
+        "value": "Neon Glow"
+      },
+      {
+        "trait_type": "Cast",
+        "value": "Lime Frog"
+      },
+      {
+        "trait_type": "Face",
+        "value": "Heart Eyes"
+      },
+      {
+        "trait_type": "Fit",
+        "value": "Chain"
+      },
+      {
+        "trait_type": "Prop",
+        "value": "Mic"
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "name": "Boogie #15",
+    "image": "/boogiesquad-preview/15.gif",
+    "attributes": [
+      {
+        "trait_type": "Stage",
+        "value": "Disco Hall"
+      },
+      {
+        "trait_type": "Lights",
+        "value": "Confetti Burst"
+      },
+      {
+        "trait_type": "Cast",
+        "value": "Cream Bunny"
+      },
+      {
+        "trait_type": "Face",
+        "value": "Tongue Out"
+      },
+      {
+        "trait_type": "Fit",
+        "value": "Hoodie"
+      },
+      {
+        "trait_type": "Prop",
+        "value": "Trophy"
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "name": "Boogie #16",
+    "image": "/boogiesquad-preview/16.gif",
+    "attributes": [
+      {
+        "trait_type": "Stage",
+        "value": "Dance Floor"
+      },
+      {
+        "trait_type": "Lights",
+        "value": "Spotlights"
+      },
+      {
+        "trait_type": "Cast",
+        "value": "Chrome Robot"
+      },
+      {
+        "trait_type": "Face",
+        "value": "Hype"
+      },
+      {
+        "trait_type": "Fit",
+        "value": "Shades"
+      },
+      {
+        "trait_type": "Prop",
+        "value": "Boombox"
+      }
+    ]
+  }
+]

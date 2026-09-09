@@ -1,0 +1,17 @@
+{
+  "hash": "028e317153d771f5322480287946369379ff1053b44f4833684e2688f7382c3b",
+  "rosterHash": "327c89edce50b3f968784fec9d26a289f8b04ad524ee905b1e41508ec84249d9",
+  "count": 10000,
+  "baked": 16,
+  "frames": 12,
+  "durationMs": 90,
+  "size": 512,
+  "gifColors": 160,
+  "bytes": 4594999,
+  "openseaLimitBytes": 10737418240,
+  "underOpenseaLimit": true,
+  "seed": 466310003,
+  "chain": "robinhood",
+  "chainId": 4663,
+  "note": "Preview GIF bake of 16. Run `python3 scripts/generate_boogiesquad.py --all` for all 10,000 GIFs."
+}
