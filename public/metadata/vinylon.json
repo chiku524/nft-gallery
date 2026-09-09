@@ -1,0 +1,12 @@
+{
+  "name": "Vinylon",
+  "symbol": "VNYL",
+  "description": "Vinylon is a 10,000-piece collection of looping balloon-animal PFP GIFs. Each twist is stacked from seven plates \u2014 booth, latex, twist, knot, valve, gleam, and confetti \u2014 then flattened onto one 12-frame GIF. Inflated tubes. Knots. Specular shine.",
+  "image": "/brand/collection-vinylon.gif",
+  "featured_image": "/brand/featured-vinylon.jpg",
+  "banner_image": "/brand/banner-vinylon.png",
+  "opensea_banner_image": "/brand/banner-vinylon-opensea.jpg",
+  "external_link": "/vinylon",
+  "seller_fee_basis_points": 500,
+  "fee_recipient": "0x0000000000000000000000000000000000000000"
+}

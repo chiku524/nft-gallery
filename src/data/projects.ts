@@ -38,6 +38,12 @@ import { calderaSamples } from "@/data/caldera-gallery";
 import { caldera } from "@/data/caldera";
 import { ceraSamples } from "@/data/cera-gallery";
 import { cera } from "@/data/cera";
+import { feltroSamples } from "@/data/feltro-gallery";
+import { feltro } from "@/data/feltro";
+import { osseinSamples } from "@/data/ossein-gallery";
+import { ossein } from "@/data/ossein";
+import { vinylonSamples } from "@/data/vinylon-gallery";
+import { vinylon } from "@/data/vinylon";
 import { galleria, galleriaWorks } from "@/data/galleria";
 import { sampleMints } from "@/data/gallery";
 import { wicklingSamples } from "@/data/wickling-gallery";
@@ -59,6 +65,9 @@ import { NIVORA_BASE } from "@/lib/nivora";
 import { VIRELLO_BASE } from "@/lib/virello";
 import { CALDERA_BASE } from "@/lib/caldera";
 import { CERA_BASE } from "@/lib/cera";
+import { FLTR_BASE } from "@/lib/feltro";
+import { OSSN_BASE } from "@/lib/ossein";
+import { VNYL_BASE } from "@/lib/vinylon";
 import { GALLERIA_BASE } from "@/lib/galleria";
 import { HOODKINS_BASE } from "@/lib/hoodkins";
 import { INKLINGS_BASE } from "@/lib/inklings";
@@ -71,7 +80,7 @@ export const gallery = {
   name: "NFT Gallery",
   tagline: "Collections on the wall. One drop at a time.",
   description:
-    "NFT Gallery is a house of on-chain collections — each drop keeps its own studio, traits, and launch path. Loopkins is the layered PFP. Afterimages is the 1:1 APNG drop. Inklings is the cartoon-squid PFP GIF drop on Ink. Wicklings is the paper-lantern PFP GIF drop on Arbitrum. Purrkins is the chibi-cat PFP GIF drop on HyperEVM. Hoodkins is the chibi-raccoon PFP GIF drop on Robinhood Chain. BirbNation is the round-borb robin PFP GIF drop on Robinhood Chain. Halloween Shook'ums is the sheet-ghost PFP GIF drop on Abstract. Foxins is the bold-graphic fox PFP GIF drop on Base. Santa Paws is the giving chibi-cat PFP GIF drop on Base. Scribblins is the doodle-critter PFP GIF drop on Base. Groovy Nation is the cartoon musical-note PFP GIF drop on Robinhood Chain. Galleria On Ink is the salon of 500 open-edition 1:1 looping paintings on Ink. Opaline is the smoked-glass reef-fish PFP GIF drop on Base. Risota is the risograph dancing-character PFP GIF drop on Robinhood Chain. Perfin is the engraved postage-stamp PFP GIF drop on Robinhood Chain. Kamiori is the origami paper-fold PFP GIF drop on Robinhood Chain. Umbra is the shadow-puppet dancer PFP GIF drop on Robinhood Chain. Noxelle is the neon-tube dancer PFP GIF drop on Robinhood Chain. Nivora is the snow-globe souvenir PFP GIF drop on Robinhood Chain. Virello is the wind-up tin-toy PFP GIF drop on Robinhood Chain. Caldera is the hotel-matchbook PFP GIF drop on Robinhood Chain. Cera is the lava-lamp PFP GIF drop on Robinhood Chain.",
+    "NFT Gallery is a house of on-chain collections — each drop keeps its own studio, traits, and launch path. Loopkins is the layered PFP. Afterimages is the 1:1 APNG drop. Inklings is the cartoon-squid PFP GIF drop on Ink. Wicklings is the paper-lantern PFP GIF drop on Arbitrum. Purrkins is the chibi-cat PFP GIF drop on HyperEVM. Hoodkins is the chibi-raccoon PFP GIF drop on Robinhood Chain. BirbNation is the round-borb robin PFP GIF drop on Robinhood Chain. Halloween Shook'ums is the sheet-ghost PFP GIF drop on Abstract. Foxins is the bold-graphic fox PFP GIF drop on Base. Santa Paws is the giving chibi-cat PFP GIF drop on Base. Scribblins is the doodle-critter PFP GIF drop on Base. Groovy Nation is the cartoon musical-note PFP GIF drop on Robinhood Chain. Galleria On Ink is the salon of 500 open-edition 1:1 looping paintings on Ink. Opaline is the smoked-glass reef-fish PFP GIF drop on Base. Risota is the risograph dancing-character PFP GIF drop on Robinhood Chain. Perfin is the engraved postage-stamp PFP GIF drop on Robinhood Chain. Kamiori is the origami paper-fold PFP GIF drop on Robinhood Chain. Umbra is the shadow-puppet dancer PFP GIF drop on Robinhood Chain. Noxelle is the neon-tube dancer PFP GIF drop on Robinhood Chain. Nivora is the snow-globe souvenir PFP GIF drop on Robinhood Chain. Virello is the wind-up tin-toy PFP GIF drop on Robinhood Chain. Caldera is the hotel-matchbook PFP GIF drop on Robinhood Chain. Cera is the lava-lamp PFP GIF drop on Robinhood Chain. Feltro is the foam-mascot dancer PFP GIF drop on Robinhood Chain. Ossein is the anatomical-chart dancer PFP GIF drop on Robinhood Chain. Vinylon is the balloon-animal dancer PFP GIF drop on Robinhood Chain.",
 } as const;
 
 export const projects = [
@@ -505,12 +514,69 @@ export const projects = [
     supply: cera.supply,
     cover: "/brand/banner-cera.png",
     thumb: ceraSamples[0].image,
-    status: "new on the wall" as const,
+    status: "on the wall" as const,
     kind: "layered-pfp" as const,
     previews: ceraSamples.map((mint) => mint.image),
     studioHref: "/cera/studio" as const,
     opensea: cera.opensea.collection,
     openseaListings: openSeaListings(cera.opensea, cera.chain.name),
+  },
+  {
+    slug: "feltro",
+    href: FLTR_BASE,
+    name: feltro.name,
+    symbol: feltro.symbol,
+    tagline: feltro.tagline,
+    description: feltro.description,
+    chain: feltro.chain.name,
+    chainId: feltro.chain.chainId,
+    supply: feltro.supply,
+    cover: "/brand/banner-feltro.png",
+    thumb: feltroSamples[0].image,
+    status: "new on the wall" as const,
+    kind: "layered-pfp" as const,
+    previews: feltroSamples.map((mint) => mint.image),
+    studioHref: "/feltro/studio" as const,
+    opensea: feltro.opensea.collection,
+    openseaListings: openSeaListings(feltro.opensea, feltro.chain.name),
+  },
+  {
+    slug: "ossein",
+    href: OSSN_BASE,
+    name: ossein.name,
+    symbol: ossein.symbol,
+    tagline: ossein.tagline,
+    description: ossein.description,
+    chain: ossein.chain.name,
+    chainId: ossein.chain.chainId,
+    supply: ossein.supply,
+    cover: "/brand/banner-ossein.png",
+    thumb: osseinSamples[0].image,
+    status: "new on the wall" as const,
+    kind: "layered-pfp" as const,
+    previews: osseinSamples.map((mint) => mint.image),
+    studioHref: "/ossein/studio" as const,
+    opensea: ossein.opensea.collection,
+    openseaListings: openSeaListings(ossein.opensea, ossein.chain.name),
+  },
+  {
+    slug: "vinylon",
+    href: VNYL_BASE,
+    name: vinylon.name,
+    symbol: vinylon.symbol,
+    tagline: vinylon.tagline,
+    description: vinylon.description,
+    chain: vinylon.chain.name,
+    chainId: vinylon.chain.chainId,
+    supply: vinylon.supply,
+    cover: "/brand/banner-vinylon.png",
+    thumb: vinylonSamples[0].image,
+    status: "new on the wall" as const,
+    kind: "layered-pfp" as const,
+    previews: vinylonSamples.map((mint) => mint.image),
+    studioHref: "/vinylon/studio" as const,
+    opensea: vinylon.opensea.collection,
+    openseaListings: openSeaListings(vinylon.opensea, vinylon.chain.name),
   },
 ] as const;
 

@@ -1,0 +1,562 @@
+[
+  {
+    "id": 1,
+    "name": "Suit #1",
+    "image": "/feltro-preview/1.gif",
+    "attributes": [
+      {
+        "trait_type": "Gym",
+        "value": "Maple Court"
+      },
+      {
+        "trait_type": "Suit",
+        "value": "Bear Suit"
+      },
+      {
+        "trait_type": "Nap",
+        "value": "Down Nap"
+      },
+      {
+        "trait_type": "Mesh",
+        "value": "Round Mesh"
+      },
+      {
+        "trait_type": "Seam",
+        "value": "White Seam"
+      },
+      {
+        "trait_type": "Crest",
+        "value": "Star Crest"
+      },
+      {
+        "trait_type": "Fuzz",
+        "value": "Loose Fuzz"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Suit #2",
+    "image": "/feltro-preview/2.gif",
+    "attributes": [
+      {
+        "trait_type": "Gym",
+        "value": "Night Court"
+      },
+      {
+        "trait_type": "Suit",
+        "value": "Lion Suit"
+      },
+      {
+        "trait_type": "Nap",
+        "value": "Cross Nap"
+      },
+      {
+        "trait_type": "Mesh",
+        "value": "Visor Mesh"
+      },
+      {
+        "trait_type": "Seam",
+        "value": "Gold Seam"
+      },
+      {
+        "trait_type": "Crest",
+        "value": "Badge Crest"
+      },
+      {
+        "trait_type": "Fuzz",
+        "value": "Halo Fuzz"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Suit #3",
+    "image": "/feltro-preview/3.gif",
+    "attributes": [
+      {
+        "trait_type": "Gym",
+        "value": "Turf Court"
+      },
+      {
+        "trait_type": "Suit",
+        "value": "Frog Suit"
+      },
+      {
+        "trait_type": "Nap",
+        "value": "Tight Nap"
+      },
+      {
+        "trait_type": "Mesh",
+        "value": "Button Eyes"
+      },
+      {
+        "trait_type": "Seam",
+        "value": "Black Seam"
+      },
+      {
+        "trait_type": "Crest",
+        "value": "No Crest"
+      },
+      {
+        "trait_type": "Fuzz",
+        "value": "Clean Air"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Suit #4",
+    "image": "/feltro-preview/4.gif",
+    "attributes": [
+      {
+        "trait_type": "Gym",
+        "value": "Vinyl Court"
+      },
+      {
+        "trait_type": "Suit",
+        "value": "Bunny Suit"
+      },
+      {
+        "trait_type": "Nap",
+        "value": "Swirl Nap"
+      },
+      {
+        "trait_type": "Mesh",
+        "value": "Round Mesh"
+      },
+      {
+        "trait_type": "Seam",
+        "value": "Contrast Seam"
+      },
+      {
+        "trait_type": "Crest",
+        "value": "Patch Crest"
+      },
+      {
+        "trait_type": "Fuzz",
+        "value": "Drift Fuzz"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Suit #5",
+    "image": "/feltro-preview/5.gif",
+    "attributes": [
+      {
+        "trait_type": "Gym",
+        "value": "Wood Court"
+      },
+      {
+        "trait_type": "Suit",
+        "value": "Dino Suit"
+      },
+      {
+        "trait_type": "Nap",
+        "value": "Down Nap"
+      },
+      {
+        "trait_type": "Mesh",
+        "value": "Slit Mesh"
+      },
+      {
+        "trait_type": "Seam",
+        "value": "White Seam"
+      },
+      {
+        "trait_type": "Crest",
+        "value": "Letter Crest"
+      },
+      {
+        "trait_type": "Fuzz",
+        "value": "Loose Fuzz"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Suit #6",
+    "image": "/feltro-preview/6.gif",
+    "attributes": [
+      {
+        "trait_type": "Gym",
+        "value": "Mat Court"
+      },
+      {
+        "trait_type": "Suit",
+        "value": "Wolf Suit"
+      },
+      {
+        "trait_type": "Nap",
+        "value": "Cross Nap"
+      },
+      {
+        "trait_type": "Mesh",
+        "value": "Visor Mesh"
+      },
+      {
+        "trait_type": "Seam",
+        "value": "Black Seam"
+      },
+      {
+        "trait_type": "Crest",
+        "value": "Star Crest"
+      },
+      {
+        "trait_type": "Fuzz",
+        "value": "Clean Air"
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Suit #7",
+    "image": "/feltro-preview/7.gif",
+    "attributes": [
+      {
+        "trait_type": "Gym",
+        "value": "Clay Court"
+      },
+      {
+        "trait_type": "Suit",
+        "value": "Octopus Suit"
+      },
+      {
+        "trait_type": "Nap",
+        "value": "Swirl Nap"
+      },
+      {
+        "trait_type": "Mesh",
+        "value": "Round Mesh"
+      },
+      {
+        "trait_type": "Seam",
+        "value": "Gold Seam"
+      },
+      {
+        "trait_type": "Crest",
+        "value": "Badge Crest"
+      },
+      {
+        "trait_type": "Fuzz",
+        "value": "Halo Fuzz"
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "name": "Suit #8",
+    "image": "/feltro-preview/8.gif",
+    "attributes": [
+      {
+        "trait_type": "Gym",
+        "value": "Linoleum Court"
+      },
+      {
+        "trait_type": "Suit",
+        "value": "Shark Suit"
+      },
+      {
+        "trait_type": "Nap",
+        "value": "Tight Nap"
+      },
+      {
+        "trait_type": "Mesh",
+        "value": "Button Eyes"
+      },
+      {
+        "trait_type": "Seam",
+        "value": "Contrast Seam"
+      },
+      {
+        "trait_type": "Crest",
+        "value": "Letter Crest"
+      },
+      {
+        "trait_type": "Fuzz",
+        "value": "Drift Fuzz"
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "name": "Suit #9",
+    "image": "/feltro-preview/9.gif",
+    "attributes": [
+      {
+        "trait_type": "Gym",
+        "value": "Night Court"
+      },
+      {
+        "trait_type": "Suit",
+        "value": "Bear Suit"
+      },
+      {
+        "trait_type": "Nap",
+        "value": "Cross Nap"
+      },
+      {
+        "trait_type": "Mesh",
+        "value": "Slit Mesh"
+      },
+      {
+        "trait_type": "Seam",
+        "value": "Gold Seam"
+      },
+      {
+        "trait_type": "Crest",
+        "value": "Patch Crest"
+      },
+      {
+        "trait_type": "Fuzz",
+        "value": "Loose Fuzz"
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "name": "Suit #10",
+    "image": "/feltro-preview/10.gif",
+    "attributes": [
+      {
+        "trait_type": "Gym",
+        "value": "Turf Court"
+      },
+      {
+        "trait_type": "Suit",
+        "value": "Lion Suit"
+      },
+      {
+        "trait_type": "Nap",
+        "value": "Down Nap"
+      },
+      {
+        "trait_type": "Mesh",
+        "value": "Round Mesh"
+      },
+      {
+        "trait_type": "Seam",
+        "value": "White Seam"
+      },
+      {
+        "trait_type": "Crest",
+        "value": "No Crest"
+      },
+      {
+        "trait_type": "Fuzz",
+        "value": "Halo Fuzz"
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "name": "Suit #11",
+    "image": "/feltro-preview/11.gif",
+    "attributes": [
+      {
+        "trait_type": "Gym",
+        "value": "Maple Court"
+      },
+      {
+        "trait_type": "Suit",
+        "value": "Frog Suit"
+      },
+      {
+        "trait_type": "Nap",
+        "value": "Swirl Nap"
+      },
+      {
+        "trait_type": "Mesh",
+        "value": "Visor Mesh"
+      },
+      {
+        "trait_type": "Seam",
+        "value": "Black Seam"
+      },
+      {
+        "trait_type": "Crest",
+        "value": "Star Crest"
+      },
+      {
+        "trait_type": "Fuzz",
+        "value": "Drift Fuzz"
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "name": "Suit #12",
+    "image": "/feltro-preview/12.gif",
+    "attributes": [
+      {
+        "trait_type": "Gym",
+        "value": "Vinyl Court"
+      },
+      {
+        "trait_type": "Suit",
+        "value": "Dino Suit"
+      },
+      {
+        "trait_type": "Nap",
+        "value": "Tight Nap"
+      },
+      {
+        "trait_type": "Mesh",
+        "value": "Round Mesh"
+      },
+      {
+        "trait_type": "Seam",
+        "value": "Contrast Seam"
+      },
+      {
+        "trait_type": "Crest",
+        "value": "Badge Crest"
+      },
+      {
+        "trait_type": "Fuzz",
+        "value": "Loose Fuzz"
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "name": "Suit #13",
+    "image": "/feltro-preview/13.gif",
+    "attributes": [
+      {
+        "trait_type": "Gym",
+        "value": "Wood Court"
+      },
+      {
+        "trait_type": "Suit",
+        "value": "Bunny Suit"
+      },
+      {
+        "trait_type": "Nap",
+        "value": "Down Nap"
+      },
+      {
+        "trait_type": "Mesh",
+        "value": "Button Eyes"
+      },
+      {
+        "trait_type": "Seam",
+        "value": "White Seam"
+      },
+      {
+        "trait_type": "Crest",
+        "value": "Patch Crest"
+      },
+      {
+        "trait_type": "Fuzz",
+        "value": "Clean Air"
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "name": "Suit #14",
+    "image": "/feltro-preview/14.gif",
+    "attributes": [
+      {
+        "trait_type": "Gym",
+        "value": "Mat Court"
+      },
+      {
+        "trait_type": "Suit",
+        "value": "Shark Suit"
+      },
+      {
+        "trait_type": "Nap",
+        "value": "Cross Nap"
+      },
+      {
+        "trait_type": "Mesh",
+        "value": "Slit Mesh"
+      },
+      {
+        "trait_type": "Seam",
+        "value": "Gold Seam"
+      },
+      {
+        "trait_type": "Crest",
+        "value": "Star Crest"
+      },
+      {
+        "trait_type": "Fuzz",
+        "value": "Halo Fuzz"
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "name": "Suit #15",
+    "image": "/feltro-preview/15.gif",
+    "attributes": [
+      {
+        "trait_type": "Gym",
+        "value": "Linoleum Court"
+      },
+      {
+        "trait_type": "Suit",
+        "value": "Wolf Suit"
+      },
+      {
+        "trait_type": "Nap",
+        "value": "Swirl Nap"
+      },
+      {
+        "trait_type": "Mesh",
+        "value": "Visor Mesh"
+      },
+      {
+        "trait_type": "Seam",
+        "value": "Contrast Seam"
+      },
+      {
+        "trait_type": "Crest",
+        "value": "No Crest"
+      },
+      {
+        "trait_type": "Fuzz",
+        "value": "Drift Fuzz"
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "name": "Suit #16",
+    "image": "/feltro-preview/16.gif",
+    "attributes": [
+      {
+        "trait_type": "Gym",
+        "value": "Clay Court"
+      },
+      {
+        "trait_type": "Suit",
+        "value": "Octopus Suit"
+      },
+      {
+        "trait_type": "Nap",
+        "value": "Tight Nap"
+      },
+      {
+        "trait_type": "Mesh",
+        "value": "Button Eyes"
+      },
+      {
+        "trait_type": "Seam",
+        "value": "White Seam"
+      },
+      {
+        "trait_type": "Crest",
+        "value": "Letter Crest"
+      },
+      {
+        "trait_type": "Fuzz",
+        "value": "Loose Fuzz"
+      }
+    ]
+  }
+]

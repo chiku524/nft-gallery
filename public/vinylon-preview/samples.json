@@ -1,0 +1,562 @@
+[
+  {
+    "id": 1,
+    "name": "Twist #1",
+    "image": "/vinylon-preview/1.gif",
+    "attributes": [
+      {
+        "trait_type": "Booth",
+        "value": "Curtain Booth"
+      },
+      {
+        "trait_type": "Latex",
+        "value": "Red Latex"
+      },
+      {
+        "trait_type": "Twist",
+        "value": "Hound Twist"
+      },
+      {
+        "trait_type": "Knot",
+        "value": "Ear Knot"
+      },
+      {
+        "trait_type": "Valve",
+        "value": "Silver Valve"
+      },
+      {
+        "trait_type": "Gleam",
+        "value": "Tight Gleam"
+      },
+      {
+        "trait_type": "Confetti",
+        "value": "Dot Confetti"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Twist #2",
+    "image": "/vinylon-preview/2.gif",
+    "attributes": [
+      {
+        "trait_type": "Booth",
+        "value": "Circus Booth"
+      },
+      {
+        "trait_type": "Latex",
+        "value": "Yellow Latex"
+      },
+      {
+        "trait_type": "Twist",
+        "value": "Hare Twist"
+      },
+      {
+        "trait_type": "Knot",
+        "value": "Nose Knot"
+      },
+      {
+        "trait_type": "Valve",
+        "value": "Gold Valve"
+      },
+      {
+        "trait_type": "Gleam",
+        "value": "Wide Gleam"
+      },
+      {
+        "trait_type": "Confetti",
+        "value": "Stream Confetti"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Twist #3",
+    "image": "/vinylon-preview/3.gif",
+    "attributes": [
+      {
+        "trait_type": "Booth",
+        "value": "Night Booth"
+      },
+      {
+        "trait_type": "Latex",
+        "value": "Blue Latex"
+      },
+      {
+        "trait_type": "Twist",
+        "value": "Steed Twist"
+      },
+      {
+        "trait_type": "Knot",
+        "value": "Waist Knot"
+      },
+      {
+        "trait_type": "Valve",
+        "value": "Black Valve"
+      },
+      {
+        "trait_type": "Gleam",
+        "value": "Tight Gleam"
+      },
+      {
+        "trait_type": "Confetti",
+        "value": "Clear Air"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Twist #4",
+    "image": "/vinylon-preview/4.gif",
+    "attributes": [
+      {
+        "trait_type": "Booth",
+        "value": "Stripe Booth"
+      },
+      {
+        "trait_type": "Latex",
+        "value": "Pink Latex"
+      },
+      {
+        "trait_type": "Twist",
+        "value": "Swan Twist"
+      },
+      {
+        "trait_type": "Knot",
+        "value": "Ear Knot"
+      },
+      {
+        "trait_type": "Valve",
+        "value": "Silver Valve"
+      },
+      {
+        "trait_type": "Gleam",
+        "value": "Wide Gleam"
+      },
+      {
+        "trait_type": "Confetti",
+        "value": "Mix Confetti"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Twist #5",
+    "image": "/vinylon-preview/5.gif",
+    "attributes": [
+      {
+        "trait_type": "Booth",
+        "value": "Tile Booth"
+      },
+      {
+        "trait_type": "Latex",
+        "value": "Green Latex"
+      },
+      {
+        "trait_type": "Twist",
+        "value": "Monkey Twist"
+      },
+      {
+        "trait_type": "Knot",
+        "value": "No Knot"
+      },
+      {
+        "trait_type": "Valve",
+        "value": "Gold Valve"
+      },
+      {
+        "trait_type": "Gleam",
+        "value": "Tight Gleam"
+      },
+      {
+        "trait_type": "Confetti",
+        "value": "Dot Confetti"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Twist #6",
+    "image": "/vinylon-preview/6.gif",
+    "attributes": [
+      {
+        "trait_type": "Booth",
+        "value": "Dusk Booth"
+      },
+      {
+        "trait_type": "Latex",
+        "value": "Orange Latex"
+      },
+      {
+        "trait_type": "Twist",
+        "value": "Dino Twist"
+      },
+      {
+        "trait_type": "Knot",
+        "value": "Waist Knot"
+      },
+      {
+        "trait_type": "Valve",
+        "value": "Black Valve"
+      },
+      {
+        "trait_type": "Gleam",
+        "value": "Matte"
+      },
+      {
+        "trait_type": "Confetti",
+        "value": "Stream Confetti"
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Twist #7",
+    "image": "/vinylon-preview/7.gif",
+    "attributes": [
+      {
+        "trait_type": "Booth",
+        "value": "Paper Booth"
+      },
+      {
+        "trait_type": "Latex",
+        "value": "White Latex"
+      },
+      {
+        "trait_type": "Twist",
+        "value": "Poodle Twist"
+      },
+      {
+        "trait_type": "Knot",
+        "value": "Nose Knot"
+      },
+      {
+        "trait_type": "Valve",
+        "value": "Silver Valve"
+      },
+      {
+        "trait_type": "Gleam",
+        "value": "Wide Gleam"
+      },
+      {
+        "trait_type": "Confetti",
+        "value": "Mix Confetti"
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "name": "Twist #8",
+    "image": "/vinylon-preview/8.gif",
+    "attributes": [
+      {
+        "trait_type": "Booth",
+        "value": "Plaid Booth"
+      },
+      {
+        "trait_type": "Latex",
+        "value": "Purple Latex"
+      },
+      {
+        "trait_type": "Twist",
+        "value": "Figure Twist"
+      },
+      {
+        "trait_type": "Knot",
+        "value": "Ear Knot"
+      },
+      {
+        "trait_type": "Valve",
+        "value": "Gold Valve"
+      },
+      {
+        "trait_type": "Gleam",
+        "value": "Tight Gleam"
+      },
+      {
+        "trait_type": "Confetti",
+        "value": "Dot Confetti"
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "name": "Twist #9",
+    "image": "/vinylon-preview/9.gif",
+    "attributes": [
+      {
+        "trait_type": "Booth",
+        "value": "Night Booth"
+      },
+      {
+        "trait_type": "Latex",
+        "value": "Red Latex"
+      },
+      {
+        "trait_type": "Twist",
+        "value": "Swan Twist"
+      },
+      {
+        "trait_type": "Knot",
+        "value": "Waist Knot"
+      },
+      {
+        "trait_type": "Valve",
+        "value": "No Valve"
+      },
+      {
+        "trait_type": "Gleam",
+        "value": "Wide Gleam"
+      },
+      {
+        "trait_type": "Confetti",
+        "value": "Stream Confetti"
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "name": "Twist #10",
+    "image": "/vinylon-preview/10.gif",
+    "attributes": [
+      {
+        "trait_type": "Booth",
+        "value": "Curtain Booth"
+      },
+      {
+        "trait_type": "Latex",
+        "value": "Blue Latex"
+      },
+      {
+        "trait_type": "Twist",
+        "value": "Hare Twist"
+      },
+      {
+        "trait_type": "Knot",
+        "value": "Nose Knot"
+      },
+      {
+        "trait_type": "Valve",
+        "value": "Silver Valve"
+      },
+      {
+        "trait_type": "Gleam",
+        "value": "Matte"
+      },
+      {
+        "trait_type": "Confetti",
+        "value": "Mix Confetti"
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "name": "Twist #11",
+    "image": "/vinylon-preview/11.gif",
+    "attributes": [
+      {
+        "trait_type": "Booth",
+        "value": "Circus Booth"
+      },
+      {
+        "trait_type": "Latex",
+        "value": "Green Latex"
+      },
+      {
+        "trait_type": "Twist",
+        "value": "Hound Twist"
+      },
+      {
+        "trait_type": "Knot",
+        "value": "Ear Knot"
+      },
+      {
+        "trait_type": "Valve",
+        "value": "Black Valve"
+      },
+      {
+        "trait_type": "Gleam",
+        "value": "Tight Gleam"
+      },
+      {
+        "trait_type": "Confetti",
+        "value": "Clear Air"
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "name": "Twist #12",
+    "image": "/vinylon-preview/12.gif",
+    "attributes": [
+      {
+        "trait_type": "Booth",
+        "value": "Stripe Booth"
+      },
+      {
+        "trait_type": "Latex",
+        "value": "Purple Latex"
+      },
+      {
+        "trait_type": "Twist",
+        "value": "Dino Twist"
+      },
+      {
+        "trait_type": "Knot",
+        "value": "Waist Knot"
+      },
+      {
+        "trait_type": "Valve",
+        "value": "Gold Valve"
+      },
+      {
+        "trait_type": "Gleam",
+        "value": "Wide Gleam"
+      },
+      {
+        "trait_type": "Confetti",
+        "value": "Dot Confetti"
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "name": "Twist #13",
+    "image": "/vinylon-preview/13.gif",
+    "attributes": [
+      {
+        "trait_type": "Booth",
+        "value": "Tile Booth"
+      },
+      {
+        "trait_type": "Latex",
+        "value": "Orange Latex"
+      },
+      {
+        "trait_type": "Twist",
+        "value": "Poodle Twist"
+      },
+      {
+        "trait_type": "Knot",
+        "value": "No Knot"
+      },
+      {
+        "trait_type": "Valve",
+        "value": "Silver Valve"
+      },
+      {
+        "trait_type": "Gleam",
+        "value": "Tight Gleam"
+      },
+      {
+        "trait_type": "Confetti",
+        "value": "Stream Confetti"
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "name": "Twist #14",
+    "image": "/vinylon-preview/14.gif",
+    "attributes": [
+      {
+        "trait_type": "Booth",
+        "value": "Dusk Booth"
+      },
+      {
+        "trait_type": "Latex",
+        "value": "Pink Latex"
+      },
+      {
+        "trait_type": "Twist",
+        "value": "Figure Twist"
+      },
+      {
+        "trait_type": "Knot",
+        "value": "Nose Knot"
+      },
+      {
+        "trait_type": "Valve",
+        "value": "No Valve"
+      },
+      {
+        "trait_type": "Gleam",
+        "value": "Wide Gleam"
+      },
+      {
+        "trait_type": "Confetti",
+        "value": "Mix Confetti"
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "name": "Twist #15",
+    "image": "/vinylon-preview/15.gif",
+    "attributes": [
+      {
+        "trait_type": "Booth",
+        "value": "Paper Booth"
+      },
+      {
+        "trait_type": "Latex",
+        "value": "Yellow Latex"
+      },
+      {
+        "trait_type": "Twist",
+        "value": "Monkey Twist"
+      },
+      {
+        "trait_type": "Knot",
+        "value": "Ear Knot"
+      },
+      {
+        "trait_type": "Valve",
+        "value": "Black Valve"
+      },
+      {
+        "trait_type": "Gleam",
+        "value": "Matte"
+      },
+      {
+        "trait_type": "Confetti",
+        "value": "Dot Confetti"
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "name": "Twist #16",
+    "image": "/vinylon-preview/16.gif",
+    "attributes": [
+      {
+        "trait_type": "Booth",
+        "value": "Plaid Booth"
+      },
+      {
+        "trait_type": "Latex",
+        "value": "White Latex"
+      },
+      {
+        "trait_type": "Twist",
+        "value": "Steed Twist"
+      },
+      {
+        "trait_type": "Knot",
+        "value": "Waist Knot"
+      },
+      {
+        "trait_type": "Valve",
+        "value": "Gold Valve"
+      },
+      {
+        "trait_type": "Gleam",
+        "value": "Tight Gleam"
+      },
+      {
+        "trait_type": "Confetti",
+        "value": "Stream Confetti"
+      }
+    ]
+  }
+]

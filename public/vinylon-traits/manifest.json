@@ -1,0 +1,17 @@
+{
+  "name": "Vinylon",
+  "size": 512,
+  "frames": 12,
+  "durationMs": 90,
+  "format": "apng",
+  "loop": 0,
+  "order": [
+    "booth",
+    "latex",
+    "twist",
+    "knot",
+    "valve",
+    "gleam",
+    "confetti"
+  ]
+}

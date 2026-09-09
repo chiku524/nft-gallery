@@ -1,0 +1,12 @@
+{
+  "name": "Ossein",
+  "symbol": "OSSN",
+  "description": "Ossein is a 10,000-piece collection of looping anatomical-chart PFP GIFs. Each plate is stacked from seven plates \u2014 sheet, rule, specimen, joint, leader, stain, and chalk \u2014 then flattened onto one 12-frame GIF. Ivory bone. Hairline ink. A step on the grid.",
+  "image": "/brand/collection-ossein.gif",
+  "featured_image": "/brand/featured-ossein.jpg",
+  "banner_image": "/brand/banner-ossein.png",
+  "opensea_banner_image": "/brand/banner-ossein-opensea.jpg",
+  "external_link": "/ossein",
+  "seller_fee_basis_points": 500,
+  "fee_recipient": "0x0000000000000000000000000000000000000000"
+}

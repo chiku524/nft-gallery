@@ -1,0 +1,17 @@
+{
+  "name": "Ossein",
+  "size": 512,
+  "frames": 12,
+  "durationMs": 90,
+  "format": "apng",
+  "loop": 0,
+  "order": [
+    "sheet",
+    "rule",
+    "specimen",
+    "joint",
+    "leader",
+    "stain",
+    "chalk"
+  ]
+}
