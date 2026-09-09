@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Compose Feltro tokens from layered APNG traits.
+"""Compose Ossein tokens from layered APNG traits.
 
 Default: 16 signature samples.
 Pass --all to shuffle the full 10,000 on the shared 12-frame clock.
