@@ -15,19 +15,7 @@ export default function GalleryHomePage() {
           <p className="mt-4 max-w-2xl text-lg text-muted-foreground">{gallery.tagline}</p>
         </section>
 
-        <section className="w-full pb-16">
-          <div className="mx-auto mb-6 flex w-full max-w-6xl items-end justify-between gap-4 px-4 sm:px-6">
-            <div>
-              <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground">On the wall</p>
-              <h2 className="mt-1 font-heading text-3xl">Collections</h2>
-            </div>
-            <p className="hidden text-sm text-muted-foreground sm:block">
-              {projects.length} live · scroll, swipe, or use the arrows
-            </p>
-          </div>
-
-          <CollectionCarousel drops={projects} />
-        </section>
+        <CollectionCarousel drops={projects} />
       </div>
       <GalleryFooter />
       <PageJumpButtons />

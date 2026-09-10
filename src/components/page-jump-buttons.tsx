@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { ChevronsDown, ChevronsUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { setWallEngaged } from "@/lib/wall-lock";
 
 const EDGE = 12;
 
@@ -40,7 +41,12 @@ export function PageJumpButtons() {
         disabled={atTop}
         aria-label="Scroll to top of page"
         title="Scroll to top of page"
-        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        onClick={() => {
+          setWallEngaged(false);
+          requestAnimationFrame(() => {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          });
+        }}
         className="border-white/20 bg-background/90 shadow-[0_8px_24px_rgba(0,0,0,0.35)] backdrop-blur-md"
       >
         <ChevronsUp data-icon="inline-start" />
@@ -53,12 +59,15 @@ export function PageJumpButtons() {
         disabled={atBottom}
         aria-label="Scroll to bottom of page"
         title="Scroll to bottom of page"
-        onClick={() =>
-          window.scrollTo({
-            top: document.documentElement.scrollHeight,
-            behavior: "smooth",
-          })
-        }
+        onClick={() => {
+          setWallEngaged(false);
+          requestAnimationFrame(() => {
+            window.scrollTo({
+              top: document.documentElement.scrollHeight,
+              behavior: "smooth",
+            });
+          });
+        }}
         className="border-white/20 bg-background/90 shadow-[0_8px_24px_rgba(0,0,0,0.35)] backdrop-blur-md"
       >
         <ChevronsDown data-icon="inline-start" />

@@ -12,6 +12,7 @@ import {
   type CarouselApi,
 } from "@/components/ui/carousel";
 import type { GalleryProject } from "@/data/projects";
+import { isWallEngaged, lockPageScroll, setWallEngaged, snapElementToTop } from "@/lib/wall-lock";
 import { cn } from "@/lib/utils";
 
 const WHEEL_PIXEL_THRESHOLD = 48;
@@ -25,10 +26,18 @@ function newestIndex(drops: readonly GalleryProject[]) {
 
 export function CollectionCarousel({ drops }: { drops: readonly GalleryProject[] }) {
   const startIndex = newestIndex(drops);
-  const rootRef = useRef<HTMLDivElement>(null);
+  const rootRef = useRef<HTMLElement>(null);
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(startIndex);
   const active = drops[current] ?? drops[0];
+
+  const alignAndLock = useCallback(() => {
+    const wall = rootRef.current;
+    if (!wall) return false;
+    const aligned = snapElementToTop(wall);
+    lockPageScroll();
+    return aligned;
+  }, []);
 
   useEffect(() => {
     if (!api) return;
@@ -48,21 +57,17 @@ export function CollectionCarousel({ drops }: { drops: readonly GalleryProject[]
     const root = rootRef.current;
     if (!api || !root) return;
 
-    let locked = false;
+    let cooling = false;
     let accumulated = 0;
-    let unlockTimer = 0;
+    let coolTimer = 0;
 
-    const onWheel = (event: WheelEvent) => {
-      if (event.ctrlKey) return;
-      if (Math.abs(event.deltaY) <= Math.abs(event.deltaX)) return;
+    const advance = (deltaY: number, deltaMode: number) => {
+      accumulated += deltaY;
+      if (cooling) return;
 
-      event.preventDefault();
-      accumulated += event.deltaY;
-      if (locked) return;
-
-      const threshold = event.deltaMode === WheelEvent.DOM_DELTA_LINE
+      const threshold = deltaMode === WheelEvent.DOM_DELTA_LINE
         ? WHEEL_LINE_THRESHOLD
-        : event.deltaMode === WheelEvent.DOM_DELTA_PAGE
+        : deltaMode === WheelEvent.DOM_DELTA_PAGE
           ? 0.4
           : WHEEL_PIXEL_THRESHOLD;
       if (Math.abs(accumulated) < threshold) return;
@@ -71,19 +76,64 @@ export function CollectionCarousel({ drops }: { drops: readonly GalleryProject[]
       else api.scrollPrev();
 
       accumulated = 0;
-      locked = true;
-      window.clearTimeout(unlockTimer);
-      unlockTimer = window.setTimeout(() => {
-        locked = false;
+      cooling = true;
+      window.clearTimeout(coolTimer);
+      coolTimer = window.setTimeout(() => {
+        cooling = false;
       }, WHEEL_COOLDOWN_MS);
     };
 
-    root.addEventListener("wheel", onWheel, { passive: false });
-    return () => {
-      root.removeEventListener("wheel", onWheel);
-      window.clearTimeout(unlockTimer);
+    const onWallWheel = (event: WheelEvent) => {
+      if (event.ctrlKey) return;
+      if (Math.abs(event.deltaY) <= Math.abs(event.deltaX)) return;
+
+      event.preventDefault();
+      event.stopPropagation();
+      if (!alignAndLock()) {
+        accumulated = 0;
+        cooling = true;
+        window.clearTimeout(coolTimer);
+        coolTimer = window.setTimeout(() => {
+          cooling = false;
+        }, WHEEL_COOLDOWN_MS);
+        return;
+      }
+      advance(event.deltaY, event.deltaMode);
     };
-  }, [api]);
+
+    const onWindowWheel = (event: WheelEvent) => {
+      if (!isWallEngaged()) return;
+      if (event.ctrlKey) return;
+      if (Math.abs(event.deltaY) <= Math.abs(event.deltaX)) return;
+
+      event.preventDefault();
+      alignAndLock();
+      advance(event.deltaY, event.deltaMode);
+    };
+
+    const onWallClick = (event: Event) => {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+      if (
+        target.closest('[data-slot="carousel-previous"]') ||
+        target.closest('[data-slot="carousel-next"]') ||
+        target.closest('[role="tab"]')
+      ) {
+        alignAndLock();
+      }
+    };
+
+    root.addEventListener("wheel", onWallWheel, { passive: false });
+    window.addEventListener("wheel", onWindowWheel, { passive: false });
+    root.addEventListener("click", onWallClick);
+    return () => {
+      root.removeEventListener("wheel", onWallWheel);
+      window.removeEventListener("wheel", onWindowWheel);
+      root.removeEventListener("click", onWallClick);
+      window.clearTimeout(coolTimer);
+      setWallEngaged(false);
+    };
+  }, [alignAndLock, api]);
 
   const scrollTo = useCallback(
     (index: number) => {
@@ -96,17 +146,28 @@ export function CollectionCarousel({ drops }: { drops: readonly GalleryProject[]
     (event: KeyboardEvent<HTMLDivElement>) => {
       if (event.key === "ArrowDown" || event.key === "PageDown") {
         event.preventDefault();
+        alignAndLock();
         api?.scrollNext();
       } else if (event.key === "ArrowUp" || event.key === "PageUp") {
         event.preventDefault();
+        alignAndLock();
         api?.scrollPrev();
       }
     },
-    [api],
+    [alignAndLock, api],
   );
 
   return (
-    <div ref={rootRef} className="w-full">
+    <section ref={rootRef} id="on-the-wall" className="w-full pb-16">
+      <div className="mx-auto mb-6 flex w-full max-w-6xl items-end justify-between gap-4 px-4 sm:px-6">
+        <div>
+          <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground">On the wall</p>
+          <h2 className="mt-1 font-heading text-3xl">Collections</h2>
+        </div>
+        <p className="hidden text-sm text-muted-foreground sm:block">
+          {drops.length} live · scroll, swipe, or use the arrows
+        </p>
+      </div>
       <Carousel
         setApi={setApi}
         opts={{ align: "start", loop: true, startIndex }}
@@ -179,6 +240,6 @@ export function CollectionCarousel({ drops }: { drops: readonly GalleryProject[]
           </div>
         </div>
       </Carousel>
-    </div>
+    </section>
   );
 }
