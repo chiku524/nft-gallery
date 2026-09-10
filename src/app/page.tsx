@@ -11,7 +11,7 @@ export default function GalleryHomePage() {
           <h1 className="mt-3 max-w-3xl font-heading text-4xl leading-[1.05] sm:text-6xl">
             {gallery.name}
           </h1>
-          <p className="mt-4 max-w-2xl text-lg text-muted-foreground">{gallery.description}</p>
+          <p className="mt-4 max-w-2xl text-lg text-muted-foreground">{gallery.tagline}</p>
         </section>
 
         <section className="w-full pb-16">
