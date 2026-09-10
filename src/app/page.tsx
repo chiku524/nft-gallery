@@ -1,5 +1,6 @@
 import { CollectionCarousel } from "@/components/collection-carousel";
 import { GalleryFooter } from "@/components/gallery-footer";
+import { PageJumpButtons } from "@/components/page-jump-buttons";
 import { gallery, projects } from "@/data/projects";
 
 export default function GalleryHomePage() {
@@ -21,7 +22,7 @@ export default function GalleryHomePage() {
               <h2 className="mt-1 font-heading text-3xl">Collections</h2>
             </div>
             <p className="hidden text-sm text-muted-foreground sm:block">
-              {projects.length} live · swipe or use the arrows
+              {projects.length} live · scroll, swipe, or use the arrows
             </p>
           </div>
 
@@ -29,6 +30,7 @@ export default function GalleryHomePage() {
         </section>
       </div>
       <GalleryFooter />
+      <PageJumpButtons />
     </>
   );
 }
