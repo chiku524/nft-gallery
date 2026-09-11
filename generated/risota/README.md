@@ -1,6 +1,6 @@
 # Risota OpenSea kit
 
-16 flattened risograph loops at 512×512, 12 frames, 90ms (sample pack — bake all 8,888 with `--all`).
+8,888 flattened risograph loops at 512×512, 12 frames, 90ms.
 
 ## Collection fields
 
@@ -41,7 +41,7 @@ No type on the marketplace images.
 ## Drop upload
 
 1. In OpenSea Studio, create a Drop on Robinhood Chain (chain ID 4663).
-2. Upload every file in `gifs/` (`1.gif`–`16.gif`).
+2. Upload every file in `gifs/` (`1.gif`–`8888.gif`).
 3. Upload `RISOTA-opensea-drop.csv` (or `opensea-metadata.csv`). The CSV uses OpenSea Studio headers: `tokenID`, `name`, `description`, `file_name`, and `attributes[Trait]`.
 4. Preview the loops, then publish.
 

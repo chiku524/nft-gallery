@@ -1,6 +1,6 @@
 # Noxelle OpenSea kit
 
-16 flattened neon-tube loops at 512×512, 12 frames, 90ms (sample pack — bake all 10,000 with `--all`).
+10,000 flattened neon-tube loops at 512×512, 12 frames, 90ms.
 
 ## Collection fields
 
@@ -42,7 +42,7 @@ No type on the marketplace images.
 ## Drop upload
 
 1. In OpenSea Studio, create a Drop on Robinhood Chain (chain ID 4663).
-2. Upload every file in `gifs/` (`1.gif`–`16.gif`).
+2. Upload every file in `gifs/` (`1.gif`–`10000.gif`).
 3. Upload `NOXELLE-opensea-drop.csv` (or `opensea-metadata.csv`). The CSV uses OpenSea Studio headers: `tokenID`, `name`, `description`, `file_name`, and `attributes[Trait]`.
 4. Set mint price to $0.25.
 5. Preview the loops, then publish.
