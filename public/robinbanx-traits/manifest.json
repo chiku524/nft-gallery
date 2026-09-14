@@ -1,0 +1,753 @@
+{
+  "name": "Robin Banx",
+  "symbol": "RBX",
+  "version": "robinbanx-v1",
+  "size": 512,
+  "static": true,
+  "chain": "Base",
+  "chainId": 8453,
+  "supply": 10000,
+  "mint": "Free",
+  "stack": [
+    "safehouse",
+    "chain_trail",
+    "alias",
+    "getup",
+    "disguise",
+    "headpiece",
+    "instrument",
+    "evidence_mark"
+  ],
+  "traits": {
+    "safehouse": [
+      {
+        "id": "ledger-room",
+        "name": "Ledger Room",
+        "weight": 18,
+        "image": "/robinbanx-traits/safehouse/ledger-room.png"
+      },
+      {
+        "id": "night-vault",
+        "name": "Night Vault",
+        "weight": 16,
+        "image": "/robinbanx-traits/safehouse/night-vault.png"
+      },
+      {
+        "id": "rail-archive",
+        "name": "Rail Archive",
+        "weight": 14,
+        "image": "/robinbanx-traits/safehouse/rail-archive.png"
+      },
+      {
+        "id": "concrete-cellar",
+        "name": "Concrete Cellar",
+        "weight": 13,
+        "image": "/robinbanx-traits/safehouse/concrete-cellar.png"
+      },
+      {
+        "id": "redacted-office",
+        "name": "Redacted Office",
+        "weight": 12,
+        "image": "/robinbanx-traits/safehouse/redacted-office.png"
+      },
+      {
+        "id": "signal-attic",
+        "name": "Signal Attic",
+        "weight": 10,
+        "image": "/robinbanx-traits/safehouse/signal-attic.png"
+      },
+      {
+        "id": "canal-depot",
+        "name": "Canal Depot",
+        "weight": 8,
+        "image": "/robinbanx-traits/safehouse/canal-depot.png"
+      },
+      {
+        "id": "embassy-basement",
+        "name": "Embassy Basement",
+        "weight": 5,
+        "image": "/robinbanx-traits/safehouse/embassy-basement.png"
+      },
+      {
+        "id": "offshore-bunker",
+        "name": "Offshore Bunker",
+        "weight": 3,
+        "image": "/robinbanx-traits/safehouse/offshore-bunker.png"
+      },
+      {
+        "id": "black-site",
+        "name": "Black Site",
+        "weight": 1,
+        "image": "/robinbanx-traits/safehouse/black-site.png"
+      }
+    ],
+    "alias": [
+      {
+        "id": "rook",
+        "name": "Rook",
+        "weight": 16,
+        "image": "/robinbanx-traits/alias/rook.png"
+      },
+      {
+        "id": "vesper",
+        "name": "Vesper",
+        "weight": 15,
+        "image": "/robinbanx-traits/alias/vesper.png"
+      },
+      {
+        "id": "cutlass",
+        "name": "Cutlass",
+        "weight": 14,
+        "image": "/robinbanx-traits/alias/cutlass.png"
+      },
+      {
+        "id": "cipher",
+        "name": "Cipher",
+        "weight": 13,
+        "image": "/robinbanx-traits/alias/cipher.png"
+      },
+      {
+        "id": "morrow",
+        "name": "Morrow",
+        "weight": 12,
+        "image": "/robinbanx-traits/alias/morrow.png"
+      },
+      {
+        "id": "switch",
+        "name": "Switch",
+        "weight": 10,
+        "image": "/robinbanx-traits/alias/switch.png"
+      },
+      {
+        "id": "locke",
+        "name": "Locke",
+        "weight": 8,
+        "image": "/robinbanx-traits/alias/locke.png"
+      },
+      {
+        "id": "parallax",
+        "name": "Parallax",
+        "weight": 6,
+        "image": "/robinbanx-traits/alias/parallax.png"
+      },
+      {
+        "id": "zero-day",
+        "name": "Zero Day",
+        "weight": 4,
+        "image": "/robinbanx-traits/alias/zero-day.png"
+      },
+      {
+        "id": "ghost-key",
+        "name": "Ghost Key",
+        "weight": 2,
+        "image": "/robinbanx-traits/alias/ghost-key.png"
+      }
+    ],
+    "getup": [
+      {
+        "id": "pinstripe-rig",
+        "name": "Pinstripe Rig",
+        "weight": 17,
+        "image": "/robinbanx-traits/getup/pinstripe-rig.png"
+      },
+      {
+        "id": "courier-coat",
+        "name": "Courier Coat",
+        "weight": 16,
+        "image": "/robinbanx-traits/getup/courier-coat.png"
+      },
+      {
+        "id": "night-vest",
+        "name": "Night Vest",
+        "weight": 14,
+        "image": "/robinbanx-traits/getup/night-vest.png"
+      },
+      {
+        "id": "heist-knit",
+        "name": "Heist Knit",
+        "weight": 13,
+        "image": "/robinbanx-traits/getup/heist-knit.png"
+      },
+      {
+        "id": "archive-suit",
+        "name": "Archive Suit",
+        "weight": 12,
+        "image": "/robinbanx-traits/getup/archive-suit.png"
+      },
+      {
+        "id": "armored-shirt",
+        "name": "Armored Shirt",
+        "weight": 10,
+        "image": "/robinbanx-traits/getup/armored-shirt.png"
+      },
+      {
+        "id": "signal-parka",
+        "name": "Signal Parka",
+        "weight": 8,
+        "image": "/robinbanx-traits/getup/signal-parka.png"
+      },
+      {
+        "id": "embassy-tux",
+        "name": "Embassy Tux",
+        "weight": 5,
+        "image": "/robinbanx-traits/getup/embassy-tux.png"
+      },
+      {
+        "id": "hazmat-tailoring",
+        "name": "Hazmat Tailoring",
+        "weight": 3,
+        "image": "/robinbanx-traits/getup/hazmat-tailoring.png"
+      },
+      {
+        "id": "carbon-mail",
+        "name": "Carbon Mail",
+        "weight": 2,
+        "image": "/robinbanx-traits/getup/carbon-mail.png"
+      }
+    ],
+    "disguise": [
+      {
+        "id": "none",
+        "name": "Unmasked",
+        "weight": 24,
+        "image": "/robinbanx-traits/disguise/none.png"
+      },
+      {
+        "id": "bandit-cloth",
+        "name": "Bandit Cloth",
+        "weight": 18,
+        "image": "/robinbanx-traits/disguise/bandit-cloth.png"
+      },
+      {
+        "id": "ledger-blind",
+        "name": "Ledger Blind",
+        "weight": 14,
+        "image": "/robinbanx-traits/disguise/ledger-blind.png"
+      },
+      {
+        "id": "mirror-specs",
+        "name": "Mirror Specs",
+        "weight": 13,
+        "image": "/robinbanx-traits/disguise/mirror-specs.png"
+      },
+      {
+        "id": "half-respirator",
+        "name": "Half Respirator",
+        "weight": 10,
+        "image": "/robinbanx-traits/disguise/half-respirator.png"
+      },
+      {
+        "id": "paper-visage",
+        "name": "Paper Visage",
+        "weight": 8,
+        "image": "/robinbanx-traits/disguise/paper-visage.png"
+      },
+      {
+        "id": "cipher-goggles",
+        "name": "Cipher Goggles",
+        "weight": 6,
+        "image": "/robinbanx-traits/disguise/cipher-goggles.png"
+      },
+      {
+        "id": "full-respirator",
+        "name": "Full Respirator",
+        "weight": 4,
+        "image": "/robinbanx-traits/disguise/full-respirator.png"
+      },
+      {
+        "id": "holo-scrambler",
+        "name": "Holo Scrambler",
+        "weight": 2,
+        "image": "/robinbanx-traits/disguise/holo-scrambler.png"
+      },
+      {
+        "id": "blank-plate",
+        "name": "Blank Plate",
+        "weight": 1,
+        "image": "/robinbanx-traits/disguise/blank-plate.png"
+      }
+    ],
+    "headpiece": [
+      {
+        "id": "none",
+        "name": "Bareheaded",
+        "weight": 30,
+        "image": "/robinbanx-traits/headpiece/none.png"
+      },
+      {
+        "id": "watch-cap",
+        "name": "Watch Cap",
+        "weight": 18,
+        "image": "/robinbanx-traits/headpiece/watch-cap.png"
+      },
+      {
+        "id": "creased-fedora",
+        "name": "Creased Fedora",
+        "weight": 14,
+        "image": "/robinbanx-traits/headpiece/creased-fedora.png"
+      },
+      {
+        "id": "courier-hood",
+        "name": "Courier Hood",
+        "weight": 12,
+        "image": "/robinbanx-traits/headpiece/courier-hood.png"
+      },
+      {
+        "id": "radio-phones",
+        "name": "Radio Phones",
+        "weight": 10,
+        "image": "/robinbanx-traits/headpiece/radio-phones.png"
+      },
+      {
+        "id": "night-beret",
+        "name": "Night Beret",
+        "weight": 7,
+        "image": "/robinbanx-traits/headpiece/night-beret.png"
+      },
+      {
+        "id": "breach-helmet",
+        "name": "Breach Helmet",
+        "weight": 4,
+        "image": "/robinbanx-traits/headpiece/breach-helmet.png"
+      },
+      {
+        "id": "crown-of-keys",
+        "name": "Crown of Keys",
+        "weight": 2,
+        "image": "/robinbanx-traits/headpiece/crown-of-keys.png"
+      },
+      {
+        "id": "validator-halo",
+        "name": "Validator Halo",
+        "weight": 2,
+        "image": "/robinbanx-traits/headpiece/validator-halo.png"
+      },
+      {
+        "id": "burner-aureole",
+        "name": "Burner Aureole",
+        "weight": 1,
+        "image": "/robinbanx-traits/headpiece/burner-aureole.png"
+      }
+    ],
+    "instrument": [
+      {
+        "id": "none",
+        "name": "Empty Hands",
+        "weight": 22,
+        "image": "/robinbanx-traits/instrument/none.png"
+      },
+      {
+        "id": "bolt-cutters",
+        "name": "Bolt Cutters",
+        "weight": 17,
+        "image": "/robinbanx-traits/instrument/bolt-cutters.png"
+      },
+      {
+        "id": "burner-phone",
+        "name": "Burner Phone",
+        "weight": 15,
+        "image": "/robinbanx-traits/instrument/burner-phone.png"
+      },
+      {
+        "id": "cold-wallet",
+        "name": "Cold Wallet",
+        "weight": 13,
+        "image": "/robinbanx-traits/instrument/cold-wallet.png"
+      },
+      {
+        "id": "glass-key",
+        "name": "Glass Key",
+        "weight": 10,
+        "image": "/robinbanx-traits/instrument/glass-key.png"
+      },
+      {
+        "id": "signal-jammer",
+        "name": "Signal Jammer",
+        "weight": 8,
+        "image": "/robinbanx-traits/instrument/signal-jammer.png"
+      },
+      {
+        "id": "bridge-case",
+        "name": "Bridge Case",
+        "weight": 6,
+        "image": "/robinbanx-traits/instrument/bridge-case.png"
+      },
+      {
+        "id": "validator-drill",
+        "name": "Validator Drill",
+        "weight": 4,
+        "image": "/robinbanx-traits/instrument/validator-drill.png"
+      },
+      {
+        "id": "genesis-charge",
+        "name": "Genesis Charge",
+        "weight": 3,
+        "image": "/robinbanx-traits/instrument/genesis-charge.png"
+      },
+      {
+        "id": "sequencer-override",
+        "name": "Sequencer Override",
+        "weight": 2,
+        "image": "/robinbanx-traits/instrument/sequencer-override.png"
+      }
+    ],
+    "chain_trail": [
+      {
+        "id": "none",
+        "name": "No Trail",
+        "weight": 28,
+        "image": "/robinbanx-traits/chain-trail/none.png"
+      },
+      {
+        "id": "base-blueprint",
+        "name": "Base Blueprint",
+        "weight": 18,
+        "image": "/robinbanx-traits/chain-trail/base-blueprint.png"
+      },
+      {
+        "id": "ethereum-rubric",
+        "name": "Ethereum Rubric",
+        "weight": 14,
+        "image": "/robinbanx-traits/chain-trail/ethereum-rubric.png"
+      },
+      {
+        "id": "bitcoin-ransom",
+        "name": "Bitcoin Ransom",
+        "weight": 12,
+        "image": "/robinbanx-traits/chain-trail/bitcoin-ransom.png"
+      },
+      {
+        "id": "solana-transit",
+        "name": "Solana Transit",
+        "weight": 9,
+        "image": "/robinbanx-traits/chain-trail/solana-transit.png"
+      },
+      {
+        "id": "arbitrum-route",
+        "name": "Arbitrum Route",
+        "weight": 7,
+        "image": "/robinbanx-traits/chain-trail/arbitrum-route.png"
+      },
+      {
+        "id": "optimism-signal",
+        "name": "Optimism Signal",
+        "weight": 5,
+        "image": "/robinbanx-traits/chain-trail/optimism-signal.png"
+      },
+      {
+        "id": "polygon-grid",
+        "name": "Polygon Grid",
+        "weight": 4,
+        "image": "/robinbanx-traits/chain-trail/polygon-grid.png"
+      },
+      {
+        "id": "zora-negative",
+        "name": "Zora Negative",
+        "weight": 2,
+        "image": "/robinbanx-traits/chain-trail/zora-negative.png"
+      },
+      {
+        "id": "multichain-crossing",
+        "name": "Multichain Crossing",
+        "weight": 1,
+        "image": "/robinbanx-traits/chain-trail/multichain-crossing.png"
+      }
+    ],
+    "evidence_mark": [
+      {
+        "id": "none",
+        "name": "Clean File",
+        "weight": 26,
+        "image": "/robinbanx-traits/evidence-mark/none.png"
+      },
+      {
+        "id": "case-open",
+        "name": "Case Open",
+        "weight": 18,
+        "image": "/robinbanx-traits/evidence-mark/case-open.png"
+      },
+      {
+        "id": "seized",
+        "name": "Seized",
+        "weight": 14,
+        "image": "/robinbanx-traits/evidence-mark/seized.png"
+      },
+      {
+        "id": "classified",
+        "name": "Classified",
+        "weight": 12,
+        "image": "/robinbanx-traits/evidence-mark/classified.png"
+      },
+      {
+        "id": "redacted",
+        "name": "Redacted",
+        "weight": 10,
+        "image": "/robinbanx-traits/evidence-mark/redacted.png"
+      },
+      {
+        "id": "base-8453",
+        "name": "Base 8453",
+        "weight": 8,
+        "image": "/robinbanx-traits/evidence-mark/base-8453.png"
+      },
+      {
+        "id": "wanted",
+        "name": "Wanted",
+        "weight": 6,
+        "image": "/robinbanx-traits/evidence-mark/wanted.png"
+      },
+      {
+        "id": "chain-of-custody",
+        "name": "Chain of Custody",
+        "weight": 3,
+        "image": "/robinbanx-traits/evidence-mark/chain-of-custody.png"
+      },
+      {
+        "id": "inside-job",
+        "name": "Inside Job",
+        "weight": 2,
+        "image": "/robinbanx-traits/evidence-mark/inside-job.png"
+      },
+      {
+        "id": "case-000",
+        "name": "Case 000",
+        "weight": 1,
+        "image": "/robinbanx-traits/evidence-mark/case-000.png"
+      }
+    ]
+  },
+  "incompatible": [
+    {
+      "left": {
+        "category": "disguise",
+        "trait": "full-respirator"
+      },
+      "right": {
+        "category": "headpiece",
+        "trait": "courier-hood"
+      }
+    },
+    {
+      "left": {
+        "category": "disguise",
+        "trait": "blank-plate"
+      },
+      "right": {
+        "category": "headpiece",
+        "trait": "radio-phones"
+      }
+    },
+    {
+      "left": {
+        "category": "disguise",
+        "trait": "holo-scrambler"
+      },
+      "right": {
+        "category": "headpiece",
+        "trait": "breach-helmet"
+      }
+    },
+    {
+      "left": {
+        "category": "getup",
+        "trait": "hazmat-tailoring"
+      },
+      "right": {
+        "category": "disguise",
+        "trait": "bandit-cloth"
+      }
+    },
+    {
+      "left": {
+        "category": "getup",
+        "trait": "carbon-mail"
+      },
+      "right": {
+        "category": "instrument",
+        "trait": "bolt-cutters"
+      }
+    },
+    {
+      "left": {
+        "category": "headpiece",
+        "trait": "crown-of-keys"
+      },
+      "right": {
+        "category": "instrument",
+        "trait": "validator-drill"
+      }
+    },
+    {
+      "left": {
+        "category": "chain_trail",
+        "trait": "bitcoin-ransom"
+      },
+      "right": {
+        "category": "instrument",
+        "trait": "sequencer-override"
+      }
+    }
+  ],
+  "signatures": [
+    {
+      "safehouse": "ledger-room",
+      "chain_trail": "base-blueprint",
+      "alias": "rook",
+      "getup": "pinstripe-rig",
+      "disguise": "bandit-cloth",
+      "headpiece": "creased-fedora",
+      "instrument": "bolt-cutters",
+      "evidence_mark": "case-open"
+    },
+    {
+      "safehouse": "night-vault",
+      "chain_trail": "ethereum-rubric",
+      "alias": "vesper",
+      "getup": "courier-coat",
+      "disguise": "mirror-specs",
+      "headpiece": "watch-cap",
+      "instrument": "burner-phone",
+      "evidence_mark": "seized"
+    },
+    {
+      "safehouse": "rail-archive",
+      "chain_trail": "bitcoin-ransom",
+      "alias": "cutlass",
+      "getup": "night-vest",
+      "disguise": "ledger-blind",
+      "headpiece": "night-beret",
+      "instrument": "cold-wallet",
+      "evidence_mark": "classified"
+    },
+    {
+      "safehouse": "concrete-cellar",
+      "chain_trail": "solana-transit",
+      "alias": "cipher",
+      "getup": "heist-knit",
+      "disguise": "half-respirator",
+      "headpiece": "radio-phones",
+      "instrument": "glass-key",
+      "evidence_mark": "redacted"
+    },
+    {
+      "safehouse": "redacted-office",
+      "chain_trail": "arbitrum-route",
+      "alias": "morrow",
+      "getup": "archive-suit",
+      "disguise": "paper-visage",
+      "headpiece": "courier-hood",
+      "instrument": "signal-jammer",
+      "evidence_mark": "base-8453"
+    },
+    {
+      "safehouse": "signal-attic",
+      "chain_trail": "optimism-signal",
+      "alias": "switch",
+      "getup": "armored-shirt",
+      "disguise": "cipher-goggles",
+      "headpiece": "watch-cap",
+      "instrument": "bridge-case",
+      "evidence_mark": "wanted"
+    },
+    {
+      "safehouse": "canal-depot",
+      "chain_trail": "polygon-grid",
+      "alias": "locke",
+      "getup": "signal-parka",
+      "disguise": "none",
+      "headpiece": "breach-helmet",
+      "instrument": "validator-drill",
+      "evidence_mark": "chain-of-custody"
+    },
+    {
+      "safehouse": "embassy-basement",
+      "chain_trail": "zora-negative",
+      "alias": "parallax",
+      "getup": "embassy-tux",
+      "disguise": "full-respirator",
+      "headpiece": "night-beret",
+      "instrument": "genesis-charge",
+      "evidence_mark": "inside-job"
+    },
+    {
+      "safehouse": "offshore-bunker",
+      "chain_trail": "multichain-crossing",
+      "alias": "zero-day",
+      "getup": "hazmat-tailoring",
+      "disguise": "blank-plate",
+      "headpiece": "validator-halo",
+      "instrument": "sequencer-override",
+      "evidence_mark": "case-000"
+    },
+    {
+      "safehouse": "black-site",
+      "chain_trail": "base-blueprint",
+      "alias": "ghost-key",
+      "getup": "carbon-mail",
+      "disguise": "holo-scrambler",
+      "headpiece": "burner-aureole",
+      "instrument": "cold-wallet",
+      "evidence_mark": "classified"
+    },
+    {
+      "safehouse": "ledger-room",
+      "chain_trail": "none",
+      "alias": "cipher",
+      "getup": "courier-coat",
+      "disguise": "none",
+      "headpiece": "none",
+      "instrument": "burner-phone",
+      "evidence_mark": "case-open"
+    },
+    {
+      "safehouse": "night-vault",
+      "chain_trail": "optimism-signal",
+      "alias": "rook",
+      "getup": "archive-suit",
+      "disguise": "mirror-specs",
+      "headpiece": "crown-of-keys",
+      "instrument": "glass-key",
+      "evidence_mark": "base-8453"
+    },
+    {
+      "safehouse": "rail-archive",
+      "chain_trail": "polygon-grid",
+      "alias": "morrow",
+      "getup": "armored-shirt",
+      "disguise": "bandit-cloth",
+      "headpiece": "radio-phones",
+      "instrument": "signal-jammer",
+      "evidence_mark": "wanted"
+    },
+    {
+      "safehouse": "concrete-cellar",
+      "chain_trail": "ethereum-rubric",
+      "alias": "locke",
+      "getup": "embassy-tux",
+      "disguise": "paper-visage",
+      "headpiece": "creased-fedora",
+      "instrument": "bridge-case",
+      "evidence_mark": "seized"
+    },
+    {
+      "safehouse": "signal-attic",
+      "chain_trail": "solana-transit",
+      "alias": "vesper",
+      "getup": "night-vest",
+      "disguise": "ledger-blind",
+      "headpiece": "validator-halo",
+      "instrument": "genesis-charge",
+      "evidence_mark": "redacted"
+    },
+    {
+      "safehouse": "canal-depot",
+      "chain_trail": "arbitrum-route",
+      "alias": "cutlass",
+      "getup": "heist-knit",
+      "disguise": "cipher-goggles",
+      "headpiece": "courier-hood",
+      "instrument": "sequencer-override",
+      "evidence_mark": "chain-of-custody"
+    }
+  ]
+}
