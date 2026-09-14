@@ -19,13 +19,13 @@ visual system is approved.
 
 ## Drawing language
 
-Portraits use angular jaw silhouettes, midnight-blue contour lines, subtly textured
-editorial color, refined facial proportions, and controlled asymmetry. Authentic
-details come from varied face structures, skin tones, protective hairstyles,
-contemporary cuts, tailoring, eyewear, jewelry, and studio accessories. Graphic
-signals add crop marks, offset arcs, halftone fields, type bars, prisms, waveform
-marks, and translucent color exposures. Repeated details are intentionally sparse so
-the face, hairstyle, and clothing silhouette remain dominant at avatar size.
+Portraits use clean cartoon shapes, midnight-blue contours, flat face planes, expressive
+eyes and mouths, and controlled asymmetry. Authentic details come from varied face
+structures, skin tones, protective hairstyles, contemporary cuts, tailoring, eyewear,
+jewelry, and studio accessories. Graphic signals add crop marks, offset arcs, halftone
+fields, type bars, prisms, waveform marks, and translucent color exposures. Repeated
+details are intentionally sparse so the face, hairstyle, and clothing silhouette
+remain dominant at avatar size.
 
 The system is intentionally separate from previous collection painters. It does not
 reuse their skeletons, palettes, materials, motion, or trait-layer names.
@@ -58,8 +58,8 @@ hoodie with a curb chain. The painter validates every signature before rendering
 The art version and seed are:
 
 ```text
-prototype-3
-street-heirs/editorial-prototype/v3
+prototype-4
+street-heirs/clean-cartoon/v4
 ```
 
 Generate the prototype from the repository root:
