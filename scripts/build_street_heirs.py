@@ -25,8 +25,8 @@ SUBJECT = "Editorial-vector streetwear portraits with graphic signals"
 CHAIN = "Robinhood Chain"
 SUPPLY = 5_555
 MINT_PRICE = "0.005 ETH"
-ART_VERSION = "prototype-2"
-SEED = "street-heirs/editorial-prototype/v2"
+ART_VERSION = "prototype-3"
+SEED = "street-heirs/editorial-prototype/v3"
 
 ROOT = Path(__file__).resolve().parents[1]
 TRAIT_ROOT = ROOT / "public" / f"{SLUG}-traits"
@@ -235,47 +235,46 @@ def paint_atmosphere(trait: str) -> Image.Image:
     image = Image.new("RGBA", (SIZE * SCALE, SIZE * SCALE), base)
     draw = ImageDraw.Draw(image)
     if trait == "midnight-grid":
-        for value in range(24, 512, 48):
-            line(draw, [(value, 0), (value, 512)], accent, 2)
-            line(draw, [(0, value), (512, value)], accent, 2)
+        for value in range(48, 512, 72):
+            line(draw, [(value, 0), (value, 512)], accent, 1)
+            line(draw, [(0, value), (512, value)], accent, 1)
         ellipse(draw, (348, 52, 470, 174), spark)
     elif trait == "cobalt-sun":
         ellipse(draw, (54, 38, 324, 308), accent)
-        for value in range(0, 512, 38):
-            polygon(draw, [(value, 394), (value + 22, 394), (value + 108, 512), (value + 76, 512)], spark)
+        for value in range(0, 512, 64):
+            polygon(draw, [(value, 410), (value + 30, 410), (value + 104, 512), (value + 66, 512)], spark)
     elif trait == "amber-blocks":
-        for x, y, w, h in ((22, 28, 118, 180), (154, 72, 82, 120), (365, 20, 122, 218), (278, 294, 188, 180)):
+        for x, y, w, h in ((28, 34, 112, 174), (366, 26, 116, 206), (286, 310, 176, 158)):
             rounded(draw, (x, y, x + w, y + h), 16, accent)
-        line(draw, [(0, 382), (512, 276)], spark, 18)
+        line(draw, [(0, 382), (512, 276)], spark, 12)
     elif trait == "jade-arc":
-        for pad in (18, 46, 74):
-            draw.arc(box((pad, pad, 512 - pad, 512 - pad)), 196, 346, fill=accent, width=width(18))
+        for pad in (26, 68):
+            draw.arc(box((pad, pad, 512 - pad, 512 - pad)), 196, 346, fill=accent, width=width(12))
         ellipse(draw, (384, 64, 430, 110), spark)
     elif trait == "violet-broadcast":
-        for y in (66, 114, 162, 402, 450):
-            rounded(draw, (28, y, 484, y + 18), 9, accent)
+        for y in (82, 138, 430):
+            rounded(draw, (28, y, 484, y + 14), 7, accent)
         polygon(draw, [(360, 26), (492, 26), (492, 250)], spark)
     elif trait == "crimson-check":
-        for y in range(0, 512, 64):
-            for x in range(0, 512, 64):
-                if (x + y) // 64 % 2 == 0:
-                    draw.rectangle(box((x, y, x + 64, y + 64)), fill=accent)
-        line(draw, [(0, 460), (512, 344)], spark, 22)
+        for y in range(-16, 512, 96):
+            for x in range(-16, 512, 96):
+                if ((x + 16) + (y + 16)) // 96 % 2 == 0:
+                    draw.rectangle(box((x, y, x + 96, y + 96)), fill=accent)
+        line(draw, [(0, 460), (512, 344)], spark, 14)
     elif trait == "paper-blue":
         polygon(draw, [(0, 0), (224, 0), (108, 512), (0, 512)], accent)
         polygon(draw, [(360, 0), (512, 0), (512, 512), (438, 512)], spark)
-        for y in range(40, 500, 44):
+        for y in range(56, 500, 72):
             line(draw, [(18, y), (90, y)], "#b8c9c1", 3)
     elif trait == "acid-window":
         rounded(draw, (34, 34, 478, 478), 34, accent, INK, 5)
         rounded(draw, (66, 66, 446, 446), 20, base)
-        for x in (92, 402):
-            line(draw, [(x, 70), (x, 442)], spark, 10)
+        line(draw, [(92, 70), (92, 442)], spark, 8)
     rng = stable_rng(f"grain/{trait}")
-    for _ in range(720):
+    for _ in range(240):
         x = rng.randrange(SIZE * SCALE)
         y = rng.randrange(SIZE * SCALE)
-        alpha = rng.randrange(5, 17)
+        alpha = rng.randrange(4, 11)
         color = (255, 255, 255, alpha) if rng.random() > 0.42 else (12, 20, 38, alpha)
         draw.point((x, y), fill=color)
     return finish(image)
@@ -334,7 +333,7 @@ def paint_tailoring(trait: str) -> Image.Image:
         polygon(draw, [(318, 390), (410, 426), (444, 512), (318, 512)], accent)
         line(draw, [(256, 382), (256, 512)], PAPER, 6)
     elif trait == "heavy-hoodie":
-        draw.arc(box((158, 352, 354, 482)), 186, 354, fill=accent, width=width(22))
+        draw.arc(box((158, 352, 354, 482)), 186, 354, fill=accent, width=width(16))
         line(draw, [(218, 398), (208, 484)], PAPER, 4)
         line(draw, [(294, 398), (304, 484)], PAPER, 4)
     elif trait == "workwear-blue":
@@ -357,9 +356,9 @@ def paint_tailoring(trait: str) -> Image.Image:
         polygon(draw, [(88, 478), (184, 398), (220, 414), (146, 512)], accent)
         polygon(draw, [(292, 414), (328, 398), (424, 478), (366, 512)], accent)
     elif trait == "quilted-vest":
-        for x in range(106, 410, 50):
-            for y in range(416, 512, 44):
-                polygon(draw, [(x, y + 20), (x + 24, y), (x + 48, y + 20), (x + 24, y + 40)], accent, INK, 2)
+        for x in range(116, 404, 64):
+            for y in range(426, 512, 52):
+                polygon(draw, [(x, y + 22), (x + 30, y), (x + 60, y + 22), (x + 30, y + 44)], accent, INK, 2)
     elif trait == "longline-coat":
         polygon(draw, [(194, 388), (246, 430), (208, 512), (94, 512)], accent)
         polygon(draw, [(318, 388), (266, 430), (304, 512), (418, 512)], accent)
@@ -401,13 +400,12 @@ def paint_coiffure(trait: str) -> Image.Image:
         )
         for path in braid_paths:
             line(draw, path, hair, 13)
-            for x, y in path[1:]:
+            for x, y in path[1::2]:
                 ellipse(draw, (x - 7, y - 7, x + 7, y + 7), hair)
-                line(draw, [(x - 5, y - 4), (x + 5, y + 4)], shine, 2)
     elif trait == "high-puff":
         rounded(draw, (176, 166, 338, 206), 20, hair)
         ellipse(draw, (182, 64, 334, 204), hair, INK, 5)
-        for x, y, size in ((174, 96, 54), (202, 66, 62), (244, 52, 66), (292, 72, 58), (310, 110, 50), (206, 122, 56), (270, 116, 58)):
+        for x, y, size in ((178, 96, 58), (216, 62, 68), (270, 62, 68), (306, 102, 54), (220, 120, 62), (278, 118, 60)):
             ellipse(draw, (x, y, x + size, y + size), hair)
         line(draw, [(180, 180), (334, 180)], "#b78c48", 6)
     elif trait == "sculpted-twists":
@@ -421,12 +419,12 @@ def paint_coiffure(trait: str) -> Image.Image:
         )
         for path in twists:
             line(draw, path, hair, 16)
-            for x, y in path:
-                ellipse(draw, (x - 8, y - 8, x + 8, y + 8), hair)
+            x, y = path[-1]
+            ellipse(draw, (x - 8, y - 8, x + 8, y + 8), hair)
             line(draw, [(path[0][0] - 5, path[0][1]), (path[1][0] + 5, path[1][1])], shine, 3)
     elif trait == "wave-crop":
         polygon(draw, [(158, 194), (170, 126), (218, 96), (302, 100), (346, 134), (352, 200), (304, 176), (216, 180)], hair, INK, 6)
-        for y in (126, 146, 166):
+        for y in (132, 162):
             draw.arc(box((188, y, 324, y + 52)), 194, 342, fill=shine, width=width(3))
     elif trait == "temple-fade":
         polygon(draw, [(160, 206), (174, 132), (224, 106), (312, 110), (350, 154), (348, 210), (318, 172), (202, 174)], hair, INK, 6)
@@ -438,7 +436,7 @@ def paint_coiffure(trait: str) -> Image.Image:
         for x, y in ((154, 134), (188, 104), (230, 92), (274, 94), (316, 116), (340, 154)):
             ellipse(draw, (x, y, x + 54, y + 58), hair, INK, 3)
         polygon(draw, [(148, 174), (358, 154), (348, 212), (158, 222)], "#e75452", INK, 5)
-        for x in range(176, 340, 40):
+        for x in range(188, 332, 56):
             ellipse(draw, (x, 176, x + 8, 184), PAPER)
     elif trait == "beanie-coils":
         for x in range(166, 342, 34):
@@ -577,44 +575,44 @@ def paint_signal(trait: str) -> Image.Image:
         for index in range(7):
             draw.rectangle(box((38 + index * 11, 462, 43 + index * 11, 478)), fill=yellow if index % 2 else coral)
     elif trait == "offset-halo":
-        draw.arc(box((114, 76, 402, 410)), 190, 354, fill=yellow, width=width(16))
-        draw.arc(box((132, 92, 420, 426)), 8, 174, fill=coral, width=width(8))
+        draw.arc(box((114, 76, 402, 410)), 190, 354, fill=yellow, width=width(10))
+        draw.arc(box((132, 92, 420, 426)), 8, 174, fill=coral, width=width(5))
     elif trait == "halftone-veil":
-        for y in range(112, 420, 18):
-            for x in range(84, 430, 18):
+        for y in range(124, 420, 24):
+            for x in range(96, 430, 24):
                 if x + y > 370 and x - y < 170:
-                    radius = 2 + ((x + y) // 36) % 4
+                    radius = 2 + ((x + y) // 48) % 3
                     ellipse(draw, (x - radius, y - radius, x + radius, y + radius), "#f4efe599")
     elif trait == "type-bars":
-        for y, w, color in ((86, 112, yellow), (112, 72, coral), (398, 128, cyan), (424, 88, PAPER)):
+        for y, w, color in ((92, 106, yellow), (118, 66, coral), (424, 94, PAPER)):
             rounded(draw, (28, y, 28 + w, y + 14), 7, color)
     elif trait == "orbit-lines":
-        draw.arc(box((72, 142, 446, 392)), 196, 342, fill=cyan, width=width(5))
-        draw.arc(box((64, 118, 438, 368)), 16, 166, fill=coral, width=width(5))
+        draw.arc(box((72, 142, 446, 392)), 196, 342, fill=cyan, width=width(3))
+        draw.arc(box((64, 118, 438, 368)), 16, 166, fill=coral, width=width(3))
         ellipse(draw, (398, 174, 420, 196), yellow)
     elif trait == "prism-slice":
-        polygon(draw, [(18, 356), (486, 190), (486, 246), (18, 412)], "#64d8d066")
-        line(draw, [(18, 356), (486, 190)], cyan, 5)
-        line(draw, [(18, 412), (486, 246)], coral, 5)
+        polygon(draw, [(18, 356), (486, 190), (486, 238), (18, 404)], "#64d8d044")
+        line(draw, [(18, 356), (486, 190)], cyan, 3)
+        line(draw, [(18, 404), (486, 238)], coral, 3)
     elif trait == "sound-wave":
-        values = (18, 42, 24, 66, 34, 84, 26, 58, 18)
+        values = (20, 44, 28, 70, 32, 52, 20)
         for index, h in enumerate(values):
-            x = 34 + index * 16
+            x = 38 + index * 18
             rounded(draw, (x, 256 - h // 2, x + 8, 256 + h // 2), 4, yellow)
     elif trait == "pixel-flare":
-        for x, y, size, color in ((384, 74, 28, yellow), (418, 110, 16, coral), (368, 120, 12, cyan), (402, 146, 8, PAPER), (446, 84, 7, PAPER)):
+        for x, y, size, color in ((384, 74, 28, yellow), (420, 112, 15, coral), (370, 124, 11, cyan), (446, 84, 7, PAPER)):
             draw.rectangle(box((x, y, x + size, y + size)), fill=color)
     elif trait == "double-exposure":
-        polygon(draw, [(74, 90), (202, 90), (152, 454), (24, 454)], "#f15f6d55")
-        polygon(draw, [(350, 44), (470, 44), (430, 428), (310, 428)], "#62d7d255")
-        line(draw, [(78, 90), (28, 454)], coral, 4)
-        line(draw, [(466, 44), (426, 428)], cyan, 4)
+        polygon(draw, [(74, 90), (190, 90), (142, 454), (24, 454)], "#f15f6d38")
+        polygon(draw, [(360, 44), (470, 44), (430, 428), (322, 428)], "#62d7d238")
+        line(draw, [(78, 90), (28, 454)], coral, 3)
+        line(draw, [(466, 44), (426, 428)], cyan, 3)
     elif trait == "corner-stamps":
         rounded(draw, (22, 24, 108, 64), 6, "#f4efe5dd", INK, 3)
         rounded(draw, (396, 446, 490, 486), 6, "#f2cf45dd", INK, 3)
-        for x in range(34, 96, 12):
+        for x in range(38, 94, 18):
             line(draw, [(x, 34), (x, 54)], coral, 3)
-        for x in range(410, 478, 14):
+        for x in range(414, 476, 20):
             ellipse(draw, (x, 458, x + 7, 465), INK)
     return finish(image)
 
