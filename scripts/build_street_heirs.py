@@ -25,8 +25,8 @@ SUBJECT = "Editorial-vector streetwear portraits with graphic signals"
 CHAIN = "Robinhood Chain"
 SUPPLY = 5_555
 MINT_PRICE = "0.005 ETH"
-ART_VERSION = "prototype-1"
-SEED = "street-heirs/editorial-prototype/v1"
+ART_VERSION = "prototype-2"
+SEED = "street-heirs/editorial-prototype/v2"
 
 ROOT = Path(__file__).resolve().parents[1]
 TRAIT_ROOT = ROOT / "public" / f"{SLUG}-traits"
@@ -38,10 +38,21 @@ SCALE = 2
 INK = "#17223b"
 PAPER = "#f4efe5"
 
-STACK = (
+TRAIT_ORDER = (
     "atmosphere",
     "complexion",
     "tailoring",
+    "coiffure",
+    "visage",
+    "cadence",
+    "adornment",
+    "signal",
+)
+
+STACK = (
+    "atmosphere",
+    "tailoring",
+    "complexion",
     "coiffure",
     "visage",
     "cadence",
@@ -260,6 +271,13 @@ def paint_atmosphere(trait: str) -> Image.Image:
         rounded(draw, (66, 66, 446, 446), 20, base)
         for x in (92, 402):
             line(draw, [(x, 70), (x, 442)], spark, 10)
+    rng = stable_rng(f"grain/{trait}")
+    for _ in range(720):
+        x = rng.randrange(SIZE * SCALE)
+        y = rng.randrange(SIZE * SCALE)
+        alpha = rng.randrange(5, 17)
+        color = (255, 255, 255, alpha) if rng.random() > 0.42 else (12, 20, 38, alpha)
+        draw.point((x, y), fill=color)
     return finish(image)
 
 
@@ -279,7 +297,7 @@ def paint_complexion(trait: str) -> Image.Image:
     tone, light, shape = COMPLEXIONS[trait]
     image = blank()
     draw = ImageDraw.Draw(image)
-    polygon(draw, [(218, 364), (294, 364), (312, 512), (198, 512)], tone, INK, 6)
+    polygon(draw, [(220, 356), (292, 356), (300, 446), (212, 446)], tone, INK, 6)
     ellipse(draw, (118, 240, 178, 318), tone, INK, 5)
     ellipse(draw, (334, 240, 394, 318), tone, INK, 5)
     polygon(draw, shape, tone, INK, 6)
@@ -306,7 +324,7 @@ def paint_tailoring(trait: str) -> Image.Image:
         "longline-coat": ("#7d493e", "#69b4aa"),
     }
     main, accent = configs[trait]
-    polygon(draw, [(70, 512), (102, 426), (190, 382), (220, 364), (292, 364), (324, 382), (410, 426), (444, 512)], main, INK, 7)
+    polygon(draw, [(70, 512), (102, 432), (188, 396), (220, 378), (292, 378), (324, 396), (410, 432), (444, 512)], main, INK, 7)
     if trait == "signal-bomber":
         line(draw, [(256, 382), (256, 512)], accent, 9)
         for x in (126, 340):
@@ -354,23 +372,58 @@ def paint_coiffure(trait: str) -> Image.Image:
     hair = "#151b2b"
     shine = "#39415c"
     if trait == "loc-crown":
-        for index, (x, y) in enumerate(((168, 92), (206, 72), (246, 66), (286, 72), (326, 94), (148, 130), (348, 132))):
-            rounded(draw, (x, y, x + 34, y + 142 + (index % 2) * 18), 17, hair, INK, 3)
+        polygon(draw, [(158, 194), (170, 130), (218, 100), (294, 100), (344, 136), (354, 204)], hair, INK, 5)
+        paths = (
+            [(170, 132), (158, 176), (168, 230)],
+            [(202, 112), (194, 164), (202, 218)],
+            [(234, 102), (228, 152), (234, 202)],
+            [(266, 102), (272, 154), (266, 216)],
+            [(298, 108), (312, 160), (304, 226)],
+            [(330, 132), (348, 178), (338, 240)],
+        )
+        for index, path in enumerate(paths):
+            line(draw, path, hair, 18)
+            x, y = path[-1]
+            ellipse(draw, (x - 9, y - 9, x + 9, y + 9), hair)
+            if index in (1, 4):
+                line(draw, [(path[-2][0] - 6, path[-2][1]), (path[-2][0] + 8, path[-2][1])], "#d9a841", 4)
     elif trait == "box-braids":
-        for x in range(146, 366, 34):
-            ellipse(draw, (x, 104, x + 42, 160), hair, INK, 3)
-            line(draw, [(x + 20, 144), (x + 8, 336)], hair, 15)
-            for y in range(176, 330, 32):
-                ellipse(draw, (x + 1, y, x + 16, y + 15), shine)
+        polygon(draw, [(164, 196), (176, 132), (220, 100), (296, 100), (340, 132), (350, 198)], hair, INK, 5)
+        line(draw, [(256, 100), (256, 176)], "#59617a", 3)
+        for offset in (0, 1, 2):
+            line(draw, [(194 + offset * 30, 112), (180 + offset * 24, 174)], shine, 4)
+            line(draw, [(318 - offset * 30, 112), (332 - offset * 24, 174)], shine, 4)
+        braid_paths = (
+            [(166, 156), (146, 214), (150, 292), (134, 356)],
+            [(194, 142), (176, 218), (184, 300), (170, 376)],
+            [(318, 142), (338, 218), (330, 300), (344, 376)],
+            [(346, 156), (366, 214), (362, 292), (378, 356)],
+        )
+        for path in braid_paths:
+            line(draw, path, hair, 13)
+            for x, y in path[1:]:
+                ellipse(draw, (x - 7, y - 7, x + 7, y + 7), hair)
+                line(draw, [(x - 5, y - 4), (x + 5, y + 4)], shine, 2)
     elif trait == "high-puff":
-        ellipse(draw, (174, 68, 340, 214), hair, INK, 6)
-        for x, y in ((176, 92), (218, 60), (270, 58), (312, 90), (196, 132), (286, 128)):
-            ellipse(draw, (x, y, x + 62, y + 62), hair)
-        rounded(draw, (172, 160, 340, 210), 24, hair)
+        rounded(draw, (176, 166, 338, 206), 20, hair)
+        ellipse(draw, (182, 64, 334, 204), hair, INK, 5)
+        for x, y, size in ((174, 96, 54), (202, 66, 62), (244, 52, 66), (292, 72, 58), (310, 110, 50), (206, 122, 56), (270, 116, 58)):
+            ellipse(draw, (x, y, x + size, y + size), hair)
+        line(draw, [(180, 180), (334, 180)], "#b78c48", 6)
     elif trait == "sculpted-twists":
-        for x, y, angle in ((166, 100, 0), (214, 68, 0), (266, 62, 0), (318, 94, 0), (190, 142, 0), (278, 136, 0)):
-            rounded(draw, (x, y, x + 38, y + 100), 19, hair, INK, 3)
-            line(draw, [(x + 10, y + 72), (x + 28, y + 22)], shine, 4)
+        polygon(draw, [(162, 198), (176, 138), (216, 108), (300, 108), (340, 142), (350, 202)], hair, INK, 5)
+        twists = (
+            [(180, 146), (166, 118), (186, 84)],
+            [(214, 126), (204, 92), (222, 62)],
+            [(250, 116), (242, 80), (258, 50)],
+            [(286, 120), (298, 84), (286, 54)],
+            [(320, 140), (340, 114), (326, 82)],
+        )
+        for path in twists:
+            line(draw, path, hair, 16)
+            for x, y in path:
+                ellipse(draw, (x - 8, y - 8, x + 8, y + 8), hair)
+            line(draw, [(path[0][0] - 5, path[0][1]), (path[1][0] + 5, path[1][1])], shine, 3)
     elif trait == "wave-crop":
         polygon(draw, [(158, 194), (170, 126), (218, 96), (302, 100), (346, 134), (352, 200), (304, 176), (216, 180)], hair, INK, 6)
         for y in (126, 146, 166):
@@ -402,12 +455,12 @@ def paint_coiffure(trait: str) -> Image.Image:
 
 def eye_pair(draw: ImageDraw.ImageDraw, pupils: tuple[int, int] = (0, 0), closed: bool = False) -> None:
     if closed:
-        draw.arc(box((178, 236, 238, 274)), 14, 166, fill=INK, width=width(6))
-        draw.arc(box((276, 236, 336, 274)), 14, 166, fill=INK, width=width(6))
+        draw.arc(box((180, 240, 238, 268)), 14, 166, fill=INK, width=width(5))
+        draw.arc(box((274, 240, 332, 268)), 14, 166, fill=INK, width=width(5))
         return
     for center, offset in ((208, pupils[0]), (304, pupils[1])):
-        ellipse(draw, (center - 34, 232, center + 34, 284), PAPER, INK, 5)
-        ellipse(draw, (center - 7 + offset, 248, center + 7 + offset, 270), INK)
+        ellipse(draw, (center - 30, 238, center + 30, 276), PAPER, INK, 4)
+        ellipse(draw, (center - 6 + offset, 248, center + 6 + offset, 268), INK)
 
 
 def paint_visage(trait: str) -> Image.Image:
@@ -429,18 +482,18 @@ def paint_visage(trait: str) -> Image.Image:
         line(draw, [(164, 250), (152, 244)], INK, 3)
         line(draw, [(348, 250), (360, 244)], INK, 3)
     elif trait == "amber-shades":
-        rounded(draw, (166, 226, 244, 284), 12, "#f0a83a", INK, 6)
-        rounded(draw, (268, 226, 346, 284), 12, "#f0a83a", INK, 6)
-        line(draw, [(244, 242), (268, 242)], INK, 7)
-        line(draw, [(174, 236), (230, 274)], "#ffe094", 4)
+        rounded(draw, (170, 232, 244, 278), 10, "#f0a83a", INK, 5)
+        rounded(draw, (268, 232, 342, 278), 10, "#f0a83a", INK, 5)
+        line(draw, [(244, 244), (268, 244)], INK, 6)
+        line(draw, [(180, 238), (228, 270)], "#ffe094", 3)
     elif trait == "clear-frames":
         eye_pair(draw)
-        rounded(draw, (164, 224, 246, 286), 18, "#d8f3f080", "#376d7c", 6)
-        rounded(draw, (266, 224, 348, 286), 18, "#d8f3f080", "#376d7c", 6)
-        line(draw, [(246, 242), (266, 242)], "#376d7c", 6)
+        rounded(draw, (168, 230, 246, 280), 15, "#d8f3f080", "#376d7c", 5)
+        rounded(draw, (266, 230, 344, 280), 15, "#d8f3f080", "#376d7c", 5)
+        line(draw, [(246, 244), (266, 244)], "#376d7c", 5)
     elif trait == "future-visor":
-        polygon(draw, [(154, 224), (358, 218), (340, 286), (172, 292)], "#71d7dfcc", INK, 6)
-        line(draw, [(176, 246), (332, 240)], "#f05c83", 7)
+        polygon(draw, [(160, 230), (352, 224), (338, 280), (174, 286)], "#71d7dfcc", INK, 5)
+        line(draw, [(178, 248), (330, 242)], "#f05c83", 5)
     elif trait == "star-liner":
         eye_pair(draw)
         polygon(draw, [(348, 238), (354, 252), (370, 254), (358, 264), (362, 280), (348, 272), (334, 282), (338, 264), (326, 254), (342, 252)], "#f3c945", INK, 2)
@@ -456,15 +509,15 @@ def paint_cadence(trait: str) -> Image.Image:
     elif trait == "half-smile":
         draw.arc(box((218, 324, 300, 372)), 12, 160, fill=INK, width=width(6))
     elif trait == "gap-grin":
-        rounded(draw, (214, 324, 300, 378), 20, PAPER, INK, 5)
-        line(draw, [(256, 330), (256, 350)], INK, 5)
-        polygon(draw, [(226, 360), (286, 360), (272, 376), (240, 376)], "#d16f78")
+        rounded(draw, (220, 330, 294, 370), 15, PAPER, INK, 4)
+        line(draw, [(256, 334), (256, 350)], INK, 4)
+        polygon(draw, [(230, 358), (284, 358), (272, 370), (242, 370)], "#d16f78")
     elif trait == "berry-gloss":
-        polygon(draw, [(210, 346), (238, 326), (256, 340), (276, 326), (306, 346), (276, 370), (236, 370)], "#8e3158", INK, 4)
-        line(draw, [(232, 348), (282, 348)], "#f3a1b7", 3)
+        polygon(draw, [(218, 348), (240, 332), (256, 342), (274, 332), (298, 348), (274, 366), (240, 366)], "#8e3158", INK, 4)
+        line(draw, [(236, 350), (278, 350)], "#f3a1b7", 3)
     elif trait == "silver-tooth":
-        rounded(draw, (218, 326, 296, 374), 18, PAPER, INK, 5)
-        polygon(draw, [(250, 330), (270, 330), (270, 352), (250, 352)], "#a9c5cf", INK, 2)
+        rounded(draw, (222, 332, 292, 370), 14, PAPER, INK, 4)
+        polygon(draw, [(250, 334), (268, 334), (268, 350), (250, 350)], "#a9c5cf", INK, 2)
     elif trait == "fine-mustache":
         polygon(draw, [(210, 336), (252, 326), (256, 342), (260, 326), (302, 336), (264, 350), (256, 344), (248, 350)], INK)
         line(draw, [(226, 362), (286, 362)], INK, 4)
@@ -583,7 +636,7 @@ def trait_path(category: str, trait: str) -> Path:
 
 
 def combo_from_signature(signature: tuple[str, ...]) -> dict[str, str]:
-    return dict(zip(STACK, signature, strict=True))
+    return dict(zip(TRAIT_ORDER, signature, strict=True))
 
 
 def compatible(combo: dict[str, str]) -> bool:
@@ -715,12 +768,12 @@ def validate_catalog() -> None:
     }
     seen: set[tuple[str, ...]] = set()
     for index, signature in enumerate(SIGNATURES, start=1):
-        if len(signature) != len(STACK):
+        if len(signature) != len(TRAIT_ORDER):
             raise ValueError(f"Signature {index} has the wrong number of traits")
         if signature in seen:
             raise ValueError(f"Signature {index} is duplicated")
         seen.add(signature)
-        for category, trait in zip(STACK, signature, strict=True):
+        for category, trait in zip(TRAIT_ORDER, signature, strict=True):
             if trait not in valid_by_category[category]:
                 raise ValueError(f"Unknown trait {category}/{trait} in signature {index}")
         if not compatible(combo_from_signature(signature)):

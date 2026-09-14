@@ -19,11 +19,12 @@ visual system is approved.
 
 ## Drawing language
 
-Portraits use angular jaw silhouettes, midnight-blue contour lines, solid editorial
-color, and controlled asymmetry. Authentic details come from varied face structures,
-skin tones, protective hairstyles, contemporary cuts, tailoring, eyewear, jewelry, and
-studio accessories. Graphic signals add crop marks, offset arcs, halftone fields, type
-bars, prisms, waveform marks, and translucent color exposures.
+Portraits use angular jaw silhouettes, midnight-blue contour lines, subtly textured
+editorial color, refined facial proportions, and controlled asymmetry. Authentic
+details come from varied face structures, skin tones, protective hairstyles,
+contemporary cuts, tailoring, eyewear, jewelry, and studio accessories. Graphic
+signals add crop marks, offset arcs, halftone fields, type bars, prisms, waveform
+marks, and translucent color exposures.
 
 The system is intentionally separate from previous collection painters. It does not
 reuse their skeletons, palettes, materials, motion, or trait-layer names.
@@ -33,8 +34,8 @@ reuse their skeletons, palettes, materials, motion, or trait-layer names.
 The stack is composited in this order:
 
 1. `atmosphere` — architectural color grounds and large framing geometry
-2. `complexion` — skin tone, neck, ears, face structure, highlight plane, and nose
-3. `tailoring` — outerwear, knitwear, sportswear, and workwear
+2. `tailoring` — outerwear, knitwear, sportswear, and workwear behind the portrait
+3. `complexion` — skin tone, neck, ears, face structure, highlight plane, and nose
 4. `coiffure` — hairstyles and integrated head coverings
 5. `visage` — eyes, brows, liner, eyewear, and visor treatments
 6. `cadence` — mouth, facial hair, and tooth details
@@ -56,8 +57,8 @@ hoodie with a curb chain. The painter validates every signature before rendering
 The art version and seed are:
 
 ```text
-prototype-1
-street-heirs/editorial-prototype/v1
+prototype-2
+street-heirs/editorial-prototype/v2
 ```
 
 Generate the prototype from the repository root:
