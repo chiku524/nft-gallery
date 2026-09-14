@@ -1,11 +1,22 @@
 {
   "name": "Street Heirs",
   "symbol": "HEIRS",
-  "description": "Street Heirs is a static editorial-vector PFP collection celebrating personal style, neighborhood craft, and the graphic language of the city. Authentic hair, tailoring, jewelry, and expression meet geometric broadcast signals in 5,555 planned portraits on Robinhood Chain.",
+  "description": "Street Heirs celebrates personal style, neighborhood craft, and the graphic language of the city. Authentic hair, tailoring, jewelry, and expression meet restrained broadcast signals in 5,555 clean-cartoon portraits on Robinhood Chain.",
+  "featured_image": "/brand/featured-street-heirs.jpg",
+  "banner_image": "/brand/banner-street-heirs.png",
+  "opensea_banner_image": "/brand/banner-street-heirs-opensea.jpg",
+  "external_link": "/street-heirs",
   "chain": "Robinhood Chain",
+  "chain_id": 4663,
   "supply": 5555,
   "mint_price": "0.005 ETH",
-  "image": "/street-heirs-preview/1.png",
-  "art_version": "prototype-6",
-  "status": "prototype"
+  "image": "/brand/collection-street-heirs.png",
+  "seller_fee_basis_points": 500,
+  "fee_recipient": null,
+  "contract_address": null,
+  "creator_wallet": null,
+  "launch_date": null,
+  "opensea_url": null,
+  "art_version": "street-heirs-v1",
+  "status": "full-bake-ready"
 }

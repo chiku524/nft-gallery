@@ -50,7 +50,8 @@ Signal placement varies by intent. Halftone, crop, pixel, and corner accents rem
 front. Halos, type bars, orbit lines, prism slices, waveforms, and translucent exposure
 panels are composited directly behind the character.
 
-The prototype contains 70 transparent 512×512 trait plates and 16 curated signatures.
+The production kit contains 70 transparent 512×512 trait plates and 16 curated
+signatures used as the opening tokens in the full roster.
 Weights in `public/street-heirs-traits/manifest.json` express relative selection
 probability; they are not final rarity percentages.
 
@@ -62,27 +63,61 @@ hoodie with a curb chain. The painter validates every signature before rendering
 
 ## Deterministic build
 
-The art version and seed are:
+The production art version and painter seed are:
 
 ```text
-prototype-6
-street-heirs/clean-cartoon/v6
+street-heirs-v1
+street-heirs/production/v1
 ```
 
-Generate the prototype from the repository root:
+Generate the public trait kit, site catalogs, and a 16-token sample pack:
 
 ```bash
 npm run generate:street-heirs
 ```
+
+Bake the complete 5,555-token roster:
+
+```bash
+python3 scripts/build_street_heirs.py
+python3 scripts/generate_street_heirs.py --all --workers 6
+```
+
+The production roster seed is `46635555`. The completed bake contains 5,555 unique
+trait fingerprints and 5,555 unique rendered pixel hashes. Any art-layer change
+requires a new art version and a complete provenance rebuild.
 
 Outputs:
 
 - `public/street-heirs-traits/` — trait plates and manifest
 - `public/street-heirs-preview/1.png` through `16.png` — flattened portraits
 - `public/street-heirs-preview/contact-sheet.jpg` — review sheet
-- `public/metadata/street-heirs.json` — lightweight collection metadata
+- `public/brand/` — logo, collection tile, featured card, and marketplace banners
+- `public/metadata/street-heirs.json` — collection metadata
 - `public/metadata/street-heirs-description.txt` — marketplace description draft
 - `src/data/street-heirs-traits.ts` — generated TypeScript trait catalog
+- `src/data/street-heirs-gallery.ts` — generated signature gallery catalog
+- `generated/street-heirs/images/` — full flattened PNG roster
+- `generated/street-heirs/json/` — token metadata and exact pixel hashes
+- `generated/street-heirs/HEIRS-opensea-drop.csv` — marketplace import sheet
+- `generated/street-heirs/stats.json` — realized distributions and uniqueness totals
+- `generated/street-heirs/provenance.json` — roster digest and per-token hashes
+
+Bulk PNG and JSON directories are gitignored. They must be pinned to permanent storage
+before a contract base URI or marketplace import is finalized.
+
+## Website
+
+The integrated collection experience is available at:
+
+- `/street-heirs` — collection story and release facts
+- `/street-heirs/gallery` — 16 signature portraits and recipes
+- `/street-heirs/studio` — weighted, compatibility-aware live compositor
+- `/street-heirs/traits` — all 70 plates and signal-placement labels
+- `/street-heirs/launch` — verified Robinhood Chain details and release readiness
+
+The website intentionally remains pre-launch. It does not display a contract address,
+mint action, or OpenSea collection link until those resources exist and are verified.
 
 ## Approval checklist
 
@@ -94,4 +129,4 @@ Outputs:
 - Clothing, hair, eyewear, jewelry, and foreground marks do not collide.
 - The set feels original and does not replicate Jubilee's Hood or an existing painter
   in this repository.
-- The taxonomy has enough compatible combinations to support a later 5,555-token bake.
+- Full-roster stats report exactly 5,555 unique combinations and pixel hashes.

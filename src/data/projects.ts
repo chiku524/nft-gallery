@@ -44,6 +44,8 @@ import { boogieSamples } from "@/data/boogie-gallery";
 import { boogiesquad } from "@/data/boogiesquad";
 import { robinBanxSamples } from "@/data/robinbanx-gallery";
 import { robinBanx } from "@/data/robinbanx";
+import { streetHeirsSamples } from "@/data/street-heirs-gallery";
+import { streetHeirs } from "@/data/street-heirs";
 import { galleria, galleriaWorks } from "@/data/galleria";
 import { sampleMints } from "@/data/gallery";
 import { wicklingSamples } from "@/data/wickling-gallery";
@@ -68,6 +70,7 @@ import { CERA_BASE } from "@/lib/cera";
 import { OSSN_BASE } from "@/lib/ossein";
 import { BOOGIESQUAD_BASE } from "@/lib/boogiesquad";
 import { ROBIN_BANX_BASE } from "@/lib/robinbanx";
+import { STREET_HEIRS_BASE } from "@/lib/street-heirs";
 import { GALLERIA_BASE } from "@/lib/galleria";
 import { HOODKINS_BASE } from "@/lib/hoodkins";
 import { INKLINGS_BASE } from "@/lib/inklings";
@@ -575,6 +578,25 @@ export const projects = [
     kind: "layered-pfp" as const,
     previews: robinBanxSamples.map((mint) => mint.image),
     studioHref: "/robinbanx/studio" as const,
+    opensea: "",
+    openseaListings: [],
+  },
+  {
+    slug: "street-heirs",
+    href: STREET_HEIRS_BASE,
+    name: streetHeirs.name,
+    symbol: streetHeirs.symbol,
+    tagline: streetHeirs.tagline,
+    description: streetHeirs.description,
+    chain: streetHeirs.chain.name,
+    chainId: streetHeirs.chain.chainId,
+    supply: streetHeirs.supply,
+    cover: "/brand/banner-street-heirs.png",
+    thumb: streetHeirsSamples[0].image,
+    status: "new on the wall" as const,
+    kind: "layered-pfp" as const,
+    previews: streetHeirsSamples.slice(0, 8).map((sample) => sample.image),
+    studioHref: "/street-heirs/studio" as const,
     opensea: "",
     openseaListings: [],
   },
