@@ -1,0 +1,16 @@
+{
+  "name": "Robin Banx",
+  "symbol": "RBX",
+  "description": "Robin Banx is a 10,000-piece noir security dossier assembled on Base. Angular masked operators move through torn case files, halftone shadow, evidence ink, and multichain contraband. Every RBX is a deterministic eight-layer static collage. The mint is free; the file is never closed.",
+  "image": "/brand/collection-robinbanx.png",
+  "featured_image": "/brand/featured-robinbanx.jpg",
+  "banner_image": "/brand/banner-robinbanx.png",
+  "opensea_banner_image": "/brand/banner-robinbanx-opensea.jpg",
+  "external_link": "/robinbanx",
+  "chain": "Base",
+  "chain_id": 8453,
+  "supply": 10000,
+  "mint_price": "Free",
+  "seller_fee_basis_points": 500,
+  "fee_recipient": "0x0000000000000000000000000000000000000000"
+}

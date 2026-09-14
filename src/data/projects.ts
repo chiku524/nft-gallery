@@ -42,6 +42,8 @@ import { osseinSamples } from "@/data/ossein-gallery";
 import { ossein } from "@/data/ossein";
 import { boogieSamples } from "@/data/boogie-gallery";
 import { boogiesquad } from "@/data/boogiesquad";
+import { robinBanxSamples } from "@/data/robinbanx-gallery";
+import { robinBanx } from "@/data/robinbanx";
 import { galleria, galleriaWorks } from "@/data/galleria";
 import { sampleMints } from "@/data/gallery";
 import { wicklingSamples } from "@/data/wickling-gallery";
@@ -65,6 +67,7 @@ import { CALDERA_BASE } from "@/lib/caldera";
 import { CERA_BASE } from "@/lib/cera";
 import { OSSN_BASE } from "@/lib/ossein";
 import { BOOGIESQUAD_BASE } from "@/lib/boogiesquad";
+import { ROBIN_BANX_BASE } from "@/lib/robinbanx";
 import { GALLERIA_BASE } from "@/lib/galleria";
 import { HOODKINS_BASE } from "@/lib/hoodkins";
 import { INKLINGS_BASE } from "@/lib/inklings";
@@ -555,6 +558,25 @@ export const projects = [
     studioHref: "/boogiesquad/studio" as const,
     opensea: boogiesquad.opensea.collection,
     openseaListings: openSeaListings(boogiesquad.opensea, boogiesquad.chain.name),
+  },
+  {
+    slug: "robinbanx",
+    href: ROBIN_BANX_BASE,
+    name: robinBanx.name,
+    symbol: robinBanx.symbol,
+    tagline: robinBanx.tagline,
+    description: robinBanx.description,
+    chain: robinBanx.chain.name,
+    chainId: robinBanx.chain.chainId,
+    supply: robinBanx.supply,
+    cover: "/brand/banner-robinbanx.png",
+    thumb: robinBanxSamples[0].image,
+    status: "new on the wall" as const,
+    kind: "layered-pfp" as const,
+    previews: robinBanxSamples.map((mint) => mint.image),
+    studioHref: "/robinbanx/studio" as const,
+    opensea: "",
+    openseaListings: [],
   },
 ] as const;
 

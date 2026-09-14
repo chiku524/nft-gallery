@@ -44,6 +44,8 @@ A house of NFT collections. Each drop is its own sub-project — studio, traits,
 
 **Boogie Squad** is a 10,000-piece collection of looping jelly-cel dance PFP GIFs, for OpenSea on Robinhood Chain (chain ID `4663`). Mixed cartoon dancers — cats, frogs, blobs, birds, robots, and more. Same 12-frame, 90ms clock as Foxins.
 
+**Robin Banx** is a 10,000-piece collection of static noir security-dossier PFP PNGs, for a free mint on Base (chain ID `8453`). Angular masked crooks combine safehouses, aliases, disguises, tools, chain trails, and evidence marks.
+
 ## What’s in this repo
 
 | Path | What it is |
@@ -70,6 +72,7 @@ A house of NFT collections. Each drop is its own sub-project — studio, traits,
 | `/noxelle` | Noxelle drop, trait loops, gallery, OpenSea notes |
 | `/nivora` | Nivora drop, trait loops, gallery, OpenSea notes |
 | `/boogiesquad` | Boogie Squad drop, trait loops, gallery, OpenSea notes |
+| `/robinbanx` | Robin Banx static PFP drop, trait studio, gallery, OpenSea notes |
 | `/studio` | Live APNG layer mixer (Loopkins) |
 | `/inklings/studio` | Live ink-wash mixer (Inklings) |
 | `/wicklings/studio` | Live paper-lantern mixer (Wicklings) |
@@ -89,6 +92,7 @@ A house of NFT collections. Each drop is its own sub-project — studio, traits,
 | `/noxelle/studio` | Live neon-tube mixer (Noxelle) |
 | `/nivora/studio` | Live snow-globe mixer (Nivora) |
 | `/boogiesquad/studio` | Live jelly-cel dance mixer (Boogie Squad) |
+| `/robinbanx/studio` | Live static dossier mixer (Robin Banx) |
 | `public/traits/` | Loopkins APNG layers (sky, aura, body, face, wear, charm) |
 | `public/afterimages/` | Afterimages 1:1 APNG paintings |
 | `public/inklings-traits/` | Inklings APNG layers (paper, bloom, visage, gaze, mark, adorn) |
@@ -110,6 +114,7 @@ A house of NFT collections. Each drop is its own sub-project — studio, traits,
 | `public/noxelle-traits/` | Noxelle APNG layers (wall, spill, gas, bend, clip, badge, mote) |
 | `public/nivora-traits/` | Nivora APNG layers (plinth, bath, vista, flurry, lens, collar, plaque) |
 | `public/boogiesquad-traits/` | Boogie Squad APNG layers (stage, lights, cast, face, fit, prop) |
+| `public/robinbanx-traits/` | Robin Banx static PNG layers (safehouse, alias, getup, disguise, headpiece, instrument, chain trail, evidence mark) |
 | `generated/` | Flattened Loopkins APNGs, OpenSea GIFs + CSV |
 | `generated/afterimages/` | Afterimages OpenSea GIF pack |
 | `generated/inklings/` | Inklings OpenSea GIF pack |
@@ -131,6 +136,7 @@ A house of NFT collections. Each drop is its own sub-project — studio, traits,
 | `generated/noxelle/` | Noxelle OpenSea GIF pack |
 | `generated/nivora/` | Nivora OpenSea GIF pack |
 | `generated/boogiesquad/` | Boogie Squad OpenSea GIF pack |
+| `generated/robinbanx/` | Robin Banx OpenSea PNG pack |
 | `contracts/Loopkins.sol` | ERC-721 with a 10,000 supply cap |
 | `contracts/Afterimages.sol` | ERC-721 that mints a chosen 1:1 (IDs 1–3333) on Ink |
 | `contracts/Inklings.sol` | ERC-721 with a 5,555 supply cap |
@@ -151,6 +157,7 @@ A house of NFT collections. Each drop is its own sub-project — studio, traits,
 | `contracts/Noxelle.sol` | ERC-721 with a 10,000 supply cap and a $0.25 mint |
 | `contracts/Nivora.sol` | ERC-721 with a 10,000 supply cap and a $0.25 mint |
 | `contracts/BoogieSquad.sol` | ERC-721 with a 10,000 supply cap |
+| `contracts/RobinBanx.sol` | ERC-721 with a 10,000 supply cap and a free mint on Base |
 
 ## Run the site
 
@@ -183,7 +190,8 @@ The app listens on [http://127.0.0.1:43147](http://127.0.0.1:43147).
 - Noxelle: `/noxelle`
 - Nivora: `/nivora`
 - Boogie Squad: `/boogiesquad`
-- Trait studio: `/studio` (Loopkins), `/inklings/studio`, `/wicklings/studio`, `/purrkins/studio`, `/hoodkins/studio`, `/birbs/studio`, `/shookums/studio`, `/foxins/studio`, `/santapaws/studio`, `/scribblins/studio`, `/groovy/studio`, `/opaline/studio`, `/risota/studio`, `/perfin/studio`, `/kamiori/studio`, `/umbra/studio`, `/noxelle/studio`, `/nivora/studio`, or `/boogiesquad/studio`
+- Robin Banx: `/robinbanx`
+- Trait studio: `/studio` (Loopkins), `/inklings/studio`, `/wicklings/studio`, `/purrkins/studio`, `/hoodkins/studio`, `/birbs/studio`, `/shookums/studio`, `/foxins/studio`, `/santapaws/studio`, `/scribblins/studio`, `/groovy/studio`, `/opaline/studio`, `/risota/studio`, `/perfin/studio`, `/kamiori/studio`, `/umbra/studio`, `/noxelle/studio`, `/nivora/studio`, `/boogiesquad/studio`, or `/robinbanx/studio`
 
 ## Generate collections
 
@@ -228,6 +236,8 @@ python3 scripts/build_nivora.py
 python3 scripts/generate_nivora.py
 python3 scripts/build_boogiesquad.py
 python3 scripts/generate_boogiesquad.py
+python3 scripts/build_robinbanx.py
+python3 scripts/generate_robinbanx.py
 python3 scripts/gif_bake.py --afterimages
 python3 scripts/gif_bake.py --loopkins --all
 python3 scripts/gif_bake.py --inklings --all
@@ -270,10 +280,12 @@ Requires Python 3 with Pillow and NumPy. See `docs/loopkins.md`, `docs/afterimag
 
 `npm run generate:boogiesquad` builds traits, brand, and the 16-GIF preview plus full 10,000-token metadata. Bake every marketplace GIF with `python3 scripts/generate_boogiesquad.py --all`.
 
+`npm run generate:robinbanx` builds static PNG traits, brand assets, and a 16-token preview. Bake all 10,000 marketplace PNGs with `python3 scripts/generate_robinbanx.py --all`.
+
 ## Deploy
 
 This is a single Next.js app (one Vercel project). Point Vercel at the GitHub repo `nft-gallery`, framework preset Next.js, root directory `.`.
 
 ## License
 
-Art and site code in this repository are for the collections on the wall. Swap the zero-address fee recipient in `public/metadata/collection.json`, `public/metadata/loopkins.json`, `public/metadata/afterimages.json`, `public/metadata/inklings.json`, `public/metadata/wicklings.json`, `public/metadata/purrkins.json`, `public/metadata/hoodkins.json`, `public/metadata/birbs.json`, `public/metadata/shookums.json`, `public/metadata/foxins.json`, `public/metadata/santapaws.json`, `public/metadata/scribblins.json`, `public/metadata/groovy.json`, `public/metadata/galleria.json`, `public/metadata/opaline.json`, `public/metadata/risota.json`, `public/metadata/perfin.json`, `public/metadata/kamiori.json`, `public/metadata/umbra.json`, `public/metadata/noxelle.json`, `public/metadata/nivora.json`, and `public/metadata/boogiesquad.json` before you list.
+Art and site code in this repository are for the collections on the wall. Swap the zero-address fee recipient in `public/metadata/collection.json`, `public/metadata/loopkins.json`, `public/metadata/afterimages.json`, `public/metadata/inklings.json`, `public/metadata/wicklings.json`, `public/metadata/purrkins.json`, `public/metadata/hoodkins.json`, `public/metadata/birbs.json`, `public/metadata/shookums.json`, `public/metadata/foxins.json`, `public/metadata/santapaws.json`, `public/metadata/scribblins.json`, `public/metadata/groovy.json`, `public/metadata/galleria.json`, `public/metadata/opaline.json`, `public/metadata/risota.json`, `public/metadata/perfin.json`, `public/metadata/kamiori.json`, `public/metadata/umbra.json`, `public/metadata/noxelle.json`, `public/metadata/nivora.json`, `public/metadata/boogiesquad.json`, and `public/metadata/robinbanx.json` before you list.
