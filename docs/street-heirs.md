@@ -27,6 +27,8 @@ fields, type bars, prisms, waveform marks, and translucent color exposures. Repe
 details are intentionally sparse so the face, hairstyle, and clothing silhouette
 remain dominant at avatar size. Backgrounds use muted solid fields with one restrained
 motif—such as a disc, rule, panel, or arc—to keep the overall set simple and elegant.
+Jewelry uses outlined, evenly spaced links and pearls with small controlled highlights
+so necklaces remain readable instead of merging into a single decorative band.
 
 The system is intentionally separate from previous collection painters. It does not
 reuse their skeletons, palettes, materials, motion, or trait-layer names.
@@ -44,6 +46,10 @@ The stack is composited in this order:
 7. `adornment` — jewelry and audio accessories
 8. `signal` — foreground graphic marks
 
+Signal placement varies by intent. Halftone, crop, pixel, and corner accents remain in
+front. Halos, type bars, orbit lines, prism slices, waveforms, and translucent exposure
+panels are composited directly behind the character.
+
 The prototype contains 70 transparent 512×512 trait plates and 16 curated signatures.
 Weights in `public/street-heirs-traits/manifest.json` express relative selection
 probability; they are not final rarity percentages.
@@ -59,8 +65,8 @@ hoodie with a curb chain. The painter validates every signature before rendering
 The art version and seed are:
 
 ```text
-prototype-5
-street-heirs/clean-cartoon/v5
+prototype-6
+street-heirs/clean-cartoon/v6
 ```
 
 Generate the prototype from the repository root:

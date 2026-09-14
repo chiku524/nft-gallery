@@ -2,6 +2,8 @@
 
 export const streetHeirsStack = ["atmosphere", "tailoring", "complexion", "coiffure", "visage", "cadence", "adornment", "signal"] as const;
 
+export const streetHeirsBackSignals = ["double-exposure", "offset-halo", "orbit-lines", "prism-slice", "sound-wave", "type-bars"] as const;
+
 export const streetHeirsTraits = {
   "atmosphere": [
     {

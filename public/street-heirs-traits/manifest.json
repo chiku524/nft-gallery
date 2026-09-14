@@ -7,8 +7,8 @@
     "chain": "Robinhood Chain",
     "planned_supply": 5555,
     "mint_price": "0.005 ETH",
-    "art_version": "prototype-5",
-    "seed": "street-heirs/clean-cartoon/v5",
+    "art_version": "prototype-6",
+    "seed": "street-heirs/clean-cartoon/v6",
     "format": "static PNG",
     "size": [
       512,
@@ -25,6 +25,18 @@
     "adornment",
     "signal"
   ],
+  "signal_placement": {
+    "crop-code": "foreground",
+    "offset-halo": "behind-character",
+    "halftone-veil": "foreground",
+    "type-bars": "behind-character",
+    "orbit-lines": "behind-character",
+    "prism-slice": "behind-character",
+    "sound-wave": "behind-character",
+    "pixel-flare": "foreground",
+    "double-exposure": "behind-character",
+    "corner-stamps": "foreground"
+  },
   "traits": {
     "atmosphere": [
       {
