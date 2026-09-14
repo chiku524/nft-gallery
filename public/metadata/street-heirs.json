@@ -1,0 +1,11 @@
+{
+  "name": "Street Heirs",
+  "symbol": "HEIRS",
+  "description": "Street Heirs is a static editorial-vector PFP collection celebrating personal style, neighborhood craft, and the graphic language of the city. Authentic hair, tailoring, jewelry, and expression meet geometric broadcast signals in 5,555 planned portraits on Robinhood Chain.",
+  "chain": "Robinhood Chain",
+  "supply": 5555,
+  "mint_price": "0.005 ETH",
+  "image": "/street-heirs-preview/1.png",
+  "art_version": "prototype-1",
+  "status": "prototype"
+}
