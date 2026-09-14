@@ -7,8 +7,8 @@
     "chain": "Robinhood Chain",
     "planned_supply": 5555,
     "mint_price": "0.005 ETH",
-    "art_version": "prototype-4",
-    "seed": "street-heirs/clean-cartoon/v4",
+    "art_version": "prototype-5",
+    "seed": "street-heirs/clean-cartoon/v5",
     "format": "static PNG",
     "size": [
       512,

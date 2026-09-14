@@ -25,7 +25,8 @@ structures, skin tones, protective hairstyles, contemporary cuts, tailoring, eye
 jewelry, and studio accessories. Graphic signals add crop marks, offset arcs, halftone
 fields, type bars, prisms, waveform marks, and translucent color exposures. Repeated
 details are intentionally sparse so the face, hairstyle, and clothing silhouette
-remain dominant at avatar size.
+remain dominant at avatar size. Backgrounds use muted solid fields with one restrained
+motif—such as a disc, rule, panel, or arc—to keep the overall set simple and elegant.
 
 The system is intentionally separate from previous collection painters. It does not
 reuse their skeletons, palettes, materials, motion, or trait-layer names.
@@ -58,8 +59,8 @@ hoodie with a curb chain. The painter validates every signature before rendering
 The art version and seed are:
 
 ```text
-prototype-4
-street-heirs/clean-cartoon/v4
+prototype-5
+street-heirs/clean-cartoon/v5
 ```
 
 Generate the prototype from the repository root:

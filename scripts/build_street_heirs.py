@@ -9,7 +9,6 @@ from __future__ import annotations
 
 import hashlib
 import json
-import random
 from pathlib import Path
 from typing import Callable
 
@@ -25,8 +24,8 @@ SUBJECT = "Editorial-vector streetwear portraits with graphic signals"
 CHAIN = "Robinhood Chain"
 SUPPLY = 5_555
 MINT_PRICE = "0.005 ETH"
-ART_VERSION = "prototype-4"
-SEED = "street-heirs/clean-cartoon/v4"
+ART_VERSION = "prototype-5"
+SEED = "street-heirs/clean-cartoon/v5"
 
 ROOT = Path(__file__).resolve().parents[1]
 TRAIT_ROOT = ROOT / "public" / f"{SLUG}-traits"
@@ -197,11 +196,6 @@ def finish(image: Image.Image) -> Image.Image:
     return image.resize((SIZE, SIZE), Image.Resampling.LANCZOS)
 
 
-def stable_rng(label: str) -> random.Random:
-    digest = hashlib.sha256(f"{SEED}/{label}".encode()).digest()
-    return random.Random(int.from_bytes(digest[:8], "big"))
-
-
 def line(draw: ImageDraw.ImageDraw, coords: list[tuple[int, int]], fill: str, stroke: int = 4) -> None:
     draw.line(points(coords), fill=fill, width=width(stroke), joint="curve")
 
@@ -222,61 +216,45 @@ def rounded(draw: ImageDraw.ImageDraw, coords: tuple[int, int, int, int], radius
 
 def paint_atmosphere(trait: str) -> Image.Image:
     palettes = {
-        "midnight-grid": ("#17223b", "#283f65", "#f8c85a"),
-        "cobalt-sun": ("#2451e6", "#f4b942", "#f8ede3"),
-        "amber-blocks": ("#ef9f27", "#7b2d26", "#f5e8c8"),
-        "jade-arc": ("#187c72", "#8ed6c6", "#ffcf5b"),
-        "violet-broadcast": ("#613b8f", "#e06c9f", "#f3d76b"),
-        "crimson-check": ("#a7353a", "#efb24b", "#192c49"),
-        "paper-blue": ("#dce7df", "#4a75a8", "#ef7258"),
-        "acid-window": ("#c5d92d", "#243e59", "#f35d74"),
+        "midnight-grid": ("#202A3D", "#465269", "#D3B36C"),
+        "cobalt-sun": ("#496A9A", "#B8C8DA", "#EAD49F"),
+        "amber-blocks": ("#D4AE70", "#E7D5AF", "#80564A"),
+        "jade-arc": ("#47776E", "#ACC9C1", "#D9C383"),
+        "violet-broadcast": ("#685B78", "#B9ADC3", "#D8C99E"),
+        "crimson-check": ("#895157", "#AC6C70", "#E5D6C2"),
+        "paper-blue": ("#DCE4E6", "#A9BBC7", "#C7816E"),
+        "acid-window": ("#B6C3A3", "#718473", "#E8E1D1"),
     }
     base, accent, spark = palettes[trait]
     image = Image.new("RGBA", (SIZE * SCALE, SIZE * SCALE), base)
     draw = ImageDraw.Draw(image)
     if trait == "midnight-grid":
-        for value in range(48, 512, 72):
-            line(draw, [(value, 0), (value, 512)], accent, 1)
-            line(draw, [(0, value), (512, value)], accent, 1)
-        ellipse(draw, (348, 52, 470, 174), spark)
+        line(draw, [(104, 0), (104, 512)], accent, 2)
+        line(draw, [(0, 104), (512, 104)], accent, 2)
+        ellipse(draw, (390, 54, 448, 112), spark)
     elif trait == "cobalt-sun":
-        ellipse(draw, (54, 38, 324, 308), accent)
-        for value in range(0, 512, 64):
-            polygon(draw, [(value, 410), (value + 30, 410), (value + 104, 512), (value + 66, 512)], spark)
+        ellipse(draw, (58, 42, 286, 270), spark)
+        rounded(draw, (54, 432, 184, 440), 4, accent)
     elif trait == "amber-blocks":
-        for x, y, w, h in ((28, 34, 112, 174), (366, 26, 116, 206), (286, 310, 176, 158)):
-            rounded(draw, (x, y, x + w, y + h), 16, accent)
-        line(draw, [(0, 382), (512, 276)], spark, 12)
+        rounded(draw, (34, 36, 138, 196), 18, accent)
+        rounded(draw, (388, 42, 476, 184), 18, spark)
     elif trait == "jade-arc":
-        for pad in (26, 68):
-            draw.arc(box((pad, pad, 512 - pad, 512 - pad)), 196, 346, fill=accent, width=width(12))
-        ellipse(draw, (384, 64, 430, 110), spark)
+        draw.arc(box((42, 42, 470, 470)), 202, 338, fill=accent, width=width(9))
+        ellipse(draw, (400, 70, 430, 100), spark)
     elif trait == "violet-broadcast":
-        for y in (82, 138, 430):
-            rounded(draw, (28, y, 484, y + 14), 7, accent)
-        polygon(draw, [(360, 26), (492, 26), (492, 250)], spark)
+        rounded(draw, (34, 90, 176, 100), 5, accent)
+        rounded(draw, (34, 116, 112, 126), 5, spark)
     elif trait == "crimson-check":
-        for y in range(-16, 512, 96):
-            for x in range(-16, 512, 96):
-                if ((x + 16) + (y + 16)) // 96 % 2 == 0:
-                    draw.rectangle(box((x, y, x + 96, y + 96)), fill=accent)
-        line(draw, [(0, 460), (512, 344)], spark, 14)
+        draw.rectangle(box((0, 0, 256, 256)), fill=accent)
+        draw.rectangle(box((256, 256, 512, 512)), fill=accent)
+        line(draw, [(0, 452), (512, 352)], spark, 8)
     elif trait == "paper-blue":
-        polygon(draw, [(0, 0), (224, 0), (108, 512), (0, 512)], accent)
-        polygon(draw, [(360, 0), (512, 0), (512, 512), (438, 512)], spark)
-        for y in range(56, 500, 72):
-            line(draw, [(18, y), (90, y)], "#b8c9c1", 3)
+        polygon(draw, [(0, 0), (146, 0), (74, 512), (0, 512)], accent)
+        rounded(draw, (22, 446, 96, 454), 4, spark)
     elif trait == "acid-window":
-        rounded(draw, (34, 34, 478, 478), 34, accent, INK, 5)
-        rounded(draw, (66, 66, 446, 446), 20, base)
-        line(draw, [(92, 70), (92, 442)], spark, 8)
-    rng = stable_rng(f"grain/{trait}")
-    for _ in range(240):
-        x = rng.randrange(SIZE * SCALE)
-        y = rng.randrange(SIZE * SCALE)
-        alpha = rng.randrange(4, 11)
-        color = (255, 255, 255, alpha) if rng.random() > 0.42 else (12, 20, 38, alpha)
-        draw.point((x, y), fill=color)
+        rounded(draw, (42, 42, 470, 470), 34, accent)
+        rounded(draw, (54, 54, 458, 458), 26, base)
+        line(draw, [(82, 58), (82, 454)], spark, 6)
     return finish(image)
 
 
