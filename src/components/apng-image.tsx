@@ -19,6 +19,6 @@ export function ApngImage({
 }) {
   return (
     // eslint-disable-next-line @next/next/no-img-element
-    <img src={src} alt={alt} width={width} height={height} className={cn(className)} draggable={false} />
+    <img src={src} alt={alt} width={width} height={height} className={cn("block", className)} draggable={false} />
   );
 }

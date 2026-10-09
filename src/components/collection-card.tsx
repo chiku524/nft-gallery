@@ -25,7 +25,7 @@ export function CollectionCard({ drop }: { drop: GalleryProject }) {
         </div>
       </Link>
 
-      <div className="grid gap-8 p-6 sm:p-8 lg:grid-cols-12">
+      <div className="grid items-start gap-8 p-6 sm:p-8 lg:grid-cols-12">
         <div className="lg:col-span-5">
           <p className="text-muted-foreground">{drop.description}</p>
           <dl className="mt-6 grid grid-cols-2 gap-3">
@@ -75,8 +75,8 @@ export function CollectionCard({ drop }: { drop: GalleryProject }) {
         <div
           className={
             drop.kind === "layered-pfp"
-              ? "grid grid-cols-2 gap-3 sm:grid-cols-4 lg:col-span-7"
-              : "grid grid-cols-2 gap-3 sm:grid-cols-3 lg:col-span-7"
+              ? "grid content-start grid-cols-2 gap-3 self-start sm:grid-cols-4 lg:col-span-7"
+              : "grid content-start grid-cols-2 gap-3 self-start sm:grid-cols-3 lg:col-span-7"
           }
         >
           {thumbs.map((image, index) => (

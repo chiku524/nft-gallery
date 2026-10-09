@@ -56,7 +56,7 @@ export default function BoogieSquadHomePage() {
       </section>
 
       <section className="mx-auto w-full max-w-6xl px-4 py-14 sm:px-6">
-        <div className="grid gap-8 lg:grid-cols-12">
+        <div className="grid items-start gap-8 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground">The drop</p>
             <h2 className="mt-2 font-heading text-3xl sm:text-4xl">Mixed types. One groove.</h2>
@@ -79,7 +79,7 @@ export default function BoogieSquadHomePage() {
               ))}
             </dl>
           </div>
-          <div className="grid grid-cols-2 gap-3 lg:col-span-7 sm:grid-cols-4">
+          <div className="grid content-start grid-cols-2 gap-3 self-start lg:col-span-7 sm:grid-cols-4">
             {boogieSamples.slice(0, 8).map((mint) => (
               <Link
                 key={mint.id}
